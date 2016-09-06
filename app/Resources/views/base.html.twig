@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Et knutepunkt for informasjo om overvann">
+        <meta name="keywords" content="overvann, vann, avløp, informasjon">
+        <title>{% block title %}Overvannssenteret!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('static/css/normalize.css') }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('static/css/style.css') }}" rel="stylesheet" type="text/css">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block javascripts %}
+            {% if app.environment == 'dev'%}
+                <script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.js"></script>
+                <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
+            {% else %}
+                <script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.min.js"></script>
+                <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
+            {% endif %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
