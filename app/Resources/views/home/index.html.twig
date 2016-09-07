@@ -4,7 +4,7 @@
     <div class ="header-container" id="big-header-container">
         <div class="inner-container" id="header-inner">
             <header>
-                <div id="logo-box"><img src="/web/static/images/header/ovase_logo.png" alt="Ovase sin logo"></div>
+                <div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
                 <div id="title-box">
                     <h1><a href="/"><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
                     <h3>OVASE.NO</h3>
@@ -23,28 +23,28 @@
             <div class="card-box">
                 <section class="card">
                     <div class="image-container" id="wiki">
-                        <a href="/web/wiki/"><img src="/web/static/images/index/Fagwiki_gjennomsiktig.png"><a/>
+                        <a href="/wiki/"><img src="{{ asset('static/images/index/Fagwiki_gjennomsiktig.png') }}"><a/>
                     </div>
-                    <a href="/web/wiki/"><h3>FAGWIKI</h3></a>
-                    <p><a href="/web/wiki/">Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</a></p>
+                    <a href="/wiki/"><h3>FAGWIKI</h3></a>
+                    <p><a href="/wiki/">Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</a></p>
                 </section>
                 <section class="card-inactive">
                     <div class="image-container" id="anlegg"> 
-                        <a href="#popup1"><img src="/web/static/images/index/Anlegg_220x165.jpg"><a/>
+                        <a href="#popup1"><img src="{{ asset('static/images/index/Anlegg_220x165.jpg') }}"><a/>
                     </div>
                     <a href="#popup1"><h3>ANLEGG I NORGE</h3></a>
                     <p><a href="#popup1">Bli inspirert av eksisterende norske overvannsanlegg</a></p>
                 </section>
                 <section class="card-inactive">
                     <div class="image-container" id="personer">
-                        <a href="#popup2"><img src="/web/static/images/index/Fagpersoner_220x165.jpg" alt=""></a>
+                        <a href="#popup2"><img src="{{ asset('static/images/index/Fagpersoner_220x165.jpg') }}"></a>
                     </div>
                     <a href="#popup2"><h3>AKTØRER</h3><a/>
                     <p><a href="#popup2">Finn bransjeaktører som jobber med overvanns-håndtering</p></a>
                 </section>
                 <section id="produkter" href="#popup1" class="card-inactive"> 
                     <div class="image-container" id="produkt"> 
-                        <a href="#popup3"><img src="/web/static/images/index/Produkter_220x165.jpg"></a>
+                        <a href="#popup3"><img src="{{ asset('static/images/index/Produkter_220x165.jpg') }}"></a>
                     </div>
                     <a href="#popup3"><h3>PRODUKTER</h3></a>
                     <p><a href="#popup3">Finn egnede produkter til dine overvannstiltak</a></p>
