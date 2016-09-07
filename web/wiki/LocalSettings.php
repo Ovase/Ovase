@@ -29,7 +29,7 @@ $wgSitename = "Overvannswikien";
 ## For more information on customizing the URLs
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath = "/web/wiki";
+$wgScriptPath = "/wiki";
 
 ## The protocol and server name to use in fully-qualified URLs
 $wgServer = "http://ovase.no";
@@ -243,3 +243,4 @@ $wgGroupPermissions['sysop']['createaccount'] = false; // No one makes accounts!
 
 require_once("$IP/extensions/AuthSymfony/AuthSymfony.php");
 $wgAuth = new AuthSymfony();
+$wgShowExceptionDetails = true;

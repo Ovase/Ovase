@@ -5,6 +5,7 @@
 # It is used to delete folders older than N days
 # Usage: ./delete_folders_older_than.sh 5
 # to delete folders older than 5 days, that start with backup*
+#DEPRECATED
 
 NUM_DAYS_BACK="$1"
 
