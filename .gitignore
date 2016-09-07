@@ -9,7 +9,6 @@
 /build/
 /vendor/
 /bin/
-/composer.phar
 
 # Logs
 logs
