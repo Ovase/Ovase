@@ -6,3 +6,6 @@ home:
   path: /
   defaults: { _controller: AppBundle:Home:showHome}
 
+login:
+  path: /
+  defaults: { _controller: AppBundle:Login:login}
