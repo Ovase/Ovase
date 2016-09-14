@@ -24,9 +24,10 @@ class HomeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $this->get('security.password_encoder')
-                ->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
+			$salt=generateSalt()
+			if ($salt===null) { $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword()); }
+            else {  $password = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($user->getPlainPassword, $salt); }
+			$user->setPassword($password);
 
             $user->addRole("ROLE_USER");
 			// 4) save the User!
@@ -46,5 +47,29 @@ class HomeController extends Controller
             'login/register.html.twig',
             array('form' => $form->createView())
         );
+    }
+    private function validPassLen($password){
+        return strlen($password)>=7;
+    }
+
+    /**
+     * Generates a Salt
+     *
+     * Generates a random 64-byte long string by converting a 32 byte binary
+     * openssl pseudo random string into a 64 byte hex string.
+     *
+     * @return null|string  the salt. If null is returned, something went wrong.
+     */
+    private function generateSalt()
+    {
+        $salt = null;
+        $isSecure = 0;
+        $ATTEMPTS_LIMIT = 9999; // fail-safe for infinite loop
+
+        while (!$isSecure && $ATTEMPTS_LIMIT > 0) {
+            $salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));
+            $ATTEMPTS_LIMIT--;
+        }
+        return $salt;
     }
 }
