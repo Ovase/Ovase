@@ -197,6 +197,7 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->phone;
     }
 
+
     /**
      * Add roles.
      *
@@ -335,4 +336,16 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->salt;
     }
 
+
+    /**
+     * Get username by email.
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
 }
+
