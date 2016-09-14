@@ -9,3 +9,7 @@ home:
 login:
   path: /
   defaults: { _controller: AppBundle:Login:login}
+
+project:
+  path: /hei
+  defaults: { _controller: AppBundle:Project:project}

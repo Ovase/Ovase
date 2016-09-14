@@ -1,0 +1,36 @@
+AppBundle\Entity\Project:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ProjectRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        field:
+            type: string
+            length: 255
+            nullable: true
+        startdate:
+            type: datetime
+            nullable: true
+        enddate:
+            type: datetime
+            nullable: true
+        location:
+            type: string
+            nullable: true
+            length: 255
+        technicalSolutions:
+            type: array
+            nullable: true
+            column: technical_solutions
+        description:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }
