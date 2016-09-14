@@ -66,6 +66,17 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $new_user_code;
 
+    /**
+     * The auto generated salt for the user
+     *
+     * The salt is stored as a 64 byte string
+     *
+     * @var string  $salt      the salt
+     *
+     * @ORM\Column(type="string", length = 64)
+     */
+    private $salt;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
@@ -103,11 +114,30 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->id = $id;
     }
-    public function setPassword($password)
-    {
-        $this->password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
-    }
     /**
+     * Hash and set the (hashed) password of the user
+     *
+     * @param string $password      the password
+     * @param \Symfony\Component\Security\Core\Encoder\ $encoderFactory      encoder factory for hasher
+     *
+     * @return User      returns self after setting the password hash
+     */
+    public function setPassword($password, $encoderFactory)
+    {
+        // Generate and set random salt
+        $salt = bin2hex(openssl_random_pseudo_bytes(32));
+        $this->setSalt($salt);
+
+        // Hash password
+        $pass_hash = $encoderFactory
+            ->getEncoder(User::class)
+            ->encodePassword($password, $salt);
+
+        // Set password to
+        $this->password = $pass_hash;
+
+        return $this;
+    }    /**
      * {@inheritdoc}
      */
     public function getPassword()

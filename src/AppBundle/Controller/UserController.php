@@ -23,11 +23,11 @@ class HomeController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Encode the password (you could also do this via Doctrine listener)
+            // 3) Encode the password and set user salt (you could also do this via Doctrine listener)
 			$salt=generateSalt()
 			if ($salt===null) { $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword()); }
             else {  $password = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($user->getPlainPassword, $salt); }
-			$user->setPassword($password);
+			$user->setPassword($user->getPlainPassword(), $this->get('security.encoder_factory'));
 
             $user->addRole("ROLE_USER");
 			// 4) save the User!
