@@ -12,12 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
-/*
-    public function showHomeAction()
-    {
-        return $this->render('home/index.html.twig');
-    }
-*/
+
     public function registerAction(Request $request)
     {
         // 1) build the form
@@ -43,8 +38,8 @@ class HomeController extends Controller
 			// ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
-            // TODO: Insert coorect route. Hint: routing.yml
-			return $this->redirectToRoute('replace_with_some_route');
+            
+			return $this->redirectToRoute('create_user');
         }
 
         return $this->render(
