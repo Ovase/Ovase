@@ -56,13 +56,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $isActive; // Activated by an Admin
     /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
-     * @ORM\JoinColumn(onDelete="cascade")
      * @Assert\Valid
      */
-    private $roles; // Revise this.
+    private $roles;
     /**
      * @ORM\column(type="string", nullable=true)
      */
@@ -71,10 +69,8 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->roles = new ArrayCollection();
-        $this->fieldOfStudy = new ArrayCollection();
-        $this->certificateRequests = new ArrayCollection();
         $this->isActive = false;
-        $this->picture_path = 'images/defaultProfile.png';
+        $this->picture_path = 'static/images/person/defaultprofile.png';
     }
     public function getId()
     {
@@ -204,11 +200,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Add roles.
      *
-     * @param Role $roles
+     * @param string $roles
      *
      * @return User
      */
-    public function addRole(Role $roles)
+    public function addRole(string $roles)
     {
         $this->roles[] = $roles;
         return $this;
@@ -216,9 +212,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Remove roles.
      *
-     * @param Role $roles
+     * @param string $roles
      */
-    public function removeRole(Role $roles)
+    public function removeRole(string $roles)
     {
         $this->roles->removeElement($roles);
     }

@@ -3,9 +3,13 @@ app:
     type:     annotation
 
 home:
-  path: /
-  defaults: { _controller: AppBundle:Home:showHome}
+    path: /
+    defaults: { _controller: AppBundle:Home:showHome}
 
 login:
-  path: /
-  defaults: { _controller: AppBundle:Login:login}
+    path: /login
+    defaults: { _controller: AppBundle:Login:login}
+
+create_user:
+    path:     /register
+    defaults: { _controller: AppBundle:User:register } 
