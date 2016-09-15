@@ -10,7 +10,7 @@ use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
 
     public function registerAction(Request $request)
@@ -24,11 +24,17 @@ class HomeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             // 3) Encode the password and set user salt (you could also do this via Doctrine listener)
-			$salt=generateSalt()
-			if ($salt===null) { $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword()); }
-            else {  $password = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($user->getPlainPassword, $salt); }
-			$user->setPassword($user->getPlainPassword(), $this->get('security.encoder_factory'));
 
+            // Generate random salt. Warning: The algorithm may fail. TODO: Investigate bcrypt (which Symfony recommends) and other better algorithms for salting passwords.
+            $salt=generateSalt();
+
+            // Hash password
+            $pass_hash = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($form->get('plainPassword')->getData(), $salt);
+
+			$user->setPassword($pass_hash);
+            $user->setSalt($salt);
+
+            // Authorize User as... USER.
             $user->addRole("ROLE_USER");
 			// 4) save the User!
             $em = $this->getDoctrine()->getManager();
@@ -64,7 +70,7 @@ class HomeController extends Controller
     {
         $salt = null;
         $isSecure = 0;
-        $ATTEMPTS_LIMIT = 9999; // fail-safe for infinite loop
+        $ATTEMPTS_LIMIT = 999; // fail-safe for infinite loop
 
         while (!$isSecure && $ATTEMPTS_LIMIT > 0) {
             $salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));

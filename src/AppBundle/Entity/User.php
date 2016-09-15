@@ -44,7 +44,8 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $phone;
     /**
-     * @ORM\Column(type="string", length=64, nullable=true)
+     * @ORM\Column(type="string", length=64, nullable=false)
+     * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
      */
     private $password;
     /**
@@ -117,27 +118,19 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Hash and set the (hashed) password of the user
      *
-     * @param string $password      the password
+     * @param string $password      the password, in hashed form
      * @param \Symfony\Component\Security\Core\Encoder\ $encoderFactory      encoder factory for hasher
      *
      * @return User      returns self after setting the password hash
      */
-    public function setPassword($password, $encoderFactory)
+    public function setPassword($password)
     {
-        // Generate and set random salt
-        $salt = bin2hex(openssl_random_pseudo_bytes(32));
-        $this->setSalt($salt);
-
-        // Hash password
-        $pass_hash = $encoderFactory
-            ->getEncoder(User::class)
-            ->encodePassword($password, $salt);
-
-        // Set password to
-        $this->password = $pass_hash;
+        // Set password to the hashed value (which is the controller's responsibility)
+        $this->password = $password;
 
         return $this;
-    }    /**
+    }
+    /**
      * {@inheritdoc}
      */
     public function getPassword()
@@ -152,6 +145,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->isActive = $isActive;
     }
+    // ????
     public function setRoles($roles)
     {
         $this->roles = $roles;
@@ -292,8 +286,7 @@ class User implements AdvancedUserInterface, \Serializable
     The methods below are taken from the login guide on Symfony.com, which can be found here:
     http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     http://symfony.com/doc/current/cookbook/security/entity_provider.html
-    
-    
+
     */
     /**
      * {@inheritdoc}
