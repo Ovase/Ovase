@@ -36,6 +36,11 @@ class UserController extends Controller
 
             // Authorize User as... USER.
             $user->addRole("ROLE_USER");
+			
+			// TODO: Notify ADMINs that a new user has registered, and that they need to be validated. An ADMIN
+			// may then send an activation email at their leisure
+			$user->setIsActive(1); // For now, you may pass...
+			
 			// 4) save the User!
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

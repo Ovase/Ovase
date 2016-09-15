@@ -145,11 +145,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->isActive = $isActive;
     }
-    // ????
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
+
     public function getRoles()
     {
         return $this->roles->toArray();
