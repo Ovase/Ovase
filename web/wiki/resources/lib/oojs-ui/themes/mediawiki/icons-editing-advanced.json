@@ -52,10 +52,6 @@
 			"ltr": "images/icons/quotesAdd-ltr.svg",
 			"rtl": "images/icons/quotesAdd-rtl.svg"
 		} },
-		"redirect": { "file": {
-			"ltr": "images/icons/redirect-ltr.svg",
-			"rtl": "images/icons/redirect-rtl.svg"
-		} },
 		"searchCaseSensitive": { "file": "images/icons/case-sensitive.svg" },
 		"searchRegularExpression": { "file": "images/icons/regular-expression.svg" },
 		"specialCharacter": { "file": "images/icons/specialCharacter.svg" },
