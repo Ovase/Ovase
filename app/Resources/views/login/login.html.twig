@@ -19,7 +19,7 @@
                     <p>{{ message }}</p>
                 {% endif %}
 
-                <form action="{{ path('login_check') }}" method="post">
+                <form action="{{ path('login') }}" method="post">
                     <label for="username">Brukernavn:</label>
                     <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
@@ -32,7 +32,7 @@
                         <input type="hidden" name="_target_path" value="/account" />
                     #}
 
-                    <button type="submit">login</button>
+                    <button type="submit">Logg inn</button>
 
                     {# <p></p><a href="{{ path('reset_password')}}">Glemt passord?</a></p> TODO: Define forgotten password functionality. #}
                     <p></p><a href="{{ path('create_user')}}">Ny bruker?</a></p>

@@ -20,7 +20,7 @@ class UserType extends AbstractType
             ->add('lastName', TextType::class)
             ->add('firstName', TextType::class)
             ->add('phone', TextType::class)
-            ->add('plainPassword', RepeatedType::class, array(
+            ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Passord'),
                 'second_options' => array('label' => 'Gjenta Passord'),

@@ -26,10 +26,10 @@ class UserController extends Controller
             // 3) Encode the password and set user salt (you could also do this via Doctrine listener)
 
             // Generate random salt. Warning: The algorithm may fail. TODO: Investigate bcrypt (which Symfony recommends) and other better algorithms for salting passwords.
-            $salt=generateSalt();
+            $salt=$this->generateSalt();
 
             // Hash password
-            $pass_hash = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($form->get('plainPassword')->getData(), $salt);
+            $pass_hash = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($form->get('password')->getData(), $salt);
 
 			$user->setPassword($pass_hash);
             $user->setSalt($salt);
@@ -51,7 +51,7 @@ class UserController extends Controller
             // maybe set a "flash" success message for the user
 
 
-			return $this->redirectToRoute('create_user');
+			return $this->redirectToRoute('login');
         }
 
         return $this->render(

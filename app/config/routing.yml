@@ -10,6 +10,9 @@ login:
     path: /login
     defaults: { _controller: AppBundle:Login:login}
 
+logout:
+    path: /logout
+
 create_user:
     path:     /register
     defaults: { _controller: AppBundle:User:register } 

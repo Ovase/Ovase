@@ -59,6 +59,7 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $isActive; // Activated by an Admin
     /**
+     * @ORM\Column(type="array")
      * @Assert\Valid
      */
     private $roles;
@@ -103,18 +104,21 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->getFirstName().' '.$this->getLastName();
     }
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
+    /**
+     * @return boolean
+     */
     public function getIsActive()
     {
         return $this->isActive;
     }
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+
     /**
      * Hash and set the (hashed) password of the user
      *
@@ -146,6 +150,11 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isActive = $isActive;
     }
 
+    /**
+     * Get the user's roles in the system.
+     *
+     * @return string[]
+     */
     public function getRoles()
     {
         return $this->roles->toArray();
@@ -225,7 +234,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return User
      */
-    public function addRole(string $roles)
+    public function addRole($roles)
     {
         $this->roles[] = $roles;
         return $this;
@@ -235,7 +244,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @param string $roles
      */
-    public function removeRole(string $roles)
+    public function removeRole($roles)
     {
         $this->roles->removeElement($roles);
     }
