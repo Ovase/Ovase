@@ -10,17 +10,18 @@ namespace AppBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends Controller
 {
-    public function projectAction()
+    public function projectAction(Request $request)
     {
-        $projects = $this->get('doctrine')->getRepository('AppBundle:Project')->findAll();
+        $search = $request->get('search');
+        $projects = $this->get('doctrine')->getRepository('AppBundle:Project')->findProjects($search);
         return $this->render(
             'project/project.html.twig', array(
                 'projects' => $projects
             )
         );
     }
-
 }

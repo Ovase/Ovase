@@ -11,5 +11,5 @@ login:
   defaults: { _controller: AppBundle:Login:login}
 
 project:
-  path: /hei
+  path: /anlegg
   defaults: { _controller: AppBundle:Project:project}
