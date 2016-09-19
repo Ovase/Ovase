@@ -1,27 +1,23 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: futurnur
- * Date: 14/09/16
- * Time: 14:40
+ * User: Pål
+ * Date: 19/09/2016
+ * Time: 15:04
  */
 
 namespace AppBundle\Controller;
-
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends Controller
 {
-    public function projectAction(Request $request)
+    public function showAction(Request $request)
     {
-        $search = $request->get('search');
-        $projects = $this->get('doctrine')->getRepository('AppBundle:Project')->findProjects($search);
-        return $this->render(
-            'project/project.html.twig', array(
-                'projects' => $projects
-            )
-        );
+        $requestID = $request->get('id');
+        $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
+
+        return $this->render('project/project.html.twig', array('project' => $project));
     }
 }

@@ -14,7 +14,9 @@
                 <p>{{ message }}</p>
             {% endif %}
 
-            <p>{{ project.getName() }}</p>
+            {% for project in projects %}
+                <p>{{ project.getName() }}</p>
+            {% endfor %}
 
         </div>
     </div>

@@ -10,6 +10,10 @@ login:
   path: /
   defaults: { _controller: AppBundle:Login:login}
 
-project:
+projectlist:
   path: /anlegg
-  defaults: { _controller: AppBundle:Project:project}
+  defaults: { _controller: AppBundle:ProjectList:projectList}
+
+project:
+  path: /anlegg/{id}
+  defaults: {_controller: AppBundle:Project:show}
