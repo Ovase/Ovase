@@ -3,15 +3,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Registrer bruker</button>
+    {{ form_end(form) }}
 {% endblock %}
-    {##{ form_row(form.plainPassword.first) }##}
-    {##{ form_row(form.plainPassword.second) }##}
-
-
-
-
-    <button type="submit">Registrer bruker</button>
-{{ form_end(form) }}

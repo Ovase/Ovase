@@ -60,3 +60,5 @@ jspm_packages
 .buildpath
 .project
 *.prefs
+
+app/.DS_Store
