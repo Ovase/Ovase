@@ -1,9 +1,17 @@
 {# app/Resources/views/login/register.html.twig #}
 
+{% extends 'base.html.twig' %}
+
+{% block body %}
 {{ form_start(form) }}
     {{ form_widget(form) }}
+
+{% endblock %}
     {##{ form_row(form.plainPassword.first) }##}
     {##{ form_row(form.plainPassword.second) }##}
+
+
+
 
     <button type="submit">Registrer bruker</button>
 {{ form_end(form) }}
