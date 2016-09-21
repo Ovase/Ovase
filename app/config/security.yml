@@ -26,7 +26,7 @@ security:
             pattern: ^/
             anonymous: ~
             form_login:
-                default_target_path: login_success
+                default_target_path: /
                 always_use_default_target_path: true
                 login_path: login
                 check_path: login

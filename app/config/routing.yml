@@ -3,13 +3,20 @@ app:
     type:     annotation
 
 home:
-  path: /
-  defaults: { _controller: AppBundle:Home:showHome}
-
-login:
-  path: /
-  defaults: { _controller: AppBundle:Login:login}
+    path: /
+    defaults: { _controller: AppBundle:Home:showHome}
 
 project:
   path: /anlegg
   defaults: { _controller: AppBundle:Project:project}
+
+login:
+    path: /login
+    defaults: { _controller: AppBundle:Login:login}
+
+logout:
+    path: /logout
+
+create_user:
+    path:     /register
+    defaults: { _controller: AppBundle:User:register } 

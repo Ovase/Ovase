@@ -44,7 +44,8 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $phone;
     /**
-     * @ORM\Column(type="string", length=64, nullable=true)
+     * @ORM\Column(type="string", length=64, nullable=false)
+     * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
      */
     private $password;
     /**
@@ -56,25 +57,33 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $isActive; // Activated by an Admin
     /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
-     * @ORM\JoinColumn(onDelete="cascade")
+     * @ORM\Column(type="array")
      * @Assert\Valid
      */
-    private $roles; // Revise this.
+    private $roles;
     /**
      * @ORM\column(type="string", nullable=true)
      */
     private $new_user_code;
 
+    /**
+     * The auto generated salt for the user
+     *
+     * The salt is stored as a 64 byte string
+     *
+     * @var string  $salt      the salt
+     *
+     * @ORM\Column(type="string", length = 64)
+     */
+    private $salt;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
-        $this->fieldOfStudy = new ArrayCollection();
-        $this->certificateRequests = new ArrayCollection();
         $this->isActive = false;
-        $this->picture_path = 'images/defaultProfile.png';
+        $this->picture_path = 'static/images/person/defaultprofile.png';
     }
     public function getId()
     {
@@ -95,21 +104,35 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->getFirstName().' '.$this->getLastName();
     }
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
+    /**
+     * @return boolean
+     */
     public function getIsActive()
     {
         return $this->isActive;
     }
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
+
+    /**
+     * Hash and set the (hashed) password of the user
+     *
+     * @param string $password      the password, in hashed form
+     * @param \Symfony\Component\Security\Core\Encoder\ $encoderFactory      encoder factory for hasher
+     *
+     * @return User      returns self after setting the password hash
+     */
     public function setPassword($password)
     {
-        $this->password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+        // Set password to the hashed value (which is the controller's responsibility)
+        $this->password = $password;
+
+        return $this;
     }
     /**
      * {@inheritdoc}
@@ -126,10 +149,12 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->isActive = $isActive;
     }
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
+
+    /**
+     * Get the user's roles in the system.
+     *
+     * @return string[]
+     */
     public function getRoles()
     {
         return $this->roles->toArray();
@@ -201,14 +226,15 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->phone;
     }
 
+
     /**
      * Add roles.
      *
-     * @param Role $roles
+     * @param string $roles
      *
      * @return User
      */
-    public function addRole(Role $roles)
+    public function addRole($roles)
     {
         $this->roles[] = $roles;
         return $this;
@@ -216,9 +242,9 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Remove roles.
      *
-     * @param Role $roles
+     * @param string $roles
      */
-    public function removeRole(Role $roles)
+    public function removeRole($roles)
     {
         $this->roles->removeElement($roles);
     }
@@ -265,8 +291,7 @@ class User implements AdvancedUserInterface, \Serializable
     The methods below are taken from the login guide on Symfony.com, which can be found here:
     http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     http://symfony.com/doc/current/cookbook/security/entity_provider.html
-    
-    
+
     */
     /**
      * {@inheritdoc}
@@ -339,4 +364,16 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->salt;
     }
 
+
+    /**
+     * Get username by email.
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
 }
+

@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: futurnur
- * Date: 14/09/16
- * Time: 14:40
- */
 
 namespace AppBundle\Controller;
 
 
+use AppBundle\Form\SearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,11 +11,23 @@ class ProjectController extends Controller
 {
     public function projectAction(Request $request)
     {
-        $search = $request->get('search');
-        $projects = $this->get('doctrine')->getRepository('AppBundle:Project')->findProjects($search);
+        $searchTerm = '';
+
+        $form = $this -> createForm(SearchForm::class);
+        $form -> handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $searchTerm = $form->getData()['search'];
+        }
+
+        $projects = $this->get('doctrine')
+            ->getRepository('AppBundle:Project')
+            ->findProjects($searchTerm);
+
         return $this->render(
             'project/project.html.twig', array(
-                'projects' => $projects
+                'projects' => $projects,
+                'form' => $form -> createView()
             )
         );
     }
