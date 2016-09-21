@@ -17,3 +17,7 @@ projectlist:
 project:
   path: /anlegg/{id}
   defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    _method: GET|POST
+    id: \d+
+
