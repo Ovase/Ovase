@@ -6,9 +6,9 @@ home:
     path: /
     defaults: { _controller: AppBundle:Home:showHome}
 
-project:
+projectlist:
   path: /anlegg
-  defaults: { _controller: AppBundle:Project:project}
+  defaults: { _controller: AppBundle:ProjectList:projectList}
 
 login:
     path: /login
@@ -20,3 +20,10 @@ logout:
 create_user:
     path:     /register
     defaults: { _controller: AppBundle:User:register } 
+
+project:
+  path: /anlegg/{id}
+  defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    _method: GET|POST
+    id: \d+

@@ -6,6 +6,10 @@
 
 {% block body %}
 
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
     <div class="row">
         <div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
             <p></p>
@@ -14,13 +18,9 @@
                 <p>{{ message }}</p>
             {% endif %}
 
-            <p>{{ project.getName() }}</p>
-            <p>{{ project.getField () }}</p>
-            <p>{{ project.getStartdate() }}</p>
-            <p>{{ project.getEnddate() }}</p>
-            <p>{{ project.getLocation() }}</p>
-            <p>{{ project.getTechnicalSolutions() }}</p>
-            <p>{{ project.getDescription() }}</p>
+            {% for project in projects %}
+                <p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
+            {% endfor %}
 
         </div>
     </div>
