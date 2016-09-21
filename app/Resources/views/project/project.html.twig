@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Anlegg
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <div class="row">
+        <div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
+            <p></p>
+
+            {% if message is defined %}
+                <p>{{ message }}</p>
+            {% endif %}
+
+            {% for project in projects %}
+                <p>{{ project.getName() }}</p>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+

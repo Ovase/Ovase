@@ -6,6 +6,10 @@ home:
     path: /
     defaults: { _controller: AppBundle:Home:showHome}
 
+project:
+  path: /anlegg
+  defaults: { _controller: AppBundle:Project:project}
+
 login:
     path: /login
     defaults: { _controller: AppBundle:Login:login}
