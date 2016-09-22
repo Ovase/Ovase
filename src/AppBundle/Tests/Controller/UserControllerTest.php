@@ -40,35 +40,22 @@ class UserControllerTest extends WebTestCase
             'user[lastName]' => 'Adminsen',
             'user[firstName]' => 'Gunnar',
             'user[phone]' => '45133754',
-        ));
-
-        /* set form values
-        $form['form_name[email]']='nucl3ar5nake@ovase.no';
-        $form['form_name[lastName]']='Adminsen';
-        $form['form_name[firstName]']='Gunnar';
-        $form['form_name[phone]']='45133754';
-        $form['form_name[password]']='Lucas Plein';
-            'user[password]' => 'Lucas Plein',
-                    ,
-        */
-
+            'user[password]' => array(
+				'first' => 'Lucas Plein',
+				'second' => 'Lucas Plein'
+			)
+        ), 'POST');
 
         // submit the form
         $client->submit($form);
 
         // redirecting?
         $this->assertEquals(301, $client->getResponse()->getStatusCode());
-
-        // Follow the redirect
-        //$crawler = $client->followRedirect();
-
-        // Assert that the response status code is 2xx
-        $this->assertFalse($client->getResponse()->isSuccessful());
-
+		$this->assertTrue($client->getResponse()->isRedirect('/login'));
         $user = null;
         try {
             $user = $this->em->getRepository('AppBundle:User')->findUserByEmail('nucl3ar5nake@ovase.no');
-            $this->assertTrue($user);
+            $this->assertNotNull($user);
         } catch (NoResultException $t) {
             $this->assertNull($user);
         }
@@ -81,6 +68,17 @@ class UserControllerTest extends WebTestCase
         protected function tearDown()
     {
         parent::tearDown();
-        $this->em->close();
+        $user = null;
+        try {
+            $user = $this->em->getRepository('AppBundle:User')->findUserByEmail('nucl3ar5nake@ovase.no');
+        } catch (NoResultException $t) {
+			$this->em->close();
+			return;
+		}
+        if ($user) {
+			$this->em->remove($user);
+			$this->em->flush();
+		}
+		$this->em->close();
     }
 }
