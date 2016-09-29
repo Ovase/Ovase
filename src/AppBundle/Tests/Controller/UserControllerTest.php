@@ -4,6 +4,7 @@ namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Doctrine\ORM\NoResultException;
+use AppBundle\Form\UserType;
 
 class UserControllerTest extends WebTestCase
 {
@@ -31,38 +32,30 @@ class UserControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/register');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        //$this->assertEquals(1, $crawler->filter('h1:contains("Registrer bruker")')->count());
 
         // Get form
-        $form=$crawler->selectButton('Registrer bruker')->form();
-        $values = $form->getPhpValues();
-
-        // set form values
-        $values['email']='nucl3ar5nake@ovase.no';
-        $values['lastName']='Adminsen';
-        $values['firstName']='Gunnar';
-        $values['phone']='45133754';
-        $values['password']='Lucas Plein';
+        $form = $crawler->selectButton('Registrer bruker')->form(array(
+            'user[email]' => 'nucl3ar5nake@ovase.no',
+            'user[lastName]' => 'Adminsen',
+            'user[firstName]' => 'Gunnar',
+            'user[phone]' => '45133754',
+            'user[password]' => array(
+				'first' => 'Lucas Plein',
+				'second' => 'Lucas Plein'
+			)
+        ), 'POST');
 
         // submit the form
-        //$crawler=$client->submit($form);
-        $crawler = $client->request($form->getMethod(), $form->getUri(), $values,$form->getPhpFiles());
-
-        // Is the form valid?
-        //$this->assertEquals(True, $form->isValid());
+        $client->submit($form);
 
         // redirecting?
-        $this->assertTrue($client->getResponse()->isRedirect());
-
-        // Follow the redirect
-        $crawler = $client->followRedirect();
-
-        // Assert that the response status code is 2xx
-        $this->assertTrue($client->getResponse()->isSuccessful());
-
+        $this->assertEquals(301, $client->getResponse()->getStatusCode());
+		$this->assertTrue($client->getResponse()->isRedirect('/login'));
         $user = null;
         try {
             $user = $this->em->getRepository('AppBundle:User')->findUserByEmail('nucl3ar5nake@ovase.no');
-            $this->assertTrue($user);
+            $this->assertNotNull($user);
         } catch (NoResultException $t) {
             $this->assertNull($user);
         }
@@ -75,7 +68,17 @@ class UserControllerTest extends WebTestCase
         protected function tearDown()
     {
         parent::tearDown();
-        $this->em->close();
+        $user = null;
+        try {
+            $user = $this->em->getRepository('AppBundle:User')->findUserByEmail('nucl3ar5nake@ovase.no');
+        } catch (NoResultException $t) {
+			$this->em->close();
+			return;
+		}
+        if ($user) {
+			$this->em->remove($user);
+			$this->em->flush();
+		}
+		$this->em->close();
     }
-
 }

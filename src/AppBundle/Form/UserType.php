@@ -4,6 +4,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -25,7 +26,8 @@ class UserType extends AbstractType
                 'first_options'  => array('label' => 'Passord'),
                 'second_options' => array('label' => 'Gjenta Passord'),
             )
-        );
+        )
+            ->add('save', SubmitType::class, array('label' => 'Registrer bruker',));
     }
 
     public function configureOptions(OptionsResolver $resolver)
