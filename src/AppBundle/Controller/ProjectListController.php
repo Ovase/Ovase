@@ -18,6 +18,7 @@ class ProjectListController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
             $searchTerm = $form->getData()['search'];
+            var_dump($searchTerm);
         }
 
         $projects = $this->get('doctrine')

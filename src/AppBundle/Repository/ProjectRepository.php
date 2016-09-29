@@ -16,6 +16,7 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
             ->select('Project')
             ->where('Project.name LIKE :searchterm')
             ->orWhere('Project.location LIKE :searchterm')
+            ->orWhere('Project.technicalSolutions LIKE :searchterm')
             ->setParameter('searchterm', '%'.$searchterm.'%')
             ->getQuery()
             ->getResult();
