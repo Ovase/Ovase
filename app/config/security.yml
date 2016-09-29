@@ -6,9 +6,9 @@ security:
         AppBundle\Entity\User:
             algorithm: sha256
     role_hierarchy:
-        ROLE_ADMIN:    ROLE_USER
-        ROLE_USER:    ROLE_GUEST
-        ROLE_GUEST:
+        ROLE_ADMIN: ROLE_EDITOR
+        ROLE_EDITOR: ROLE_USER
+        ROLE_USER: IS_AUTHENTICATED_FULLY
         # See also: http://symfony.com/doc/current/security.html#roles
     providers:
         our_db_provider:
