@@ -1,0 +1,29 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+home:
+    path: /
+    defaults: { _controller: AppBundle:Home:showHome}
+
+projectlist:
+  path: /anlegg
+  defaults: { _controller: AppBundle:ProjectList:projectList}
+
+login:
+    path: /login
+    defaults: { _controller: AppBundle:Login:login}
+
+logout:
+    path: /logout
+
+create_user:
+    path:     /register
+    defaults: { _controller: AppBundle:User:register } 
+
+project:
+  path: /anlegg/{id}
+  defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    _method: GET|POST
+    id: \d+
