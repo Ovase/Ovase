@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Anlegg
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
+            <p></p>
+
+            {% if message is defined %}
+                <p>{{ message }}</p>
+            {% endif %}
+
+            <p>{{ project.getName() }}</p>
+            <p>{{ project.getField () }}</p>
+            <p>{{ project.getStartdate() }}</p>
+            <p>{{ project.getEnddate() }}</p>
+            <p>{{ project.getLocation() }}</p>
+            <p>{{ project.getTechnicalSolutions() }}</p>
+            <p>{{ project.getDescription() }}</p>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
