@@ -1,53 +1,66 @@
 <?php
-
 namespace AppBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Project
+ * AppBundle\Entity\Project.
+ *
+ * @ORM\Table(name="project")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ProjectRepository")
+ * @UniqueEntity(
+ *      fields={"id"},
+ *      message="Denne ID er allerede i bruk.",
+ * )
+ *
  */
 class Project
 {
     /**
-     * @var int
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
-     * @var string
+     * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
      */
     private $name;
-
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $field;
-
     /**
-     * @var \DateTime
+     * @ORM\Column(type="datetime")
      */
     private $startdate;
-
     /**
-     * @var \DateTime
+     * @ORM\Column(type="datetime")
      */
     private $enddate;
-
     /**
-     * @var string
+     * @ORM\Column(type="string", length=45)
      */
     private $location;
-
     /**
-     * @var array
+     * 
+     *
+     * @ORM\Column(type="array")
+     * @Assert\Valid
      */
     private $technicalSolutions;
-
     /**
-     * @var string
+     * @ORM\Column(type="text")
      */
     private $description;
 
-
+    public function __construct()
+    {
+        $this->technicalSolutions = new ArrayCollection();
+    }
     /**
      * Get id
      *

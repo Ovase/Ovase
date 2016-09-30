@@ -6,24 +6,21 @@
 
 {% block body %}
 
+    <a href="/anlegg/ny">Lag nytt prosjekt</a>
+
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
 
-    <div class="row">
-        <div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
-            <p></p>
+    <p></p>
 
-            {% if message is defined %}
-                <p>{{ message }}</p>
-            {% endif %}
+    {% if message is defined %}
+        <p>{{ message }}</p>
+    {% endif %}
 
-            {% for project in projects %}
-                <p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
-            {% endfor %}
-
-        </div>
-    </div>
+    {% for project in projects %}
+        <p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
+    {% endfor %}
 
 {% endblock %}
 

@@ -25,7 +25,7 @@ project:
   path: /anlegg/{id}
   defaults: {_controller: AppBundle:Project:show}
   requirements:
-    _method: GET|POST
+    methods: GET|POST
     id: \d+
 
 create_project:
