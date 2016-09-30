@@ -14,11 +14,13 @@ class ProjectRepository extends EntityRepository
      */
     public function findBySearch($searchTerm) // Beta version of function
     {
-    	return $this->createQueryBuilder('Project')
-        ->select('Project')
-        ->where('Project.location LIKE :searchTerm OR Project.name LIKE :searchTerm OR Project.technicalSolutions LIKE :searchTerm')
-        ->setParameter('searchTerm', $searchTerm)
-        ->getQuery()
-        ->getResult();
+        return $this->createQueryBuilder('Project')
+            ->select('Project')
+            ->where('Project.name LIKE :searchTerm')
+            ->orWhere('Project.location LIKE :searchTerm')
+            ->orWhere('Project.technicalSolutions LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
     }
 }

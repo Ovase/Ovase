@@ -17,8 +17,7 @@
     {% endif %}
 
     {% for project in projects %}
-        {#<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>#}
-        <p {{ project.name }}</p>
+        <p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
     {% endfor %}
 
 {% endblock %}

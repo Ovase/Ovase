@@ -16,12 +16,10 @@ class ProjectListController extends Controller
         $form = $this -> createForm(SearchForm::class);
         $form -> handleRequest($request);
 
-        /*
         if($form->isSubmitted() && $form->isValid()){
             $searchTerm = $form->getData()['search'];
-            var_dump($searchTerm);
         }
-        */
+        
         $projects = $this->get('doctrine')
             ->getRepository('AppBundle:Project')
             ->findBySearch($searchTerm);
