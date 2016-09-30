@@ -27,3 +27,7 @@ project:
   requirements:
     _method: GET|POST
     id: \d+
+
+create_project:
+    path:     /anlegg/ny
+    defaults: { _controller: AppBundle:Project:create}
