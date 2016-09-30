@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +17,8 @@ class CreateProjectForm extends AbstractType
         $builder
             ->add('name', TextType::class, array('attr' => array('placeholder' => 'name')))
             ->add('field', TextType::class, array('attr' => array('placeholder' => 'field')))
-            ->add('startdate', TextType::class, array('attr' => array('placeholder' => 'startdate')))
-            ->add('enddate', TextType::class, array('attr' => array('placeholder' => 'enddate')))
+            ->add('startdate', DateTimeType::class)
+            ->add('enddate', DateTimeType::class)
             ->add('location', TextType::class, array('attr' => array('placeholder' => 'location')))
             ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions')))
             ->add('description', TextType::class, array('attr' => array('placeholder' => 'description')))

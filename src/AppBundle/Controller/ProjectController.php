@@ -21,14 +21,14 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $form = $this->createForm(CreateProjectForm::class, $project);
-        if($form->isSubmitted() && $form->isValid()){
-            echo 'submitted';
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
             var_dump($project);
-            $this->getDoctrine()->getManager()->getRepository('Project')->create($project);
             return $this->redirect('/anlegg');
         }
         return $this->render(
-            ':project:create.html.twig', array(
+            'project/create.html.twig', array(
                 'form' => $form -> createView()
             )
         );
