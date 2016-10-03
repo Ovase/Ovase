@@ -7,12 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Actor
  *
- * @InheritanceType("JOINED")
- * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({"actor" = "Actor", "person" = "Person"}, {"actor" = "Actor", "company" = "Company"})
- *
  * @ORM\Table(name="actor")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ActorRepository")
+ *
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"actor" = "Actor", "person" = "Person"}, {"actor" = "Actor", "company" = "Company"})
  */
 class Actor
 {
