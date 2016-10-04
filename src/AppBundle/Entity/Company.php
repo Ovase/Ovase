@@ -17,6 +17,7 @@ class Company extends Actor
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=100)
+     * @Assert\Type("string")
      */
     private $type;
 
@@ -24,6 +25,7 @@ class Company extends Actor
      * @var string
      *
      * @ORM\Column(name="org_nr", type="string", length=18, unique=true)
+     * @Assert\Type("string")
      */
     private $orgNr;
 
@@ -31,6 +33,7 @@ class Company extends Actor
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100)
+     * @Assert\Type("string")
      */
     private $name;
 

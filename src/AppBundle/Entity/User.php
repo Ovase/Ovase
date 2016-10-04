@@ -27,11 +27,13 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
+     * @Assert\Type("string")
      */
     private $lastName;
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
+     * @Assert\Type("string")
      */
     private $firstName;
     /**
@@ -42,6 +44,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
+     * @Assert\Type("string")
      */
     private $phone;
     /**
@@ -53,6 +56,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="string", length=45, unique=true)
      * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
      * @Assert\Email(message="Ikke gyldig e-post.")
+     * @Assert\Type("string")
      */
     private $email;
     /**
@@ -62,6 +66,11 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="array")
      * @Assert\Valid
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Length(min = 3)
+	 *     @Assert\Choice({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_EDITOR", "IS_AUTHENTICATED_FULLY"})
+     * })
      */
     private $roles;
     /**

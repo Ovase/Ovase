@@ -37,6 +37,10 @@ class Actor
      * @var array
      *
      * @ORM\Column(name="images", type="array")
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Url
+     * })
      */
     private $images;
 
@@ -44,6 +48,10 @@ class Actor
      * @var array
      *
      * @ORM\Column(name="key_knowledges", type="array")
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Length(min = 3)
+     * })
      */
     private $keyKnowledges;
 
@@ -51,15 +59,26 @@ class Actor
      * @var string
      *
      * @ORM\Column(name="field", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $field;
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=45)
+     * @Assert\Email
+     * @Assert\Type("string")
      */
     private $email;
-
+    /**
+     * An array of two floats.
+	 * @ORM\Column(type="array")
+     * @Assert\All({
+     *     @Assert\NotBlank,
+	 *     @Assert\Range(min=-90, max=90)
+     * })
+     */
+    private $location;
 
     public function __construct()
     {
@@ -171,6 +190,29 @@ class Actor
     public function getField()
     {
         return $this->field;
+    }
+    /**
+     * Set location
+     *
+     * @param array $location
+     *
+     * @return Project
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return array
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 
     /**
