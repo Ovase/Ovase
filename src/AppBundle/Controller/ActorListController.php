@@ -18,7 +18,7 @@ class ActorListController extends Controller
             ->findAll();
 
         return $this->render(
-            'actorList/actorList.html.twig', array(
+            'actor/actorList.html.twig', array(
                 'companies' => $companies,
                 'persons' => $persons
             )

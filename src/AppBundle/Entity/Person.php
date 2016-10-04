@@ -12,15 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Person extends Actor
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
 
     /**
      * @var string
@@ -35,17 +26,6 @@ class Person extends Actor
      * @ORM\Column(name="last_name", type="string", length=100)
      */
     private $lastName;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set firstName
@@ -95,4 +75,3 @@ class Person extends Actor
         return $this->lastName;
     }
 }
-
