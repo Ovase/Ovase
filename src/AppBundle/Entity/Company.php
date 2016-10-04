@@ -42,6 +42,18 @@ class Company extends Actor
      */
     private $name;
 
+    /**
+     * @ManyToMany(targetEntity="Person")
+     * @JoinTable(name="companies_persons",
+     *      joinColumns={@JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="person_id", referencedColumnName="id")}
+     *      )
+     */
+    private $persons;
+
+    public function __construct() {
+        $this->persons = new ArrayCollection();
+    }
 
     /**
      * Get id

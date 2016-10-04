@@ -57,9 +57,19 @@ class Project
      */
     private $description;
 
+    /**
+     * @ManyToMany(targetEntity="Actor")
+     * @JoinTable(name="projects_actors",
+     *      joinColumns={@JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="actor_id", referencedColumnName="id")}
+     *      )
+     */
+    private $actors;
+
     public function __construct()
     {
         $this->technicalSolutions = new ArrayCollection();
+        $this->actors = new ArrayCollection();
     }
     /**
      * Get id
