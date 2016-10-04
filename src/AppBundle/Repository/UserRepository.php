@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\Repository;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;

@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * AppBundle\Entity\Project.
  *
  * @ORM\Table(name="project")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ProjectRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
  * @UniqueEntity(
  *      fields={"id"},
  *      message="Denne ID er allerede i bruk.",
