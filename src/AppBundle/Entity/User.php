@@ -80,6 +80,12 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $salt;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Person")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     */
+    private $person;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
