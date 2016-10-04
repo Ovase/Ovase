@@ -58,10 +58,10 @@ class Project
     private $description;
 
     /**
-     * @ManyToMany(targetEntity="Actor")
-     * @JoinTable(name="projects_actors",
-     *      joinColumns={@JoinColumn(name="project_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="actor_id", referencedColumnName="id")}
+     * @ORM\ManyToMany(targetEntity="Actor")
+     * @ORM\JoinTable(name="projects_actors",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id")}
      *      )
      */
     private $actors;
