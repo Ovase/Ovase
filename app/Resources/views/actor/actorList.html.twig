@@ -6,10 +6,6 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-
     {% for person in persons %}
         {{ person.getFirstName() }}
     {% endfor %}

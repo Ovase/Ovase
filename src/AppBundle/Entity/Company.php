@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Person;
 
 /**
  * Company
@@ -43,10 +44,10 @@ class Company extends Actor
     private $name;
 
     /**
-     * @ManyToMany(targetEntity="Person")
-     * @JoinTable(name="companies_persons",
-     *      joinColumns={@JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="person_id", referencedColumnName="id")}
+     * @ORM\ManyToMany(targetEntity="Person")
+     * @ORM\JoinTable(name="companies_persons",
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")}
      *      )
      */
     private $persons;
