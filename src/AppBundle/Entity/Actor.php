@@ -60,6 +60,12 @@ class Actor
     private $email;
 
 
+    public function __construct()
+    {
+        $this->keyKnowledges = new ArrayCollection();
+        $this->images = new ArrayCollection();
+    }
+
     /**
      * Get id
      *
