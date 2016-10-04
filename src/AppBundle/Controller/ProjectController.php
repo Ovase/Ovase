@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Project;
 use AppBundle\Form\CreateProjectForm;
+use AppBundle\Form\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,11 +21,10 @@ class ProjectController extends Controller
     public function createAction(Request $request)
     {
         $project = new Project();
-        $form = $this->createForm(CreateProjectForm::class, $project);
+        $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
-            var_dump($project);
             return $this->redirect('/anlegg');
         }
         return $this->render(

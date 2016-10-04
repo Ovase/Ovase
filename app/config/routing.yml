@@ -12,7 +12,7 @@ projectlist:
 
 actorlist:
   path: /actor
-  defaults: { _controller: AppBundle:ActorList:show}
+  defaults: { _controller: AppBundle:ActorList:show }
 
 login:
     path: /login
@@ -25,9 +25,31 @@ create_user:
     path:     /register
     defaults: { _controller: AppBundle:User:register } 
 
+create_person:
+    path:     /person/ny
+    defaults: {_controller: AppBundle:Person:create }
+
+create_company:
+    path:     /company/ny
+    defaults: {_controller: AppBundle:Company:create }
+
 project:
   path: /anlegg/{id}
   defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+company:
+  path: /selskap/{id}
+  defaults: {_controller: AppBundle:Company:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+person:
+  path: /person/{id}
+  defaults: {_controller: AppBundle:Person:show}
   requirements:
     methods: GET|POST
     id: \d+

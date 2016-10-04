@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Person;
 
 /**
  * Company
@@ -13,15 +13,6 @@ use AppBundle\Entity\Person;
  */
 class Company extends Actor
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @var string
      *
@@ -54,16 +45,6 @@ class Company extends Actor
 
     public function __construct() {
         $this->persons = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

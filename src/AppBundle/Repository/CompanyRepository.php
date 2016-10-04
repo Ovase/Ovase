@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class CompanyRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function create($company)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($company);
+        $em->flush();
+        return $company;
+    }
 }
