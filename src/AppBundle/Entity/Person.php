@@ -17,6 +17,7 @@ class Person extends Actor
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=100)
+     * @Assert\Type("string")
      */
     private $firstName;
 
@@ -24,6 +25,7 @@ class Person extends Actor
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=100)
+     * @Assert\Type("string")
      */
     private $lastName;
 

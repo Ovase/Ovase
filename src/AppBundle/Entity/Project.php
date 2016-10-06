@@ -27,10 +27,12 @@ class Project
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
+     * @Assert\Type("string")
      */
     private $name;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
      */
     private $field;
     /**
@@ -42,14 +44,20 @@ class Project
      */
     private $enddate;
     /**
-     * @ORM\Column(type="string", length=45)
+     * An array of two floats.
+	 * @ORM\Column(type="array")
+     * @Assert\All({
+     *     @Assert\NotBlank,
+	 *     @Assert\Range(min=-90, max=90)
+     * })
      */
     private $location;
     /**
-     * 
-     *
      * @ORM\Column(type="array")
-     * @Assert\Valid
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Length(min = 5)
+     * })
      */
     private $technicalSolutions;
     /**
@@ -180,7 +188,7 @@ class Project
     /**
      * Set location
      *
-     * @param string $location
+     * @param array $location
      *
      * @return Project
      */
@@ -194,7 +202,7 @@ class Project
     /**
      * Get location
      *
-     * @return string
+     * @return array
      */
     public function getLocation()
     {
