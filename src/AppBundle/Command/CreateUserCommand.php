@@ -2,11 +2,11 @@
 // src/AppBundle/Command/CreateUserCommand.php
 namespace AppBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use AppBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class CreateUserCommand extends ContainerAwareCommand
 {
@@ -26,7 +26,7 @@ class CreateUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-		if (app.environment != 'dev') { return; }
+		if ($this->getContainer()->get('app.environment') != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'User Creator',
@@ -78,12 +78,12 @@ class CreateUserCommand extends ContainerAwareCommand
 			$salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));
 			$ATTEMPTS_LIMIT--;
 		}
-		$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($form->get('password')->getData(), $salt);
-		$em = $this->getContainer()->get('doctrine')->getEntityManager();
+		$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($pass, $salt);
+        $em = $this->getContainer()->get('doctrine');
 		$user = new User();
 		$user->setEmail($uname);
-		$user->setFirstname($firstName);
-		$user->setLastname($lastName);
+		$user->setFirstName($firstName);
+		$user->setLastName($lastName);
 		$user->setPhone($phone);
 		$user->setPassword($pass_hash);
 		$user->setSalt($salt);
