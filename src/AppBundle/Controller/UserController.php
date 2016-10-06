@@ -37,7 +37,7 @@ class UserController extends Controller
 			// Authorize User as... USER.
 			$user->addRole("ROLE_USER");
 			
-			// TODO: Notify ADMINs that a new user has registered, and that they need to be validated. An ADMIN
+			// TODO: Notify ADMINs that a new user has registered, and that they need to be validated. An ADMIN/editor
 			// may then send an activation email at their leisure
 			$user->setIsActive(1); // For now, you may pass...
 			
