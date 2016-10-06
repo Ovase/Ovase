@@ -2,19 +2,19 @@
 // src/AppBundle/Command/DeleteUserCommand.php
 namespace AppBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
-use AppBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Doctrine\ORM\NoResultException;
+use Exception;
 
 class DeleteUserCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        $this
         // the name of the command (the part after "app/console")
-        ->setName('app:prom-user')
+        $this->setName('app:prom-user')
 
         // the short description shown while running "php app/console list"
         ->setDescription('Give a user a new role.')
@@ -42,7 +42,7 @@ class DeleteUserCommand extends ContainerAwareCommand
 		$output->write("do sum'thin' BAD.\n");
 		$output->write('\n');
 
-		$em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $em = $this->getContainer()->get('doctrine');
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));

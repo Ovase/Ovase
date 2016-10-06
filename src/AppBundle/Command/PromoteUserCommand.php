@@ -2,12 +2,12 @@
 // src/AppBundle/Command/PromoteUserCommand.php
 namespace AppBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use AppBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Doctrine\ORM\NoResultException;
 
 class PromoteUserCommand extends ContainerAwareCommand
 {
@@ -35,7 +35,7 @@ class PromoteUserCommand extends ContainerAwareCommand
         	'',
     	]);
 
-		$em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $em = $this->getContainer()->get('doctrine');
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
@@ -61,7 +61,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 		$rolequestion->setErrorMessage('Role %s is invalid.');
 
 		// Assuming valid role 
-		$role = $helper->ask($input, $output, $question);
+		$role = $helper->ask($input, $output, $rolequestion);
 		$output->writeln('You have just selected: '.$role);
 		if ($role == "ROLE_GUEST") {
 			$user->setIsActive(0); // YOU SHALL NOT PASS!!!...
