@@ -6,7 +6,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Question\ChoiceQuestion;
 use AppBundle\Entity\User;
 
 class CreateUserCommand extends ContainerAwareCommand
@@ -20,14 +19,6 @@ class CreateUserCommand extends ContainerAwareCommand
         // the short description shown while running "php app/console list"
         ->setDescription('Create a new user.')
 		
-		/* Define input fields. Definition o Class - __construct(string $name, string|array $shortcut = null, integer $mode = null, string $description = '', mixed $default = null)
-		->setDefinition(
-                new InputDefinition(array(
-                    new InputOption('foo', 'f'),
-                    new InputOption('bar', 'b', InputOption::VALUE_REQUIRED),
-                    new InputOption('cat', 'c', InputOption::VALUE_OPTIONAL),
-                ))) */
-
         // the full command description shown when running the command with
         // the "--help" option
         ->setHelp("This command allows you to create and persist one new user...");
@@ -35,6 +26,7 @@ class CreateUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+	if (app.environment != 'dev') { return; }
     // outputs multiple lines to the console (adding "\n" at the end of each line)
     $output->writeln([
         'User Creator',
@@ -57,13 +49,7 @@ class CreateUserCommand extends ContainerAwareCommand
 	$phoneq = new Question('Please enter the phone nr of the new user ', '0');
 	$passq = new Question('Please enter the password of the new user ', '0');
     $passq->setHidden(true);
-    $passq->setHiddenFallback(false); /*
-    $rolequestion = new ChoiceQuestion(
-        'Please select the user role (defaults to USER)',
-        array("ROLE_USER", "ROLE_EDITOR"),
-        0
-    );
-    $rolequestion->setErrorMessage('Color %s is invalid.'); */
+    $passq->setHiddenFallback(false);
 	$uname = '0';
 	$lastName = '0';
 	$firstName = '0';
@@ -93,7 +79,7 @@ class CreateUserCommand extends ContainerAwareCommand
 		$ATTEMPTS_LIMIT--;
 	}
 	$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($form->get('password')->getData(), $salt);
-	$em = $this->getContainer()->get('app.entity_manager');
+	$em = $this->getContainer()->get('doctrine')->getEntityManager();
 	$user = new User();
 	$user->setEmail($uname);
 	$user->setFirstname($firstName);
@@ -104,10 +90,11 @@ class CreateUserCommand extends ContainerAwareCommand
 	// Authorize User as... GUEST, because laziness.
 	$user->addRole("ROLE_GUEST");
 	$user->setIsActive(0); // For now, you may NOT pass...
-	//$em = $this->getContainer()->getDoctrine()->getManager();
 	$em->persist($user);
 	$em->flush();
+	$em->close();
 	$output->write('\n');
 	$output->writeln('Bye!');
+	// WARNING: DO NOT RUN IN prod-mode. Mainly ment for devs ;)
     }
 }

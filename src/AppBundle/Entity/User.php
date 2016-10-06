@@ -242,7 +242,6 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->phone;
     }
 
-
     /**
      * Add roles.
      *
