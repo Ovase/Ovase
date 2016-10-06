@@ -77,7 +77,6 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\column(type="string", nullable=true)
      */
     private $new_user_code;
-
     /**
      * The auto generated salt for the user
      *
@@ -88,18 +87,26 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="string", length = 64)
      */
     private $salt;
-
     /**
      * @ORM\OneToOne(targetEntity="Person")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;
+    /**
+     * @ORM\ManyToMany(targetEntity="Company")
+     * @ORM\JoinTable(name="users_companies",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *      )
+     */
+    private $companies;
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->isActive = false;
         $this->picture_path = 'static/images/person/defaultprofile.png';
+	$this->companies = new ArrayCollection();
     }
     public function getId()
     {
