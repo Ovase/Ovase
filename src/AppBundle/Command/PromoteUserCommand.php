@@ -28,109 +28,82 @@ class PromoteUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-    // outputs multiple lines to the console (adding "\n" at the end of each line)
-    $output->writeln([
-        'User Roleplayer',
-        '============',
-        '',
-    ]);
+		// outputs multiple lines to the console (adding "\n" at the end of each line)
+    	$output->writeln([
+        	'User Roleplayer',
+        	'============',
+        	'',
+    	]);
 
-	$em = $this->getContainer()->get('doctrine')->getEntityManager();
-	$user = null;
-	try {
-		$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
-    } catch (NoResultException $t) {
-		$output->write('That user is in another castle. Bye!\n');
-        return;
-    }
-
-    // outputs a message followed by a "\n"
-    $output->writeln('Howdy, partner!');
-
-    // outputs a message without adding a "\n" at the end of the line
-    $output->write('You are about to ');
-    $output->write("do sum'thin' BAD.\n");
-	$output->write('\n');
-    $helper = $this->getHelper('question');
-
-    $rolequestion = new ChoiceQuestion(
-        'Please select the user role (defaults to USER)',
-        array("ROLE_USER", "ROLE_GUEST","ROLE_EDITOR"),
-        0
-    );
-    $rolequestion->setErrorMessage('Role %s is invalid.');
-
-	// Assuming valid role 
-    $role = $helper->ask($input, $output, $question);
-    $output->writeln('You have just selected: '.$role);
-	if ($role == "ROLE_GUEST") {
-		$user->setIsActive(0); // YOU SHALL NOT PASS!!!...
-		if (!in_array("ROLE_GUEST", $user->getRoles()))
-			$user->addRole("ROLE_GUEST");
+		$em = $this->getContainer()->get('doctrine')->getEntityManager();
+		$user = null;
+		try {
+			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
+		} catch (NoResultException $t) {
+			$output->write('That user is in another castle. Bye!\n');
+			return;
 		}
-		if (in_array("ROLE_USER", $user->getRoles()))
-			$user->removeRole("ROLE_USER");
+
+		// outputs a message followed by a "\n"
+		$output->writeln('Howdy, partner!');
+
+		// outputs a message without adding a "\n" at the end of the line
+		$output->write('You are about to ');
+		$output->write("do sum'thin' BAD.\n");
+		$output->write('\n');
+		$helper = $this->getHelper('question');
+
+		$rolequestion = new ChoiceQuestion(
+			'Please select the user role (defaults to USER)',
+			array("ROLE_USER", "ROLE_GUEST","ROLE_EDITOR"),
+			0
+		);
+		$rolequestion->setErrorMessage('Role %s is invalid.');
+
+		// Assuming valid role 
+		$role = $helper->ask($input, $output, $question);
+		$output->writeln('You have just selected: '.$role);
+		if ($role == "ROLE_GUEST") {
+			$user->setIsActive(0); // YOU SHALL NOT PASS!!!...
+			if (!in_array("ROLE_GUEST", $user->getRoles())) {
+				$user->addRole("ROLE_GUEST");
+			}
+			if (in_array("ROLE_USER", $user->getRoles())) {
+				$user->removeRole("ROLE_USER");
+			}
+			if (in_array("ROLE_EDITOR", $user->getRoles())) {
+				$user->removeRole("ROLE_EDITOR");
+			}
 		}
-		if (in_array("ROLE_EDITOR", $user->getRoles()))
-			$user->removeRole("ROLE_EDITOR");
+		else if ($role == "ROLE_USER") {
+			$user->setIsActive(1); // For now, you may pass...
+			if (!in_array("ROLE_GUEST", $user->getRoles())) {
+				$user->addRole("ROLE_GUEST");
+			}
+			if (!in_array("ROLE_USER", $user->getRoles())) {
+				$user->addRole("ROLE_USER");
+			}
+			if (in_array("ROLE_EDITOR", $user->getRoles())) {
+				$user->removeRole("ROLE_EDITOR");
+			}
 		}
+		else if ($role == "ROLE_EDITOR") {
+			$user->setIsActive(1); // For now, you may pass...
+			if (!in_array("ROLE_GUEST", $user->getRoles())) {
+				$user->addRole("ROLE_GUEST");
+			}
+			if (!in_array("ROLE_USER", $user->getRoles())) {
+				$user->addRole("ROLE_USER");
+			}
+			if (!in_array("ROLE_EDITOR", $user->getRoles())) {
+				$user->addRole("ROLE_EDITOR");
+			}
+		}
+		else { return; }
+		$em->persist($user);
+		$em->flush();
+		$em->close();
+		$output->write('\n');
+		$output->write('Bye!\n');
 	}
-	else if ($role == "ROLE_USER") {
-		$user->setIsActive(1); // For now, you may pass...
-		if (!in_array("ROLE_GUEST", $user->getRoles()))
-			$user->addRole("ROLE_GUEST");
-		}
-		if (!in_array("ROLE_USER", $user->getRoles()))
-			$user->addRole("ROLE_USER");
-		}
-		if (in_array("ROLE_EDITOR", $user->getRoles()))
-			$user->removeRole("ROLE_EDITOR");
-		}
-	}
-	else if ($role == "ROLE_EDITOR") {
-		$user->setIsActive(1); // For now, you may pass...
-		if (!in_array("ROLE_GUEST", $user->getRoles()))
-			$user->addRole("ROLE_GUEST");
-		}
-		if (!in_array("ROLE_USER", $user->getRoles()))
-			$user->addRole("ROLE_USER");
-		}
-		if (in_array("ROLE_EDITOR", $user->getRoles()))
-			$user->removeRole("ROLE_EDITOR");
-		}
-	}
-	else { return; }
-	$em->persist($user);
-	$em->flush();
-	$output->write('\n');
-	$output->write('Bye!\n');
-    }
-    /**
-     * Sets roles so that the hierarchy is kept.
-     *
-     * @param string $role
-     *
-     * @return User
-    private function setRoles($role)
-    {
-        if ($role == "ROLE_USER") {
-			$this->roles = array("ROLE_GUEST", "ROLE_USER");
-			this->setIsActive(true);
-			return $this;
-		}
-        if ($role == "ROLE_EDITOR") {
-			$this->roles = array("ROLE_GUEST", "ROLE_USER", "ROLE_EDITOR");
-			this->setIsActive(true);
-			return $this;
-		}
-        // if ($role == "ROLE_GUEST")
-		$this->roles = array("ROLE_GUEST");
-		this->setIsActive(false);
-		return $this;
-		}
-		
-		$this->roles[] = $roles;
-        return $this;
-    }
-     */
 }
