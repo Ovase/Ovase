@@ -69,7 +69,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @Assert\All({
      *     @Assert\NotBlank(message="Dette feltet kan ikke være tomt."),
      *     @Assert\Length(min = 3),
-	 *     @Assert\Choice({"ROLE_GUEST", "ROLE_ADMIN", "ROLE_EDITOR", "IS_AUTHENTICATED_FULLY"})
+	 *     @Assert\Choice({"ROLE_GUEST", "ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR", "IS_AUTHENTICATED_FULLY"})
      * })
      */
     private $roles;
