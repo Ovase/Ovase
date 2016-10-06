@@ -85,6 +85,7 @@ class Actor
     {
         $this->keyKnowledges = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->location = new ArrayCollection();
     }
 
     /**
