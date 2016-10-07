@@ -166,6 +166,57 @@ header {
 
 }
 
+/* --------- MAIN COLOR STYLES --------- */
+
+.style-bgc-grey {
+	background-color:#6D6D6D;
+}
+
+.style-bgc-lgrey {
+	background-color: #E5E5E5 !important;
+}
+
+.style-bg-lgrey {
+	background-color: #E5E5E5 !important;
+}
+
+.style-c-grey {
+	color: #6D6D6D;
+}
+
+.style-c-lgrey {
+	color: #E5E5E5;
+}
+
+/* --------- SEARCH-BAR --------- */
+
+.btn-sb-custom {
+	margin-top:-1px !important;
+	position:absolute !important;
+	background:#E5E5E5 !important;
+}
+
+/* --------- NAVIGATION-BAR --------- */
+
+.navbar-custom {
+	background: #E5E5E5 !important;
+	border-bottom: 1px solid #E5E5E5 !important;
+	color: #6D6D6D !important;
+}
+
+.navbar-custom-btn {
+	margin-top: 13px;
+	margin-left: 60px;
+	background-color: #E5E5E5;
+	color: #6F6F6F;
+	font-weight: 700;
+}
+
+a.navbar-txt {
+	color:#6D6D6D !important;
+	font-weight: 700;
+}
+
 /* --------- CONTENT --------- */
 
 

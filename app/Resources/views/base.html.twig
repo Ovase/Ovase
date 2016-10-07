@@ -28,34 +28,44 @@
 	<body>
 			{% block header %}
 				<header>
-					<nav class="navbar navbar-fixed-top" style="background: #E5E5E5 !important;border-bottom: 1px solid #E5E5E5 !important;color: #6D6D6D !important;">
+					<nav class="navbar navbar-fixed-top navbar-custom">
 						<div class="container">
 							<p style="color:#6D6D6D;font-weight:400;font-size:200%;"> OVASE </p>
 								<div class="navbar-header">
-							    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-top: 13px;margin-left: 60px;background-color: #E5E5E5;border: 1px solid #000000;color: #6F6F6F;font-weight: 700;">
-							        	<span class="icon-bar" style="background-color:#6D6D6D;"></span>
-							        	<span class="icon-bar" style="background-color:#6D6D6D;"></span>
-							        	<span class="icon-bar" style="background-color:#6D6D6D;"></span>
+							    	<button type="button" class="navbar-toggle navbar-custom-btn" data-toggle="collapse" data-target="#myNavbar">
+										<span class="icon-bar style-bgc-grey"></span>
+										<span class="icon-bar style-bgc-grey"></span>
+										<span class="icon-bar style-bgc-grey"></span>
 							      	</button>
 							    </div>
 							<div class="collapse navbar-collapse" id="myNavbar">
 						    	<ul class="nav navbar-nav" style={navbarButtonStyle}>
 									<li>
-										<a href="{{ path('home') }}" style="color:#6D6D6D;font-weight: 700;">FRAMSIDE</a>
+										<a href="{{ path('home') }}" class="navbar-txt">FRAMSIDE</a>
 									</li>
 									<li>
-										<a href="{{ path('projectlist') }}" style="color:#6D6D6D;font-weight: 700;">PROSJEKTER</a>
+										<a href="{{ path('projectlist') }}" class="navbar-txt">PROSJEKTER</a>
 									</li>
 									<li>
-										<a href="{{ path('actorlist') }}" style="color:#6D6D6D;font-weight: 700;">AKTØRER</a>
+										<a href="{{ path('actorlist') }}" class="navbar-txt">AKTØRER</a>
 									</li>
 									<li>
-										<a href="{{ path('login') }}" style="color:#6D6D6D;font-weight: 700;">FAGWIKI</a>
+										<a href="{{ path('login') }}" class="navbar-txt">FAGWIKI</a>
 									</li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
-									<li><a href="{{ path('create_user')}}" style="color:#6D6D6D;font-weight: 700;" ><span class="glyphicon glyphicon-user"></span> Registrer</a></li>
-									<li><a href="{{ path('login') }}" style="color:#6D6D6D;font-weight: 700;"><span class="glyphicon glyphicon-log-in"></span> Logg Inn</a></li>
+									<li>
+										<a href="{{ path('create_user')}}" class="navbar-txt">
+											<span class="glyphicon glyphicon-user"></span> 
+												Registrer
+										</a>
+									</li>
+									<li>
+										<a href="{{ path('login') }}" class="navbar-txt">
+											<span class="glyphicon glyphicon-log-in"></span> 
+												Logg Inn
+										</a>
+									</li>
 								</ul>
 							</div>
 						</div>
