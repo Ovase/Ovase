@@ -33,9 +33,9 @@
 							<p style="color:#6D6D6D;font-weight:400;font-size:200%;"> OVASE </p>
 								<div class="navbar-header">
 							    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-top: 13px;margin-left: 60px;background-color: #E5E5E5;border: 1px solid #000000;color: #6F6F6F;font-weight: 700;">
-							        	<span class="icon-bar"></span>
-							        	<span class="icon-bar"></span>
-							        	<span class="icon-bar"></span>
+							        	<span class="icon-bar" style="background-color:#6D6D6D;"></span>
+							        	<span class="icon-bar" style="background-color:#6D6D6D;"></span>
+							        	<span class="icon-bar" style="background-color:#6D6D6D;"></span>
 							      	</button>
 							    </div>
 							<div class="collapse navbar-collapse" id="myNavbar">
@@ -52,6 +52,10 @@
 									<li>
 										<a href="{{ path('login') }}" style="color:#6D6D6D;font-weight: 700;">FAGWIKI</a>
 									</li>
+								</ul>
+								<ul class="nav navbar-nav navbar-right">
+									<li><a href="{{ path('create_user')}}" style="color:#6D6D6D;font-weight: 700;" ><span class="glyphicon glyphicon-user"></span> Registrer</a></li>
+									<li><a href="{{ path('login') }}" style="color:#6D6D6D;font-weight: 700;"><span class="glyphicon glyphicon-log-in"></span> Logg Inn</a></li>
 								</ul>
 							</div>
 						</div>
