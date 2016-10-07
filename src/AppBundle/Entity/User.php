@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * AppBundle\Entity\User.
  *
  * @ORM\Table(name="`user`")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(
  *      fields={"email"},
  *      message="Denne Eposten er allerede i bruk.",
@@ -27,11 +27,13 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
+     * @Assert\Type("string")
      */
     private $lastName;
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
+     * @Assert\Type("string")
      */
     private $firstName;
     /**
@@ -42,6 +44,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
+     * @Assert\Type("string")
      */
     private $phone;
     /**
@@ -53,6 +56,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="string", length=45, unique=true)
      * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
      * @Assert\Email(message="Ikke gyldig e-post.")
+     * @Assert\Type("string")
      */
     private $email;
     /**
@@ -62,13 +66,17 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @ORM\Column(type="array")
      * @Assert\Valid
+     * @Assert\All({
+     *     @Assert\NotBlank(message="Dette feltet kan ikke være tomt."),
+     *     @Assert\Length(min = 3),
+	 *     @Assert\Choice({"ROLE_GUEST", "ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR", "IS_AUTHENTICATED_FULLY"})
+     * })
      */
     private $roles;
     /**
      * @ORM\column(type="string", nullable=true)
      */
     private $new_user_code;
-
     /**
      * The auto generated salt for the user
      *
@@ -79,12 +87,26 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="string", length = 64)
      */
     private $salt;
+    /**
+     * @ORM\OneToOne(targetEntity="Person")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     */
+    private $person;
+    /**
+     * @ORM\ManyToMany(targetEntity="Company")
+     * @ORM\JoinTable(name="users_companies",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *      )
+     */
+    private $companies;
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->isActive = false;
         $this->picture_path = 'static/images/person/defaultprofile.png';
+	$this->companies = new ArrayCollection();
     }
     public function getId()
     {
@@ -226,7 +248,6 @@ class User implements AdvancedUserInterface, \Serializable
     {
         return $this->phone;
     }
-
 
     /**
      * Add roles.

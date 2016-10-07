@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * AppBundle\Entity\Project.
  *
  * @ORM\Table(name="project")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ProjectRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
  * @UniqueEntity(
  *      fields={"id"},
  *      message="Denne ID er allerede i bruk.",
@@ -27,10 +27,12 @@ class Project
     /**
      * @ORM\Column(type="string", length=45)
      * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
+     * @Assert\Type("string")
      */
     private $name;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
      */
     private $field;
     /**
@@ -42,14 +44,20 @@ class Project
      */
     private $enddate;
     /**
-     * @ORM\Column(type="string", length=45)
+     * An array of two floats.
+	 * @ORM\Column(type="array")
+     * @Assert\All({
+     *     @Assert\NotBlank,
+	 *     @Assert\Range(min=-90, max=90)
+     * })
      */
     private $location;
     /**
-     * 
-     *
      * @ORM\Column(type="array")
-     * @Assert\Valid
+     * @Assert\All({
+     *     @Assert\NotBlank,
+     *     @Assert\Length(min = 5)
+     * })
      */
     private $technicalSolutions;
     /**
@@ -57,9 +65,19 @@ class Project
      */
     private $description;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Actor")
+     * @ORM\JoinTable(name="projects_actors",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id")}
+     *      )
+     */
+    private $actors;
+
     public function __construct()
     {
         $this->technicalSolutions = new ArrayCollection();
+        $this->actors = new ArrayCollection();
     }
     /**
      * Get id
@@ -170,7 +188,7 @@ class Project
     /**
      * Set location
      *
-     * @param string $location
+     * @param array $location
      *
      * @return Project
      */
@@ -184,7 +202,7 @@ class Project
     /**
      * Get location
      *
-     * @return string
+     * @return array
      */
     public function getLocation()
     {
