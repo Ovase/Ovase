@@ -48,6 +48,7 @@ class Company extends Actor
     private $persons;
 
     public function __construct() {
+        //parent::__construct(); // Not needed?
         $this->persons = new ArrayCollection();
     }
 
@@ -121,6 +122,27 @@ class Company extends Actor
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Add persons.
+     *
+     * @param Person $person
+     *
+     * @return Company
+     */
+    public function addRole($person)
+    {
+        $this->persons[] = $person;
+        return $this;
+    }
+    /**
+     * Remove persons.
+     *
+     * @param Person $person
+     */
+    public function removeRole($person)
+    {
+        $this->persons->removeElement($person);
     }
 }
 
