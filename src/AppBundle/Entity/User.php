@@ -38,7 +38,7 @@ class User implements AdvancedUserInterface, \Serializable
     private $firstName;
     /**
      * @ORM\Column(type="string", length=45)
-     * @Assert\Url(message = "'{{ value }}'er ikke en gyldig url")
+     * @Assert\Type("string")
      */
     private $picture_path;
     /**
