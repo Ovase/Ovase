@@ -9,6 +9,8 @@
 			<link href="{{ asset('static/css/normalize.css') }}" rel="stylesheet" type="text/css">
 			<link href="{{ asset('static/css/style.css') }}" rel="stylesheet" type="text/css">
 			<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		{% endblock %}
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 		{% block javascripts %}
@@ -26,18 +28,17 @@
 	<body>
 			{% block header %}
 				<header>
-					<nav class="navbar navbar-fixed-top" role="navigation" style="background: #E5E5E5 !important;border-bottom: 1px solid #E5E5E5 !important;color: #6D6D6D !important;">
+					<nav class="navbar navbar-fixed-top" style="background: #E5E5E5 !important;border-bottom: 1px solid #E5E5E5 !important;color: #6D6D6D !important;">
 						<div class="container">
 							<p style="color:#6D6D6D;font-weight:400;font-size:200%;"> OVASE </p>
 								<div class="navbar-header">
-							    	<button type="button" class="navbar-toggle" style="margin-top: 13px;margin-left: 60px;background-color: #E5E5E5;border: 1px solid #000000;color: #6F6F6F;font-weight: 700;">
-							        	<span class="sr-only">Toggle navigation</span>
+							    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-top: 13px;margin-left: 60px;background-color: #E5E5E5;border: 1px solid #000000;color: #6F6F6F;font-weight: 700;">
 							        	<span class="icon-bar"></span>
 							        	<span class="icon-bar"></span>
 							        	<span class="icon-bar"></span>
 							      	</button>
 							    </div>
-							<div class={"navbar-collapse"} id="bs-example-navbar-collapse-1">
+							<div class="collapse navbar-collapse" id="myNavbar">
 						    	<ul class="nav navbar-nav" style={navbarButtonStyle}>
 									<li>
 										<a href="{{ path('home') }}" style="color:#6D6D6D;font-weight: 700;">FRAMSIDE</a>
