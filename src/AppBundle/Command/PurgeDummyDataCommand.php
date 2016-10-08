@@ -4,10 +4,11 @@ namespace AppBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Person;
-use AppBundle\Entity\Company;
-use AppBundle\Entity\Project;
+use AppBundle\Repository\UserRepository;
+use AppBundle\Repository\PersonRepository;
+use AppBundle\Repository\CompanyRepository;
+use AppBundle\Repository\ProjectRepository;
+
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \DateTime;
 
@@ -52,7 +53,45 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
         $projrepo = $em->getRepository("AppBundle:Project");
         $prepo = $em->getRepository("AppBundle:Person");
 
+        // Fetch test users
+        $pet = $userrepo->findUserByEmail("petjo@ovase.no");
+        $derp = $userrepo->findUserByEmail("derp@ovase.no");
+        $anine = $userrepo->findUserByEmail("redaktor@ovase.no");
 
+        // Fetch arrays of test objects
+        $persons = $prepo->findTestPersons();
+        $projects = $projrepo->findTestProjects();
+        $comps = $comprepo->findTestCompanies();
+
+        // Attempt to delete all the things
+        foreach ($persons as $pe) {
+            try {
+                $em->remove($pe);
+            } catch (\Exception $t) {
+                $output->writeln($t->getMessage());
+            }
+        }
+        foreach ($projects as $pe) {
+            try {
+                $em->remove($pe);
+            } catch (\Exception $t) {
+                $output->writeln($t->getMessage());
+            }
+        }
+        foreach ($comps as $pe) {
+            try {
+                $em->remove($pe);
+            } catch (\Exception $t) {
+                $output->writeln($t->getMessage());
+            }
+        }
+        foreach (array($pet, $derp, $anine) as $pe) {
+            try {
+                $em->remove($pe);
+            } catch (\Exception $t) {
+                $output->writeln($t->getMessage());
+            }
+        }
 
 		$em->flush();
 		$em->close();
