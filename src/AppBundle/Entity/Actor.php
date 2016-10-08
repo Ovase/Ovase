@@ -73,7 +73,7 @@ class Actor
     private $email;
     /**
      * An array of two floats.
-	 * @ORM\Column(type="array")
+	 * @var array
      * @Assert\All({
      *     @Assert\NotBlank,
 	 *     @Assert\Range(min=-90, max=90)
@@ -198,7 +198,7 @@ class Actor
      *
      * @param array $location
      *
-     * @return Project
+     * @return Actor
      */
     public function setLocation($location)
     {
@@ -231,7 +231,7 @@ class Actor
      *
      * @param string $email
      *
-     * @return Person
+     * @return Actor
      */
     public function setEmail($email)
     {
