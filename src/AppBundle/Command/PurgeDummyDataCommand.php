@@ -54,9 +54,9 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
         $prepo = $em->getRepository("AppBundle:Person");
 
         // Fetch test users
-        $pet = $userrepo->findUserByEmail("petjo@ovase.no");
-        $derp = $userrepo->findUserByEmail("derp@ovase.no");
-        $anine = $userrepo->findUserByEmail("redaktor@ovase.no");
+        $pet = $userrepo->findUserByEmail("petjo@test.test");
+        $derp = $userrepo->findUserByEmail("derp@test.test");
+        $anine = $userrepo->findUserByEmail("redaktor@test.test");
 
         // Fetch arrays of test objects
         $persons = $prepo->findTestPersons();

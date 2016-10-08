@@ -49,9 +49,9 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine');
 
 		// Creating test users for testing authorization - refer to these when logging into secured areas of KMS
-		$guestuser = $this->createUser('petjo@ovase.no', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "ROLE_GUEST"); // Sentinel value: $email == 'petjo@ovase.no'
-        $plainuser = $this->createUser('derp@ovase.no', 'Bruker', 'Ny', '72171642', '_Dx9QZQSVXgzkj4$', "ROLE_USER"); // Sentinel value: 'derp@ovase.no'
-        $editoruser = $this->createUser('redaktor@ovase.no', 'Drageset', 'Anine', '73075003', '-PWbZT9a%wScj&z$', "ROLE_EDITOR"); // Sentinel value: 'redaktor@ovase.no'
+		$guestuser = $this->createUser('petjo@test.test', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "ROLE_GUEST"); // Sentinel value: $email == 'petjo@ovase.no'
+        $plainuser = $this->createUser('derp@test.test', 'Bruker', 'Ny', '72171642', '_Dx9QZQSVXgzkj4$', "ROLE_USER"); // Sentinel value: 'derp@ovase.no'
+        $editoruser = $this->createUser('redaktor@test.test', 'Drageset', 'Anine', '73075003', '-PWbZT9a%wScj&z$', "ROLE_EDITOR"); // Sentinel value: 'redaktor@ovase.no'
         // Define a couple of Person Actor thingies
         $ad = $this->createActor('Drageset', 'Anine', '73075003', array("water engineering","energy","rain gardening","spray ponds"), "TEST", array(63.506144,9.20091), 'redaktor@ovase.no'); // Sentinel value: $field == "TEST"
         $gg = $this->createActor('Gundersen', 'Gunder', '55229068', array("rain gardening","spray ponds", "green roof", "skybruddsikring"), "TEST", array(60.389444,5.33), 'gundersen@nulrik.no');
