@@ -71,6 +71,16 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $em->persist($guestuser);
         $em->persist($plainuser);
         $em->persist($editoruser);
+        $em->persist($gg);
+        $em->persist($bh);
+        $em->persist($ad);
+        $em->persist($pl);
+        $em->persist($sm);
+        $em->persist($ovase);
+        $em->persist($uncas);
+        $em->persist($okr);
+        $em->persist($pa);
+        $em->persist($pb);
 
 
 		$em->flush();
