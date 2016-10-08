@@ -49,24 +49,24 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine');
 
 		// Creating test users for testing authorization - refer to these when logging into secured areas of KMS
-		$guestuser = $this->createUser('petjo@ovase.no', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "ROLE_GUEST");
-        $plainuser = $this->createUser('derp@ovase.no', 'Bruker', 'Ny', '72171642', '_Dx9QZQSVXgzkj4$', "ROLE_USER");
-        $editoruser = $this->createUser('redaktor@ovase.no', 'Drageset', 'Anine', '73075003', '-PWbZT9a%wScj&z$', "ROLE_EDITOR");
+		$guestuser = $this->createUser('petjo@ovase.no', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "ROLE_GUEST"); // Sentinel value: $email == 'petjo@ovase.no'
+        $plainuser = $this->createUser('derp@ovase.no', 'Bruker', 'Ny', '72171642', '_Dx9QZQSVXgzkj4$', "ROLE_USER"); // Sentinel value: 'derp@ovase.no'
+        $editoruser = $this->createUser('redaktor@ovase.no', 'Drageset', 'Anine', '73075003', '-PWbZT9a%wScj&z$', "ROLE_EDITOR"); // Sentinel value: 'redaktor@ovase.no'
         // Define a couple of Person Actor thingies
-        $ad = $this->createActor('Drageset', 'Anine', '73075003', array("water engineering","energy","rain gardening","spray ponds"), "water engineering", array(63.506144,9.20091), 'redaktor@ovase.no');
-        $gg = $this->createActor('Gundersen', 'Gunder', '55229068', array("rain gardening","spray ponds", "green roof", "skybruddsikring"), "consultant", array(60.389444,5.33), 'gundersen@nulrik.no');
-        $bh = $this->createActor('Holt', 'Bjørn', '23265681', array("documentation","multifunctional playground", "green roof", "stormwater on road"), "public sector", array(59.95,10.75), 'fylking@osloregn.no');
-        $pl = $this->createActor('Langdal', 'Peder', '73300570', array("systems administration","multifunctional playground", "green roof", "linux", "booboo"), "computer science", array(63.506144,9.20091), 'admin@ovase.no');
-        $sm = $this->createActor('Multitask', 'Stine', '23186562', array("rain harvest", "documentation", "multifunctional playground", "green roof", "stormwater on road", "water engineering","energy","rain gardening","spray ponds"), "public sector", array(60.389444,5.33), 'travel@nulrik.no'); // Works for all three companies??
+        $ad = $this->createActor('Drageset', 'Anine', '73075003', array("water engineering","energy","rain gardening","spray ponds"), "TEST", array(63.506144,9.20091), 'redaktor@ovase.no'); // Sentinel value: $field == "TEST"
+        $gg = $this->createActor('Gundersen', 'Gunder', '55229068', array("rain gardening","spray ponds", "green roof", "skybruddsikring"), "TEST", array(60.389444,5.33), 'gundersen@nulrik.no');
+        $bh = $this->createActor('Holt', 'Bjørn', '23265681', array("documentation","multifunctional playground", "green roof", "stormwater on road"), "TEST", array(59.95,10.75), 'fylking@osloregn.no');
+        $pl = $this->createActor('Langdal', 'Peder', '73300570', array("systems administration","multifunctional playground", "green roof", "linux", "booboo"), "TEST", array(63.506144,9.20091), 'admin@ovase.no');
+        $sm = $this->createActor('Multitask', 'Stine', '23186562', array("rain harvest", "documentation", "multifunctional playground", "green roof", "stormwater on road", "TEST","energy","rain gardening","spray ponds"), "public sector", array(60.389444,5.33), 'travel@nulrik.no'); // Works for all three companies??
 
         //Define three companies
-        $ovase = $this->createCompany("OVASE", "npo", '913746830', '91376830', array("water engineering","energy","rain gardening","spray ponds","systems administration","multifunctional playground", "green roof", "linux", "kms"), "stormwater", array(63.506144,9.20091), "mail@ovase.no");
-        $uncas = $this->createCompany("Ulrik N Consulting AS", "private entity", "970950446", "57095044", array("rain gardening","spray ponds", "green roof", "skybruddsikring", "bergen", "booboo"), "consulting", array(60.389444,5.33), "to@nulrik.no");
-        $okr = $this->createCompany("Oslo Kommune Regnsekt", "public entity", "985808713", "23579504", array("documentation","water engineering","rain gardening","spray ponds", "green roof"), "rainwater", array(60.389444,5.33), "kontakt@osloregn.no");
+        $ovase = $this->createCompany("OVASE", "npo", '913746830', '91376830', array("water engineering","energy","rain gardening","spray ponds","systems administration","multifunctional playground", "green roof", "linux", "kms"), "TEST", array(63.506144,9.20091), "mail@ovase.no"); // Sentinel value: $field == "TEST"
+        $uncas = $this->createCompany("Ulrik N Consulting AS", "private entity", "970950446", "57095044", array("rain gardening","spray ponds", "green roof", "skybruddsikring", "bergen", "booboo"), "TEST", array(60.389444,5.33), "to@nulrik.no");
+        $okr = $this->createCompany("Oslo Kommune Regnsekt", "public entity", "985808713", "23579504", array("documentation","water engineering","rain gardening","spray ponds", "green roof"), "TEST", array(60.389444,5.33), "kontakt@osloregn.no");
 
         // Define some projects
-        $pa = $this->createProject("Grønt Tak på Operaen", "rainwater", new DateTime('2016-01-01'), new DateTime('2017-07-06'), array(59.906944, 10.753611), array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
-        $pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "multifunctional playground", new DateTime('2016-11-02'), new DateTime('2017-08-08'), array(60.40,6.12), array("rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
+        $pa = $this->createProject("Grønt Tak på Operaen", "TEST", new DateTime('2016-01-01'), new DateTime('2017-07-06'), array(59.906944, 10.753611), array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
+        $pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "TEST", new DateTime('2016-11-02'), new DateTime('2017-08-08'), array(60.40,6.12), array("multifunctional playground","rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
 
         // Define relations
         $editoruser->addCo($ovase);
