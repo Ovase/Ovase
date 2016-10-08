@@ -9,6 +9,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Company;
 use AppBundle\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use \DateTime;
 
 class LoadDummyDataCommand extends ContainerAwareCommand
 {
@@ -62,6 +63,10 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $ovase = $this->createCompany("OVASE", "npo", '913746830', '91376830', array("water engineering","energy","rain gardening","spray ponds","systems administration","multifunctional playground", "green roof", "linux", "kms"), "stormwater", array(63.506144,9.20091), "mail@ovase.no");
         $uncas = $this->createCompany("Ulrik N Consulting AS", "private entity", "970950446", "57095044", array("rain gardening","spray ponds", "green roof", "skybruddsikring", "bergen", "booboo"), "consulting", array(60.389444,5.33), "to@nulrik.no");
         $okr = $this->createCompany("Oslo Kommune Regnsekt", "public entity", "985808713", "23579504", array("documentation","water engineering","rain gardening","spray ponds", "green roof"), "rainwater", array(60.389444,5.33), "kontakt@osloregn.no");
+
+        // Define some projects
+        $pa = $this->createProject("Grønt Tak på Operaen", "rainwater", new DateTime('2016-01-01'), new DateTime('2017-07-06'), array(59.906944, 10.753611), array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
+        $pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "multifunctional playground", new DateTime('2016-11-02'), new DateTime('2017-08-08'), array(60.40,6.12), array("rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
 
         $em->persist($guestuser);
         $em->persist($plainuser);
