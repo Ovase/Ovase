@@ -68,6 +68,23 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $pa = $this->createProject("Grønt Tak på Operaen", "rainwater", new DateTime('2016-01-01'), new DateTime('2017-07-06'), array(59.906944, 10.753611), array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
         $pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "multifunctional playground", new DateTime('2016-11-02'), new DateTime('2017-08-08'), array(60.40,6.12), array("rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
 
+        // Define relations
+        $editoruser->addCo($ovase);
+        $plainuser->addCo($ovase);
+        $editoruser->addCo($uncas);
+        $editoruser->addCo($okr);
+        $ovase->addPerson($pl);
+        $ovase->addPerson($ad);
+        $ovase->addPerson($sm);
+        $uncas->addPerson($sm);
+        $uncas->addPerson($gg);
+        $okr->addPerson($sm);
+        $okr->addPerson($bh);
+        $pa->addActor($ad);
+        $pa->addActor($okr);
+        $pa->addActor($sm);
+        $pb->addActor($uncas);
+
         $em->persist($guestuser);
         $em->persist($plainuser);
         $em->persist($editoruser);
@@ -81,7 +98,6 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $em->persist($okr);
         $em->persist($pa);
         $em->persist($pb);
-
 
 		$em->flush();
 		$em->close();
@@ -174,7 +190,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
         $c->setKeyKnowledges($kkArr);
         $c->setLocation($locTupl);
 
-        return $p;
+        return $c;
     }
 
     /**
