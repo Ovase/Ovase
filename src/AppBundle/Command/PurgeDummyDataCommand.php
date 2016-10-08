@@ -1,5 +1,5 @@
 <?php
-// src/AppBundle/Command/LoadDummyDataCommand.php
+// src/AppBundle/Command/PurgeDummyDataCommand.php
 namespace AppBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,20 +11,20 @@ use AppBundle\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \DateTime;
 
-class LoadDummyDataCommand extends ContainerAwareCommand
+class PurgeDummyDataCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
         // the name of the command (the part after "app/console")
-        ->setName('app:load-test-data')
+        ->setName('app:purge-test-data')
 
         // the short description shown while running "php app/console list"
-        ->setDescription('For devs: Automatically load test data required by tests into Doctrine.')
+        ->setDescription('For devs: Automatically delete ALL test data objects required by tests.')
 
         // the full command description shown when running the command with
         // the "--help" option
-        ->setHelp("This command generates all dummy objects needed for the functional tests.");
+        ->setHelp("This command deletes all test objects used by our tests");
 	}
 
     protected function execute(InputInterface $input, OutputInterface $output)
