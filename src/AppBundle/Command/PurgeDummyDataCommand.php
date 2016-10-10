@@ -31,7 +31,7 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 		// Prohibit command from executing unless we are in the test environment
-		$env = $this->getContainer()->get('app.environment');
+		$env = $this->getContainer()->getParameter('kernel.environment');
 		if (($env != 'dev') || ($env != 'test')) { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
@@ -47,7 +47,7 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
 		$output->write("KILL ALL THE TEST DATAS!\n");
 
 		// Entity Manager
-        $em = $this->getContainer()->get('doctrine');
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $userrepo = $em->getRepository("AppBundle:User");
         $comprepo = $em->getRepository("AppBundle:Company");
         $projrepo = $em->getRepository("AppBundle:Project");

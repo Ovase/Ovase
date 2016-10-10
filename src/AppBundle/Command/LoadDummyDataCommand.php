@@ -30,7 +30,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 		// Prohibit command from executing unless we are in the test environment
-		$env = $this->getContainer()->get('app.environment');
+		$env = $this->getContainer()->getParameter('kernel.environment');
 		if (($env != 'dev') || ($env != 'test')) { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
@@ -46,7 +46,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$output->write("Let's load some test data!\n");
 
 		// Entity Manager
-        $em = $this->getContainer()->get('doctrine');
+        $em = $this->getContainer()->get('doctrine')->getManager();
 
 		// Creating test users for testing authorization - refer to these when logging into secured areas of KMS
 		$guestuser = $this->createUser('petjo@test.test', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "ROLE_GUEST"); // Sentinel value: $email == 'petjo@ovase.no'

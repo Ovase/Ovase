@@ -26,7 +26,7 @@ class CreateUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-		if ($this->getContainer()->get('app.environment') != 'dev') { return; }
+		if ($this->getContainer()->getParameter('kernel.environment') != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'User Creator',
@@ -79,7 +79,7 @@ class CreateUserCommand extends ContainerAwareCommand
 			$ATTEMPTS_LIMIT--;
 		}
 		$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($pass, $salt);
-        $em = $this->getContainer()->get('doctrine');
+		$em = $this->getContainer()->get('doctrine')->getManager();
 		$user = new User();
 		$user->setEmail($uname);
 		$user->setFirstName($firstName);

@@ -27,9 +27,12 @@ class DeleteUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+                // Prohibit command from executing unless we are in the test environment
+                $env = $this->getContainer()->getParameter('kernel.environment');
+                if (($env != 'dev')) { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
-			'User Role delete',
+			'User delete',
 			'============',
 			'',
 		]);
@@ -42,7 +45,7 @@ class DeleteUserCommand extends ContainerAwareCommand
 		$output->write("do sum'thin' BAD.\n");
 		$output->write('\n');
 
-        $em = $this->getContainer()->get('doctrine');
+        $em = $this->getContainer()->get('doctrine')->getManager();
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
