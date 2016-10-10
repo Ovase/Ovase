@@ -17,4 +17,12 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
         return $company;
     }
+    public function findTestCompanies()
+    {
+        return $this->createQueryBuilder('Company')
+            ->select('Company')
+            ->where('Company.field = TEST')
+            ->getQuery()
+            ->getResult();
+    }
 }
