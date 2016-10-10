@@ -54,6 +54,20 @@
 									</li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
+								{% if app.user%}
+									<li>
+										<a href="{{ path('home')}}" class="navbar-txt">
+												<span class="glyphicon glyphicon-user"></span> 
+													Min side
+										</a>
+									</li>
+									<li>
+										<a href="{{ path('logout')}}" class="navbar-txt">
+												<span class="glyphicon glyphicon-log-out"></span> 
+													Logg ut
+										</a>
+									</li>
+								{% else %}
 									<li>
 										<a href="{{ path('create_user')}}" class="navbar-txt">
 											<span class="glyphicon glyphicon-user"></span> 
@@ -63,9 +77,10 @@
 									<li>
 										<a href="{{ path('login') }}" class="navbar-txt">
 											<span class="glyphicon glyphicon-log-in"></span> 
-												Logg Inn
+												Logg inn
 										</a>
 									</li>
+								{% endif %}
 								</ul>
 							</div>
 						</div>
