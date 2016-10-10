@@ -28,4 +28,13 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    public function findTestCompanies()
+    {
+        return $this->createQueryBuilder('Company')
+            ->select('Company')
+            ->where('Company.field = TEST')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -3,7 +3,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * AppBundle\Entity\Project.
@@ -14,7 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      fields={"id"},
  *      message="Denne ID er allerede i bruk.",
  * )
- *
  */
 class Project
 {
@@ -45,7 +44,7 @@ class Project
     private $enddate;
     /**
      * An array of two floats.
-	 * @ORM\Column(type="array")
+	 * @var array
      * @Assert\All({
      *     @Assert\NotBlank,
 	 *     @Assert\Range(min=-90, max=90)
@@ -66,6 +65,7 @@ class Project
     private $description;
 
     /**
+     * @var array
      * @ORM\ManyToMany(targetEntity="Actor")
      * @ORM\JoinTable(name="projects_actors",
      *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
@@ -226,11 +226,11 @@ class Project
     /**
      * Get technicalSolutions
      *
-     * @return array
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getTechnicalSolutions()
     {
-        return $this->technicalSolutions;
+        return $this->technicalSolutions;  // \
     }
 
     /**
@@ -256,5 +256,25 @@ class Project
     {
         return $this->description;
     }
-}
+    /**
+     * Add Actors.
+     *
+     * @param actor $actor
+     *
+     * @return Project
+     */
+    public function addActor($actor)
+    {
+        $this->actors[] = $actor;
+        return $this;
+    }
+    /**
+     * Remove Actors.
+     *
+     * @param actor $actor
+     */
+    public function removeActor($actor)
+    {
+        $this->actors->removeElement($actor);
+    }}
 

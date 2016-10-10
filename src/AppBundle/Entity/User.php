@@ -271,6 +271,27 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles->removeElement($roles);
     }
     /**
+     * Add company the user can edit.
+     *
+     * @param string $company
+     *
+     * @return User
+     */
+    public function addCo($company)
+    {
+        $this->companies[] = $company;
+        return $this;
+    }
+    /**
+     * Revoke a user's right to edit a company.
+     *
+     * @param string $company
+     */
+    public function removeCo($company)
+    {
+        $this->companies->removeElement($company);
+    }
+    /**
      * Set new_user_code.
      *
      * @param string $newUserCode

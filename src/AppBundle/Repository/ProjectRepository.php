@@ -26,4 +26,13 @@ class ProjectRepository extends EntityRepository
         $em->flush();
         return $project;
     }
+    public function findTestProjects()
+    {
+        return $this->createQueryBuilder('Project')
+            ->select('Project')
+            ->where('Project.field = TEST')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
