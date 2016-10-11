@@ -26,7 +26,9 @@ class CreateUserCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-		if ($this->getContainer()->getParameter('kernel.environment') != 'dev') { return; }
+		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
+		// $env = $this->getContainer()->getParameter('kernel.environment');
+		// if (($env != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'User Creator',

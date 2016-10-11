@@ -22,14 +22,14 @@ class DeleteUserCommand extends ContainerAwareCommand
 		
         // the full command description shown when running the command with
         // the "--help" option
-        ->setHelp("This command allows you to change the authorization of someone...");
+        ->setHelp("This command allows you to delete an existing user");
 	}
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-                // Prohibit command from executing unless we are in the test environment
-                $env = $this->getContainer()->getParameter('kernel.environment');
-                if (($env != 'dev')) { return; }
+		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
+		// $env = $this->getContainer()->getParameter('kernel.environment');
+		// if (($env != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'User delete',

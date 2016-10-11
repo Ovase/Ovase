@@ -31,8 +31,8 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 		// Prohibit command from executing unless we are in the test environment
-		$env = $this->getContainer()->getParameter('kernel.environment');
-		//if (($env != 'dev') || ($env != 'test')) { return; }
+		// $env = $this->getContainer()->getParameter('kernel.environment');
+		// if (($env != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'Purging test data. Stand by.',
@@ -57,30 +57,10 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
         $derp = $userrepo->findUserByEmail("derp@test.test");
         $anine = $userrepo->findUserByEmail("redaktor@test.test");
 
-        /* Fetch companies
-		$ovase = 
-        $uncas = 
-		$okr = */
 		// Fetch arrays of test objects
         $actors = $actrepo->findTestActors();
         $projects = $projrepo->findTestProjects();
 		
-/*
-        // Define relations
-        foreach ($projects as $pe) {
-		$ovase->removePerson($pl);
-        $ovase->removePerson($ad);
-        $ovase->removePerson($sm);
-        $uncas->removePerson($sm);
-        $uncas->removePerson($gg);
-        $okr->removePerson($sm);
-        $okr->removePerson($bh);
-        $pa->removeActor($ad);
-        $pa->removeActor($okr);
-        $pa->removeActor($sm);
-        $pb->removeActor($uncas);
-
-*/
         foreach ($anine->getCompanies() as $co) {
 			$anine->removeCo($co);;
 		}
