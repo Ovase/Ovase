@@ -418,5 +418,21 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->email;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
 }
 

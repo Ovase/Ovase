@@ -1,5 +1,6 @@
 <?php
 namespace AppBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,10 +45,10 @@ class Project
     private $enddate;
     /**
      * An array of two floats.
-	 * @var array
+     * @var array
      * @Assert\All({
      *     @Assert\NotBlank,
-	 *     @Assert\Range(min=-90, max=90)
+     *     @Assert\Range(min=-90, max=90)
      * })
      */
     private $location;
@@ -74,11 +75,23 @@ class Project
      */
     private $actors;
 
+    /**
+     * @var array
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="user_can_edit_project",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $users;
+
     public function __construct()
     {
         $this->technicalSolutions = new ArrayCollection();
         $this->actors = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
+
     /**
      * Get id
      *
@@ -256,6 +269,15 @@ class Project
     {
         return $this->description;
     }
+
+    /**
+     * @return array
+     */
+    public function getActors()
+    {
+        return $this->actors;
+    }
+
     /**
      * Add Actors.
      *
@@ -268,6 +290,7 @@ class Project
         $this->actors[] = $actor;
         return $this;
     }
+
     /**
      * Remove Actors.
      *
@@ -276,5 +299,37 @@ class Project
     public function removeActor($actor)
     {
         $this->actors->removeElement($actor);
-    }}
+    }
+
+    /**
+     * Add Users.
+     *
+     * @param user $user
+     *
+     * @return Project
+     */
+    public function addUser($user)
+    {
+        $this->users[] = $user;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Remove Users.
+     *
+     * @param user $user
+     */
+    public function removeUser($user)
+    {
+        $this->users->removeElement($user);
+    }
+}
 

@@ -19,7 +19,12 @@ class CompanyController extends Controller
 
     public function createAction(Request $request)
     {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            throw $this->createAccessDeniedException('Du må være logget inn for å definere et selskap');
+        }
         $company = new Company();
+        $company->addUser($this->getUser());
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 

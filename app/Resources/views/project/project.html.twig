@@ -19,9 +19,13 @@
             {#<p>{{ project.getStartdate() }}</p>#}
             {#<p>{{ project.getEnddate() }}</p>#}
             {#<p>{{ project.getLocation() }}</p>#}
-            <p>{{ project.getTechnicalSolutions() }}</p>
+            {#<p>{{ project.getTechnicalSolutions() }}</p>#}
             <p>{{ project.getDescription() }}</p>
-
+            <br>
+            <h3>Aktører</h3>
+            {% for person in project.getActors() %}
+                <a href="/person/{{ person.getId() }}"><p>{{ person.getId() }} {{ person.getFirstName() }}</p></a>
+            {% endfor %}
         </div>
     </div>
 

@@ -13,7 +13,6 @@ class PersonController extends Controller
 
         $requestID = $request->get('id');
         $person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
-
         return $this->render(':actor:person.html.twig', array('person' => $person));
     }
 
@@ -25,6 +24,11 @@ class PersonController extends Controller
 
         if($form->isSubmitted()){
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
+            $user = $this->getUser();
+            $user->setPerson($person);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
             return $this->redirect('/actor');
         }
         return $this->render(
