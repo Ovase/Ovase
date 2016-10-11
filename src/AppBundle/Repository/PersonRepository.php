@@ -18,15 +18,4 @@ class PersonRepository extends EntityRepository
         $em->flush();
         return $person;
     }
-	public function findTestPersons()
-    {
-        return $this->createQueryBuilder('Person')
-            ->select('Person')
-			->join('Actor')
-            ->where('Actor.field = :t')
-            ->setParameter('t', "TEST")
-            ->getQuery()
-            ->getResult();
-    }
-
 }

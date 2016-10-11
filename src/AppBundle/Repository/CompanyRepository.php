@@ -17,33 +17,4 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
         return $company;
     }
-	public function findTestCompanies()
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-			->join('Actor')
-            ->where('Actor.field = :t')
-            ->setParameter('t', "TEST")
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @param $email
-     *
-     * @return Company
-     *
-     * @throws NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function findCompanyByEmail($email)
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-            ->where('Company.email = :email')
-            ->setParameter('email', $email)
-            ->getQuery()
-            ->getSingleResult();
-    }
-
 }
