@@ -30,7 +30,8 @@ class ProjectRepository extends EntityRepository
     {
         return $this->createQueryBuilder('Project')
             ->select('Project')
-            ->where('Project.field = TEST')
+            ->where('Project.field = :t')
+            ->setParameter('t', "TEST")
             ->getQuery()
             ->getResult();
     }

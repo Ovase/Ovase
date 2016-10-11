@@ -96,7 +96,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\ManyToMany(targetEntity="Company")
      * @ORM\JoinTable(name="users_companies",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $companies;
@@ -247,6 +247,15 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPhone()
     {
         return $this->phone;
+    }
+    /**
+     * Get the companies the user has access to.
+     *
+     * @return array
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
     }
 
     /**

@@ -31,7 +31,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
     {
 		// Prohibit command from executing unless we are in the test environment
 		$env = $this->getContainer()->getParameter('kernel.environment');
-		if (($env != 'dev') || ($env != 'test')) { return; }
+		//if (($env != 'dev') || ($env != 'test')) { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'Injecting test data into database. A similar command for removing this data exists too.',

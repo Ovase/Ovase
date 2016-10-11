@@ -35,7 +35,7 @@ class PromoteUserCommand extends ContainerAwareCommand
         	'',
     	]);
 
-        $em = $this->getContainer()->get('doctrine');
+        $em = $this->getContainer()->get('doctrine')->getManager();
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
@@ -55,7 +55,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 
 		$rolequestion = new ChoiceQuestion(
 			'Please select the user role (defaults to USER)',
-			array("ROLE_USER", "ROLE_GUEST","ROLE_EDITOR"),
+			array("ROLE_GUEST", "ROLE_USER","ROLE_EDITOR"),
 			0
 		);
 		$rolequestion->setErrorMessage('Role %s is invalid.');

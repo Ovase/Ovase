@@ -17,7 +17,7 @@ class DeleteUserCommand extends ContainerAwareCommand
         $this->setName('app:delete-user')
 
         // the short description shown while running "php app/console list"
-        ->setDescription('Give a user a new role.')
+        ->setDescription('Delete a user directly form the database.')
 		->addArgument('username', InputArgument::REQUIRED, 'The username of the user.') // Required argument
 		
         // the full command description shown when running the command with
