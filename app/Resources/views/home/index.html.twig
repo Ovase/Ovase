@@ -1,92 +1,79 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class ="header-container" id="big-header-container">
-        <div class="inner-container" id="header-inner">
-            <header>
-                <div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
-                <div id="title-box">
-                    <h1><a href="/"><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
-                    <h3>OVASE.NO</h3>
+<div style="margin-top:-25px">
+    <div class="col-md-6">
+        <a href="http://ovase.no/wiki/index.php/Forside" class="fp-card">
+            <div class="card fp-card" style="background-color:#d0b4a6">
+                <div class="card-block">
+                    <h1 class="card-title">FAGWIKI</h1>
                 </div>
-                <div id="navigation-box"></div>
-            </header>
-            <div id="below-header">
-                <section class="infobox">
-                    <p>Ovase.no skal samle oppdatert informasjon om overvannsløsninger og være en felles plattform for fagmiljøer og samfunnsparter for å bidra til at vi effektivt får robust og bærekraftig overvannsinfrastruktur i Norge.</p>
-                </section>
+
+                <div class="pull-left" style="margin-left:25px;">
+                    <img src="{{ asset('static/images/index/droplogo.png') }}" alt="Card image" style="max-width:200px;">
+                </div>
+
+                <div class="card-block" style="margin-left:250px">
+                    <p class="card-text" style="font-size:200%">Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
-    <div class="content-container">
-        <div class="inner-container" id="content-inner">
-            <div class="card-box">
-                <section class="card">
-                    <div class="image-container" id="wiki">
-                        <a href="/wiki/"><img src="{{ asset('static/images/index/Fagwiki_gjennomsiktig.png') }}"><a/>
-                    </div>
-                    <a href="/wiki/"><h3>FAGWIKI</h3></a>
-                    <p><a href="/wiki/">Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</a></p>
-                </section>
-                <section class="card-inactive">
-                    <div class="image-container" id="anlegg">
-                        <a href="/anlegg"><h3>ANLEGG</h3><a/>
-                    </div>
-                </section>
-                <section class="card-inactive">
-                    <div class="image-container" id="actor">
-                        <a href="/actor"><h3>AKTØRER</h3><a/>
-                    </div>
-                </section>
-                <section id="produkter" href="#popup1" class="card-inactive">
-                    <div class="image-container" id="produkt">
-                        <a href="#popup3"><img src="{{ asset('static/images/index/Produkter_220x165.jpg') }}"></a>
-                    </div>
-                    <a href="#popup3"><h3>PRODUKTER</h3></a>
-                    <p><a href="#popup3">Finn egnede produkter til dine overvannstiltak</a></p>
-                </section>
+    <div class="col-md-6">
+        <a href="{{ path('projectlist') }}" class="fp-card">   
+            <div class="card fp-card" style="background-color:#a9d1ff">
+                <div class="card-block">
+                    <h1 class="card-title">ANLEGG</h1>
+                </div>
+
+                <div class="pull-left" style="margin-left:25px;">
+                    <img src="{{ asset('static/images/index/citylogo.png') }}" alt="Card image" style="max-width:200px;">
+                </div>
+
+                <div class="card-block" style="margin-left:250px">
+                    <p class="card-text" style="font-size:200%">Bli inspirert av eksisterende norske overvannsanlegg</p>
+                </div>
             </div>
-        </div>
-        <div class="inner-container" id="buffer-container">
-        </div>
+        </a>
     </div>
-    <div id="popup1" class="overlay">
-        <div class="popup">
-            <h2>ANLEGG I NORGE</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                Her kommer OVASEs prosjektdatabase, hvor du kan lære av erfaringer fra eksisterende overvannsanlegg i Norge.
+    
+    <div class="col-md-6"> 
+        <a href="{{ path('actorlist') }}" class="fp-card">
+            <div class="card fp-card" style="background-color:#a1d585">
+                <div class="card-block">
+                    <h1 class="card-title">AKTØRER</h1>
+                </div>
+                <div class="pull-left" style="margin-left:25px">
+                    <img src="{{ asset('static/images/index/citylogo.png') }}" alt="Card image" style="max-width:200px;">
+                </div>
+                <div class="card-block" style="margin-left:250px">
+                    <p class="card-text" style="font-size:200%">Finn bransjeaktører som jobber med overvanns-håndtering</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
-    <div id="popup2" class="overlay">
-        <div class="popup">
-            <h2>BEDRIFTER/PERSONER</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                Her kommer OVASEs kontaktsider, hvor du kan finne organisasjoner, bedrifter og personer med bakgrunn fra ulike fagmiljøer.
+
+    <div class="col-md-6">
+        <a href="{{ path('home') }}" class="fp-card">
+            <div class="card style-bgc-lgrey fp-card">
+                <div class="card-block">
+                    <h1 class="card-title">OM OSS</h1>
+                </div>
+
+                <div class="pull-left" style="margin-left:25px">
+                    <img src="{{ asset('static/images/index/citylogo.png') }}" alt="Card image" style="max-width:200px;">
+                </div>
+
+                <div class="card-block" style="margin-left:250px">
+                    <p class="card-text" style="font-size:200%">Om oss..</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
-    <div id="popup3" class="overlay">
-        <div class="popup">
-            <h2>PRODUKTER</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                Her kommer OVASEs produktsider, hvor du kan få oversikt over produkter som benyttes til overvannshåndtering.
-            </div>
-        </div>
-    </div>
-    <div id="popup4" class="overlay">
-        <div class="popup">
-            <h2>FOTO/ILLUSTRASJONER</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                Fagwiki: GEODATA <br>
-                Anlegg: Bent Braskerud <br>
-                Personer/bedrifter: Adresseavisen <br>
-                Produkter: Wikimedia commons
-            </div>
-        </div>
+
+
+           
+        <p>&nbsp;</p>
+        </br>
     </div>
 {% endblock %}

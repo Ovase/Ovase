@@ -217,6 +217,17 @@ a.navbar-txt {
 	font-weight: 700;
 }
 
+/* --------- FRONT PAGE CARDS --------- */
+.fp-card {
+	width:40vw !important;
+	height:20vw !important;
+}
+
+a.fp-card {
+	text-decoration: none !important;
+	color: black !important;
+}
+
 /* --------- CONTENT --------- */
 
 
@@ -254,146 +265,6 @@ a.navbar-txt {
 
 
 /* --------- INDEX --------- */
-
-.card-box {
-	display: -webkit-flex;
-	-webkit-flex-direction: row;
-	display: flex;
-	flex-direction:row;
-	height: 100%;
-	width: 100%;
-	padding-left: 2em;
-	padding-right: 2em;
-	padding-top: 2em;
-	padding-bottom: 1em;
-	justify-content:space-around;
-	flex-wrap:wrap;
-}
-
-
-.card {
-	width: 200px;
-	margin: 0.5em;
-	
-}
-
-
-.card-inactive {
-	width: 200px;
-	margin: 0.5em;
-}
-
-.card h3 {
-	color: #666666;
-	
-	}
-
-.card:hover h3 {
-	color: #333333;
-}
-
-.card-inactive h3 {
-	color: #999999;
-}
-
-.card-inactive:hover h3 {
-	color: #777777;
-}
-
-.card a {
-	color: #749562;
-	font-weight:200;
-}
-
-.card:hover a {
-	color: #485D3D;
-	font-weight:300;
-}
-
-.card-inactive a {
-	font-weight:200;
-	color: #91AD82;
-}
-.card-inactive:hover a {
-	color:#5C774E;
-	font-weight:300;
-	}
-
-.image-container {
-	height: 150px;
-	width: 200px;
-	overflow: hidden;
-	display: inline-block;
-  	vertical-align: middle;
-  	-webkit-transform: translateZ(0);
-  	transform: translateZ(0);
-  	box-shadow: 0 0 0px  rgba(1, 1, 1, 0.8);
- 	-webkit-backface-visibility: hidden;
- 	backface-visibility: hidden;
- 	-moz-osx-font-smoothing: grayscale;
-  	-webkit-transition-duration: 0.3s;
- 	transition-duration: 0.3s;
- 	-webkit-transition-property: box-shadow, transform;
- 	transition-property: box-shadow, transform;
-
-} 
-
-#wiki {
-	  	box-shadow: 0 0 3px  rgba(1, 1, 1, 0.8);
-}
-
-#personer img {
-	opacity: 0.8;
-}
-#produkter img {
-	opacity: 0.8;
-}
-	
-
-.card:hover .image-container, .image-container:focus, .image-container-shadow:active {
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.01);
-  transform: scale(1.01);
-  
-}
-
-.card-inactive:hover .image-container, .image-container:focus, .image-container-shadow:active {
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.01);
-  transform: scale(1.01);
-  background-color:#CBCBCB;
-}
-  
-  .hvr-grow-shadow {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-  
-}
-
-.image-container img {
-	min-width:100%;
-	max-width:100%;
-	position: relative;
-	-webkit-filter: saturate(70%);
-	opacity:0.9;
-	
-}
-
-.image-container:hover img {
-	position: relative;
-	-webkit-filter: saturate(100%);
-
-}
 
 
 /* -------- POPUP BOX ---------*/
