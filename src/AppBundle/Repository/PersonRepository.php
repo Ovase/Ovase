@@ -11,11 +11,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonRepository extends EntityRepository
 {
-    public function create($person)
-    {
-        $em = $this->getEntityManager();
-        $em->persist($person);
-        $em->flush();
-        return $person;
-    }
+	public function create($person)
+	{
+		$em = $this->getEntityManager();
+		$em->persist($person);
+		$em->flush();
+		return $person;
+	}
 }

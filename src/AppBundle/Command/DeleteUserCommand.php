@@ -11,22 +11,22 @@ use Exception;
 
 class DeleteUserCommand extends ContainerAwareCommand
 {
-    protected function configure()
-    {
-        // the name of the command (the part after "app/console")
-        $this->setName('app:delete-user')
+	protected function configure()
+	{
+		// the name of the command (the part after "app/console")
+		$this->setName('app:delete-user')
 
-        // the short description shown while running "php app/console list"
-        ->setDescription('Delete a user directly form the database.')
+		// the short description shown while running "php app/console list"
+		->setDescription('Delete a user directly form the database.')
 		->addArgument('username', InputArgument::REQUIRED, 'The username of the user.') // Required argument
 		
-        // the full command description shown when running the command with
-        // the "--help" option
-        ->setHelp("This command allows you to delete an existing user");
+		// the full command description shown when running the command with
+		// the "--help" option
+		->setHelp("This command allows you to delete an existing user");
 	}
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+	protected function execute(InputInterface $input, OutputInterface $output)
+	{
 		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
@@ -45,7 +45,7 @@ class DeleteUserCommand extends ContainerAwareCommand
 		$output->write("do sum'thin' BAD.\n");
 		$output->write('\n');
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
+		$em = $this->getContainer()->get('doctrine')->getManager();
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
@@ -68,5 +68,5 @@ class DeleteUserCommand extends ContainerAwareCommand
 		$em->flush();
 		$output->write('\n');
 		$output->write('Bye!\n');
-    }
+	}
 }

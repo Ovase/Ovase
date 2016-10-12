@@ -7,21 +7,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ActorListController extends Controller
 {
-    public function showAction(Request $request)
-    {
-        $companies = $this->get('doctrine')
-            ->getRepository('AppBundle:Company')
-            ->findAll();
+	public function showAction(Request $request)
+	{
+		$companies = $this->get('doctrine')
+			->getRepository('AppBundle:Company')
+			->findAll();
 
-        $persons = $this->get('doctrine')
-            ->getRepository('AppBundle:Person')
-            ->findAll();
+		$persons = $this->get('doctrine')
+			->getRepository('AppBundle:Person')
+			->findAll();
 
-        return $this->render(
-            'actor/actorList.html.twig', array(
-                'companies' => $companies,
-                'persons' => $persons
-            )
-        );
-    }
+		return $this->render(
+			'actor/actorList.html.twig', array(
+				'companies' => $companies,
+				'persons' => $persons
+			)
+		);
+	}
 }

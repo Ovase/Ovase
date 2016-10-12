@@ -14,22 +14,22 @@ use \DateTime;
 
 class PurgeDummyDataCommand extends ContainerAwareCommand
 {
-    protected function configure()
-    {
-        $this
-        // the name of the command (the part after "app/console")
-        ->setName('app:purge-test-data')
+	protected function configure()
+	{
+		$this
+		// the name of the command (the part after "app/console")
+		->setName('app:purge-test-data')
 
-        // the short description shown while running "php app/console list"
-        ->setDescription('For devs: Automatically delete ALL test data objects required by tests.')
+		// the short description shown while running "php app/console list"
+		->setDescription('For devs: Automatically delete ALL test data objects required by tests.')
 
-        // the full command description shown when running the command with
-        // the "--help" option
-        ->setHelp("This command deletes all test objects used by our tests");
+		// the full command description shown when running the command with
+		// the "--help" option
+		->setHelp("This command deletes all test objects used by our tests");
 	}
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+	protected function execute(InputInterface $input, OutputInterface $output)
+	{
 		// Prohibit command from executing unless we are in the test environment
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
@@ -47,49 +47,49 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
 		$output->write("KILL ALL THE TEST DATAS!\n");
 
 		// Entity Manager
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $userrepo = $em->getRepository("AppBundle:User");
-        $actrepo = $em->getRepository("AppBundle:Actor");
-        $projrepo = $em->getRepository("AppBundle:Project");
+		$em = $this->getContainer()->get('doctrine')->getManager();
+		$userrepo = $em->getRepository("AppBundle:User");
+		$actrepo = $em->getRepository("AppBundle:Actor");
+		$projrepo = $em->getRepository("AppBundle:Project");
 
-        // Fetch test users
-        $pet = $userrepo->findUserByEmail("petjo@test.test");
-        $derp = $userrepo->findUserByEmail("derp@test.test");
-        $anine = $userrepo->findUserByEmail("redaktor@test.test");
+		// Fetch test users
+		$pet = $userrepo->findUserByEmail("petjo@test.test");
+		$derp = $userrepo->findUserByEmail("derp@test.test");
+		$anine = $userrepo->findUserByEmail("redaktor@test.test");
 
 		// Fetch arrays of test objects
-        $actors = $actrepo->findTestActors();
-        $projects = $projrepo->findTestProjects();
+		$actors = $actrepo->findTestActors();
+		$projects = $projrepo->findTestProjects();
 		
-        foreach ($anine->getCompanies() as $co) {
+		foreach ($anine->getCompanies() as $co) {
 			$anine->removeCo($co);;
 		}
-        foreach ($derp->getCompanies() as $co) {
+		foreach ($derp->getCompanies() as $co) {
 			$derp->removeCo($co);;
 		}
 
-        // Attempt to delete all the things
-        foreach ($actors as $pe) {
-            try {
-                $em->remove($pe);
-            } catch (\Exception $t) {
-                $output->writeln($t->getMessage());
-            }
-        }
-        foreach ($projects as $pe) {
-            try {
-                $em->remove($pe);
-            } catch (\Exception $t) {
-                $output->writeln($t->getMessage());
-            }
-        }
-        foreach (array($pet, $derp, $anine) as $pe) {
-            try {
-                $em->remove($pe);
-            } catch (\Exception $t) {
-                $output->writeln($t->getMessage());
-            }
-        }
+		// Attempt to delete all the things
+		foreach ($actors as $pe) {
+			try {
+				$em->remove($pe);
+			} catch (\Exception $t) {
+				$output->writeln($t->getMessage());
+			}
+		}
+		foreach ($projects as $pe) {
+			try {
+				$em->remove($pe);
+			} catch (\Exception $t) {
+				$output->writeln($t->getMessage());
+			}
+		}
+		foreach (array($pet, $derp, $anine) as $pe) {
+			try {
+				$em->remove($pe);
+			} catch (\Exception $t) {
+				$output->writeln($t->getMessage());
+			}
+		}
 
 		$em->flush();
 		$em->close();

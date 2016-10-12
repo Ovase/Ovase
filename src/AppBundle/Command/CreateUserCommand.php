@@ -10,22 +10,22 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class CreateUserCommand extends ContainerAwareCommand
 {
-    protected function configure()
-    {
-        $this
-        // the name of the command (the part after "app/console")
-        ->setName('app:create-user')
+	protected function configure()
+	{
+		$this
+		// the name of the command (the part after "app/console")
+		->setName('app:create-user')
 
-        // the short description shown while running "php app/console list"
-        ->setDescription('Create a new user.')
+		// the short description shown while running "php app/console list"
+		->setDescription('Create a new user.')
 		
-        // the full command description shown when running the command with
-        // the "--help" option
-        ->setHelp("This command allows you to create and persist one new user...");
+		// the full command description shown when running the command with
+		// the "--help" option
+		->setHelp("This command allows you to create and persist one new user...");
 	}
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+	protected function execute(InputInterface $input, OutputInterface $output)
+	{
 		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
@@ -98,5 +98,5 @@ class CreateUserCommand extends ContainerAwareCommand
 		$output->write('\n');
 		$output->writeln('Bye!');
 		// WARNING: DO NOT RUN IN prod-mode. Mainly ment for devs ;)
-    }
+	}
 }
