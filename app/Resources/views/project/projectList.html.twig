@@ -13,6 +13,9 @@
 						<button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
 					</span>
 				</div>
+
+				<a href="/anlegg/ny">Lag nytt prosjekt</a>
+				
 			{#</div>#}
 		</div>
 		<div class="card-deck-wrapper">
@@ -44,7 +47,6 @@
 			</div>
 		</div>
 
-		<a href="/anlegg/ny">Lag nytt prosjekt</a>
 
 		<p></p>
 
@@ -56,8 +58,6 @@
 		<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
 	{% endfor %}
 		</br>
-		
+
 
 {% endblock %}
-
-

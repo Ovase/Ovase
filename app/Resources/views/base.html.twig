@@ -30,7 +30,7 @@
 				<header>
 					<nav class="navbar navbar-fixed-top navbar-custom">
 						<div class="container">
-							<p style="color:#6D6D6D;font-weight:400;font-size:200%;"> OVASE </p>
+							<p style="color:#6D6D6D;font-weight:400;font-size:200%;">	<a href="{{ path('home') }}"> OVASE </a> </p>
 								<div class="navbar-header">
 							    	<button type="button" class="navbar-toggle navbar-custom-btn" data-toggle="collapse" data-target="#myNavbar">
 										<span class="icon-bar style-bgc-grey"></span>
@@ -57,26 +57,26 @@
 								{% if app.user%}
 									<li>
 										<a href="{{ path('home')}}" class="navbar-txt">
-												<span class="glyphicon glyphicon-user"></span> 
+												<span class="glyphicon glyphicon-user"></span>
 													Min side
 										</a>
 									</li>
 									<li>
 										<a href="{{ path('logout')}}" class="navbar-txt">
-												<span class="glyphicon glyphicon-log-out"></span> 
+												<span class="glyphicon glyphicon-log-out"></span>
 													Logg ut
 										</a>
 									</li>
 								{% else %}
 									<li>
 										<a href="{{ path('create_user')}}" class="navbar-txt">
-											<span class="glyphicon glyphicon-user"></span> 
+											<span class="glyphicon glyphicon-user"></span>
 												Registrer
 										</a>
 									</li>
 									<li>
 										<a href="{{ path('login') }}" class="navbar-txt">
-											<span class="glyphicon glyphicon-log-in"></span> 
+											<span class="glyphicon glyphicon-log-in"></span>
 												Logg inn
 										</a>
 									</li>
@@ -95,8 +95,8 @@
 				<div class="inner-container" id="footer-inner">
 					<div class="footer">
 						<a href= "{{ path('home') }}" >Hjem</a> |
-						<a href="#">Om siden</a> | 
-						<a href="#popup4">Foto</a> | 
+						<a href="#">Om siden</a> |
+						<a href="#popup4">Foto</a> |
 						Kontakt: mail@ovase.no |
 						{% if app.user%}
 							Du er {{app.user}} |
