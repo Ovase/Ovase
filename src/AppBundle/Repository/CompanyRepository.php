@@ -17,4 +17,23 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
         return $company;
     }
+    public function findCompanyByOrgNr($orgNr)
+    {
+
+        return $this->createQueryBuilder('Comapny')
+            ->select('Comapny')
+            ->where('Comapny.orgNr = :orgNr')
+            ->setParameter('orgNr', $orgNr)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function findTestCompanies()
+    {
+        return $this->createQueryBuilder('Company')
+            ->select('Company')
+            ->where('Company.field = TEST')
+            ->getQuery()
+            ->getResult();
+    }
 }
