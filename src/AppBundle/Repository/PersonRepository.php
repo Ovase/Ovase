@@ -18,7 +18,19 @@ class PersonRepository extends EntityRepository
         $em->flush();
         return $person;
     }
-    public function findTestPersons()
+
+    public function findPersonBySearch($searchTerm)
+    {
+        return $this->createQueryBuilder('Person')
+            ->select('Person')
+            ->where('Person.firstName LIKE :searchTerm')
+            ->orWhere('Person.lastName LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllTestPersons()
     {
         return $this->createQueryBuilder('Person')
             ->select('Person')
@@ -26,5 +38,4 @@ class PersonRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }

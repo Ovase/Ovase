@@ -59,9 +59,9 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
         $anine = $userrepo->findUserByEmail("redaktor@test.test");
 
         // Fetch arrays of test objects
-        $persons = $prepo->findTestPersons();
-        $projects = $projrepo->findTestProjects();
-        $comps = $comprepo->findTestCompanies();
+        $persons = $prepo->findAllTestPersons();
+        $projects = $projrepo->findAllTestProjects();
+        $comps = $comprepo->findAllTestCompanies();
 
         // Attempt to delete all the things
         foreach ($persons as $pe) {

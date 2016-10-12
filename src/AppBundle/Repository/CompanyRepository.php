@@ -18,18 +18,38 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
         return $company;
     }
 
+    public function findCompanyBySearch($searchTerm)
+    {
+        return $this->createQueryBuilder('Company')
+            ->select('Company')
+            ->where('Company.name LIKE :searchTerm')
+            ->orWhere('Company.location LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findCompanyByType($type)
+    {
+        return $this->createQueryBuilder('Company')
+            ->select('Company')
+            ->where('Company.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     public function findCompanyByOrgNr($orgNr)
     {
-
-        return $this->createQueryBuilder('Comapny')
-            ->select('Comapny')
-            ->where('Comapny.orgNr = :orgNr')
+        return $this->createQueryBuilder('Company')
+            ->select('Company')
+            ->where('Company.orgNr = :orgNr')
             ->setParameter('orgNr', $orgNr)
             ->getQuery()
             ->getSingleResult();
     }
 
-    public function findTestCompanies()
+    public function findAllTestCompanies()
     {
         return $this->createQueryBuilder('Company')
             ->select('Company')
