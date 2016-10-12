@@ -9,16 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProjectListController extends Controller
 {
-    public function projectListAction(Request $request)
-    {
-        $projects = $this->get('doctrine')
-            ->getRepository('AppBundle:Project')
-            ->findAll();
+	public function projectListAction(Request $request)
+	{
+		$projects = $this->get('doctrine')
+			->getRepository('AppBundle:Project')
+			->findAll();
 
-        return $this->render(
-            'project/projectList.html.twig', array(
-                'projects' => $projects
-            )
-        );
-    }
+		return $this->render(
+			'project/projectList.html.twig', array(
+				'projects' => $projects
+			)
+		);
+	}
 }

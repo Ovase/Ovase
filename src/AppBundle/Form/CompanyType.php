@@ -10,20 +10,30 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CompanyType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('email', EmailType::class)
-            ->add('name', TextType::class)
-            ->add('type', TextType::class)
-            ->add('org_nr', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'Lag selskap',));
-    }
+	public function buildForm(FormBuilderInterface $builder, array $options)
+	{
+		$builder
+			->add('email', EmailType::class)
+			->add('name', TextType::class)
+			->add('type', TextType::class)
+			->add('org_nr', TextType::class)
+			->add('save', SubmitType::class, array('label' => 'Lag selskap',))
+			->add('captcha', 'captcha', array(
+			'label' => ' ',
+			'width' => 200,
+			'height' => 50,
+			'length' => 5,
+			'quality' =>200,
+			'keep_value' => true,
+			'distortion' => false,
+			'background_color' => [255, 255, 255],
+		));
+	}
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Company',
-        ));
-    }
+	public function configureOptions(OptionsResolver $resolver)
+	{
+		$resolver->setDefaults(array(
+			'data_class' => 'AppBundle\Entity\Company',
+		));
+	}
 }

@@ -8,8 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class HomeController extends Controller
 {
   
-    public function showHomeAction()
-    {
-        return $this->render('home/index.html.twig');
-    }
+	public function showHomeAction()
+	{
+		return $this->render('home/index.html.twig');
+	}
 }
