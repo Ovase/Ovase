@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class PersonType extends AbstractType
 {
@@ -17,7 +18,7 @@ class PersonType extends AbstractType
 			->add('lastName', TextType::class)
 			->add('firstName', TextType::class)
 			->add('save', SubmitType::class, array('label' => 'Lag person',))
-			->add('captcha', 'captcha', array(
+			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,
 			'height' => 50,

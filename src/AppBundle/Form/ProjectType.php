@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class ProjectType extends AbstractType
 {
@@ -23,7 +24,7 @@ class ProjectType extends AbstractType
 //			->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions')))
 			->add('description', TextType::class, array('attr' => array('placeholder' => 'description')))
 			->add('save', SubmitType::class, array ('label' => 'Lag'))
-			->add('captcha', 'captcha', array(
+			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,
 			'height' => 50,

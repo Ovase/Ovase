@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class UserType extends AbstractType
 {
@@ -28,7 +29,7 @@ class UserType extends AbstractType
 			)
 		)
 			->add('save', SubmitType::class, array('label' => 'Registrer bruker',))
-			->add('captcha', 'captcha', array(
+			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,
 			'height' => 50,
