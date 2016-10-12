@@ -69,7 +69,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @Assert\All({
      *     @Assert\NotBlank(message="Dette feltet kan ikke være tomt."),
      *     @Assert\Length(min = 3),
-	 *     @Assert\Choice({"ROLE_GUEST", "ROLE_USER", "ROLE_ADMIN", "ROLE_EDITOR", "IS_AUTHENTICATED_FULLY"})
+	 *     @Assert\Choice({"ROLE_GUEST", "ROLE_USER", "ROLE_EDITOR"})
      * })
      */
     private $roles;
@@ -96,7 +96,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\ManyToMany(targetEntity="Company")
      * @ORM\JoinTable(name="users_companies",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $companies;
@@ -247,6 +247,15 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPhone()
     {
         return $this->phone;
+    }
+    /**
+     * Get the companies the user has access to.
+     *
+     * @return array
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
     }
 
     /**

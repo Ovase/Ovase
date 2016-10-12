@@ -41,8 +41,8 @@ class Company extends Actor
     /**
      * @ORM\ManyToMany(targetEntity="Person")
      * @ORM\JoinTable(name="companies_persons",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $persons;

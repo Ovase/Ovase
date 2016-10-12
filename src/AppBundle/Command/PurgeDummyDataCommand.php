@@ -31,8 +31,8 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 		// Prohibit command from executing unless we are in the test environment
-		$env = $this->getContainer()->get('app.environment');
-		if (($env != 'dev') || ($env != 'test')) { return; }
+		// $env = $this->getContainer()->getParameter('kernel.environment');
+		// if (($env != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
 		$output->writeln([
 			'Purging test data. Stand by.',
@@ -47,24 +47,29 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
 		$output->write("KILL ALL THE TEST DATAS!\n");
 
 		// Entity Manager
-        $em = $this->getContainer()->get('doctrine');
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $userrepo = $em->getRepository("AppBundle:User");
-        $comprepo = $em->getRepository("AppBundle:Company");
+        $actrepo = $em->getRepository("AppBundle:Actor");
         $projrepo = $em->getRepository("AppBundle:Project");
-        $prepo = $em->getRepository("AppBundle:Person");
 
         // Fetch test users
         $pet = $userrepo->findUserByEmail("petjo@test.test");
         $derp = $userrepo->findUserByEmail("derp@test.test");
         $anine = $userrepo->findUserByEmail("redaktor@test.test");
 
-        // Fetch arrays of test objects
-        $persons = $prepo->findTestPersons();
+		// Fetch arrays of test objects
+        $actors = $actrepo->findTestActors();
         $projects = $projrepo->findTestProjects();
-        $comps = $comprepo->findTestCompanies();
+		
+        foreach ($anine->getCompanies() as $co) {
+			$anine->removeCo($co);;
+		}
+        foreach ($derp->getCompanies() as $co) {
+			$derp->removeCo($co);;
+		}
 
         // Attempt to delete all the things
-        foreach ($persons as $pe) {
+        foreach ($actors as $pe) {
             try {
                 $em->remove($pe);
             } catch (\Exception $t) {
@@ -72,13 +77,6 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
             }
         }
         foreach ($projects as $pe) {
-            try {
-                $em->remove($pe);
-            } catch (\Exception $t) {
-                $output->writeln($t->getMessage());
-            }
-        }
-        foreach ($comps as $pe) {
             try {
                 $em->remove($pe);
             } catch (\Exception $t) {

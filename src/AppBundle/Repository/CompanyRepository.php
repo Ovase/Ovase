@@ -17,7 +17,6 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
         $em->flush();
         return $company;
     }
-
     public function findCompanyByOrgNr($orgNr)
     {
 
