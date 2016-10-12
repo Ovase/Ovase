@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-		<div class="row">
+		<div class="row" style="margin-left:20px;">
 			{#<div class="col-lg-3">#}
 				<div class="input-group">
 					<input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
@@ -15,7 +15,35 @@
 				</div>
 			{#</div>#}
 		</div>
-		
+		<div class="card-deck-wrapper">
+  			<div class="card-deck">
+  			{% for project in projects %}
+	  			<div class="col-md-6">
+					<div class="card style-bgc-lgrey" style="outline: 1px solid black; width:500px;">
+						<div class="card-block">
+							<h1 class="card-title">{{ project.getName() }}</h1>
+							<h2 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h2>
+						</div>
+
+						<img src="{{ asset('static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="Card image" style="max-width:500px;">
+
+						<div class="card-block">
+							<p style="font-size:200%; color:black"> Beskrivelse:</p>
+							<p class="card-text">{{ project.getDescription() }} </p>
+						</div>
+						<div class="card-block">
+							<p style="font-size:200%; color:black;">Tekniske løsninger:</p>
+							<p class="card-text">{{ project.getTechnicalSolutions() }}</p>
+						</div>
+						<div class="card-block">
+							<a href="{{ path('project', {'id': project.getId()}) }}" class="card-link">Se mer</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+
 		<a href="/anlegg/ny">Lag nytt prosjekt</a>
 
 		<p></p>
@@ -27,6 +55,8 @@
 	{% for project in projects %}
 		<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
 	{% endfor %}
+		</br>
+		
 
 {% endblock %}
 
