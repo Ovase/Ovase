@@ -9,32 +9,32 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class UserTypeTest extends TypeTestCase
 {
-    public function testSubmitValidData()
-    {
-        $formData = array(
-            'email' => 'nucl3ar5nake@ovase.no',
-            'lastName' => 'Adminsen',
-            'firstName' => 'Gunnar',
-            'phone' => '45133754',
-        );
+	public function testSubmitValidData()
+	{
+		$formData = array(
+			'email' => 'nucl3ar5nake@ovase.no',
+			'lastName' => 'Adminsen',
+			'firstName' => 'Gunnar',
+			'phone' => '45133754',
+		);
 
-        $form = $this->factory->create(UserType::class);
+		$form = $this->factory->create(UserType::class);
 
-        $user = new User();
-        $user->fromArray($formData);
-        //$user = User::fromArray();
+		$user = new User();
+		$user->fromArray($formData);
+		//$user = User::fromArray();
 
-        // submit the data to the form directly
-        $form->submit($formData);
+		// submit the data to the form directly
+		$form->submit($formData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($user, $form->getData());
+		$this->assertTrue($form->isSynchronized());
+		$this->assertEquals($user, $form->getData());
 
-        $view = $form->createView();
-        $children = $view->children;
+		$view = $form->createView();
+		$children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
-            $this->assertArrayHasKey($key, $children);
-        }
-    }
+		foreach (array_keys($formData) as $key) {
+			$this->assertArrayHasKey($key, $children);
+		}
+	}
 }

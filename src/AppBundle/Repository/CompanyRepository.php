@@ -10,51 +10,41 @@ namespace AppBundle\Repository;
  */
 class CompanyRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function create($company)
-    {
-        $em = $this->getEntityManager();
-        $em->persist($company);
-        $em->flush();
-        return $company;
-    }
+	public function create($company)
+	{
+		$em = $this->getEntityManager();
+		$em->persist($company);
+		$em->flush();
+		return $company;
+	}
+	public function findCompanyBySearch($searchTerm)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.name LIKE :searchTerm')
+			->orWhere('Company.location LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			->getQuery()
+			->getResult();
+	}
 
-    public function findCompanyBySearch($searchTerm)
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-            ->where('Company.name LIKE :searchTerm')
-            ->orWhere('Company.location LIKE :searchTerm')
-            ->setParameter('searchTerm', '%'.$searchTerm.'%')
-            ->getQuery()
-            ->getResult();
-    }
+	public function findCompanyByType($type)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.type = :type')
+			->setParameter('type', $type)
+			->getQuery()
+			->getSingleResult();
+	}
 
-    public function findCompanyByType($type)
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-            ->where('Company.type = :type')
-            ->setParameter('type', $type)
-            ->getQuery()
-            ->getSingleResult();
-    }
-
-    public function findCompanyByOrgNr($orgNr)
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-            ->where('Company.orgNr = :orgNr')
-            ->setParameter('orgNr', $orgNr)
-            ->getQuery()
-            ->getSingleResult();
-    }
-
-    public function findAllTestCompanies()
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-            ->where('Company.field = TEST')
-            ->getQuery()
-            ->getResult();
-    }
+	public function findCompanyByOrgNr($orgNr)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.orgNr = :orgNr')
+			->setParameter('orgNr', $orgNr)
+			->getQuery()
+			->getSingleResult();
+	}
 }

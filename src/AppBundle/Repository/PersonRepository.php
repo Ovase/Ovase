@@ -11,31 +11,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonRepository extends EntityRepository
 {
-    public function create($person)
-    {
-        $em = $this->getEntityManager();
-        $em->persist($person);
-        $em->flush();
-        return $person;
-    }
+	public function create($person)
+	{
+		$em = $this->getEntityManager();
+		$em->persist($person);
+		$em->flush();
+		return $person;
+	}
 
-    public function findPersonBySearch($searchTerm)
-    {
-        return $this->createQueryBuilder('Person')
-            ->select('Person')
-            ->where('Person.firstName LIKE :searchTerm')
-            ->orWhere('Person.lastName LIKE :searchTerm')
-            ->setParameter('searchTerm', '%'.$searchTerm.'%')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findAllTestPersons()
-    {
-        return $this->createQueryBuilder('Person')
-            ->select('Person')
-            ->where('Person.field = TEST')
-            ->getQuery()
-            ->getResult();
-    }
+	public function findPersonBySearch($searchTerm)
+	{
+		return $this->createQueryBuilder('Person')
+			->select('Person')
+			->where('Person.firstName LIKE :searchTerm')
+			->orWhere('Person.lastName LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			->getQuery()
+			->getResult();
+	}
 }
