@@ -2,6 +2,7 @@
 namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Ivory\GoogleMap\Base\Coordinate;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -43,12 +44,9 @@ class Project
 	 */
 	private $enddate;
 	/**
-	 * An array of two floats.
-	 * @var array
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Range(min=-90, max=90)
-	 * })
+	 * An array of two floats, a latitude (N) and a longitude (E)
+	 * @var Coordinate
+	 * @Assert\NotBlank,
 	 */
 	private $location;
 	/**
@@ -78,6 +76,7 @@ class Project
 	{
 		$this->technicalSolutions = new ArrayCollection();
 		$this->actors = new ArrayCollection();
+		$this->location = new Coordinate();
 	}
 	/**
 	 * Get id
@@ -186,7 +185,7 @@ class Project
 	}
 
 	/**
-	 * Set location
+	 * Set location from an array{latitude, longitude}
 	 *
 	 * @param array $location
 	 *
@@ -194,7 +193,8 @@ class Project
 	 */
 	public function setLocation($location)
 	{
-		$this->location = $location;
+		$this->location->setLatitude($location[0]); // does it work?
+		$this->location->setLongitude($location[1]); // does it work?
 
 		return $this;
 	}
@@ -202,7 +202,7 @@ class Project
 	/**
 	 * Get location
 	 *
-	 * @return array
+	 * @return Coordinate
 	 */
 	public function getLocation()
 	{

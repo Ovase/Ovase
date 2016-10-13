@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Ivory\GoogleMap\Base\Coordinate;
 
 /**
  * Actor
@@ -72,14 +73,12 @@ class Actor
 	 */
 	private $email;
 	/**
-	 * An array of two floats.
-	 * @var array
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Range(min=-90, max=90)
-	 * })
+	 * An array of two floats, a latitude (N) and a longitude (E)
+	 * @var Coordinate
+	 * @Assert\NotBlank,
 	 */
 	private $location;
+
 
 	public function __construct()
 	{
@@ -194,15 +193,16 @@ class Actor
 		return $this->field;
 	}
 	/**
-	 * Set location
+	 * Set location from an array{latitude, longitude}
 	 *
 	 * @param array $location
 	 *
-	 * @return Actor
+	 * @return Project
 	 */
 	public function setLocation($location)
 	{
-		$this->location = $location;
+		$this->location->setLatitude($location[0]); // does it work?
+		$this->location->setLongitude($location[1]); // does it work?
 
 		return $this;
 	}
@@ -210,7 +210,7 @@ class Actor
 	/**
 	 * Get location
 	 *
-	 * @return array
+	 * @return Coordinate
 	 */
 	public function getLocation()
 	{

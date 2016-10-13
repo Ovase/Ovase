@@ -12,7 +12,6 @@ class ProjectRepository extends EntityRepository
 		return $this->createQueryBuilder('Project')
 			->select('Project')
 			->where('Project.name LIKE :searchTerm')
-			//->orWhere('Project.location LIKE :searchTerm') // will not work. We will implement a map using Google maps instead. To be removed
 //			->orWhere('Project.technicalSolutions LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
 			->getQuery()
