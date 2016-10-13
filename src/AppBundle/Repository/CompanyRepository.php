@@ -22,8 +22,8 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 		return $this->createQueryBuilder('Company')
 			->select('Company')
 			->where('Company.name LIKE :searchTerm')
-			->orWhere('Company.location LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			//->orWhere('Company.location LIKE :searchTerm') // will not work. We will implement a map using Google maps instead. To be removed
+			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
 			->getQuery()
 			->getResult();
 	}
@@ -35,7 +35,7 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 			->where('Company.type = :type')
 			->setParameter('type', $type)
 			->getQuery()
-			->getSingleResult();
+			->getResult();
 	}
 
 	public function findCompanyByOrgNr($orgNr)
