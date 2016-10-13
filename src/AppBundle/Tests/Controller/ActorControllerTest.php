@@ -3,63 +3,72 @@
 namespace AppBundle\Tests\Controller;
 
 
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ActorControllerTest extends WebTestCase
 {
-    function generateRandomString($length = 10) {
-        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
-    }
+	/**
+	 * @var \Doctrine\ORM\EntityManager
+	 */
+	private $em;
 
-    public function testCreateCompany()
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/actor');
-        $links = $crawler
-            ->filter('a:contains("Lag company")');
-        $this->assertEquals(1, $links->count());
+	public function setUp()
+	{
+		self::bootKernel();
+		$this->em = static::$kernel->getContainer()
+			->get('doctrine')
+			->getManager();
+	}
 
-        $link = $links
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+	public function testCreateCompany()
+	{
+		$client = static::createClient();
+		$crawler = $client->request('GET', '/actor');
 
-        $form = $crawler->selectButton('company[save]')->form();
-        $name = $this->generateRandomString(10);
-        $form['company[name]'] = $name;
-        $form['company[email]'] = "{$this->generateRandomString(10)}@{$this->generateRandomString(10)}.com";
-        $form['company[type]'] = $this->generateRandomString(10);
-        $form['company[org_nr]'] = $this->generateRandomString(10);
-        $crawler = $client->submit($form);
+		//Check if link to create company exists
+		$links = $crawler
+			->filter('a:contains("Lag company")');
+		$this->assertEquals(1, $links->count());
 
-        $crawler = $client->followRedirect();
-        $this->assertContains($name, $client->getResponse()->getContent());
-    }
+		$link = $links
+			->eq(0)
+			->link();
+
+		//Click on create company
+		$crawler = $client->click($link);
+		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+		$companyName = 'test selskap';
+		//Get the form
+		$form = $crawler->selectButton('company[save]')->form(array(
+			'company[name]' => $companyName,
+			'company[email]' => 'test@selskap.no',
+			'company[type]' => 'regnbed',
+			'company[org_nr]' => '123123333'
+		));
+		$client->submit($form);
+		$client->followRedirect();
+
+		//Check if the company exists in the list
+		$this->assertContains($companyName, $client->getResponse()->getContent());
+	}
 
 
-    public function testCreatePerson()
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/actor');
-        $links = $crawler
-            ->filter('a:contains("Lag person")');
-        $this->assertEquals(1, $links->count());
-
-        $link = $links
-            ->eq(0)
-            ->link();
-        $crawler = $client->click($link);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $form = $crawler->selectButton('person[save]')->form();
-        $name = $this->generateRandomString(10);
-        $form['person[firstName]'] = $name;
-        $form['person[lastName]'] = $this->generateRandomString(20);
-        $form['person[email]'] = "{$this->generateRandomString(10)}@{$this->generateRandomString(10)}.com";
-        $crawler = $client->submit($form);
-
-        $crawler = $client->followRedirect();
-        $this->assertContains($name, $client->getResponse()->getContent());
-    }
+	public function tearDown()
+	{
+		parent::tearDown();
+		$company = null;
+		try {
+			$company = $this->em->getRepository('AppBundle:Company')->findCompanyByOrgNr('123123333');
+		} catch (NoResultException $t) {
+			$this->em->close();
+			return;
+		}
+		if ($company) {
+			$this->em->remove($company);
+			$this->em->flush();
+		}
+		$this->em->close();
+	}
 }
