@@ -81,6 +81,14 @@ class Actor
 	 */
 	private $location;
 
+	/**
+	 * @var int
+	 *
+	 * @ORM\Column(name="version", type="integer")
+	 * @Assert\Type("integer")
+	 */
+	private $version = 0;
+
 	public function __construct()
 	{
 		$this->keyKnowledges = new ArrayCollection();
@@ -237,6 +245,24 @@ class Actor
 	{
 		$this->email = $email;
 
+		return $this;
+	}
+
+	/**
+	 * Increment version counter
+	 */
+	public function incrementVersion()
+	{
+		$this->version++;
+		return $this;
+	}
+
+	/**
+	 * Reset version counter
+	 */
+	public function resetVersion()
+	{
+		$this->version = 0;
 		return $this;
 	}
 }
