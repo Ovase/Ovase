@@ -25,7 +25,6 @@ class ProjectController extends Controller
 		$map = new Map(); // don't forget to render
 		$project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
 		// Sets the center
-		$map->setCenter(new Coordinate(63.0, 10.0)); // Trondhjæm by <3
 		// Sets full screen control option
 		$map->setMapOption('fullscreenControl', false);
 		// Sets the zoom
@@ -33,18 +32,19 @@ class ProjectController extends Controller
 		// For more options you can set, visit
 		// https://developers.google.com/maps/documentation/javascript/reference#MapOptions
 		
-		/* For each coordinate for each project, put a marker in map
+		/* For each coordinate for each project, put a marker in map -> Projectlist
 		foreach ($actors as $pe) {
 			
 		} */
 		$c = $project->getLocation();
+		$map->setCenter($c);
 		$marker = new Marker(
 			$c,
 			Animation::BOUNCE,
 			null,
 			new MarkerShape(MarkerShapeType::CIRCLE, [1.1, 2.1, 1.4]),
 			['clickable' => true]
-		);
+		); //???
 
 		return $this->render('project/project.html.twig', array('project' => $project, 'map' => $map ));
 	}
