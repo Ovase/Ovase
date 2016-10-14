@@ -240,14 +240,12 @@ a.fp-card {
 	font-size: 3vw !important;
 }
 
-/* ------------ header --------------*/
-#header-logo {
-	max-width: 45px !important;
+#fp-text {
+	margin-left:15vw !important;
 }
 
-a.header-text{
-	text-decoration: none !important;
-	color: grey !important;
+.card-title {
+	padding-top:1vw;
 }
 
 @media screen and (max-width: 991px) {
@@ -267,6 +265,21 @@ a.header-text{
 	.card-title {
 		font-size: 6vw !important;
 	}
+
+	#fp-text {
+		margin-left: 30vw !important;
+	}
+}
+
+
+/* ------------ header --------------*/
+#header-logo {
+	max-width: 45px !important;
+}
+
+a.header-text{
+	text-decoration: none !important;
+	color: grey !important;
 }
 
 /* --------- CONTENT --------- */
