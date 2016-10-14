@@ -36,7 +36,11 @@
 						</div>
 						<div class="card-block">
 							<p style="font-size:200%; color:black;">Tekniske løsninger:</p>
-							<p class="card-text">{{ project.getTechnicalSolutions() }}</p>
+							<p class="card-text">
+							{% for p in project.getTechnicalSolutions() %}
+								{{ p }}
+							{% endfor %}
+							</p>
 						</div>
 						<div class="card-block">
 							<a href="{{ path('project', {'id': project.getId()}) }}" class="card-link">Se mer</a>
