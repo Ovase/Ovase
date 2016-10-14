@@ -228,6 +228,37 @@ a.fp-card {
 	color: black !important;
 }
 
+.card-text {
+		font-size: 2vw !important;
+	}
+
+#fp-icon {
+	max-width: 10vw !important;
+}
+
+.card-title {
+	font-size: 3vw !important;
+}
+
+@media screen and (max-width: 991px) {
+    .fp-card {
+		width:80vw !important;
+		height:40vw !important;
+	}
+
+    .card-text {
+		font-size: 4vw !important;
+	}
+
+	#fp-icon {
+		max-width: 20vw !important;
+	}
+
+	.card-title {
+		font-size: 6vw !important;
+	}
+}
+
 /* --------- CONTENT --------- */
 
 
