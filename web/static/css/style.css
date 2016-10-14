@@ -275,6 +275,7 @@ a.fp-card {
 /* ------------ header --------------*/
 #header-logo {
 	max-width: 45px !important;
+	margin-left: 10px;
 }
 
 a.header-text{
