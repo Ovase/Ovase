@@ -1,5 +1,5 @@
-/* 
-Currently using this palette: 
+/*
+Currently using this palette:
 http://www.colourlovers.com/palette/443995/i_demand_a_pancake
 */
 
@@ -53,13 +53,13 @@ a {
 #header-inner {
 	background-color:rgba(255,255,255,0.2);
 	min-width: 700px;
-	margin: auto; 
+	margin: auto;
 	padding-top: 2%;
 }
 
 
 @media only screen and (max-width: 1000px){
-	
+
 .inner-container {
 	width:100% !important;
 	min-width: 700px;
@@ -77,7 +77,7 @@ a {
 }
 
 @media only screen and (max-width: 700px){
-	
+
 
 .card-box {
 	width: 100% !important;
@@ -240,6 +240,16 @@ a.fp-card {
 	font-size: 3vw !important;
 }
 
+/* ------------ header --------------*/
+#header-logo {
+	max-width: 45px !important;
+}
+
+a.header-text{
+	text-decoration: none !important;
+	color: grey !important;
+}
+
 @media screen and (max-width: 991px) {
     .fp-card {
 		width:80vw !important;
@@ -270,7 +280,7 @@ a.fp-card {
 }
 
 #content-inner {
-	margin: auto; 
+	margin: auto;
 	padding-bottom:;
 	background:rgba(255,255,255,0.7);
 	background: linear-gradient(
@@ -286,7 +296,7 @@ a.fp-card {
 	rgba(255,255,255,0.2)
 	);
 
-	
+
 }
 
 #buffer-container {
@@ -385,14 +395,14 @@ h1 {
 .footer-container {
 	color: #6D6D6D;
 	background-color: #E5E5E5;
-	
+
 }
 
 #footer-inner {
 	width: 1000px;
 	margin: auto;
 	height: 100%;
-	
+
 }
 
 .footer {
@@ -418,6 +428,3 @@ h1 {
 
 
 /* --------- STICKY FOOTER --------- */
-
-
-
