@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
 			new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 			new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
-			new Http\HttplugBundle\HttplugBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

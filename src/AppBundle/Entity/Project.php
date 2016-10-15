@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ivory\GoogleMap\Base\Coordinate;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Ivory\GoogleMap\Places\AutocompleteType;
 
 /**
  * AppBundle\Entity\Project.
@@ -47,6 +48,7 @@ class Project
 	 * An array of two floats, a latitude (N) and a longitude (E)
 	 * @var Coordinate
 	 * @Assert\NotBlank,
+	 * @Assert\NotNull
 	 */
 	private $location;
 	/**
@@ -61,6 +63,8 @@ class Project
 	 * @ORM\Column(type="text")
 	 */
 	private $description;
+	// @var string
+	private $place;
 
 	/**
 	 * @var array
@@ -76,7 +80,7 @@ class Project
 	{
 		$this->technicalSolutions = new ArrayCollection();
 		$this->actors = new ArrayCollection();
-		$this->location = new Coordinate();
+		$this->location = new Coordinate(0.0,0.0); // Default value of location is Equator :o
 	}
 	/**
 	 * Get id
@@ -111,6 +115,31 @@ class Project
 	{
 		return $this->name;
 	}
+
+	/**
+	 * Set place. To be converted to Location??
+	 *
+	 * @param string $place
+	 *
+	 * @return Project
+	 */
+	public function setPlace($place)
+	{
+		$this->place = $place;
+
+		return $this;
+	}
+
+	/**
+	 * Get place
+	 *
+	 * @return string
+	 */
+	public function getPlace()
+	{
+		return $this->place;
+	}
+
 
 	/**
 	 * Set field

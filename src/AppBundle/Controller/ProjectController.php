@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ivory\GoogleMap\Map;
 use Ivory\GoogleMap\MapTypeId;
 use Ivory\GoogleMap\Base\Coordinate;
-use Ivory\GoogleMap\Map;
+//use Ivory\GoogleMapBundle\Model\Map;
 use Ivory\GoogleMap\Overlay\Marker;
 use Ivory\GoogleMap\Overlay\Animation;
 use Ivory\GoogleMap\Overlay\Icon;
@@ -22,9 +22,10 @@ class ProjectController extends Controller
 	public function showAction(Request $request)
 	{
 		$requestID = $request->get('id');
-		$map = new Map(); // don't forget to render
+		//$map = new Map(); // don't forget to render
+		$map = $this->get('ivory_google_map.map'); // Usage as of 2.2.1?
 		$project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
-		// Sets the center
+
 		// Sets full screen control option
 		$map->setMapOption('fullscreenControl', false);
 		// Sets the zoom
@@ -36,7 +37,7 @@ class ProjectController extends Controller
 		foreach ($actors as $pe) {
 			
 		} */
-		$c = $project->getLocation();
+		$c = $project->getLocation(); // Must be a vaild array
 		$map->setCenter($c);
 		$marker = new Marker(
 			$c,
@@ -46,7 +47,7 @@ class ProjectController extends Controller
 			['clickable' => true]
 		); //???
 
-		return $this->render('project/project.html.twig', array('project' => $project, 'map' => $map ));
+		return $this->render('project/project.html.twig', array('project' => $project, 'map' => $map, 'marker' => $marker ));
 	}
 
 	public function createAction(Request $request)
@@ -60,7 +61,7 @@ class ProjectController extends Controller
 		}
 		return $this->render(
 			'project/create.html.twig', array(
-				'form' => $form -> createView()
+				'form' => $form -> createView(),
 			)
 		);
 	}
