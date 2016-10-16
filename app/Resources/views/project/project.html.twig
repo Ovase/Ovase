@@ -18,12 +18,16 @@
 			<p>{{ project.getField () }}</p>
 			{#<p>{{ project.getStartdate() }}</p>#}
 			{#<p>{{ project.getEnddate() }}</p>#}
-			{#<p>{{ project.getLocation() }}</p>#}
-			<p>{{ project.getTechnicalSolutions() }}</p>
+			{# {{ project.getLocation() }} and {{key}} is used for the api-call #}
+			{#<p>{{ project.getTechnicalSolutions() }}</p>#}
 			<p>{{ project.getDescription() }}</p>
-			{#<p>{{ google_map(map) }}</p>#}
-			{#<p>{{ ivory_google_api([map]) }}</p>#}
-
+			<p>{{ project.getLocation() }}</p>
+			<iframe
+			width="600"
+			height="450"
+			frameborder="0" style="border:0"
+			src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ project.getLocation() }}" allowfullscreen>
+			</iframe>
 		</div>
 	</div>
 

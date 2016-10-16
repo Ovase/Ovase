@@ -2,10 +2,8 @@
 namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Ivory\GoogleMap\Base\Coordinate;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Ivory\GoogleMap\Places\AutocompleteType;
 
 /**
  * AppBundle\Entity\Project.
@@ -45,13 +43,6 @@ class Project
 	 */
 	private $enddate;
 	/**
-	 * An array of two floats, a latitude (N) and a longitude (E)
-	 * @var Coordinate
-	 * @Assert\NotBlank,
-	 * @Assert\NotNull
-	 */
-	private $location;
-	/**
 	 * @ORM\Column(type="array")
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
@@ -63,8 +54,11 @@ class Project
 	 * @ORM\Column(type="text")
 	 */
 	private $description;
-	// @var string
-	private $place;
+	/**
+	 * Field for storing the address of the project
+	 * @ORM\Column(type="text")
+	 */
+	private $location;
 
 	/**
 	 * @var array
@@ -80,7 +74,6 @@ class Project
 	{
 		$this->technicalSolutions = new ArrayCollection();
 		$this->actors = new ArrayCollection();
-		$this->location = new Coordinate(0.0,0.0); // Default value of location is Equator :o
 	}
 	/**
 	 * Get id
@@ -117,27 +110,27 @@ class Project
 	}
 
 	/**
-	 * Set place. To be converted to Location??
+	 * Set location.
 	 *
-	 * @param string $place
+	 * @param string $location
 	 *
 	 * @return Project
 	 */
-	public function setPlace($place)
+	public function setLocation($location)
 	{
-		$this->place = $place;
+		$this->location = $location;
 
 		return $this;
 	}
 
 	/**
-	 * Get place
+	 * Get location
 	 *
 	 * @return string
 	 */
-	public function getPlace()
+	public function getLocation()
 	{
-		return $this->place;
+		return $this->location;
 	}
 
 
@@ -214,31 +207,6 @@ class Project
 	}
 
 	/**
-	 * Set location from an array{latitude, longitude}
-	 *
-	 * @param Coordinate $location
-	 *
-	 * @return Project
-	 */
-	public function setLocation($location)
-	{
-		$this->location->setLatitude($location->getLatitude()); // does it work?
-		$this->location->setLongitude($location->getLongitude()); // does it work?
-
-		return $this;
-	}
-
-	/**
-	 * Get location
-	 *
-	 * @return Coordinate
-	 */
-	public function getLocation()
-	{
-		return $this->location;
-	}
-
-	/**
 	 * Set technicalSolutions
 	 *
 	 * @param array $technicalSolutions
@@ -259,7 +227,7 @@ class Project
 	 */
 	public function getTechnicalSolutions()
 	{
-		return $this->technicalSolutions;  // \
+		return $this->technicalSolutions;
 	}
 
 	/**

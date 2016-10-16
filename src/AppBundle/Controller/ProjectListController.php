@@ -2,11 +2,9 @@
 
 namespace AppBundle\Controller;
 
-
 use AppBundle\Form\SearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Buzz\Browser;
 
 class ProjectListController extends Controller
 {

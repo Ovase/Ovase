@@ -2,17 +2,20 @@
 
 namespace AppBundle\Form;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+
+/* // Hidden imports that may be used if the IvoryGoogleMaps library is installed
 use Ivory\GoogleMapBundle\Form\Type\PlacesAutocompleteType;
 use Ivory\GoogleMap\Places\AutocompleteComponentRestriction;
 use Ivory\GoogleMap\Places\AutocompleteType;
+*/
 
 class ProjectType extends AbstractType
 {
@@ -24,10 +27,10 @@ class ProjectType extends AbstractType
 			->add('startdate', DateTimeType::class)
 			->add('enddate', DateTimeType::class)
 //			->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions'))) // To be changed
-			->add('description', TextType::class, array('attr' => array('placeholder' => 'description')))
+			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'description')))
 			
-			// Field to input address. Gets used up to 2500 times a day. That means up to 2500 edits and creations per day.
-			->add('place', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
+			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
