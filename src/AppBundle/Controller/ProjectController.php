@@ -16,6 +16,7 @@ use Ivory\GoogleMap\Overlay\Animation;
 use Ivory\GoogleMap\Overlay\Icon;
 use Ivory\GoogleMap\Overlay\MarkerShape;
 use Ivory\GoogleMap\Overlay\MarkerShapeType;
+use Buzz\Browser;
 
 class ProjectController extends Controller
 {
@@ -56,6 +57,12 @@ class ProjectController extends Controller
 		$form = $this->createForm(ProjectType::class, $project);
 		$form->handleRequest($request);
 		if($form->isValid()){
+			$geocoder = $this->get('ivory_google_map.geocoder'); // instantiate geocoder service
+			// Geocode the address from place.
+			$response = $geocoder->geocode($project->getPlace()); // returns a collection of addresses, assuming only one address is there...
+			$results = $response->getResults();
+			$first = reset($results); // the safe way of getting the first element in the array
+			if ($first) { $project->setLocation($first->getGeometry()->getLocation()); } // else we keep the default at Equator
 			$this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
 			return $this->redirect('/anlegg');
 		}

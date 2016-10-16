@@ -25,16 +25,14 @@ class ProjectType extends AbstractType
 			->add('enddate', DateTimeType::class)
 //			->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions'))) // To be changed
 			->add('description', TextType::class, array('attr' => array('placeholder' => 'description')))
-			->add('save', SubmitType::class, array ('label' => 'Lag'))
 			
-			// Field to input
+			// Field to input address. Gets used up to 2500 times a day. That means up to 2500 edits and creations per day.
+			->add('place', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
 				// Javascript prefix variable
 				'prefix' => 'js_prefix_',
-
-				// Autocomplete bound (array|Ivory\GoogleMap\Base\Bound)
-				//'bound'  => $bound,
 
 				// Autocomplete types
 				'types'  => array(
@@ -47,22 +45,22 @@ class ProjectType extends AbstractType
 				// Autocomplete component restrictions
 				'component_restrictions' => array(
 					AutocompleteComponentRestriction::COUNTRY => 'no',
-					/* Other possible restrictions include 	63.4297222, 10.3933333
+					Other possible restrictions include 	63.4297222, 10.3933333
 					AutocompleteComponentRestriction::ROUTE => 'route';
 					AutocompleteComponentRestriction::LOCALITY => 'locality';
 					AutocompleteComponentRestriction::ADMINISTRATIVE_AREA => 'administrative_area';
 					AutocompleteComponentRestriction::POSTAL_CODE => 'postal_code';
 					AutocompleteComponentRestriction::COUNTRY => 'country';
-					*/
+					
 				),
 
 				// TRUE if the autocomplete is loaded asynchonously else FALSE
 				'async' => false,
 
 				// Autocomplete language
-				'language' => 'en', // alternatively, no for Norwegian
+				'language' => 'no', // alternatively, en for English
 			))
-
+			*/
 			->add('captcha', CaptchaType::class, array(
 				'label' => ' ',
 				'width' => 200,
@@ -71,7 +69,8 @@ class ProjectType extends AbstractType
 				'quality' =>200,
 				'keep_value' => true,
 				'distortion' => false,
-				'background_color' => [255, 255, 255]));
+				'background_color' => [255, 255, 255]))
+			->add('save', SubmitType::class, array ('label' => 'Lag'));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

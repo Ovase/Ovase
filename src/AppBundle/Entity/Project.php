@@ -216,14 +216,14 @@ class Project
 	/**
 	 * Set location from an array{latitude, longitude}
 	 *
-	 * @param array $location
+	 * @param Coordinate $location
 	 *
 	 * @return Project
 	 */
 	public function setLocation($location)
 	{
-		$this->location->setLatitude($location[0]); // does it work?
-		$this->location->setLongitude($location[1]); // does it work?
+		$this->location->setLatitude($location->getLatitude()); // does it work?
+		$this->location->setLongitude($location->getLongitude()); // does it work?
 
 		return $this;
 	}
