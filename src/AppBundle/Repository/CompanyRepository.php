@@ -28,6 +28,17 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 			->getSingleResult();
 	}
 
+	public function findBySearch($searchTerm)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.name LIKE :searchTerm')
+//			->orWhere('Company.location LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			->getQuery()
+			->getResult();
+	}
+
 	public function findTestCompanies()
 	{
 		return $this->createQueryBuilder('Company')
