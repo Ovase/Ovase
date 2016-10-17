@@ -14,7 +14,7 @@ class PersonSearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', SearchType::class, array('attr' => array('placeholder' => 'Søk på navn...')))
+            ->add('search', SearchType::class, array('attr' => array('placeholder' => 'Søk på fornavn eller etternavn')))
             ->add('save', SubmitType::class, array ('label' => 'Søk'));
     }
 

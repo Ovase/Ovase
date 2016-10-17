@@ -19,7 +19,6 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 	}
 	public function findCompanyByOrgNr($orgNr)
 	{
-
 		return $this->createQueryBuilder('Comapny')
 			->select('Comapny')
 			->where('Comapny.orgNr = :orgNr')
