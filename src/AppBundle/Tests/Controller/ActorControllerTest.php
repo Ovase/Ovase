@@ -2,7 +2,6 @@
 
 namespace AppBundle\Tests\Controller;
 
-
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -28,7 +27,7 @@ class ActorControllerTest extends WebTestCase
 
 		//Check if link to create company exists
 		$links = $crawler
-			->filter('a:contains("Lag company")');
+			->filter('a:contains("Lag selskap")');
 		$this->assertEquals(1, $links->count());
 
 		$link = $links
