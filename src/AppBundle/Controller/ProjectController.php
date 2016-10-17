@@ -25,10 +25,9 @@ class ProjectController extends Controller
 	public function showAction(Request $request)
 	{
 		$requestID = $request->get('id');
-		# Api key to use on Google Maps Embed API!
-		$api = "AIzaSyBDQD6CvPGK5_Bhhn3xkY710Dm-RsQGG70";
 		$project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
-		return $this->render('project/project.html.twig', array('project' => $project, 'key'=>$api ));
+		# The API key to use on Google Maps Embed API is defined as a global parameter accessable through the service container.
+		return $this->render('project/project.html.twig', array('project' => $project, 'key'=> $this->container->getParameter('api_key') ));
 	}
 
 	public function createAction(Request $request)

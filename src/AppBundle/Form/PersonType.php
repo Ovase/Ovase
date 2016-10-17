@@ -17,7 +17,7 @@ class PersonType extends AbstractType
 			->add('email', EmailType::class)
 			->add('lastName', TextType::class)
 			->add('firstName', TextType::class)
-			->add('save', SubmitType::class, array('label' => 'Lag person',))
+			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,
@@ -27,7 +27,8 @@ class PersonType extends AbstractType
 			'keep_value' => true,
 			'distortion' => false,
 			'background_color' => [255, 255, 255],
-		));
+		))
+			->add('save', SubmitType::class, array('label' => 'Lag person',));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
