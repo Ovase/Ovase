@@ -61,6 +61,14 @@ class Project
 	private $location;
 
 	/**
+	 * @var int
+	 *
+	 * @ORM\Column(name="version", type="integer")
+	 * @Assert\Type("integer")
+	 */
+	private $version = 0;
+
+	/**
 	 * @var array
 	 * @ORM\ManyToMany(targetEntity="Actor")
 	 * @ORM\JoinTable(name="projects_actors",
@@ -273,5 +281,23 @@ class Project
 	public function removeActor($actor)
 	{
 		$this->actors->removeElement($actor);
-	}}
+	}
+	/**
+	 * Increment version counter
+	 */
+	public function incrementVersion()
+	{
+		$this->version++;
+		return $this;
+	}
+
+	/**
+	 * Reset version counter
+	 */
+	public function resetVersion()
+	{
+		$this->version = 0;
+		return $this;
+	}
+}
 
