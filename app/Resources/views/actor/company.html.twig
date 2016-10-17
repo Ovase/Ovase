@@ -13,6 +13,11 @@
             <p>{{ project.getId() }}</p>
             <p>{{ project.getName() }}</p>
             <p>{{ project.getType () }}</p>
+			<iframe
+			width="600"
+			height="450"
+			frameborder="0" style="border:0"
+			src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ project.getLocation() }}" allowfullscreen>
 
         </div>
     </div>

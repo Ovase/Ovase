@@ -9,11 +9,33 @@
     <a href="/company/ny">Lag company</a>
     <br>
     <h3>Personer</h3>
+    <div class="row">
+        {#<div class="col-lg-3">#}
+            <div class="input-group">
+                <input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
+                </span>
+            </div>
+        {#</div>#}
+    </div>
+    <br>
     {% for person in persons %}
         <a href="/person/{{ person.getId() }}"><p>{{ person.getId() }} {{ person.getFirstName() }}</p></a>
     {% endfor %}
 
     <h3>Selskaper</h3>
+    <div class="row">
+        {#<div class="col-lg-3">#}
+            <div class="input-group">
+                <input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
+                </span>
+            </div>
+        {#</div>#}
+    </div>
+    <br>
     {% for company in companies %}
         <a href="/selskap/{{ company.getId() }}"> <p>{{ company.getId() }} {{ company.getName() }}</p></a>
     {% endfor %}

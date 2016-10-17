@@ -72,12 +72,8 @@ class Actor
 	 */
 	private $email;
 	/**
-	 * An array of two floats.
-	 * @var array
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Range(min=-90, max=90)
-	 * })
+	 * Field for storing the address of the project
+	 * @ORM\Column(type="text")
 	 */
 	private $location;
 
@@ -202,11 +198,11 @@ class Actor
 		return $this->field;
 	}
 	/**
-	 * Set location
+	 * Set location.
 	 *
-	 * @param array $location
+	 * @param string $location
 	 *
-	 * @return Actor
+	 * @return Project
 	 */
 	public function setLocation($location)
 	{
@@ -218,7 +214,7 @@ class Actor
 	/**
 	 * Get location
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function getLocation()
 	{
