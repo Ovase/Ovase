@@ -26,17 +26,17 @@ class LoginController extends Controller
 		);
 	}
 
-	// TODO: define home pages for admin as well as plain users. Currently unused
+	/* TODO: define profile page for editors as well as plain users. Currently unused
 	public function loginRedirectAction()
 	{
-		if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-			return $this->redirectToRoute('control_panel');
+		if ($this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+			return $this->redirectToRoute('control_panel'); // editors have a similar profile, but they also a panel for reviewing edited content
 		} else {
-			return $this->redirectToRoute('profile');
+			return $this->redirectToRoute('profile'); // GUESTs will in addition have a notifyer indicating they are currently unautorized on the system
 		}
-	}
+	} */ // required controllers: profileController, editorPanelController 
 
-	public function loginCheckAction()
+	public function loginCheckAction() 
 	{
 	}
 }
