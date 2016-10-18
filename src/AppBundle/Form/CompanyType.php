@@ -18,7 +18,7 @@ class CompanyType extends AbstractType
 			->add('name', TextType::class)
 			->add('type', TextType::class)
 			->add('org_nr', TextType::class)
-			->add('save', SubmitType::class, array('label' => 'Lag selskap',))
+			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,
@@ -28,7 +28,8 @@ class CompanyType extends AbstractType
 			'keep_value' => true,
 			'distortion' => false,
 			'background_color' => [255, 255, 255],
-		));
+		))
+			->add('save', SubmitType::class, array('label' => 'Lag selskap',));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

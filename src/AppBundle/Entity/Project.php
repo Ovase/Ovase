@@ -43,15 +43,6 @@ class Project
 	 */
 	private $enddate;
 	/**
-	 * An array of two floats.
-	 * @var array
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Range(min=-90, max=90)
-	 * })
-	 */
-	private $location;
-	/**
 	 * @ORM\Column(type="array")
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
@@ -63,6 +54,11 @@ class Project
 	 * @ORM\Column(type="text")
 	 */
 	private $description;
+	/**
+	 * Field for storing the address of the project
+	 * @ORM\Column(type="text")
+	 */
+	private $location;
 
 	/**
 	 * @var int
@@ -120,6 +116,31 @@ class Project
 	{
 		return $this->name;
 	}
+
+	/**
+	 * Set location.
+	 *
+	 * @param string $location
+	 *
+	 * @return Project
+	 */
+	public function setLocation($location)
+	{
+		$this->location = $location;
+
+		return $this;
+	}
+
+	/**
+	 * Get location
+	 *
+	 * @return string
+	 */
+	public function getLocation()
+	{
+		return $this->location;
+	}
+
 
 	/**
 	 * Set field
@@ -194,30 +215,6 @@ class Project
 	}
 
 	/**
-	 * Set location
-	 *
-	 * @param array $location
-	 *
-	 * @return Project
-	 */
-	public function setLocation($location)
-	{
-		$this->location = $location;
-
-		return $this;
-	}
-
-	/**
-	 * Get location
-	 *
-	 * @return array
-	 */
-	public function getLocation()
-	{
-		return $this->location;
-	}
-
-	/**
 	 * Set technicalSolutions
 	 *
 	 * @param array $technicalSolutions
@@ -238,7 +235,7 @@ class Project
 	 */
 	public function getTechnicalSolutions()
 	{
-		return $this->technicalSolutions;  // \
+		return $this->technicalSolutions;
 	}
 
 	/**

@@ -21,8 +21,8 @@
 				<script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.min.js"></script>
 				<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
 			{% endif %}
-			<script src="/web/static/js/jquery.js"></script>
-			<script src="/web/static/js/wiki_auth.js"></script>
+			<!--<script src="/web/static/js/jquery.js"></script>-->
+			<!--<script src="/web/static/js/wiki_auth.js"></script>-->
 		{% endblock %}
 	</head>
 	<body>
@@ -32,14 +32,14 @@
 						<div class="container">
 							<p style="color:#6D6D6D;font-weight:400;font-size:200%;"> OVASE </p>
 								<div class="navbar-header">
-							    	<button type="button" class="navbar-toggle navbar-custom-btn" data-toggle="collapse" data-target="#myNavbar">
+									<button type="button" class="navbar-toggle navbar-custom-btn" data-toggle="collapse" data-target="#myNavbar">
 										<span class="icon-bar style-bgc-grey"></span>
 										<span class="icon-bar style-bgc-grey"></span>
 										<span class="icon-bar style-bgc-grey"></span>
-							      	</button>
-							    </div>
+								  	</button>
+								</div>
 							<div class="collapse navbar-collapse" id="myNavbar">
-						    	<ul class="nav navbar-nav" style={navbarButtonStyle}>
+								<ul class="nav navbar-nav" style={navbarButtonStyle}>
 									<li>
 										<a href="{{ path('home') }}" class="navbar-txt">FRAMSIDE</a>
 									</li>

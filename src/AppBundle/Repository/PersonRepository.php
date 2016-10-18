@@ -19,12 +19,12 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-		public function findBySearch($searchTerm)
+	public function findPersonBySearch($searchTerm)
 	{
-		return $this->createQueryBuilder('Company')
-			->select('Company')
-			->where('Company.firstName LIKE :searchTerm')
-			->orWhere('Company.lastName LIKE :searchTerm')
+		return $this->createQueryBuilder('Person')
+			->select('Person')
+			->where('Person.firstName LIKE :searchTerm')
+			->orWhere('Person.lastName LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
 			->getResult();

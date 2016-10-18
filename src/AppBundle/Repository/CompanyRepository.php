@@ -17,15 +17,6 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 		$em->flush();
 		return $company;
 	}
-	public function findCompanyByOrgNr($orgNr)
-	{
-		return $this->createQueryBuilder('Comapny')
-			->select('Comapny')
-			->where('Comapny.orgNr = :orgNr')
-			->setParameter('orgNr', $orgNr)
-			->getQuery()
-			->getSingleResult();
-	}
 
 	public function findBySearch($searchTerm)
 	{
@@ -38,12 +29,23 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 			->getResult();
 	}
 
-	public function findTestCompanies()
+	public function findCompanyByType($type)
 	{
 		return $this->createQueryBuilder('Company')
 			->select('Company')
-			->where('Company.field = TEST')
+			->where('Company.type = :type')
+			->setParameter('type', $type)
 			->getQuery()
 			->getResult();
+	}
+
+	public function findCompanyByOrgNr($orgNr)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.orgNr = :orgNr')
+			->setParameter('orgNr', $orgNr)
+			->getQuery()
+			->getSingleResult();
 	}
 }

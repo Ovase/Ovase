@@ -14,7 +14,7 @@ class PersonController extends Controller
 		$requestID = $request->get('id');
 		$person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
 
-		return $this->render(':actor:person.html.twig', array('person' => $person));
+		return $this->render(':actor:person.html.twig', array('person' => $person, 'key'=> $this->container->getParameter('api_key')));
 	}
 
 	public function createAction(Request $request)
