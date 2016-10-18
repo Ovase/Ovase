@@ -302,5 +302,38 @@ class Project
 		$this->version = 0;
 		return $this;
 	}
-}
 
+    /**
+     * Set version
+     *
+     * @param integer $version
+     *
+     * @return Project
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return integer
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Get actors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActors()
+    {
+        return $this->actors;
+    }
+}

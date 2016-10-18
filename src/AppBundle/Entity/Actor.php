@@ -265,5 +265,28 @@ class Actor
 		$this->version = 0;
 		return $this;
 	}
-}
 
+    /**
+     * Set version
+     *
+     * @param integer $version
+     *
+     * @return Actor
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return integer
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+}
