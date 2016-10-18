@@ -141,6 +141,15 @@ class Project
 		return $this->location;
 	}
 
+	/**
+	 * Get contributors to the project
+	 *
+	 * @return array
+	 */
+	public function getActors()
+	{
+		return $this->actors;
+	}
 
 	/**
 	 * Set field

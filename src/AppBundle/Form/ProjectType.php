@@ -64,6 +64,17 @@ class ProjectType extends AbstractType
 				'language' => 'no', // alternatively, en for English
 			))
 			*/
+			->add('actors', EntityType::class, array(
+				// query choices from this entity
+				'class' => 'AppBundle:Actor',
+
+				// use the Actor.email property as the visible option string
+				'choice_label' => 'email',
+
+				// used to render a select box, check boxes or radios
+				'multiple' => true,
+				// 'expanded' => true,
+			))
 			->add('captcha', CaptchaType::class, array(
 				'label' => ' ',
 				'width' => 200,

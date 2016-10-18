@@ -16,8 +16,8 @@
 
 			<p>{{ project.getName() }}</p>
 			<p>{{ project.getField () }}</p>
-			{#<p>{{ project.getStartdate() }}</p>#}
-			{#<p>{{ project.getEnddate() }}</p>#}
+			<p>{{ project.getStartdate() }}</p>
+			<p>{{ project.getEnddate() }}</p>
 			{#<p>{{ project.getTechnicalSolutions() }}</p>#}
 			<p>{{ project.getDescription() }}</p>
 			<p>{{ project.getLocation() }}</p>
@@ -28,6 +28,17 @@
 			src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ project.getLocation() }}" allowfullscreen>
 			{# For options on usage of the Embed API, see https://developers.google.com/maps/documentation/embed/guide #}
 			</iframe>
+			<p>{{ <b>Bidragsytere</b> }}</p>
+			<ul>
+			{% for actor in project.getActors() %}
+				{# Company condition. Note: this trick is a bit hacky #}
+				{% if actor.method('getType') is defined %}
+					<li>{{ Selskap: <a href= {{ path("company", {'id': actor.getId()}) }}> {{ Besøk vedkommendes profil }} }}</li>
+				{% else %}
+					<li>{{ Person: <a href= {{ path("person", {'id': actor.getId()}) }}> {{ Besøk vedkommendes profil }} }}</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
 		</div>
 	</div>
 
