@@ -18,6 +18,17 @@ class ProjectRepository extends EntityRepository
 			->getResult();
 	}
 
+	// Used for testing purposes
+	public function findProjectsByName($name)
+	{
+		return $this->createQueryBuilder('Project')
+			->select('Project')
+			->where('Project.name = :name')
+			->setParameter('name', $name)
+			->getQuery()
+			->getResult();
+	}
+
 	public function create($project)
 	{
 		$em = $this->getEntityManager();

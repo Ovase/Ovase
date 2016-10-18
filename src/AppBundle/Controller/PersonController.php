@@ -24,7 +24,7 @@ class PersonController extends Controller
 		$form->handleRequest($request);
 
 		if($form->isSubmitted()){
-			$this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
+			$this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->create($person);
 			return $this->redirect('/actor');
 		}
 		return $this->render(
