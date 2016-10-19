@@ -16,10 +16,12 @@
 
 	<p></p>
 
+	<br>
 	{% if message is defined %}
 		<p>{{ message }}</p>
 	{% endif %}
 
+	<h3>Prosjekter</h3>
 	{% for project in projects %}
 		<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
 	{% endfor %}

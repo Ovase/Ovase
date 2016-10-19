@@ -20,7 +20,7 @@ class ProjectListController extends Controller
  
 		$projects = $this->get('doctrine')
 			->getRepository('AppBundle:Project')
-			->findBySearch($searchTerm);
+			->findProjectBySearch($searchTerm);
  
 		return $this->render(
 			'project/projectList.html.twig', array(
