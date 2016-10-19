@@ -3,7 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,15 +22,16 @@ class ProjectType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('name', TextType::class, array('attr' => array('placeholder' => 'name')))
-			->add('field', TextType::class, array('attr' => array('placeholder' => 'field')))
-			->add('startdate', DateTimeType::class)
-			->add('enddate', DateTimeType::class)
+			->add('name', TextType::class, array('label' => 'Navn','attr' => array('placeholder' => 'Navn')))
+			->add('field', TextType::class, array('label' => 'Felt','attr' => array('placeholder' => 'Felt')))
+			->add('startdate', DateType::class, array('label' => 'Start dato','widget' => 'single_text'))
+			->add('enddate', DateType::class, array('label' => 'Slutt dato','widget' => 'single_text'))
+
 //			->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions'))) // To be changed
-			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'description')))
+			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('placeholder' => 'Beskrivelse')))
 			
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			->add('location', TextType::class, array('label' => 'Lokasjon','attr' => array('placeholder' => "'gatenavn gatenummer, tettsted'")))
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
@@ -64,8 +65,8 @@ class ProjectType extends AbstractType
 				'language' => 'no', // alternatively, en for English
 			))
 			*/
-			->add('captcha', CaptchaType::class, array(
-				'label' => ' ',
+			->add('captcha', CaptchaType::class, array('attr' => array('placeholder' => 'Skriv tegnene'),
+				'label' => 'Bevis at du ikke er en robot',
 				'width' => 200,
 				'height' => 50,
 				'length' => 5,
