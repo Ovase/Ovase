@@ -57,26 +57,22 @@ class Project
 	private $totalArea = 0.0;
 
 	/**
-	 * @var array
-     * @ORM\Column(type="array")
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-     *   @Assert\Type("string"),
-	 *	 @Assert\Length(min = 1)
-	 * })
+	 * @var string
+     * @ORM\Column(type="string")
+	 * @Assert\NotBlank
+     * @Assert\Type("string")
+	 * @Assert\Length(min = 1)
 	 */
-	private $areaType;
+	private $areaType = "";
 
-	/**
-	 * @var array
-     * @ORM\Column(type="array")
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-     *   @Assert\Type("string"),
-	 *	 @Assert\Length(min = 1)
-	 * })
-	 */
-	private $projectType;
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(min = 1)
+     */
+	private $projectType = "";
 
     /**
      * @var array
@@ -126,8 +122,6 @@ class Project
 	{
 		//$this->technicalSolutions = new ArrayCollection(); // List of Measurement objects
 		$this->actors = new ArrayCollection();
-        $this->areaType = array();
-        $this->projectType = array();
         $this->technicalSolutions = array();
 	}
 	/**
