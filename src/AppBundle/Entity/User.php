@@ -427,5 +427,58 @@ class User implements AdvancedUserInterface, \Serializable
 		return $this->email;
 	}
 
-}
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
 
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Add company
+     *
+     * @param \AppBundle\Entity\Company $company
+     *
+     * @return User
+     */
+    public function addCompany(\AppBundle\Entity\Company $company)
+    {
+        $this->companies[] = $company;
+
+        return $this;
+    }
+
+    /**
+     * Remove company
+     *
+     * @param \AppBundle\Entity\Company $company
+     */
+    public function removeCompany(\AppBundle\Entity\Company $company)
+    {
+        $this->companies->removeElement($company);
+    }
+}

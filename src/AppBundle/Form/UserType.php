@@ -17,6 +17,7 @@ class UserType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+		$env = $options['environment'];
 		$builder
 			->add('email', EmailType::class)
 			->add('lastName', TextType::class)
@@ -26,20 +27,21 @@ class UserType extends AbstractType
 				'type' => PasswordType::class,
 				'first_options'  => array('label' => 'Passord'),
 				'second_options' => array('label' => 'Gjenta Passord'),
+				)
 			)
-		)
-			->add('save', SubmitType::class, array('label' => 'Registrer bruker',))
-			->add('captcha', CaptchaType::class, array(
-			'label' => ' ',
-			'width' => 200,
-			'height' => 50,
-			'length' => 5,
-			'quality' =>200,
-			'keep_value' => true,
-			'distortion' => false,
-			'background_color' => [255, 255, 255],
-		));
-
+			->add('save', SubmitType::class, array('label' => 'Registrer bruker'));
+		if ($env != 'test') {
+			$builder->add('captcha', CaptchaType::class, array(
+				'label' => ' ',
+				'width' => 200,
+				'height' => 50,
+				'length' => 5,
+				'quality' =>200,
+				'keep_value' => true,
+				'distortion' => false,
+				'background_color' => [255, 255, 255],
+			));
+		}
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
@@ -47,5 +49,6 @@ class UserType extends AbstractType
 		$resolver->setDefaults(array(
 			'data_class' => 'AppBundle\Entity\User',
 		));
+		$resolver->setRequired('environment'); // send array w/constructor in controller
 	}
 }

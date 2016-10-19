@@ -17,17 +17,19 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 		$em->flush();
 		return $company;
 	}
-	public function findCompanyBySearch($searchTerm)
+
+	public function findCompaniesBySearch($searchTerm)
 	{
 		return $this->createQueryBuilder('Company')
 			->select('Company')
 			->where('Company.name LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
+			->orWhere('Company.location LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
 			->getResult();
 	}
 
-	public function findCompanyByType($type)
+	public function findCompaniesByType($type)
 	{
 		return $this->createQueryBuilder('Company')
 			->select('Company')

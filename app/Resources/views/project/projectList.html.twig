@@ -5,25 +5,23 @@
 {% endblock %}
 
 {% block body %}
-	<div class="row">
-		{#<div class="col-lg-3">#}
-			<div class="input-group">
-				<input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
-				<span class="input-group-btn">
-					<button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
-				</span>
-			</div>
-		{#</div>#}
-	</div>
-	
+
 	<a href="/anlegg/ny">Lag nytt prosjekt</a>
 
 	<p></p>
 
+	{{ form_start(form) }}
+ 	{{ form_widget(form) }}
+	{{ form_end(form) }}
+
+	<p></p>
+
+	<br>
 	{% if message is defined %}
 		<p>{{ message }}</p>
 	{% endif %}
 
+	<h3>Prosjekter</h3>
 	{% for project in projects %}
 		<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
 	{% endfor %}

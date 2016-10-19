@@ -5,7 +5,7 @@ namespace AppBundle\Tests\Controller;
 use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ActorControllerTest extends WebTestCase
+class ProjectControllerTest extends WebTestCase
 {
 	/**
 	 * @var \Doctrine\ORM\EntityManager
@@ -20,52 +20,52 @@ class ActorControllerTest extends WebTestCase
 			->getManager();
 	}
 
-	public function testCreateCompany()
+	public function testCreateProject()
 	{
 		$client = static::createClient();
-		$crawler = $client->request('GET', '/actor');
+		$crawler = $client->request('GET', '/anlegg');
 
-		//Check if link to create company exists
+		//Check if link to create Project exists
 		$links = $crawler
-			->filter('a:contains("Lag selskap")');
+			->filter('a:contains("Lag nytt prosjekt")');
 		$this->assertEquals(1, $links->count());
 
 		$link = $links
 			->eq(0)
 			->link();
 
-		//Click on create company
+		//Click on create project
 		$crawler = $client->click($link);
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-		$companyName = 'test selskap';
+		$projectName = 'testProsjekt';
 		//Get the form
-		$form = $crawler->selectButton('company[save]')->form(array(
-			'company[name]' => $companyName,
-			'company[email]' => 'test@selskap.no',
-			'company[type]' => 'regnbed',
-			'company[org_nr]' => '123123333'
+		$form = $crawler->selectButton('project[save]')->form(array(
+			'project[name]' => $projectName,
+			'project[field]' => 'alt',
+			'project[description]' => 'regnbed'
 		));
 		$client->submit($form);
 		$client->followRedirect();
 
-		//Check if the company exists in the list
-		$this->assertContains($companyName, $client->getResponse()->getContent());
+		//Check if the project exists in the list
+		$this->assertContains($projectName, $client->getResponse()->getContent());
 	}
-
 
 	public function tearDown()
 	{
 		parent::tearDown();
-		$company = null;
+		$projects = null;
 		try {
-			$company = $this->em->getRepository('AppBundle:Company')->findCompanyByOrgNr('123123333');
+			$projects = $this->em->getRepository('AppBundle:Project')->findProjectsByName('testProsjekt');
 		} catch (NoResultException $t) {
 			$this->em->close();
 			return;
 		}
-		if ($company) {
-			$this->em->remove($company);
+		if ($projects) {
+			foreach ($projects as $project) {
+			 	$this->em->remove($project);
+			 }
 			$this->em->flush();
 		}
 		$this->em->close();

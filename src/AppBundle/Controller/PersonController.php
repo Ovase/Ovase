@@ -23,14 +23,19 @@ class PersonController extends Controller
 		$form = $this->createForm(PersonType::class, $person);
 		$form->handleRequest($request);
 
-		if($form->isSubmitted()){
-			$this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
-			return $this->redirect('/actor');
-		}
-		return $this->render(
-			'actor/create_person.html.twig', array(
-				'form' => $form -> createView()
-			)
-		);
-	}
+        if($form->isSubmitted()){
+            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
+            $user = $this->getUser();
+            $user->setPerson($person);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
+            return $this->redirect('/actor');
+        }
+        return $this->render(
+            'actor/create_person.html.twig', array(
+                'form' => $form -> createView()
+            )
+        );
+    }
 }
