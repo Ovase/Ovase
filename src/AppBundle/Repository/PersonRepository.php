@@ -19,7 +19,7 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-	public function findPersonBySearch($searchTerm)
+	public function findPersonsBySearch($searchTerm)
 	{
 		return $this->createQueryBuilder('Person')
 			->select('Person')

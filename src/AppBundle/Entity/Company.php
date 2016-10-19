@@ -183,5 +183,14 @@ class Company extends Actor
     {
         $this->users->removeElement($user);
     }
-}
 
+    /**
+     * get persons
+     *
+     * @return \doctrine\common\collections\collection
+     */
+    public function getpersons()
+    {
+        return $this->persons;
+    }
+}

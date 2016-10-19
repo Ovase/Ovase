@@ -22,7 +22,7 @@ class ActorListController extends Controller
  
 		$companies = $this->get('doctrine')
 			->getRepository('AppBundle:Company')
-			->findBySearch($companySearchTerm);
+			->findCompaniesBySearch($companySearchTerm);
 
 		$personSearchTerm = '';
 		$personForm = $this -> createForm(PersonSearchForm::class);
@@ -34,7 +34,7 @@ class ActorListController extends Controller
  
 		$persons = $this->get('doctrine')
 			->getRepository('AppBundle:Person')
-			->findPersonBySearch($personSearchTerm);
+			->findPersonsBySearch($personSearchTerm);
 
 		return $this->render(
 			'actor/actorList.html.twig', array(

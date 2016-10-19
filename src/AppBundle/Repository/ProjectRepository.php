@@ -7,11 +7,12 @@ use Doctrine\ORM\EntityRepository;
 
 class ProjectRepository extends EntityRepository
 {
-	public function findProjectBySearch($searchTerm) // Beta version of function
+	public function findProjectsBySearch($searchTerm) // Beta version of function
 	{
 		return $this->createQueryBuilder('Project')
 			->select('Project')
 			->where('Project.name LIKE :searchTerm')
+			->orwhere('Project.location LIKE :searchTerm')
 //			->orWhere('Project.technicalSolutions LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
 			->getQuery()

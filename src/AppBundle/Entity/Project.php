@@ -331,6 +331,18 @@ class Project
     public function addUser($user)
     {
         $this->users[] = $user;
+    }
+
+    /**
+     * Set version
+     *
+     * @param integer $version
+     *
+     * @return Project
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
         return $this;
     }
 
@@ -351,4 +363,14 @@ class Project
     {
         $this->users->removeElement($user);
     }
+    /**
+     * Get version
+     *
+     * @return integer
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
 }
