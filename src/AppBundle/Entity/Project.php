@@ -43,14 +43,6 @@ class Project
 	 */
 	private $enddate;
 	/**
-	 * @ORM\Column(type="array")
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Length(min = 5)
-	 * })
-	 */
-	private $technicalSolutions;
-	/**
 	 * @ORM\Column(type="text")
 	 */
 	private $description;
@@ -61,12 +53,49 @@ class Project
 	private $location;
 
 	/**
+	 * The total area of the space the project took.
+	 * @var float
+	 * @Assert\Type("float")
+	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+	 */
+	private $totalArea;
+
+	/**
+	 * @var array
+	 * @Assert\All({
+	 *	 @Assert\NotBlank,
+	 *	 @Assert\Length(min = 1)
+	 * })
+	 */
+	private $areaType;
+
+	/**
+	 * @var array
+	 * @Assert\All({
+	 *	 @Assert\NotBlank,
+	 *	 @Assert\Length(min = 1)
+	 * })
+	 */
+	private $projectType;
+
+    /**
+     * Field for storing the required soil condition of the project
+     * @ORM\Column(type="text")
+     */
+    private $soilConditions;
+	/**
+	 * Some form of optimistic locking needed, because we need to prohibit concurrent changes. 
 	 * @var int
 	 *
 	 * @ORM\Column(name="version", type="integer")
 	 * @Assert\Type("integer")
 	 */
 	private $version = 0;
+    /**
+     * The current total cost of the project, measured in NOK.
+     * @var float
+     */
+    private $cost;
 
 	/**
 	 * @var array
@@ -78,9 +107,18 @@ class Project
 	 */
 	private $actors;
 
+	/**
+	 * @var array
+	 * @Assert\All({
+	 *	 @Assert\Type("string"),
+	 *	 @Assert\Length(min = 1)
+	 * })
+	 */
+	private $technicalSolutions;
+
 	public function __construct()
 	{
-		$this->technicalSolutions = new ArrayCollection();
+		$this->technicalSolutions = new ArrayCollection(); // List of Measurement objects
 		$this->actors = new ArrayCollection();
 	}
 	/**
@@ -308,5 +346,86 @@ class Project
 		$this->version = 0;
 		return $this;
 	}
+
+    /**
+     * @return float
+     */
+    public function getTotalArea()
+    {
+        return $this->totalArea;
+    }
+
+    /**
+     * @param float $totalArea
+     */
+    public function setTotalArea($totalArea)
+    {
+        $this->totalArea = $totalArea;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAreaType()
+    {
+        return $this->areaType;
+    }
+
+    /**
+     * @param array $areaType
+     */
+    public function setAreaType($areaType)
+    {
+        $this->areaType = $areaType;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProjectType()
+    {
+        return $this->projectType;
+    }
+
+    /**
+     * @param array $projectType
+     */
+    public function setProjectType($projectType)
+    {
+        $this->projectType = $projectType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoilConditions()
+    {
+        return $this->soilConditions;
+    }
+
+    /**
+     * @param mixed $soilConditions
+     */
+    public function setSoilConditions($soilConditions)
+    {
+        $this->soilConditions = $soilConditions;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param float $cost
+     */
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+    }
+
 }
 
