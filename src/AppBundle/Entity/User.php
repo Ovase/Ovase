@@ -427,6 +427,22 @@ class User implements AdvancedUserInterface, \Serializable
 		return $this->email;
 	}
 
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
 
     /**
      * Set roles
@@ -440,30 +456,6 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles = $roles;
 
         return $this;
-    }
-
-    /**
-     * Set person
-     *
-     * @param \AppBundle\Entity\Person $person
-     *
-     * @return User
-     */
-    public function setPerson(\AppBundle\Entity\Person $person = null)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return \AppBundle\Entity\Person
-     */
-    public function getPerson()
-    {
-        return $this->person;
     }
 
     /**

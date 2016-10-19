@@ -1,5 +1,6 @@
 <?php
 namespace AppBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -78,10 +79,21 @@ class Project
 	 */
 	private $actors;
 
+    /**
+     * @var array
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="user_can_edit_project",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $users;
+
 	public function __construct()
 	{
 		$this->technicalSolutions = new ArrayCollection();
 		$this->actors = new ArrayCollection();
+        $this->users = new ArrayCollection();
 	}
 	/**
 	 * Get id
@@ -282,6 +294,7 @@ class Project
 	{
 		$this->actors->removeElement($actor);
 	}
+
 	/**
 	 * Increment version counter
 	 */
@@ -301,6 +314,26 @@ class Project
 	}
 
     /**
+     * @return array
+     */
+    public function getActors()
+    {
+        return $this->actors;
+    }
+
+    /**
+     * Add Users.
+     *
+     * @param user $user
+     *
+     * @return Project
+     */
+    public function addUser($user)
+    {
+        $this->users[] = $user;
+    }
+
+    /**
      * Set version
      *
      * @param integer $version
@@ -310,10 +343,26 @@ class Project
     public function setVersion($version)
     {
         $this->version = $version;
-
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Remove Users.
+     *
+     * @param user $user
+     */
+    public function removeUser($user)
+    {
+        $this->users->removeElement($user);
+    }
     /**
      * Get version
      *
@@ -324,13 +373,4 @@ class Project
         return $this->version;
     }
 
-    /**
-     * Get actors
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getActors()
-    {
-        return $this->actors;
-    }
 }
