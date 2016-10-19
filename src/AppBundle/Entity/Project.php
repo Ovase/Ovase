@@ -54,7 +54,7 @@ class Project
 	 * @Assert\Type("float")
 	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
 	 */
-	private $totalArea;
+	private $totalArea = 0.0;
 
 	/**
 	 * @var array
@@ -124,8 +124,11 @@ class Project
 
 	public function __construct()
 	{
-		$this->technicalSolutions = new ArrayCollection(); // List of Measurement objects
+		//$this->technicalSolutions = new ArrayCollection(); // List of Measurement objects
 		$this->actors = new ArrayCollection();
+        $this->areaType = array();
+        $this->projectType = array();
+        $this->technicalSolutions = array();
 	}
 	/**
 	 * Get id

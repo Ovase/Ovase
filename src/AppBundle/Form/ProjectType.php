@@ -13,6 +13,7 @@ use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\CallbackTransformer;
 
 /* // Hidden imports that may be used if the IvoryGoogleMaps library is installed
 use Ivory\GoogleMapBundle\Form\Type\PlacesAutocompleteType;
@@ -31,33 +32,14 @@ class ProjectType extends AbstractType
 			->add('enddate', DateTimeType::class)
 			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'description')))
             ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet prosjektet trengte')))
-            ->add('price', MoneyType::class, array('currency' => 'NOK',))
-            ->add('areaType', CollectionType::class, array(
-                'entry_type'   => TextType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'entry_options'  => array(
-                    'attr'      => array('placeholder' => 'Navn på type område')
-                ),
-            ))
-            ->add('projectType', CollectionType::class, array(
-                'allow_add' => true,
-                'allow_delete' => true,
-                'entry_type'   => TextType::class,
-                'entry_options'  => array(
-                    'attr'      => array('placeholder' => 'Navn på prosjekt - kategori')
-                ),
-            ))
-            ->add('technicalSolutions', CollectionType::class, array(
-                'allow_add' => true,
-                'allow_delete' => true,
-                'entry_type'   => TextType::class,
-                'entry_options'  => array(
-                    'attr'      => array('placeholder' => 'Navn på tiltak')
-                ),
-            ))
+            //->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'areal')))
+            ->add('cost', MoneyType::class, array('currency' => 'NOK',))
+            ->add('areaType', TextType::class, array('attr' => array('placeholder' => 'Navn på type område. Skill med komma og mellomrom.', 'style' => 'width: 800px')))
+            ->add('projectType', TextType::class, array('attr' => array('placeholder' => 'Navn på prosjekt - kategori. Skill med komma og mellomrom.', 'style' => 'width: 800px')))
+            ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px')))
+
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 200px')))
+			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px')))
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
@@ -112,6 +94,36 @@ class ProjectType extends AbstractType
 				'distortion' => false,
 				'background_color' => [255, 255, 255]))
 			->add('save', SubmitType::class, array ('label' => 'Lag'));
+        $builder->get('areaType')->addModelTransformer(new CallbackTransformer(
+            function ($tagsAsArray) {
+                // transform the array to a string
+                return implode(', ', $tagsAsArray);
+            },
+            function ($tagsAsString) {
+                // transform the string back to an array
+                return explode(', ', $tagsAsString);
+            }
+        ));
+        $builder->get('technicalSolutions')->addModelTransformer(new CallbackTransformer(
+            function ($tagsAsArray) {
+                // transform the array to a string
+                return implode(', ', $tagsAsArray);
+            },
+            function ($tagsAsString) {
+                // transform the string back to an array
+                return explode(', ', $tagsAsString);
+            }
+        ));
+        $builder->get('projectType')->addModelTransformer(new CallbackTransformer(
+            function ($tagsAsArray) {
+                // transform the array to a string
+                return implode(', ', $tagsAsArray);
+            },
+            function ($tagsAsString) {
+                // transform the string back to an array
+                return explode(', ', $tagsAsString);
+            }
+        ));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
