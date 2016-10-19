@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /* // Hidden imports that may be used if the IvoryGoogleMaps library is installed
 use Ivory\GoogleMapBundle\Form\Type\PlacesAutocompleteType;
@@ -26,9 +29,33 @@ class ProjectType extends AbstractType
 			->add('field', TextType::class, array('attr' => array('placeholder' => 'field')))
 			->add('startdate', DateTimeType::class)
 			->add('enddate', DateTimeType::class)
-//			->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions'))) // To be changed
 			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'description')))
-			
+            ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet prosjektet trengte')))
+            ->add('price', MoneyType::class, array('currency' => 'NOK',))
+            ->add('areaType', CollectionType::class, array(
+                'entry_type'   => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_options'  => array(
+                    'attr'      => array('placeholder' => 'Navn på type område')
+                ),
+            ))
+            ->add('projectType', CollectionType::class, array(
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type'   => TextType::class,
+                'entry_options'  => array(
+                    'attr'      => array('placeholder' => 'Navn på prosjekt - kategori')
+                ),
+            ))
+            ->add('technicalSolutions', CollectionType::class, array(
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type'   => TextType::class,
+                'entry_options'  => array(
+                    'attr'      => array('placeholder' => 'Navn på tiltak')
+                ),
+            ))
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
 			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			/* This form field has better usability, but I could not make the api key work.
@@ -54,7 +81,7 @@ class ProjectType extends AbstractType
 					AutocompleteComponentRestriction::ADMINISTRATIVE_AREA => 'administrative_area';
 					AutocompleteComponentRestriction::POSTAL_CODE => 'postal_code';
 					AutocompleteComponentRestriction::COUNTRY => 'country';
-					
+
 				),
 
 				// TRUE if the autocomplete is loaded asynchonously else FALSE

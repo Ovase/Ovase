@@ -3,17 +3,12 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * AppBundle\Entity\Project.
  *
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
- * @UniqueEntity(
- *	  fields={"id"},
- *	  message="Denne ID er allerede i bruk.",
- * )
  */
 class Project
 {
@@ -64,6 +59,7 @@ class Project
 	 * @var array
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
+     *   @Assert\Type("string"),
 	 *	 @Assert\Length(min = 1)
 	 * })
 	 */
@@ -73,14 +69,25 @@ class Project
 	 * @var array
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
+     *   @Assert\Type("string"),
 	 *	 @Assert\Length(min = 1)
 	 * })
 	 */
 	private $projectType;
 
     /**
+     * @var array
+     * @Assert\All({
+     *	 @Assert\NotBlank,
+     *   @Assert\Type("string"),
+     *	 @Assert\Length(min = 1)
+     * })
+     */
+    private $technicalSolutions;
+
+    /**
      * Field for storing the required soil condition of the project
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $soilConditions;
 	/**
@@ -94,6 +101,8 @@ class Project
     /**
      * The current total cost of the project, measured in NOK.
      * @var float
+     * @Assert\Type("float")
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
      */
     private $cost;
 
@@ -106,15 +115,6 @@ class Project
 	 *	  )
 	 */
 	private $actors;
-
-	/**
-	 * @var array
-	 * @Assert\All({
-	 *	 @Assert\Type("string"),
-	 *	 @Assert\Length(min = 1)
-	 * })
-	 */
-	private $technicalSolutions;
 
 	public function __construct()
 	{
@@ -278,7 +278,7 @@ class Project
 	/**
 	 * Get technicalSolutions
 	 *
-	 * @return \Doctrine\Common\Collections\ArrayCollection
+	 * @return array
 	 */
 	public function getTechnicalSolutions()
 	{
