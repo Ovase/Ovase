@@ -7,9 +7,13 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\CallbackTransformer;
 
 /* // Hidden imports that may be used if the IvoryGoogleMaps library is installed
 use Ivory\GoogleMapBundle\Form\Type\PlacesAutocompleteType;
@@ -26,11 +30,16 @@ class ProjectType extends AbstractType
 			->add('field', TextType::class, array('attr' => array('placeholder' => 'field')))
 			->add('startdate', DateTimeType::class)
 			->add('enddate', DateTimeType::class)
-//			->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'technical solutions'))) // To be changed
 			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'description')))
-			
+            ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet prosjektet trengte')))
+            ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'areal')))
+            ->add('cost', MoneyType::class, array('currency' => 'NOK',))
+            ->add('areaType', TextType::class, array('attr' => array('placeholder' => 'Navn på type område.')))
+            ->add('projectType', TextType::class, array('attr' => array('placeholder' => 'Navn på prosjekt - kategori.')))
+            ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px')))
+
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px')))
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
@@ -54,7 +63,7 @@ class ProjectType extends AbstractType
 					AutocompleteComponentRestriction::ADMINISTRATIVE_AREA => 'administrative_area';
 					AutocompleteComponentRestriction::POSTAL_CODE => 'postal_code';
 					AutocompleteComponentRestriction::COUNTRY => 'country';
-					
+
 				),
 
 				// TRUE if the autocomplete is loaded asynchonously else FALSE
@@ -64,6 +73,18 @@ class ProjectType extends AbstractType
 				'language' => 'no', // alternatively, en for English
 			))
 			*/
+			->add('actors', EntityType::class, array(
+				// query choices from this entity
+				'class' => 'AppBundle:Actor',
+
+				// use the Actor.email property as the visible option string
+				'choice_label' => 'email',
+
+				// used to render a select box, check boxes or radios
+				'multiple' => true,
+                'required' => false,
+				// 'expanded' => true,
+			))
 			->add('captcha', CaptchaType::class, array(
 				'label' => ' ',
 				'width' => 200,
@@ -74,6 +95,16 @@ class ProjectType extends AbstractType
 				'distortion' => false,
 				'background_color' => [255, 255, 255]))
 			->add('save', SubmitType::class, array ('label' => 'Lag'));
+        $builder->get('technicalSolutions')->addModelTransformer(new CallbackTransformer(
+            function ($tagsAsArray) {
+                // transform the array to a string
+                return implode(', ', $tagsAsArray);
+            },
+            function ($tagsAsString) {
+                // transform the string back to an array
+                return explode(', ', $tagsAsString);
+            }
+        ));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

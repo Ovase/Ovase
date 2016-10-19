@@ -72,7 +72,7 @@ class Actor
 	 */
 	private $email;
 	/**
-	 * Field for storing the address of the project
+	 * Field for storing the address the actor is located at.
 	 * @ORM\Column(type="text")
 	 */
 	private $location;
