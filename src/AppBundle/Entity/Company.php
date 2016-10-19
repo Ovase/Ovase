@@ -144,5 +144,14 @@ class Company extends Actor
 	{
 		$this->persons->removeElement($person);
 	}
-}
 
+    /**
+     * Get persons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersons()
+    {
+        return $this->persons;
+    }
+}
