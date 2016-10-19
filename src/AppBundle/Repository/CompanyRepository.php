@@ -18,7 +18,7 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 		return $company;
 	}
 
-	public function findBySearch($searchTerm)
+	public function findCompaniesBySearch($searchTerm)
 	{
 		return $this->createQueryBuilder('Company')
 			->select('Company')
@@ -29,7 +29,7 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 			->getResult();
 	}
 
-	public function findCompanyByType($type)
+	public function findCompaniesByType($type)
 	{
 		return $this->createQueryBuilder('Company')
 			->select('Company')
