@@ -57,7 +57,7 @@ class ProjectType extends AbstractType
                 ),
             ))
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 200px')))
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 

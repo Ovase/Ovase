@@ -50,6 +50,7 @@ class Project
 	/**
 	 * The total area of the space the project took.
 	 * @var float
+     * @ORM\Column(type="float")
 	 * @Assert\Type("float")
 	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
 	 */
@@ -57,6 +58,7 @@ class Project
 
 	/**
 	 * @var array
+     * @ORM\Column(type="array")
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
      *   @Assert\Type("string"),
@@ -67,6 +69,7 @@ class Project
 
 	/**
 	 * @var array
+     * @ORM\Column(type="array")
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
      *   @Assert\Type("string"),
@@ -77,6 +80,7 @@ class Project
 
     /**
      * @var array
+     * @ORM\Column(type="array")
      * @Assert\All({
      *	 @Assert\NotBlank,
      *   @Assert\Type("string"),
@@ -87,12 +91,13 @@ class Project
 
     /**
      * Field for storing the required soil condition of the project
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $soilConditions;
 	/**
 	 * Some form of optimistic locking needed, because we need to prohibit concurrent changes. 
 	 * @var int
+     * @ORM\Column(type="float")
 	 *
 	 * @ORM\Column(name="version", type="integer")
 	 * @Assert\Type("integer")
@@ -101,6 +106,7 @@ class Project
     /**
      * The current total cost of the project, measured in NOK.
      * @var float
+     * @ORM\Column(type="float")
      * @Assert\Type("float")
      * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
      */
