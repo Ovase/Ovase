@@ -99,7 +99,7 @@ class Project
 	 * @ORM\Column(name="version", type="integer")
 	 * @Assert\Type("integer")
 	 */
-	private $version = 0;
+	private $version = 1;
     /**
      * The current total cost of the project, measured in NOK.
      * @var float
