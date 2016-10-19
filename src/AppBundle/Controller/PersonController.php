@@ -8,29 +8,29 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PersonController extends Controller
 {
-    public function showAction(Request $request)
-    {
+	public function showAction(Request $request)
+	{
 
-        $requestID = $request->get('id');
-        $person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
+		$requestID = $request->get('id');
+		$person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
 
-        return $this->render(':actor:person.html.twig', array('person' => $person));
-    }
+		return $this->render(':actor:person.html.twig', array('person' => $person, 'key'=> $this->container->getParameter('api_key')));
+	}
 
-    public function createAction(Request $request)
-    {
-        $person = new Person();
-        $form = $this->createForm(PersonType::class, $person);
-        $form->handleRequest($request);
+	public function createAction(Request $request)
+	{
+		$person = new Person();
+		$form = $this->createForm(PersonType::class, $person);
+		$form->handleRequest($request);
 
-        if($form->isSubmitted()){
-            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
-            return $this->redirect('/actor');
-        }
-        return $this->render(
-            'actor/create_person.html.twig', array(
-                'form' => $form -> createView()
-            )
-        );
-    }
+		if($form->isSubmitted()){
+			$this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->create($person);
+			return $this->redirect('/actor');
+		}
+		return $this->render(
+			'actor/create_person.html.twig', array(
+				'form' => $form -> createView()
+			)
+		);
+	}
 }

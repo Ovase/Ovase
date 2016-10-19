@@ -11,31 +11,34 @@ use Doctrine\ORM\NoResultException;
 
 class PromoteUserCommand extends ContainerAwareCommand
 {
-    protected function configure()
-    {
-        $this
-        // the name of the command (the part after "app/console")
-        ->setName('app:prom-user')
+	protected function configure()
+	{
+		$this
+		// the name of the command (the part after "app/console")
+		->setName('app:prom-user')
 
-        // the short description shown while running "php app/console list"
-        ->setDescription('Give a user a new role.')
+		// the short description shown while running "php app/console list"
+		->setDescription('Give a user a new role.')
 		->addArgument('username', InputArgument::REQUIRED, 'The username of the user.') // Required argument
 		
-        // the full command description shown when running the command with
-        // the "--help" option
-        ->setHelp("This command allows you to change the authorization of someone...");
+		// the full command description shown when running the command with
+		// the "--help" option
+		->setHelp("This command allows you to change the authorization of someone...");
 	}
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+	protected function execute(InputInterface $input, OutputInterface $output)
+	{
+		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
+		// $env = $this->getContainer()->getParameter('kernel.environment');
+		// if (($env != 'dev') { return; }
 		// outputs multiple lines to the console (adding "\n" at the end of each line)
-    	$output->writeln([
-        	'User Roleplayer',
-        	'============',
-        	'',
-    	]);
+		$output->writeln([
+			'User Roleplayer',
+			'============',
+			'',
+		]);
 
-        $em = $this->getContainer()->get('doctrine');
+		$em = $this->getContainer()->get('doctrine')->getManager();
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
@@ -55,7 +58,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 
 		$rolequestion = new ChoiceQuestion(
 			'Please select the user role (defaults to USER)',
-			array("ROLE_USER", "ROLE_GUEST","ROLE_EDITOR"),
+			array("ROLE_GUEST", "ROLE_USER","ROLE_EDITOR"),
 			0
 		);
 		$rolequestion->setErrorMessage('Role %s is invalid.');

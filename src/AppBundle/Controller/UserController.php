@@ -17,7 +17,9 @@ class UserController extends Controller
 	{
 		// 1) build the form
 		$user = new User();
-		$form = $this->createForm(UserType::class, $user);
+		$form = $this->createForm(UserType::class, $user, array(
+        'environment' => $this->get( 'kernel' )->getEnvironment()
+    	));
 
 		// 2) handle the submit (will only happen on POST)
 		$form->handleRequest($request);

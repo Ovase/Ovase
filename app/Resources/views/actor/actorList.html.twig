@@ -6,14 +6,24 @@
 
 {% block body %}
     <a href="/person/ny">Lag person</a>
-    <a href="/company/ny">Lag company</a>
+    <a href="/company/ny">Lag selskap</a>
     <br>
     <h3>Personer</h3>
+
+    {{ form_start(personForm) }}
+    {{ form_widget(personForm) }}
+    {{ form_end(personForm) }}
+
     {% for person in persons %}
         <a href="/person/{{ person.getId() }}"><p>{{ person.getId() }} {{ person.getFirstName() }}</p></a>
     {% endfor %}
 
     <h3>Selskaper</h3>
+
+    {{ form_start(companyForm) }}
+    {{ form_widget(companyForm) }}
+    {{ form_end(companyForm) }}
+
     {% for company in companies %}
         <a href="/selskap/{{ company.getId() }}"> <p>{{ company.getId() }} {{ company.getName() }}</p></a>
     {% endfor %}

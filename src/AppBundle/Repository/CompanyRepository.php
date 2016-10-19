@@ -10,31 +10,42 @@ namespace AppBundle\Repository;
  */
 class CompanyRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function create($company)
-    {
-        $em = $this->getEntityManager();
-        $em->persist($company);
-        $em->flush();
-        return $company;
-    }
+	public function create($company)
+	{
+		$em = $this->getEntityManager();
+		$em->persist($company);
+		$em->flush();
+		return $company;
+	}
 
-    public function findCompanyByOrgNr($orgNr)
-    {
+	public function findCompaniesBySearch($searchTerm)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.name LIKE :searchTerm')
+//			->orWhere('Company.location LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			->getQuery()
+			->getResult();
+	}
 
-        return $this->createQueryBuilder('Comapny')
-            ->select('Comapny')
-            ->where('Comapny.orgNr = :orgNr')
-            ->setParameter('orgNr', $orgNr)
-            ->getQuery()
-            ->getSingleResult();
-    }
+	public function findCompaniesByType($type)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.type = :type')
+			->setParameter('type', $type)
+			->getQuery()
+			->getResult();
+	}
 
-    public function findTestCompanies()
-    {
-        return $this->createQueryBuilder('Company')
-            ->select('Company')
-            ->where('Company.field = TEST')
-            ->getQuery()
-            ->getResult();
-    }
+	public function findCompanyByOrgNr($orgNr)
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.orgNr = :orgNr')
+			->setParameter('orgNr', $orgNr)
+			->getQuery()
+			->getSingleResult();
+	}
 }
