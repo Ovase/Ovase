@@ -77,4 +77,14 @@ class Person extends Actor
 	{
 		return $this->lastName;
 	}
+
+	/**
+	 * Get full name
+	 *
+	 * @return string
+	 */
+	public function getName()
+    {
+    	return $this->firstName . " " . $this->lastName;
+    }
 }

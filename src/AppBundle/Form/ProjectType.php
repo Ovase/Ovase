@@ -78,7 +78,7 @@ class ProjectType extends AbstractType
 				'class' => 'AppBundle:Actor',
 
 				// use the Actor.email property as the visible option string
-				'choice_label' => 'email',
+				'choice_label' => 'name',
 
 				// used to render a select box, check boxes or radios
 				'multiple' => true,
