@@ -5,6 +5,35 @@
 {% endblock %}
 
 {% block body %}
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-left:15vw;margin-right:15vw;min-height:20vw;max-height:20vw;">
+	  <!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		</ol>
+	 
+	  <!-- Wrapper for slides -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<img class="img-responsive center-block" src="{{ asset('/static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="..." style="margin: auto;max-height:20vw">
+			</div>
+			<div class="item">
+				<img class="img-responsive center-block" src="{{ asset('static/images/header/San_Joaquin_River_headwaters_1080.jpg') }}" alt="..." style="margin: auto;max-height:20vw">
+			</div>
+			<div class="item">
+				<img class="img-responsive center-block" src="{{ asset('static/images/company/anlegg_og_utemiljoe.png') }}" alt="..." style="margin: auto;max-height:20vw;">
+			</div>
+		</div>
+	 
+		<!-- Controls -->
+		<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div> <!-- Carousel -->
 
 	<div class="row">
 		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
@@ -13,14 +42,15 @@
 			{% if message is defined %}
 				<p>{{ message }}</p>
 			{% endif %}
-
-			<p>{{ project.getName() }}</p>
-			<p>{{ project.getField () }}</p>
-			{#<p>{{ project.getStartdate() }}</p>#}
-			{#<p>{{ project.getEnddate() }}</p>#}
+			<h1>{{ project.getName() }}</h1>
+			<p>Felt: {{ project.getField () }}</p>
+			{#<p>Start dato: {{ project.getStartdate() }}</p>#}
+			{#<p>Slutt dato: {{ project.getEnddate() }}</p>#}
 			{#<p>{{ project.getTechnicalSolutions() }}</p>#}
+			<h2>Beskrivelse:</h2>
 			<p>{{ project.getDescription() }}</p>
-			<p>{{ project.getLocation() }}</p>
+			</br>
+			<p>Lokasjon: {{ project.getLocation() }}</p>
 			<iframe
 			width="600"
 			height="450"
