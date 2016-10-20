@@ -195,6 +195,8 @@ header {
 	position:absolute !important;
 	background:#E5E5E5 !important;
 }
+#project_search_form_search{
+}
 
 /* --------- NAVIGATION-BAR --------- */
 
@@ -217,7 +219,11 @@ a.navbar-txt {
 	font-weight: 700;
 }
 
-/* --------- FRONT PAGE CARDS --------- */
+/* --------- PROJECT CARDS --------- */
+ /*coming soon? */
+
+/* ----------- FRONT PAGE CARDS ----------------*/
+
 .fp-card {
 	width:40vw !important;
 	height:20vw !important;
@@ -431,6 +437,16 @@ h1 {
     width: 70%;
   }
 }
+/*---------- BODY -------------*/
+
+#wrap{
+	min-height: 100%
+}
+
+#main{
+	overflow: auto;
+	padding-bottom:50px;
+}
 
 /* --------- FOOTER --------- */
 
@@ -446,6 +462,8 @@ h1 {
 .footer-container {
 	color: #6D6D6D;
 	background-color: #E5E5E5;
+	margin-top: -50px;
+	height: 50px;
 
 }
 
