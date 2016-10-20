@@ -31,6 +31,14 @@ class Person extends Actor
 	private $lastName;
 
 	/**
+     * @ORM\ManyToMany(targetEntity="Company", mappedBy="persons")
+     */
+    private $companies;
+
+    public function __construct() {
+        $this->companies = new ArrayCollection();
+    }
+	/**
 	 * Set firstName
 	 *
 	 * @param string $firstName
@@ -87,4 +95,29 @@ class Person extends Actor
     {
     	return $this->firstName . " " . $this->lastName;
     }
+
+    public function addCompany($company)
+    {
+        $this->companies[] = $company;
+        return $this;
+    }
+    /**
+     * Remove companies.
+     *
+     * @param Company $company
+     */
+    public function removeCompany($company)
+    {
+        $this->companies->removeElement($company);
+    }
+    /**
+     * Get companies
+     *
+     * @return \doctrine\common\collections\collection
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
+
 }

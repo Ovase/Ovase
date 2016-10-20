@@ -12,9 +12,9 @@ class CompanyController extends Controller
 	{
 
 		$requestID = $request->get('id');
-		$project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find($requestID);
+		$company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find($requestID);
 
-		return $this->render(':actor:company.html.twig', array('project' => $project, 'key'=> $this->container->getParameter('api_key')));
+		return $this->render(':actor:company.html.twig', array('company' => $company, 'key'=> $this->container->getParameter('api_key')));
 	}
 
     public function createAction(Request $request)

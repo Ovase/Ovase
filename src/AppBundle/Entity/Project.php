@@ -111,11 +111,8 @@ class Project
 
 	/**
 	 * @var array
-	 * @ORM\ManyToMany(targetEntity="Actor")
-	 * @ORM\JoinTable(name="actor_in_project",
-	 *	  joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")},
-	 *	  inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id", onDelete="CASCADE")}
-	 *	  )
+	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="projects")
+	 * @ORM\JoinTable(name="actor_in_project")
 	 */
 	private $actors;
 
