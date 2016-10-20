@@ -13,15 +13,15 @@ class ProjectListController extends Controller
 		$searchTerm = '';
 		$form = $this -> createForm(ProjectSearchForm::class);
 		$form -> handleRequest($request);
- 
+
 		if($form->isSubmitted() && $form->isValid()){
 			$searchTerm = $form->getData()['search'];
 		}
- 
+
 		$projects = $this->get('doctrine')
 			->getRepository('AppBundle:Project')
 			->findProjectsBySearch($searchTerm);
- 
+
 		return $this->render(
 			'project/projectList.html.twig', array(
 				'projects' => $projects,
