@@ -42,15 +42,70 @@
 			{% if message is defined %}
 				<p>{{ message }}</p>
 			{% endif %}
-			<h1>{{ project.getName() }}</h1>
-			<p>Felt: {{ project.getField () }}</p>
-			{#<p>Start dato: {{ project.getStartdate() }}</p>#}
-			{#<p>Slutt dato: {{ project.getEnddate() }}</p>#}
-			{#<p>{{ project.getTechnicalSolutions() }}</p>#}
-			<h2>Beskrivelse:</h2>
-			<p>{{ project.getDescription() }}</p>
+
+			<h1>Prosjektnavn: {{ project.getName() }}</h1>
+
+			<h2>Fakta</h2>
+			<p2></p2>
+
+			<h2>Bakgrunn</h2>
+			<p2></p2>
+
+			<h2>Oppsummering</h2>
+			<p2></p2>
+
+			<h1>Anlagte tiltak</h1>
+			
+			<h2>Regnbed</h2>
+			<h3>Fakta</h3>
+			<h3>Geometrisk utforming</h3>
+			<h3>Konstruksjonsdetaljer og anleggelse</h3>
+			<h3>Drift, vedlikehold og oppfølging</h3>
+			<h3>Erfaringer og tips</h3>
+
+			{#...Flere tiltak, alle skal ha samme deloverskrivfter i h3 #}
+
+			<h1>Andre tiltak</h1>
+			<h2>Brukerinvolvering</h2>
+			<h3>Beskrivelse av tiltaket</h3>
+			<h3>Erfaringer og tips</h3>
+
+			<h1>Samarbeid</h1>
+			<h3>Beskrivelse av tiltaket</h3>
+			<h3>Erfaringer og tips</h3>
+
+			<h1>Planprosess</h1>
+			<h3>Beskrivelse av tiltaket</h3>
+			<h3>Erfaringer og tips</h3>
+
+			<h1>Kunnskapsinnhenting</h1>
+			<h3>Beskrivelse av tiltaket</h3>
+			<h3>Erfaringer og tips</h3>
+
+			<h1>Oppfølging og kommentarer</h1>
+			<p2>"Dato, navn og bilde av aktør + Kommentar"</p2>
+			<h3>Redigeringsinformasjon</h3>
+			<p2>Prosjektbeskrivelsen ble først publisert (dato) </p2></br>
+			<p2>Prosjektbeskrivelsen ble sist endra (dato) av (navn på aktør)</p2>
+
+
+
+
+
+			{#<p2>Felt: {{ project.getField () }}</p2>#}
+
+			{#<p2>Start dato: {{ project.getStartdate() }}</p2>#}
+			{#<p2>Slutt dato: {{ project.getEnddate() }}</p2>#}
+			{#<p2>{{ project.getTechnicalSolutions() }}</p2>#}
+
+			{#<p2>{{ project.getDescription() }}</p2>#}
+			
 			</br>
-			<p>Lokasjon: {{ project.getLocation() }}</p>
+			</br>
+
+			<p2>Lokasjon: {{ project.getLocation() }}</p2>
+
+			</br>
 			<iframe
 			width="600"
 			height="450"

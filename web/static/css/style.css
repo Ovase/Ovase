@@ -24,9 +24,17 @@ body {
 
 }
 
+h2 {
+	margin-left: 1vw;
+}
+
+p2 {
+	margin-left: 1vw;
+	font-size: 150%;
+}
 
 h3 {
-	color: #749562;
+	margin-left: 1vw;
 }
 
 
@@ -284,6 +292,10 @@ form div label {
 	font-size: 200%;
 	color: #6D6D6D !important;
 	margin-left: 15vw;
+}
+
+#project_search_form_search {
+	margin-left:-85px!important;
 }
 
 form div input {

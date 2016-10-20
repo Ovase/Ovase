@@ -14,7 +14,7 @@ class ProjectSearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', SearchType::class, array('attr' => array('placeholder' => 'Søk på navn, lokasjon, ...')))
+            ->add('search', SearchType::class, array('label' => 'Søk','attr' => array('placeholder' => 'Søk på navn, lokasjon, ...')))
             ->add('save', SubmitType::class, array ('label' => 'Søk'));
     }
 
