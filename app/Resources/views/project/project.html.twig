@@ -21,10 +21,6 @@
 			<p>{{ project.getDescription() }}</p>
 			<p>{{ project.getLocation() }}</p>
 
-			{% for solution in project.getTechnicalSolutions() %}
-				<p>{{solution}}</p>
-			{% endfor %}
-
 			<iframe
 			width="600"
 			height="450"
@@ -37,16 +33,16 @@
 				{% for actor in project.getActors() %}
 					{# Company condition. Note: this trick is a bit hacky #}
 					{% if actor.method('getType') is defined %}
-						<li> Selskap: <a href= "{{ path("company", {'id': actor.getId()}) }}"></a> Besøk vedkommendes profil </li>
+						<li> Selskap: <a href= "{{ path("company", {'id': actor.getId()}) }}">{{actor.getName}}</a></li>
 					{% else %}
-						<li> Person: <a href= "{{ path("person", {'id': actor.getId()}) }}"></a> Besøk vedkommendes profil </li>
+						<li> Person: <a href= "{{ path("person", {'id': actor.getId()}) }}">{{actor.getName}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>
 			<p> <b>Lenker</b> </p>
 			<ul>
 				{% for s in project.getTechnicalSolutions() %}
-					<li> <a href= "http://ovase.no/wiki/index.php/{{ s }}"></a> {{ s }} </li>
+					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
