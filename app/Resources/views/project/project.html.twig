@@ -31,8 +31,7 @@
 			<p> <b>Bidragsytere</b> </p>
 			<ul>
 				{% for actor in project.getActors() %}
-					{# Company condition. Note: this trick is a bit hacky #}
-					{% if actor.method('getType') is defined %}
+					{% if actor.getClassName == "Company"%}
 						<li> Selskap: <a href= "{{ path("company", {'id': actor.getId()}) }}">{{actor.getName}}</a></li>
 					{% else %}
 						<li> Person: <a href= "{{ path("person", {'id': actor.getId()}) }}">{{actor.getName}}</a></li>

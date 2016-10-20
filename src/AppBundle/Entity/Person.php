@@ -120,4 +120,15 @@ class Person extends Actor
         return $this->companies;
     }
 
+    /**
+     * Get name of subclass. Used when viewing 
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        return "Person";
+    }
+
+
 }

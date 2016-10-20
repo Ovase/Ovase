@@ -146,8 +146,19 @@ class Company extends Actor
      *
      * @return \doctrine\common\collections\collection
      */
-    public function getpersons()
+    public function getPersons()
     {
         return $this->persons;
     }
+
+    /**
+     * Get name of subclass. Used when viewing 
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        return "Company";
+    }
+
 }
