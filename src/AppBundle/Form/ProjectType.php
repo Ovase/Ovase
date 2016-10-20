@@ -26,20 +26,20 @@ class ProjectType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('name', TextType::class, array('attr' => array('placeholder' => 'name')))
-			->add('field', TextType::class, array('attr' => array('placeholder' => 'field')))
+			->add('name', TextType::class, array('attr' => array('placeholder' => 'Navn på prosjekt')))
+			->add('field', TextType::class, array('attr' => array('placeholder' => 'Felt')))
 			->add('startdate', DateTimeType::class)
 			->add('enddate', DateTimeType::class)
-			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'description')))
-            ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet prosjektet trengte')))
-            ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'areal')))
+			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av prosjektet')))
+            ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet')))
+            ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'Areal')))
             ->add('cost', MoneyType::class, array('currency' => 'NOK',))
-            ->add('areaType', TextType::class, array('attr' => array('placeholder' => 'Navn på type område.')))
-            ->add('projectType', TextType::class, array('attr' => array('placeholder' => 'Navn på prosjekt - kategori.')))
+            ->add('areaType', TextType::class, array('attr' => array('placeholder' => 'Type område.')))
+            ->add('projectType', TextType::class, array('attr' => array('placeholder' => 'Prosjektkategori')))
             ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px')))
 
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px')))
+			->add('location', TextType::class, array('attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px')))
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
