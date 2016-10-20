@@ -61,11 +61,11 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
 		$actors = $actrepo->findAllTestActors();
 		$projects = $projrepo->findAllTestProjects();
 		
-		foreach ($anine->getCompanies() as $co) {
-			$anine->removeCo($co);;
+		foreach ($anine->getActors() as $co) {
+			$anine->removeActor($co);;
 		}
-		foreach ($derp->getCompanies() as $co) {
-			$derp->removeCo($co);;
+		foreach ($derp->getActors() as $co) {
+			$derp->removeActor($co);;
 		}
 
 		// Attempt to delete all the things

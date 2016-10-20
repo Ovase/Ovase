@@ -24,12 +24,16 @@ class CompanyController extends Controller
             throw $this->createAccessDeniedException('Du må være logget inn for å definere et selskap');
         }
         $company = new Company();
-        $company->addUser($this->getUser());
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
 		if($form->isSubmitted()){
 			$this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->create($company);
+			            $user = $this->getUser();
+            $user->addActor($company);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
 			return $this->redirect('/actor');
 		}
 		return $this->render(

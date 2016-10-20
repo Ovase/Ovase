@@ -112,29 +112,17 @@ class Project
 	/**
 	 * @var array
 	 * @ORM\ManyToMany(targetEntity="Actor")
-	 * @ORM\JoinTable(name="projects_actors",
+	 * @ORM\JoinTable(name="actor_in_project",
 	 *	  joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")},
 	 *	  inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id", onDelete="CASCADE")}
 	 *	  )
 	 */
 	private $actors;
 
-    /**
-     * @var array
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="user_can_edit_project",
-     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     *      )
-     */
-    private $users;
-
 	public function __construct()
 	{
-		//$this->technicalSolutions = new ArrayCollection(); // List of Measurement objects
 		$this->actors = new ArrayCollection();
         $this->technicalSolutions = array();
-        $this->users = new ArrayCollection();
 	}
 	/**
 	 * Get id
@@ -443,19 +431,6 @@ class Project
     }
 
     /**
-     * Add Users.
-     *
-     * @param user $user
-     *
-     * @return Project
-     */
-    public function addUser($user)
-    {
-        $this->users[] = $user;
-        return $this;
-    }
-
-    /**
      * Set version
      *
      * @param integer $version
@@ -468,23 +443,6 @@ class Project
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Remove Users.
-     *
-     * @param user $user
-     */
-    public function removeUser($user)
-    {
-        $this->users->removeElement($user);
-    }
     /**
      * Get version
      *

@@ -38,13 +38,15 @@ class ProjectController extends Controller
         }
 
         $project = new Project();
-        $user = $this->getUser();
-        $project->addUser($user);
-        $project->addActor($user->getPerson());
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
+            $user = $this->getUser();
+            $user->addProject($project);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
             return $this->redirect('/anlegg');
         }
         return $this->render(
