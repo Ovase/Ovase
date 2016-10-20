@@ -20,6 +20,11 @@
 			<p>{{ project.getEnddate()|date("m/d/Y") }}</p>
 			<p>{{ project.getDescription() }}</p>
 			<p>{{ project.getLocation() }}</p>
+
+			{% for solution in project.getTechnicalSolutions() %}
+				<p>{{solution}}</p>
+			{% endfor %}
+
 			<iframe
 			width="600"
 			height="450"
