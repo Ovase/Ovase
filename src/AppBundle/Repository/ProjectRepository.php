@@ -48,4 +48,13 @@ class ProjectRepository extends EntityRepository
 			->getResult();
 	}
 
+	public function findEditedProjects()
+	{
+		return $this->createQueryBuilder('Project')
+			->select('Project')
+			->where('Project.version > 0')
+			->getQuery()
+			->getResult();
+	}
+	
 }

@@ -91,15 +91,13 @@ class Project
      * @ORM\Column(type="text")
      */
     private $soilConditions;
+
 	/**
-	 * Some form of optimistic locking needed, because we need to prohibit concurrent changes. 
 	 * @var int
-     * @ORM\Column(type="float")
-	 *
-	 * @ORM\Column(name="version", type="integer")
-	 * @Assert\Type("integer")
-	 */
+ 	 * @ORM\Column(type="integer")
+ 	 */
 	private $version = 1;
+
     /**
      * The current total cost of the project, measured in NOK.
      * @var float

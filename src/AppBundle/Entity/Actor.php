@@ -83,7 +83,7 @@ class Actor
 	 * @ORM\Column(name="version", type="integer")
 	 * @Assert\Type("integer")
 	 */
-	private $version = 0;
+	private $version = 1;
 
 	/**
      * @ORM\ManyToMany(targetEntity="Project", mappedBy="actors")

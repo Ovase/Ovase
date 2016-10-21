@@ -55,5 +55,16 @@ person:
     id: \d+
 
 create_project:
-    path:     /anlegg/ny
-    defaults: { _controller: AppBundle:Project:create}
+  path:     /anlegg/ny
+  defaults: { _controller: AppBundle:Project:create}
+
+edit:
+  path:     /rediger
+  defaults: { _controller: AppBundle:EditList:show}
+
+edit_project:
+  path:     /anlegg/rediger/{id}
+  defaults: { _controller: AppBundle:Project:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+

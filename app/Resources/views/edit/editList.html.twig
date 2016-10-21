@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Rediger
+{% endblock %}
+
+{% block body %}
+    <br>
+    <h3>Anlegg</h3>
+
+    {% for project in projects %}
+        <a href="/anlegg/rediger/{{ project.getId() }}"><p>{{ project.getName() }}</p></a>
+    {% endfor %}
+
+    <h3>Personer</h3>
+
+    {% for person in persons %}
+        <a href="/person/rediger/{{ person.getId() }}"><p>{{ person.getName() }}</p></a>
+    {% endfor %}
+
+    <h3>Selskaper</h3>
+
+    {% for company in companies %}
+        <a href="/selskap/rediger/{{ company.getId() }}"> <p>{{ company.getName() }}</p></a>
+    {% endfor %}
+{% endblock %}

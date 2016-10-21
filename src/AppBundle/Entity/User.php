@@ -490,4 +490,9 @@ class User implements AdvancedUserInterface, \Serializable
 
         return $this;
     }
+
+    public function canEditProject($project)
+    {
+    	return $this->projects->contains($project);
+    }
 }

@@ -48,4 +48,14 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 			->getQuery()
 			->getSingleResult();
 	}
+
+	public function findEditedCompanies()
+	{
+		return $this->createQueryBuilder('Company')
+			->select('Company')
+			->where('Company.version > 0')
+			->getQuery()
+			->getResult();
+	}
+	
 }
