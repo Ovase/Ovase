@@ -24,17 +24,29 @@ body {
 
 }
 
+h1 {
+	font-weight: bold !important;
+}
+
 h2 {
-	margin-left: 1vw;
+	margin-left: 5vw;
+	font-weight: bold !important;
 }
 
 p2 {
-	margin-left: 1vw;
+	margin-left: 5vw;
 	font-size: 150%;
+	display:block;
+	margin-right: 5vw;
 }
 
 h3 {
-	margin-left: 1vw;
+	margin-left: 5vw;
+	font-weight: bold !important;
+}
+
+h4 {
+	font-size: 200% !important;
 }
 
 
@@ -108,6 +120,11 @@ header {
 	margin: auto;
 	border-top-right-radius:30px;
 	border-bottom-left-radius:30px;
+}
+
+.divMargins {
+	margin-left: 5vw;
+	margin-right: 5vw;
 }
 
 #logo-box {
@@ -203,8 +220,6 @@ header {
 	position:absolute !important;
 	background:#E5E5E5 !important;
 }
-#project_search_form_search{
-}
 
 /* --------- NAVIGATION-BAR --------- */
 
@@ -243,23 +258,37 @@ a.fp-card {
 }
 
 .card-text {
-		font-size: 2vw !important;
+		font-size: 1vw !important;
 	}
 
 #fp-icon {
 	max-width: 10vw !important;
 }
+.fp-card-title {
+	font-size: 3vw !important;
+	padding-top:1vw;
+}
 
 .card-title {
-	font-size: 3vw !important;
+	font-size: 1.5vw !important;
+	padding-top:1vw;
+}
+
+.card-subtitle {
+	font-size: 1.25vw !important;
+	color: black;
 }
 
 #fp-text {
 	margin-left:15vw !important;
+	font-size: 2vw !important
 }
 
-.card-title {
+.card-img {
+	max-height:20vw;
+	max-width:100%;
 	padding-top:1vw;
+	padding-bottom:1vw;
 }
 
 @media screen and (max-width: 991px) {
@@ -269,19 +298,33 @@ a.fp-card {
 	}
 
     .card-text {
-		font-size: 4vw !important;
+		font-size: 2vw !important;
 	}
 
 	#fp-icon {
 		max-width: 20vw !important;
 	}
 
-	.card-title {
+	.fp-card-title {
 		font-size: 6vw !important;
+	}
+
+	.card-title {
+		font-size: 3vw !important;
+	}
+
+	.card-subtitle {
+		font-size: 2.5vw !important;
+		color: black;
 	}
 
 	#fp-text {
 		margin-left: 30vw !important;
+		font-size: 4vw !important
+	}
+
+	.card-img {
+		max-height:40vw;
 	}
 }
 
@@ -295,7 +338,19 @@ form div label {
 }
 
 #project_search_form_search {
-	margin-left:-85px!important;
+	margin-left:0px !important;
+	float: left;
+	background-color: #E5E5E5;
+}
+
+#project_search_form {
+	margin-left: 1vw !important;
+}
+
+#project_search_form_save {
+	margin-left:0px;
+	height:36px;
+	background-color: #E5E5E5;
 }
 
 form div input {
@@ -452,7 +507,9 @@ h1 {
 /*---------- BODY -------------*/
 
 #wrap{
-	min-height: 100%
+	min-height: 100%;
+	margin-right: 5vw;
+	margin-left: 5vw;
 }
 
 #main{

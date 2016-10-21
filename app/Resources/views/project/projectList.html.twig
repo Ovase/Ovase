@@ -5,10 +5,7 @@
 {% endblock %}
 
 {% block body %}
-		<div class="row" style="margin-left:10vw;">
-			{#<div class="col-lg-3">#}
-
-				<!--
+			<!--
 				<div class="input-group">
 					<input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
 					<span class="input-group-btn">
@@ -17,14 +14,15 @@
 				</div>
 			-->
 
-				{{ form_start(form) }}
-			 	{{ form_widget(form) }}
-				{{ form_end(form) }}
-
-				<a href="/anlegg/ny">Lag nytt prosjekt</a>
-
-			{#</div>#}
-		</div>
+		<!--Search form -->
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+		</br>
+		</br>
+		<button style="margin-left:1vw"><a class="fp-card" href="/anlegg/ny">Lag nytt prosjekt</a></button>
+		</br>
+		</br>
 
 
 		{% for project in projects %}
@@ -32,18 +30,19 @@
 			<div class="col-md-6">
 
 				<div class="card card" style="background-color:#d3d3d3; display:block">
+					<div style="margin:0 2vw 0 2vw">
 						<div class="card-block">
 							<h1 class="card-title">{{ project.getName() }}</h1>
-							<h2 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h2>
+							<h4 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h4>
 						</div>
 
 
 						<div>
-								<img src="{{ asset('static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="Card image" style="max-width:100%;">
+								<img class="center-block card-img" src="{{ asset('static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="Card image">
 						</div>
 
 						<div id="p-text" class="card-block">
-								<p style="font-size:200%; color:black">
+								<p class="card-subtitle">
 									Beskrivelse:
 								</p>
 
@@ -54,7 +53,7 @@
 						</div>
 
 						<div class="card-block">
-							<p style="font-size:200%; color:black;">Tekniske løsninger:</p>
+							<p class="card-subtitle">Tekniske løsninger:</p>
 							<p class="card-text">
 							{% for p in project.getTechnicalSolutions() %}
 								{{ p }}
@@ -65,7 +64,7 @@
 						<div class="card-block">
 							<a href="{{ path('project', {'id': project.getId()}) }}" class="card-link">Se mer</a>
 						</div>
-
+					</div>
 				</div>
 
 			</div>
