@@ -30,19 +30,29 @@ class ProjectController extends Controller
 		return $this->render('project/project.html.twig', array('project' => $project, 'key'=> $this->container->getParameter('api_key') ));
 	}
 
-	public function createAction(Request $request)
-	{
-		$project = new Project();
-		$form = $this->createForm(ProjectType::class, $project);
-		$form->handleRequest($request);
-		if($form->isValid()){
-			$this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
-			return $this->redirect('/anlegg');
-		}
-		return $this->render(
-			'project/create.html.twig', array(
-				'form' => $form -> createView(),
-			)
-		);
-	}
+    public function createAction(Request $request)
+    {
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            throw $this->createAccessDeniedException();
+        }
+
+        $project = new Project();
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
+            $user = $this->getUser();
+            $user->addProject($project);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirect('/anlegg');
+        }
+        return $this->render(
+            'project/create.html.twig', array(
+                'form' => $form->createView()
+            )
+        );
+    }
 }

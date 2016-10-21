@@ -10,12 +10,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ProjectSearchForm extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', SearchType::class, array('label' => 'Søk','attr' => array('placeholder' => 'Søk på navn, lokasjon, ...')))
+            ->add('search', SearchType::class, array('label' => 'Søk','attr' => array('placeholder' => 'Søk på navn, lokasjon, ...'), 'required' => false))
+
             ->add('save', SubmitType::class, array ('label' => 'Søk'));
     }
-
 } 

@@ -12,6 +12,7 @@ class ProjectRepository extends EntityRepository
 		return $this->createQueryBuilder('Project')
 			->select('Project')
 			->where('Project.name LIKE :searchTerm')
+			->orwhere('Project.location LIKE :searchTerm')
 //			->orWhere('Project.technicalSolutions LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
 			->getQuery()

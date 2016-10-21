@@ -18,6 +18,20 @@
 			height="450"
 			frameborder="0" style="border:0"
 			src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ person.getLocation() }}" allowfullscreen>
+            </iframe>
+
+            <p> <b>Selskap personen er knyttet til:</b> </p>
+            <ul>
+                {% for company in person.getCompanies() %}
+                    <li><a href= "{{ path("company", {'id': company.getId()}) }}">{{company.getName}}</a></li>
+                {% endfor %}
+            </ul>
+            <p> <b>Prosjekter personen er knyttet til:</b> </p>
+            <ul>
+                {% for project in person.getProjects() %}
+                    <li><a href= "{{ path("project", {'id': project.getId()}) }}">{{project.getName}}</a></li>
+                {% endfor %}
+            </ul>
 
         </div>
     </div>

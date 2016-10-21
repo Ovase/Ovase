@@ -1,19 +1,15 @@
 <?php
 namespace AppBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * AppBundle\Entity\Project.
  *
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
- * @UniqueEntity(
- *	  fields={"id"},
- *	  message="Denne ID er allerede i bruk.",
- * )
  */
 class Project
 {
@@ -43,14 +39,6 @@ class Project
 	 */
 	private $enddate;
 	/**
-	 * @ORM\Column(type="array")
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Length(min = 5)
-	 * })
-	 */
-	private $technicalSolutions;
-	/**
 	 * @ORM\Column(type="text")
 	 */
 	private $description;
@@ -61,27 +49,77 @@ class Project
 	private $location;
 
 	/**
+	 * The total area of the space the project took.
+	 * @var float
+     * @ORM\Column(type="float")
+	 * @Assert\Type("float")
+	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+	 */
+	private $totalArea = 0.0;
+
+	/**
+	 * @var string
+     * @ORM\Column(type="string")
+	 * @Assert\NotBlank
+     * @Assert\Type("string")
+	 * @Assert\Length(min = 1)
+	 */
+	private $areaType = "";
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(min = 1)
+     */
+	private $projectType = "";
+
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     * @Assert\All({
+     *	 @Assert\NotBlank,
+     *   @Assert\Type("string"),
+     *	 @Assert\Length(min = 1)
+     * })
+     */
+    private $technicalSolutions;
+
+    /**
+     * Field for storing the required soil condition of the project
+     * @ORM\Column(type="text")
+     */
+    private $soilConditions;
+	/**
+	 * Some form of optimistic locking needed, because we need to prohibit concurrent changes. 
 	 * @var int
+     * @ORM\Column(type="float")
 	 *
 	 * @ORM\Column(name="version", type="integer")
 	 * @Assert\Type("integer")
 	 */
-	private $version = 0;
+	private $version = 1;
+    /**
+     * The current total cost of the project, measured in NOK.
+     * @var float
+     * @ORM\Column(type="float")
+     * @Assert\Type("float")
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     */
+    private $cost;
 
 	/**
 	 * @var array
-	 * @ORM\ManyToMany(targetEntity="Actor")
-	 * @ORM\JoinTable(name="projects_actors",
-	 *	  joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")},
-	 *	  inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id", onDelete="CASCADE")}
-	 *	  )
+	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="projects")
+	 * @ORM\JoinTable(name="actor_in_project")
 	 */
 	private $actors;
 
 	public function __construct()
 	{
-		$this->technicalSolutions = new ArrayCollection();
 		$this->actors = new ArrayCollection();
+        $this->technicalSolutions = array();
 	}
 	/**
 	 * Get id
@@ -141,6 +179,15 @@ class Project
 		return $this->location;
 	}
 
+	/**
+	 * Get contributors to the project
+	 *
+	 * @return array
+	 */
+	public function getActors()
+	{
+		return $this->actors;
+	}
 
 	/**
 	 * Set field
@@ -231,7 +278,7 @@ class Project
 	/**
 	 * Get technicalSolutions
 	 *
-	 * @return \Doctrine\Common\Collections\ArrayCollection
+	 * @return array
 	 */
 	public function getTechnicalSolutions()
 	{
@@ -282,6 +329,7 @@ class Project
 	{
 		$this->actors->removeElement($actor);
 	}
+
 	/**
 	 * Increment version counter
 	 */
@@ -299,6 +347,85 @@ class Project
 		$this->version = 0;
 		return $this;
 	}
+    /**
+     * @return float
+     */
+    public function getTotalArea()
+    {
+        return $this->totalArea;
+    }
+
+    /**
+     * @param float $totalArea
+     */
+    public function setTotalArea($totalArea)
+    {
+        $this->totalArea = $totalArea;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAreaType()
+    {
+        return $this->areaType;
+    }
+
+    /**
+     * @param array $areaType
+     */
+    public function setAreaType($areaType)
+    {
+        $this->areaType = $areaType;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProjectType()
+    {
+        return $this->projectType;
+    }
+
+    /**
+     * @param array $projectType
+     */
+    public function setProjectType($projectType)
+    {
+        $this->projectType = $projectType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoilConditions()
+    {
+        return $this->soilConditions;
+    }
+
+    /**
+     * @param mixed $soilConditions
+     */
+    public function setSoilConditions($soilConditions)
+    {
+        $this->soilConditions = $soilConditions;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param float $cost
+     */
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+    }
 
     /**
      * Set version
@@ -310,7 +437,6 @@ class Project
     public function setVersion($version)
     {
         $this->version = $version;
-
         return $this;
     }
 
@@ -324,13 +450,4 @@ class Project
         return $this->version;
     }
 
-    /**
-     * Get actors
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getActors()
-    {
-        return $this->actors;
-    }
 }

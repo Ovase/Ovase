@@ -19,18 +19,27 @@ class PersonController extends Controller
 
 	public function createAction(Request $request)
 	{
+		if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            throw $this->createAccessDeniedException('Du må være logget inn for å definere en person');
+        }
 		$person = new Person();
 		$form = $this->createForm(PersonType::class, $person);
 		$form->handleRequest($request);
 
-		if($form->isSubmitted()){
-			$this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->create($person);
-			return $this->redirect('/actor');
-		}
-		return $this->render(
-			'actor/create_person.html.twig', array(
-				'form' => $form -> createView()
-			)
-		);
-	}
+        if($form->isSubmitted()){
+            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
+            $user = $this->getUser();
+            $user->addActor($person);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
+            return $this->redirect('/actor');
+        }
+        return $this->render(
+            'actor/create_person.html.twig', array(
+                'form' => $form -> createView()
+            )
+        );
+    }
 }
