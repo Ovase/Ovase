@@ -62,10 +62,10 @@ class UserControllerTest extends WebTestCase
 		$this->tearDown();
 	}
 
-		/**
-		 * {@inheritdoc}
-		 */
-		protected function tearDown()
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function tearDown()
 	{
 		parent::tearDown();
 		$user = null;
