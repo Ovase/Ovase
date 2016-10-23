@@ -20,7 +20,11 @@ class ActorControllerTest extends WebTestCase
 			->getManager();
 	}
 
-	public function testCreateCompany()
+	/*
+	 * As a non-authenticated user, attempting to create a company must fail and redirect you to login page.
+	 * This test asserts that that there is al ink on the overview page /actor
+	 * */
+	public function testCreateCompanyFail()
 	{
 		$client = static::createClient();
 		$crawler = $client->request('GET', '/actor');
@@ -34,10 +38,13 @@ class ActorControllerTest extends WebTestCase
 			->eq(0)
 			->link();
 
-		//Click on create company
-		$crawler = $client->click($link);
-		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		//Click on create company and get redirected to login
+        $client->click($link);
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
 
+		/* //
 		$companyName = 'test selskap';
 		//Get the form
 		$form = $crawler->selectButton('company[save]')->form(array(
@@ -50,7 +57,7 @@ class ActorControllerTest extends WebTestCase
 		$client->followRedirect();
 
 		//Check if the company exists in the list
-		$this->assertContains($companyName, $client->getResponse()->getContent());
+		$this->assertContains($companyName, $client->getResponse()->getContent()); */
 	}
 
 
@@ -61,7 +68,7 @@ class ActorControllerTest extends WebTestCase
 		try {
 			$company = $this->em->getRepository('AppBundle:Company')->findCompanyByOrgNr('123123333');
 		} catch (NoResultException $t) {
-			$this->em->close();
+			//$this->em->close();
 			return;
 		}
 		if ($company) {
@@ -69,5 +76,6 @@ class ActorControllerTest extends WebTestCase
 			$this->em->flush();
 		}
 		$this->em->close();
+        unset($this->em);
 	}
 }
