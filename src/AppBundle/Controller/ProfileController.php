@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Person;
 use AppBundle\Form\PersonType;use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 //use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ProfileController extends Controller
@@ -34,6 +36,32 @@ class ProfileController extends Controller
 			)
 		);
 	}
+    public function activateUsersAction(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            throw $this->createAccessDeniedException();
+        }
+        // Create form
+        $data = array();
+        $form = $this->createFormBuilder($data)
+
+            ->add('users', EntityType::class,
+                array(
+                    'class' => 'AppBundle:User',
+					'choice_label' => function ($user) { return $user->getFullName(); }
+				))
+
+			->add('save', SubmitType::class,
+        array('label' => 'Lagre'))
+
+        ->getForm();
+
+		// Handle form-POST
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($data['users'] as $user) { $user->setIsActive(1);}
+		}
+    }
 	public function queryMeAction(Request $request)
 	{
 		if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
