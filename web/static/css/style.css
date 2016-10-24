@@ -49,6 +49,18 @@ h4 {
 	font-size: 200% !important;
 }
 
+h5 {
+	font-size: 3vw !important;
+	font-weight: bold !important;
+	margin-left:1vw;
+}
+
+
+@media only screen and (max-width: 991px){
+	h5 {
+		font-size: 6vw !important;
+	}
+}
 
 a {
 	text-decoration: inherit;
@@ -337,20 +349,40 @@ form div label {
 	margin-left: 15vw;
 }
 
-#project_search_form_search {
-	margin-left:0px !important;
-	float: left;
-	background-color: #E5E5E5;
-}
-
-#project_search_form {
+div[id$="_search_form"] {
 	margin-left: 1vw !important;
 }
 
-#project_search_form_save {
+input[id$="_search_form_search"] {
+	margin-left:0px !important;
+	float: left;
+	background-color: #E5E5E5;
+	width: 30vw;
+	min-width: 250px;
+}
+
+button[id$="_search_form_save"] {
 	margin-left:0px;
 	height:36px;
 	background-color: #E5E5E5;
+}
+
+@media only screen and (max-width: 991px){
+	div[id$="_search_form"] {
+		margin-left: 1vw !important;
+	}
+
+	input[id$="_search_form_search"] {
+		margin-left:0px !important;
+		float: left;
+		background-color: #E5E5E5;
+	}
+
+	button[id$="_search_form_save"] {
+		margin-left:0px;
+		height:36px;
+		background-color: #E5E5E5;
+	}
 }
 
 form div input {
