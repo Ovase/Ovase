@@ -72,7 +72,7 @@ class Actor
 	 */
 	private $email;
 	/**
-	 * Field for storing the address of the project
+	 * Field for storing the address the actor is located at.
 	 * @ORM\Column(type="text")
 	 */
 	private $location;
@@ -83,13 +83,19 @@ class Actor
 	 * @ORM\Column(name="version", type="integer")
 	 * @Assert\Type("integer")
 	 */
-	private $version = 0;
+	private $version = 1;
+
+	/**
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="actors")
+     */
+    private $projects;
 
 	public function __construct()
 	{
 		$this->keyKnowledges = new ArrayCollection();
 		$this->images = new ArrayCollection();
 		$this->location = new ArrayCollection();
+		$this->projects = new ArrayCollection();
 	}
 
 	/**
@@ -276,13 +282,52 @@ class Actor
         return $this;
     }
 
-    /**
-     * Get version
+	/**
+     * Set version
      *
-     * @return integer
+     * @return int
      */
     public function getVersion()
     {
         return $this->version;
     }
+
+     /**
+	 * Get the projects the actor is related to
+	 *
+	 * @return array
+	 */
+	public function getProjects()
+	{
+		return $this->projects;
+	}
+
+    /**
+     * Add project the actor is related to
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return Actor
+     */
+    public function addProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Remove project the actor is related to
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return Actor
+     */
+    public function removeProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects->removeElement($project);
+
+        return $this;
+    }
+
 }

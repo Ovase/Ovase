@@ -69,10 +69,10 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "TEST", new DateTime('2016-11-02'), new DateTime('2017-08-08'), array(60.40,6.12), array("multifunctional playground","rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
 
 		// Define relations
-		$editoruser->addCo($ovase);
-		$plainuser->addCo($ovase);
-		$editoruser->addCo($uncas);
-		$editoruser->addCo($okr);
+		$editoruser->addActor($ovase);
+		$plainuser->addActor($ovase);
+		$editoruser->addActor($uncas);
+		$editoruser->addActor($okr);
 		$ovase->addPerson($pl);
 		$ovase->addPerson($ad);
 		$ovase->addPerson($sm);

@@ -34,21 +34,53 @@ class ProjectController extends Controller
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
-            throw $this->createAccessDeniedException();
+            throw $this->createAccessDeniedException('Du må være logget inn for å lage et prosjekt');
         }
-
         $project = new Project();
-        $user = $this->getUser();
-        $project->addUser($user);
-        $project->addActor($user->getPerson());
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
+            $user = $this->getUser();
+            $user->addProject($project);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
             return $this->redirect('/anlegg');
         }
         return $this->render(
             'project/create.html.twig', array(
+                'form' => $form->createView()
+            )
+        );
+    }
+
+    public function editAction(Request $request)
+    {   
+        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            throw $this->createAccessDeniedException("Du må være logget inn for å se denne siden");
+        }
+
+        $requestID = $request->get('id');
+        $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
+
+        if(!$this->getUser()->canEditProject($project))
+        {
+            throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
+        }
+        
+        $form = $this->createForm(ProjectType::class, $project, array('method' => 'PUT'));
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $project->incrementVersion();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
+            return $this->redirect('/anlegg/'.(string)$requestID);
+        }
+        return $this->render(
+            'project/edit.html.twig', array(
                 'form' => $form->createView()
             )
         );

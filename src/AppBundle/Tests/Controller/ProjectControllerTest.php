@@ -20,7 +20,11 @@ class ProjectControllerTest extends WebTestCase
 			->getManager();
 	}
 
-	public function testCreateProject()
+    /*
+     * As a non-authenticated user, attempting to create a project must fail and redirect you to login page.
+     * This test asserts that that there is al ink on the overview page /anlegg
+     * */
+	public function testCreateProjectFail()
 	{
 		$client = static::createClient();
 		$crawler = $client->request('GET', '/anlegg');
@@ -34,11 +38,14 @@ class ProjectControllerTest extends WebTestCase
 			->eq(0)
 			->link();
 
-		//Click on create project
-		$crawler = $client->click($link);
-		$this->assertEquals(200, $client->getResponse()->getStatusCode());
+		//Click on create project and get redirected to login
+		$client->click($link);
+		$this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
 
-		$projectName = 'testProsjekt';
+		/* //
+        $projectName = 'testProsjekt';
 		//Get the form
 		$form = $crawler->selectButton('project[save]')->form(array(
 			'project[name]' => $projectName,
@@ -49,7 +56,7 @@ class ProjectControllerTest extends WebTestCase
 		$client->followRedirect();
 
 		//Check if the project exists in the list
-		$this->assertContains($projectName, $client->getResponse()->getContent());
+		$this->assertContains($projectName, $client->getResponse()->getContent()); */
 	}
 
 	public function tearDown()
@@ -59,7 +66,7 @@ class ProjectControllerTest extends WebTestCase
 		try {
 			$projects = $this->em->getRepository('AppBundle:Project')->findProjectsByName('testProsjekt');
 		} catch (NoResultException $t) {
-			$this->em->close();
+			//$this->em->close();
 			return;
 		}
 		if ($projects) {
@@ -69,5 +76,6 @@ class ProjectControllerTest extends WebTestCase
 			$this->em->flush();
 		}
 		$this->em->close();
+        unset($this->em);
 	}
 }

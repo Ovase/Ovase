@@ -8,6 +8,7 @@
 
 	<div class="row">
 		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
+			<a href= "/anlegg/rediger/{{ project.getId() }}">{{"Rediger prosjekt"}}</a>
 			<p></p>
 
 			{% if message is defined %}
@@ -16,11 +17,11 @@
 
 			<p>{{ project.getName() }}</p>
 			<p>{{ project.getField () }}</p>
-			{#<p>{{ project.getStartdate() }}</p>#}
-			{#<p>{{ project.getEnddate() }}</p>#}
-			{#<p>{{ project.getTechnicalSolutions() }}</p>#}
+			<p>{{ project.getStartdate()|date("d/m/Y") }}</p>
+			<p>{{ project.getEnddate()|date("m/d/Y") }}</p>
 			<p>{{ project.getDescription() }}</p>
 			<p>{{ project.getLocation() }}</p>
+
 			<iframe
 			width="600"
 			height="450"
@@ -28,6 +29,22 @@
 			src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ project.getLocation() }}" allowfullscreen>
 			{# For options on usage of the Embed API, see https://developers.google.com/maps/documentation/embed/guide #}
 			</iframe>
+			<p> <b>Bidragsytere</b> </p>
+			<ul>
+				{% for actor in project.getActors() %}
+					{% if actor.getClassName == "Company"%}
+						<li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName}}</a></li>
+					{% else %}
+						<li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName}}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			<p> <b>Tekniske løsninger</b> </p>
+			<ul>
+				{% for s in project.getTechnicalSolutions() %}
+					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 

@@ -87,26 +87,34 @@ class User implements AdvancedUserInterface, \Serializable
 	 * @ORM\Column(type="string", length = 64)
 	 */
 	private $salt;
+
 	/**
-	 * @ORM\OneToOne(targetEntity="Person")
-	 * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
-	 */
-	private $person;
-	/**
-	 * @ORM\ManyToMany(targetEntity="Company")
-	 * @ORM\JoinTable(name="users_companies",
+	 * @var array
+	 * @ORM\ManyToMany(targetEntity="Actor")
+	 * @ORM\JoinTable(name="user_can_edit_actor",
 	 *	  joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-	 *	  inverseJoinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")}
+	 *	  inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id", onDelete="CASCADE")}
 	 *	  )
 	 */
-	private $companies;
+	private $actors;
+
+	/**
+     * @var array
+     * @ORM\ManyToMany(targetEntity="Project")
+     * @ORM\JoinTable(name="user_can_edit_project",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")}
+     *      )
+     */
+    private $projects;
 
 	public function __construct()
 	{
 		$this->roles = new ArrayCollection();
 		$this->isActive = false;
 		$this->picture_path = 'static/images/person/defaultprofile.png';
-	$this->companies = new ArrayCollection();
+		$this->actors = new ArrayCollection();
+		$this->projects = new ArrayCollection();
 	}
 	public function getId()
 	{
@@ -249,16 +257,6 @@ class User implements AdvancedUserInterface, \Serializable
 		return $this->phone;
 	}
 	/**
-	 * Get the companies the user has access to.
-	 *
-	 * @return array
-	 */
-	public function getCompanies()
-	{
-		return $this->companies;
-	}
-
-	/**
 	 * Add roles.
 	 *
 	 * @param string $roles
@@ -279,27 +277,7 @@ class User implements AdvancedUserInterface, \Serializable
 	{
 		$this->roles->removeElement($roles);
 	}
-	/**
-	 * Add company the user can edit.
-	 *
-	 * @param string $company
-	 *
-	 * @return User
-	 */
-	public function addCo($company)
-	{
-		$this->companies[] = $company;
-		return $this;
-	}
-	/**
-	 * Revoke a user's right to edit a company.
-	 *
-	 * @param string $company
-	 */
-	public function removeCo($company)
-	{
-		$this->companies->removeElement($company);
-	}
+
 	/**
 	 * Set new_user_code.
 	 *
@@ -428,23 +406,6 @@ class User implements AdvancedUserInterface, \Serializable
 	}
 
     /**
-     * @return mixed
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * @param mixed $person
-     */
-    public function setPerson($person)
-    {
-        $this->person = $person;
-    }
-
-
-    /**
      * Set roles
      *
      * @param array $roles
@@ -459,26 +420,79 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add company
+	 * Get the actors the user can edit
+	 *
+	 * @return array
+	 */
+	public function getActors()
+	{
+		return $this->actors;
+	}
+
+    /**
+     * Add edit rights for actor
      *
-     * @param \AppBundle\Entity\Company $company
+     * @param \AppBundle\Entity\Actor $actor
      *
      * @return User
      */
-    public function addCompany(\AppBundle\Entity\Company $company)
+    public function addActor(\AppBundle\Entity\Actor $actor)
     {
-        $this->companies[] = $company;
+        $this->actors[] = $actor;
 
         return $this;
     }
 
     /**
-     * Remove company
+     * Revoke edit rights for actor
      *
-     * @param \AppBundle\Entity\Company $company
+     * @param \AppBundle\Entity\Actor $actor
      */
-    public function removeCompany(\AppBundle\Entity\Company $company)
+    public function removeActor(\AppBundle\Entity\Actor $actor)
     {
-        $this->companies->removeElement($company);
+        $this->actors->removeElement($actor);
+
+        return $this;
+    }
+
+     /**
+	 * Get the projects the user can edit
+	 *
+	 * @return array
+	 */
+	public function getProjects()
+	{
+		return $this->projects;
+	}
+
+    /**
+     * Add edit rights for project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return User
+     */
+    public function addProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Revoke edit rights for project
+     *
+     * @param \AppBundle\Entity\Project $project
+     */
+    public function removeProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects->removeElement($project);
+
+        return $this;
+    }
+
+    public function canEditProject($project)
+    {
+    	return $this->projects->contains($project);
     }
 }

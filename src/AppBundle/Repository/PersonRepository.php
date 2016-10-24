@@ -29,4 +29,14 @@ class PersonRepository extends EntityRepository
 			->getQuery()
 			->getResult();
 	}
+
+	public function findEditedPersons()
+	{
+		return $this->createQueryBuilder('Person')
+			->select('Person')
+			->where('Person.version > 0')
+			->getQuery()
+			->getResult();
+	}
+	
 }
