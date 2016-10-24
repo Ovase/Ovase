@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class ="header-container" id="big-header-container">
+		<div class="inner-container" id="header-inner">
+			<header>
+				<div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
+				<div id="title-box">
+					<h1><a href="/"><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
+					<h2>Profil</h2>
+				</div>
+			</header>
+			<div id="below-header">
+				<section class="infobox">
+					<h3>Informasjon om innlogget bruker</h3>
+					{% if user is defined %}
+						<p>Din registrerte epost-adresse er {{user.Email()}}</p>
+						<p>Du er {{user.getFullName()}} </p>
+						<p>Ditt telefonnummer er {{user.getphone()}} </p>
+						<p>Du kan redigere følgende prosjekter: </p>
+						{% for project in user.getProjects() %}
+							<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
+						{% endfor %}
+						<p>Du kan redigere følgende aktører: </p>
+						{% for a in user.getActors() %}
+							{# This is called duct typing #}
+							{% if a.getFirstName is defined %}
+								{# This is a person #}
+								<p><a href= {{ path("person", {'id': person.getId()}) }}> {{ a.getName() }}</p></a>
+							{% else %}
+								{# This is a company #}
+								<p><a href= {{ path("company", {'id': company.getId()}) }}> {{ a.getName() }}</p></a>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</section>
+			</div>
+		</div>
+	</div>
+{% endblock %}
