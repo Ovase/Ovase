@@ -14,14 +14,14 @@
 		{% endblock %}
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 		{% block javascripts %}
-			{% if app.environment == 'dev'%}
+			<!--{% if app.environment == 'dev'%}
 				<script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.js"></script>
 				<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
 			{% else %}
 				<script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.min.js"></script>
 				<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
 			{% endif %}
-			<!--<script src="/web/static/js/jquery.js"></script>-->
+			<script src="/web/static/js/jquery.js"></script>-->
 			<!--<script src="/web/static/js/wiki_auth.js"></script>-->
 		{% endblock %}
 	</head>
