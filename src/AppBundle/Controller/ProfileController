@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProfileController extends Controller
 {
-	public function showProfileAction()
+	public function showMyProfileAction()
 	{
 		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
 			throw $this->createAccessDeniedException();
