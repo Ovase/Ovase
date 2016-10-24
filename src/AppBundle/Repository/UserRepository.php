@@ -3,29 +3,40 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+/* // Unused imports?
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
-
+*/
 class UserRepository extends EntityRepository //implements UserProviderInterface // uncomment to define own provider
 {
 
 	public function findAllActiveUsers()
 	{
-		$users = $this->getEntityManager()->createQuery('
-		
-		SELECT u
-		FROM AppBundle:User u
-		WHERE u.isActive = :active
-		')
-		->setParameter('active', 1)
-		->getResult();
+		$users= $this->createQueryBuilder('u')
+            ->select('u') //
+            ->where('u.isActive = :active')
+	    	->setParameter('active', 1)
+            ->getQuery()
+		    ->getResult();
 
 		return $users;
 	}
+
+    public function findAllInActiveUsers()
+    {
+        $users= $this->createQueryBuilder('u')
+            ->select('u') //
+            ->where('u.isActive = :active')
+            ->setParameter('active', 0)
+            ->getQuery()
+            ->getResult();
+
+        return $users;
+    }
 
 	public function findAllUsersByRoles($roles)
 	{

@@ -42,12 +42,14 @@ class ProfileController extends Controller
             throw $this->createAccessDeniedException();
         }
         // Create form
+        $repo=$this->getDoctrine()->getManager()->getRepository('AppBundle:User');
         $data = array();
         $form = $this->createFormBuilder($data)
 
             ->add('users', EntityType::class,
                 array(
                     'class' => 'AppBundle:User',
+                    'choices' => $repo->findAllInActiveUsers(),
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
@@ -61,6 +63,46 @@ class ProfileController extends Controller
 		if ($form->isSubmitted() && $form->isValid()) {
             foreach ($data['users'] as $user) { $user->setIsActive(1);}
 		}
+        return $this->render(
+            'profile/activate_users.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
+    }
+    public function deactivateUsersAction(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            throw $this->createAccessDeniedException();
+        }
+        // Create form
+        $data = array();
+        $repo=$this->getDoctrine()->getManager()->getRepository('AppBundle:User');
+        $deform = $this->createFormBuilder($data)
+
+            ->add('users', EntityType::class,
+                array(
+                    'class' => 'AppBundle:User',
+                    'choices' => $repo->findAllActiveUsers(),
+                    'choice_label' => function ($user) { return $user->getFullName(); }
+                ))
+
+            ->add('save', SubmitType::class,
+                array('label' => 'Lagre'))
+
+            ->getForm();
+
+        // Handle form-POST
+        $deform->handleRequest($request);
+        if ($deform->isSubmitted() && $deform->isValid()) {
+            foreach ($data['users'] as $user) { $user->setIsActive(0);}
+        }
+        return $this->render(
+            'profile/deactivate_users.html.twig',
+            array(
+                'deform' => $deform->createView()
+            )
+        );
     }
 	public function queryMeAction(Request $request)
 	{
