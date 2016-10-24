@@ -19,5 +19,17 @@ class ProfileController extends Controller
 			)
 		);
 	}
-
+	public function showProfileAction(Request $request)
+	{
+		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			throw $this->createAccessDeniedException();
+		}
+		$id = $request->get('id');
+		$user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+		return $this->render(
+			'profile/public.html.twig', array(
+				'user' => $user
+			)
+		);
+	}
 }

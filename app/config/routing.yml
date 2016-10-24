@@ -62,10 +62,16 @@ edit:
   path:     /rediger
   defaults: { _controller: AppBundle:EditList:show}
 
-#profile thingy
 personalprofile:
   path:     /me
   defaults: { _controller: AppBundle:Profile:showMyProfile}
+
+publicprofile:
+  path: /prof/{id}
+  defaults: {_controller: AppBundle:Profile:showProfile}
+  requirements:
+    methods: GET|POST
+    id: \d+
 
 edit_project:
   path:     /anlegg/rediger/{id}
