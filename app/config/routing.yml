@@ -73,6 +73,10 @@ publicprofile:
     methods: GET|POST
     id: \d+
 
+queryme:
+  path:     /me/qp
+  defaults: { _controller: AppBundle:Profile:queryMe}
+
 edit_project:
   path:     /anlegg/rediger/{id}
   defaults: { _controller: AppBundle:Project:edit}

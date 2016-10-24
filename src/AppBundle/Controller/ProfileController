@@ -32,7 +32,7 @@ class ProfileController extends Controller
 			)
 		);
 	}
-	public function queryMeAction(Request $request)
+	public function queryMeAction()
 	{
 		if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 			throw $this->createAccessDeniedException();
