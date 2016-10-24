@@ -44,7 +44,7 @@ class ProfileController extends Controller
         // Create form
         $repo=$this->getDoctrine()->getManager()->getRepository('AppBundle:User');
         $data = array();
-        $form = $this->createFormBuilder($data)
+        $reform = $this->createFormBuilder($data)
 
             ->add('users', EntityType::class,
                 array(
@@ -59,14 +59,14 @@ class ProfileController extends Controller
         ->getForm();
 
 		// Handle form-POST
-		$form->handleRequest($request);
-		if ($form->isSubmitted() && $form->isValid()) {
+		$reform->handleRequest($request);
+		if ($reform->isSubmitted() && $reform->isValid()) {
             foreach ($data['users'] as $user) { $user->setIsActive(1);}
 		}
         return $this->render(
             'profile/activate_users.html.twig',
             array(
-                'form' => $form->createView()
+                'reform' => $reform->createView()
             )
         );
     }

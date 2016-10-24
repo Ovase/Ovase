@@ -1,7 +1,9 @@
-{% block activateusers %}
+{% block deactivateusers %}
 
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
+	{% if deform is defined %}
+		{{ form_start(deform) }}
+		{{ form_widget(deform) }}
+		{{ form_end(deform) }}
+	{% endif %}
 
 {% endblock %}

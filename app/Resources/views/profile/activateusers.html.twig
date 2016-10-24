@@ -1,7 +1,9 @@
 {% block activateusers %}
 
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
+	{% if reform is defined %}
+		{{ form_start(reform) }}
+		{{ form_widget(reform) }}
+		{{ form_end(reform) }}
+	{% endif %}
 
 {% endblock %}
