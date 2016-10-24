@@ -32,7 +32,7 @@ class ProfileController extends Controller
 			)
 		);
 	}
-	public function queryMeAction()
+	public function queryMeAction(Request $request)
 	{
 		if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 			throw $this->createAccessDeniedException();
@@ -44,6 +44,26 @@ class ProfileController extends Controller
 			$p = reset($s);
 			return $this->render(':actor:person.html.twig', array('person' => $p, 'key'=> $this->container->getParameter('api_key')));
 		}
-		return $this->redirectToRoute('create_person'); // Not filling stuff on beforehand
+		//return $this->redirectToRoute('create_person'); // Not filling stuff on beforehand
+		$person = new Person();
+		$person->setEmail("");
+		//
+		$form = $this->createForm(PersonType::class, $person);
+		$form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
+            $user = $this->getUser();
+            $user->addActor($person);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
+            return $this->redirect('/actor');
+        }
+        return $this->render(
+            'actor/create_person.html.twig', array(
+                'form' => $form -> createView()
+            )
+        );
 	}
 }
