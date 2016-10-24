@@ -21,7 +21,7 @@ class ProfileController extends Controller
 	}
 	public function showProfileAction(Request $request)
 	{
-		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 			throw $this->createAccessDeniedException();
 		}
 		$id = $request->get('id');
@@ -31,5 +31,19 @@ class ProfileController extends Controller
 				'user' => $user
 			)
 		);
+	}
+	public function queryMeAction(Request $request)
+	{
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+			throw $this->createAccessDeniedException();
+		}
+		$you = $this->get('security.token_storage')->getToken()->getUser();
+		$n = $you->getFullName();
+		$s = $this->getDoctrine()->getRepository('AppBundle:Person')->findPersonsBySearch($n); // returns an array, ja?
+		if (!(empty($s))) { // Is this OK, Mommy?
+			$p = reset($s);
+			return $this->render(':actor:person.html.twig', array('person' => $p, 'key'=> $this->container->getParameter('api_key')));
+		}
+		return $this->redirectToRoute('create_person'); // Not filling stuff on beforehand
 	}
 }
