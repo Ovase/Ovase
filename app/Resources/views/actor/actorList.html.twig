@@ -16,8 +16,9 @@
     {{ form_end(personForm) }}
     </br>
 
+    <div>
     {% for person in persons %}
-        <div class="col-md-6">
+        <div class="col-md-3">
             <a class="fp-card" href="/person/{{ person.getId() }}">
                 <div class="card card" style="background-color:#d3d3d3; display:block">
                     <div style="margin:0 2vw 0 2vw">
@@ -49,16 +50,18 @@
             </div>
 
     {% endfor %}
+    </div>
+    <div>
+        <h5>Selskaper</h5>
 
-    <h5>Selskaper</h5>
+        {{ form_start(companyForm) }}
+        {{ form_widget(companyForm) }}
+        {{ form_end(companyForm) }}
+        </br>
 
-    {{ form_start(companyForm) }}
-    {{ form_widget(companyForm) }}
-    {{ form_end(companyForm) }}
-    </br>
-
-    {% for company in companies %}
-        <a href="/selskap/{{ company.getId() }}"> <p>{{ company.getId() }} {{ company.getName() }}</p></a>
-    {% endfor %}
+        {% for company in companies %}
+            <a href="/selskap/{{ company.getId() }}"> <p>{{ company.getId() }} {{ company.getName() }}</p></a>
+        {% endfor %}
+    </div>
 {% endblock %}
 
