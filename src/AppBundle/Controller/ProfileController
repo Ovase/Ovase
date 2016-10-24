@@ -14,7 +14,7 @@ class ProfileController extends Controller
 		}
 		$user = $this->get('security.token_storage')->getToken()->getUser();
 		return $this->render(
-			'profile/index.html.twig', array(
+			'profile/personal.html.twig', array(
 				'user' => $user
 			)
 		);
