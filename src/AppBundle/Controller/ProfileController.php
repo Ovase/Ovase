@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Person;
+use AppBundle\Form\PersonType;use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 //use Symfony\Component\Config\Definition\Exception\Exception;
 
@@ -46,17 +48,17 @@ class ProfileController extends Controller
 		}
 		//return $this->redirectToRoute('create_person'); // Not filling stuff on beforehand
 		$person = new Person();
-		$person->setEmail("");
-		//
+		$person->setEmail($you->getEmail());
+        $person->setFirstName($you->getFirstName());
+        $person->setLastName($you->getLastName());
 		$form = $this->createForm(PersonType::class, $person);
 		$form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
-            $user = $this->getUser();
-            $user->addActor($person);
+            $you->addActor($person);
 			$em = $this->getDoctrine()->getManager();
-			$em->persist($user);
+			$em->persist($you);
 			$em->flush();
             return $this->redirect('/actor');
         }
