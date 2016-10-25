@@ -49,6 +49,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 
 		// outputs a message followed by a "\n"
 		$output->writeln('Howdy, partner!');
+		$output->writeln($user->getFullName());
 
 		// outputs a message without adding a "\n" at the end of the line
 		$output->write('You are about to ');
@@ -92,7 +93,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 		}
 		else if ($role == "ROLE_EDITOR") {
 			$user->setIsActive(1); // For now, you may pass...
-			if (!in_array("ROLE_GUEST", $user->getRoles())) {
+			/*if (!in_array("ROLE_GUEST", $user->getRoles())) {
 				$user->addRole("ROLE_GUEST");
 			}
 			if (!in_array("ROLE_USER", $user->getRoles())) {
@@ -100,13 +101,14 @@ class PromoteUserCommand extends ContainerAwareCommand
 			}
 			if (!in_array("ROLE_EDITOR", $user->getRoles())) {
 				$user->addRole("ROLE_EDITOR");
-			}
+			} */
+			$user->setRoles(array("ROLE_EDITOR", "ROLE_USER", "ROLE_GUEST"));
 		}
 		else { return; }
 		$em->persist($user);
 		$em->flush();
 		$em->close();
-		$output->write('\n');
-		$output->write('Bye!\n');
+
+		$output->writeln('Bye!');
 	}
 }

@@ -19,9 +19,9 @@ class PersonController extends Controller
 
 	public function createAction(Request $request)
 	{
-		if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+		if(!$this->get('security.authorization_checker')->isGranted('ROLE_USER'))
         {
-            throw $this->createAccessDeniedException('Du må være logget inn for å definere en person');
+            throw $this->createAccessDeniedException('Du må være en aktivert bruker og logget inn for å få lov til å definere en ny aktør');
         }
 		$person = new Person();
 		$form = $this->createForm(PersonType::class, $person);
