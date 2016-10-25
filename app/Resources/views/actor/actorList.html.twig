@@ -5,63 +5,88 @@
 {% endblock %}
 
 {% block body %}
+<body onload="checkCookie()">
     <a href="/person/ny">Lag person</a>
     </br>
     <a href="/company/ny">Lag selskap</a>
     </br>
-    <h5>Personer</h5>
+    <button type="button" onclick="show('persons');">Personer</button>
+    <button type="button" onclick="show('companies');">Selskaper</button>
 
-    {{ form_start(personForm) }}
-    {{ form_widget(personForm) }}
-    {{ form_end(personForm) }}
-    </br>
+    <div id="persons">
+        <h5>Personer</h5>
 
-    <div>
-    {% for person in persons %}
-        <div class="col-md-3">
-            <a class="fp-card" href="/person/{{ person.getId() }}">
-                <div class="card card" style="background-color:#d3d3d3; display:block">
-                    <div style="margin:0 2vw 0 2vw">
-                        <div class="card-block">
-                            <h1 class="card-title">{{ person.getFirstName() }} {{person.getLastName()}}</h1>
-                        </div>
+        <!-- Person search -->
+        {{ form_start(personForm) }}
+        {{ form_widget(personForm) }}
+        {{ form_end(personForm) }}
+        </br>
 
-                        <!-- 
+        <!-- Person cards -->
+        <div>
+        {% for person in persons %}
+            <div class="col-md-3">
+                <a class="actor-card" href="/person/{{ person.getId() }}">
+                    <div style="background-color:#d3d3d3; display:block">
+                        <div style="margin:0 2vw 0 2vw">
+                            <div>
+                                <h1 class="card-title">{{ person.getFirstName() }} {{person.getLastName()}}</h1>
+                            </div>
+                            <div>
+                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                            </div>
+                            <div id="p-text">
+                                <p class="card-subtitle">Kontaktinformasjon:</p>
 
-                        -->
-                        <div>
-                            <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
-                        </div>
-
-                        <div id="p-text" class="card-block">
-                            <p class="card-subtitle">
-                                    Kontaktinformasjon:
-                            </p>
-
-                            <p class="card-text">
-                                    {{ person.getEmail() }}
-                                    </br>
-                                    {#{{ person.getPhone() }} #}
-                            </p>
+                                <p class="card-text">
+                                        {{ person.getEmail() }}
+                                        </br>
+                                        {#{{ person.getPhone() }} #}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </a>
             </div>
-
-    {% endfor %}
+        {% endfor %}
+        </div>
     </div>
-    <div>
+
+    <div id="companies" style="display:none">
         <h5>Selskaper</h5>
 
+        <!-- Company search -->
         {{ form_start(companyForm) }}
         {{ form_widget(companyForm) }}
         {{ form_end(companyForm) }}
         </br>
 
+        <!-- Company cards -->
         {% for company in companies %}
-            <a href="/selskap/{{ company.getId() }}"> <p>{{ company.getId() }} {{ company.getName() }}</p></a>
+            <div class="col-md-3">
+                <a class="actor-card" href="/selskap/{{ company.getId() }}">
+                    <div style="background-color:#d3d3d3; display:block">
+                        <div style="margin:0 2vw 0 2vw">
+                            <div>
+                                <h1 class="card-title">{{ company.getName() }}</h1>
+                            </div>
+                            <div>
+                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                            </div>
+                            <div id="p-text">
+                                <p class="card-subtitle">Kontaktinformasjon:</p>
+
+                                <p class="card-text">
+                                        Id: {{ company.getId() }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         {% endfor %}
     </div>
+
+    <script src="{{ asset('static/js/showActor.js') }}"></script>
 {% endblock %}
 

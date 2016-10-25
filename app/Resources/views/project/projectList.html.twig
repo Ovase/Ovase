@@ -38,9 +38,9 @@
 
 			<div class="col-md-6">
 
-				<div class="card card" style="background-color:#f2f2f2; display:block">
+				<div style="background-color:#f2f2f2; display:block">
 					<div style="margin:0 2vw 0 2vw">
-						<div class="card-block">
+						<div>
 							<h1 class="card-title">{{ project.getName() }}</h1>
 							<h4 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h4>
 						</div>
@@ -50,7 +50,7 @@
 								<img class="center-block card-img" src="{{ asset('static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="Card image">
 						</div>
 
-						<div id="p-text" class="card-block">
+						<div id="p-text">
 								<p class="card-subtitle">
 									Beskrivelse:
 								</p>
@@ -61,7 +61,7 @@
 
 						</div>
 
-						<div class="card-block">
+						<div>
 							<p class="card-subtitle">Tekniske løsninger:</p>
 							<p class="card-text">
 							{% for p in project.getTechnicalSolutions() %}
@@ -70,7 +70,7 @@
 							</p>
 						</div>
 
-						<div class="card-block">
+						<div>
 							<a href="{{ path('project', {'id': project.getId()}) }}" class="btn btn-default" role="button">Se mer</a>
 						</div>
 					</div>

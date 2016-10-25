@@ -314,6 +314,15 @@ a.fp-card {
 	color: white !important;
 }
 
+.actor-card {
+	
+}
+
+a.actor-card {
+	text-decoration: none !important;
+	color: black !important;
+}
+
 .card-text {
 		font-size: 1vw !important;
 	}
