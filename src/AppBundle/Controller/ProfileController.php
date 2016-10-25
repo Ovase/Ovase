@@ -55,6 +55,7 @@ class ProfileController extends Controller
 					'choices' => $repo->findAllInActiveUsers(),
 					'multiple' => true,
 					'expanded' => true,
+                    'label' => 'Velg de brukere du vil aktivere',
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
@@ -65,12 +66,13 @@ class ProfileController extends Controller
 
 		// Handle form-POST
 		$reform->handleRequest($request);
-		if ($reform->isSubmitted() && $reform->isValid()) {
+		if ($reform->isValid()) {
 			//$d = $deform->getData();
 			echo('flush');
 			$users = $reform["users"]->getData();
-			foreach ($users as $user) { $user->setIsActive(1); }
+			foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(1); }}
 			$em->flush();
+            return $this->redirectToRoute('personalprofile');
 		}
 		return $this->render(
 			'profile/activateusers.html.twig',
@@ -96,6 +98,7 @@ class ProfileController extends Controller
 					'choices' => $repo->findAllActiveUsers(), // User objects are value
 					'multiple' => true,
 					'expanded' => true,
+                    'label' => 'Velg de brukere du vil deaktivere',
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
@@ -110,8 +113,9 @@ class ProfileController extends Controller
 			//$d = $deform->getData();
 			echo('flush');
 			$users = $deform["users"]->getData(); // returns all chosen values
-			foreach ($users as $user) { $user->setIsActive(0); }
+            foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(0); }}
 			$this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('personalprofile');
 		}
 		return $this->render(
 			'profile/deactivateusers.html.twig',
