@@ -81,6 +81,16 @@ class Project
      * @Assert\All({
      *	 @Assert\NotBlank,
      *   @Assert\Type("string"),
+     * })
+     */
+    private $images;
+
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     * @Assert\All({
+     *	 @Assert\NotBlank,
+     *   @Assert\Type("string"),
      *	 @Assert\Length(min = 1)
      * })
      */
@@ -114,10 +124,23 @@ class Project
 	 */
 	private $actors;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Measure", cascade="persist")
+     * @ORM\JoinTable(name="projects_measures",
+     *     joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * },
+     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true)}
+     *     )
+     * @Assert\Valid
+     */
+    private $measures;
+
 	public function __construct()
 	{
 		$this->actors = new ArrayCollection();
         $this->technicalSolutions = array();
+        $this->images = new ArrayCollection();
+        $this->measures = new ArrayCollection();
 	}
 	/**
 	 * Get id
@@ -446,6 +469,43 @@ class Project
     public function getVersion()
     {
         return $this->version;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param array $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMeasures()
+    {
+        return $this->measures;
+    }
+
+    /**
+     * @param mixed $measures
+     */
+    public function setMeasures($measures)
+    {
+        $this->measures = $measures;
+    }
+
+    public function addMeasure($measure)
+    {
+        $this->measures->add($measure);
     }
 
 }

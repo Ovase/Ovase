@@ -3,7 +3,9 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,6 +30,7 @@ class ProjectType extends AbstractType
 		$builder
 			->add('name', TextType::class, array('attr' => array('placeholder' => 'Navn på prosjekt')))
 			->add('field', TextType::class, array('attr' => array('placeholder' => 'Felt')))
+            ->add('images', FileType::class, array('mapped' => false, 'multiple' => true))
 			->add('startdate', DateTimeType::class)
 			->add('enddate', DateTimeType::class)
 			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av prosjektet')))
@@ -85,6 +88,10 @@ class ProjectType extends AbstractType
                 'required' => false,
 				// 'expanded' => true,
 			))
+            ->add('measures', CollectionType::class, array(
+                'entry_type' => MeasureType::class,
+                'allow_add' => true
+            ))
 			->add('captcha', CaptchaType::class, array(
 				'label' => ' ',
 				'width' => 200,

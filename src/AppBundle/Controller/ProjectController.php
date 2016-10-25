@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Measure;
 use AppBundle\Entity\Project;
 use AppBundle\Form\CreateProjectForm;
 use AppBundle\Form\ProjectType;
@@ -22,28 +23,34 @@ use Buzz\Browser;
 
 class ProjectController extends Controller
 {
-	public function showAction(Request $request)
-	{
-		$requestID = $request->get('id');
-		$project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
-		# The API key to use on Google Maps Embed API is defined as a global parameter accessable through the service container.
-		return $this->render('project/project.html.twig', array('project' => $project, 'key'=> $this->container->getParameter('api_key') ));
-	}
+    public function showAction(Request $request)
+    {
+        $requestID = $request->get('id');
+        $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
+        # The API key to use on Google Maps Embed API is defined as a global parameter accessable through the service container.
+        return $this->render('project/project.html.twig', array('project' => $project, 'key' => $this->container->getParameter('api_key')));
+    }
 
     public function createAction(Request $request)
     {
-        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
-        {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException('Du må være logget inn for å lage et prosjekt');
         }
+        $em = $this->getDoctrine()->getManager();
         $project = new Project();
+        $project->getMeasures()->add(new Measure());
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($project);
+            $images = $form['images']->getData();
+            foreach ($images as $image) {
+                if ($image != null) {
+                    $project->getImages()->add($this->get('image_service')->upload($image));
+                }
+            }
             $user = $this->getUser();
             $user->addProject($project);
-            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
             $em->persist($user);
             $em->flush();
             return $this->redirect('/anlegg');
@@ -56,20 +63,18 @@ class ProjectController extends Controller
     }
 
     public function editAction(Request $request)
-    {   
-        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
-        {
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException("Du må være logget inn for å se denne siden");
         }
 
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
 
-        if(!$this->getUser()->canEditProject($project))
-        {
+        if (!$this->getUser()->canEditProject($project)) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
-        
+
         $form = $this->createForm(ProjectType::class, $project, array('method' => 'PUT'));
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -77,7 +82,7 @@ class ProjectController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);
             $em->flush();
-            return $this->redirect('/anlegg/'.(string)$requestID);
+            return $this->redirect('/anlegg/' . (string)$requestID);
         }
         return $this->render(
             'project/edit.html.twig', array(
