@@ -42,6 +42,7 @@ class ProfileController extends Controller
             throw $this->createAccessDeniedException();
         }
         // Create form
+		$em=$this->getDoctrine()->getManager();
         $repo=$this->getDoctrine()->getManager()->getRepository('AppBundle:User');
         $data = array();
         $reform = $this->createFormBuilder($data)
@@ -50,6 +51,8 @@ class ProfileController extends Controller
                 array(
                     'class' => 'AppBundle:User',
                     'choices' => $repo->findAllInActiveUsers(),
+					'multiple' => true,
+					'expanded' => true,
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
@@ -61,10 +64,14 @@ class ProfileController extends Controller
 		// Handle form-POST
 		$reform->handleRequest($request);
 		if ($reform->isSubmitted() && $reform->isValid()) {
-            foreach ($data['users'] as $user) { $user->setIsActive(1);}
+			//$d = $deform->getData();
+			echo('flush');
+			$user = $reform["users"]->getData();
+            foreach ($user as $user) { $user->setIsActive(1);}
+			$em->flush();
 		}
         return $this->render(
-            'profile/activate_users.html.twig',
+            'profile/activateusers.html.twig',
             array(
                 'reform' => $reform->createView()
             )
@@ -84,6 +91,8 @@ class ProfileController extends Controller
                 array(
                     'class' => 'AppBundle:User',
                     'choices' => $repo->findAllActiveUsers(),
+					'multiple' => true,
+					'expanded' => true,
                     'choice_label' => function ($user) { return $user->getFullName(); }
                 ))
 
@@ -94,11 +103,18 @@ class ProfileController extends Controller
 
         // Handle form-POST
         $deform->handleRequest($request);
-        if ($deform->isSubmitted() && $deform->isValid()) {
-            foreach ($data['users'] as $user) { $user->setIsActive(0);}
+        if ($deform->isSubmitted()) {
+			//$d = $deform->getData();
+			echo('flush');
+			$d = $deform["users"]->getData();
+            foreach ($d as $user) {
+				$user->setIsActive(0);
+				$em->persist($user);
+			}
+			$this->getDoctrine()->getManager()->flush();
         }
         return $this->render(
-            'profile/deactivate_users.html.twig',
+            'profile/deactivateusers.html.twig',
             array(
                 'deform' => $deform->createView()
             )

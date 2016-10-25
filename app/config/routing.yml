@@ -66,6 +66,14 @@ personalprofile:
   path:     /me
   defaults: { _controller: AppBundle:Profile:showMyProfile}
 
+activate_users:
+  path:     /me
+  defaults: { _controller: AppBundle:Profile:activateUsers}
+
+deactivate_users:
+  path:     /me
+  defaults: { _controller: AppBundle:Profile:deactivateUsers}
+
 publicprofile:
   path: /prof/{id}
   defaults: {_controller: AppBundle:Profile:showProfile}
