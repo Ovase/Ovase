@@ -66,6 +66,10 @@ personalprofile:
   path:     /me
   defaults: { _controller: AppBundle:Profile:showMyProfile}
 
+editpersonalprofile:
+  path:     /me/e
+  defaults: { _controller: AppBundle:Profile:editMyProfile}
+
 activate_users:
   path:     /me/activate
   defaults: { _controller: AppBundle:Profile:activateUsers}

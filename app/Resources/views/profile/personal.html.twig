@@ -42,10 +42,11 @@
 		{%for role in app.user.roles%}
 			{{role}}
 		{%endfor%}
-		Vis liste over <a href= {{ path("userlist") }}>registrerte brukere</a>
+		<br>Vis liste over <a href= {{ path("userlist") }}>registrerte brukere</a><br>
+		<a href= {{ path("editpersonalprofile") }}><h3>Rediger egen profil</h3></a>
 		{% if is_granted('ROLE_EDITOR') %}
 			{# Import editor panel here. TODO: Bulk activate zero or more users #}
-			<a href= {{ path("activate_users") }}><h3>Aktiver brukere</h3></a> {#// #}
+			<a href= {{ path("activate_users") }}><h3>Aktiver brukere</h3></a>
 			{#{ render(controller('AppBundle:Profile:activateUsers')) }#}
 			{#% include 'profile/activateusers.html.twig' %#}
 			<a href= {{ path("deactivate_users") }}><h3>Deaktiver brukere</h3></a>
