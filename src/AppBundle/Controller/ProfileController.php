@@ -7,6 +7,7 @@ use AppBundle\Form\PersonType;use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Form\EditUserType;
 //use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ProfileController extends Controller
@@ -59,9 +60,7 @@ class ProfileController extends Controller
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
-			->add('save', SubmitType::class,
-		array('label' => 'Lagre'))
-
+			->add('save', SubmitType::class, array('label' => 'Lagre'))
 		->getForm();
 
 		// Handle form-POST
@@ -81,6 +80,33 @@ class ProfileController extends Controller
 			)
 		);
 	}
+    public function editProfile(Request $request)
+    {
+        /*
+         * TODO:
+         *  - Find id (declared in request)
+         *  - Find user object based on id
+         *  - Call on form factory and pass EditUser as arg.
+         *  - The Usual Form stuff
+         * */
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            throw $this->createAccessDeniedException("Kun redaktører skal kunne redigere andres brukerprofiler.");
+        }
+        $id = $request->get('id');
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
+        $form = $this->createForm(EditUserType::class, $user, array());
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Flush
+            $em = $this->getDoctrine()->getManager();
+            // $em->persist($user);
+            $em->flush();
+            return $this->showMyProfileAction();
+        }
+        return $this->render(
+            'login/register.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 	public function deactivateUsersAction(Request $request)
 	{
 		if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {

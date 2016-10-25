@@ -74,9 +74,18 @@ deactivate_users:
   path:     /me/deactivate
   defaults: { _controller: AppBundle:Profile:deactivateUsers}
 
+# View other's profile
 publicprofile:
   path: /prof/{id}
   defaults: {_controller: AppBundle:Profile:showProfile}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+# Edit other's profile
+editotherprofile:
+  path: /rp/{id}
+  defaults: {_controller: AppBundle:Profile:editProfile}
   requirements:
     methods: GET|POST
     id: \d+

@@ -36,12 +36,10 @@ class UserController extends Controller
 			$user->setPassword($pass_hash);
 			$user->setSalt($salt);
 
-			// Authorize User as... USER.
-			$user->addRole("ROLE_USER");
+			// Authorize User as... GUEST. TODO: Remove Guest role, as it is not used.
+			$user->addRole("ROLE_GUEST");
 			
-			// TODO: Notify ADMINs that a new user has registered, and that they need to be validated. An ADMIN/editor
-			// may then send an activation email at their leisure
-			$user->setIsActive(1); // For now, you may pass...
+			$user->setIsActive(0); // YOU! SHALL NOT! PASS!!
 			
 			// 4) save the User!
 			$em = $this->getDoctrine()->getManager();
