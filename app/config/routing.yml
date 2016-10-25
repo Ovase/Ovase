@@ -90,6 +90,10 @@ editotherprofile:
     methods: GET|POST
     id: \d+
 
+userlist:
+  path: /brukere
+  defaults: { _controller: AppBundle:User:showAllUsers}
+
 queryme:
   path:     /me/qp
   defaults: { _controller: AppBundle:Profile:queryMe}

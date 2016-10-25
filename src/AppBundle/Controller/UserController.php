@@ -3,16 +3,20 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
-use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use AppBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
+    public function showAllUsersAction() {
 
+        return $this->render(
+            'login/userlist.html.twig', // TO BE impleemented
+            array('babes' => $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll())
+        );
+
+    }
 	public function registerAction(Request $request)
 	{
 		// 1) build the form
