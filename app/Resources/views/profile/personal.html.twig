@@ -44,12 +44,12 @@
 		{%endfor%}
 		{% if is_granted('ROLE_EDITOR') %}
 			{# Import editor panel here. TODO: Bulk activate zero or more users #}
-			<h3>Aktiver brukere</h3>
-			{{ render(controller('AppBundle:Profile:activateUsers')) }}
-			{% include 'profile/activateusers.html.twig' %}
-			<h3>Deaktiver brukere</h3>			
-			{{ render(controller('AppBundle:Profile:deactivateUsers')) }}
-			{% include 'profile/deactivateusers.html.twig' %}
+			<a href= {{ path("activate_users") }}><h3>Aktiver brukere</h3></a> {#// #}
+			{#{ render(controller('AppBundle:Profile:activateUsers')) }#}
+			{#% include 'profile/activateusers.html.twig' %#}
+			<a href= {{ path("deactivate_users") }}><h3>Deaktiver brukere</h3></a>
+			{#{ render(controller('AppBundle:Profile:deactivateUsers')) }#}
+			{#% include 'profile/deactivateusers.html.twig' %#}
 		{% endif %}
 	</div>
 {% endblock %}

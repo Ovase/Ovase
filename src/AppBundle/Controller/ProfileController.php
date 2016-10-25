@@ -66,8 +66,8 @@ class ProfileController extends Controller
 		if ($reform->isSubmitted() && $reform->isValid()) {
 			//$d = $deform->getData();
 			echo('flush');
-			$user = $reform["users"]->getData();
-            foreach ($user as $user) { $user->setIsActive(1);}
+			$users = $reform["users"]->getData();
+            foreach ($users as $user=>$bol) { if ($bol) {$user->setIsActive(1);}}
 			$em->flush();
 		}
         return $this->render(
@@ -104,13 +104,10 @@ class ProfileController extends Controller
         // Handle form-POST
         $deform->handleRequest($request);
         if ($deform->isSubmitted()) {
-			//$d = $deform->getData();
-			echo('flush');
-			$d = $deform["users"]->getData();
-            foreach ($d as $user) {
-				$user->setIsActive(0);
-				$em->persist($user);
-			}
+            //$d = $deform->getData();
+            echo('flush');
+            $users = $deform["users"]->getData();
+            foreach ($users as $user=>$bol) { if ($bol) {$user->setIsActive(0);}}
 			$this->getDoctrine()->getManager()->flush();
         }
         return $this->render(

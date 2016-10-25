@@ -67,11 +67,11 @@ personalprofile:
   defaults: { _controller: AppBundle:Profile:showMyProfile}
 
 activate_users:
-  path:     /me
+  path:     /me/activate
   defaults: { _controller: AppBundle:Profile:activateUsers}
 
 deactivate_users:
-  path:     /me
+  path:     /me/deactivate
   defaults: { _controller: AppBundle:Profile:deactivateUsers}
 
 publicprofile:
