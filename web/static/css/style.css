@@ -265,6 +265,8 @@ a.navbar-txt {
     line-height: 1.42857;
 		background-color: #a9d1ff!important;
 		border: none!important;
+		outline:none!important;
+		margin-bottom: 10px!important;
 }
 .btn-raised {
   // shadow depth 1
