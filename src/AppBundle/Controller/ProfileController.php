@@ -55,7 +55,7 @@ class ProfileController extends Controller
 					'choices' => $repo->findAllInActiveUsers(),
 					'multiple' => true,
 					'expanded' => true,
-                    'label' => 'Velg de brukere du vil aktivere',
+					'label' => 'Velg de brukere du vil aktivere',
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
@@ -72,7 +72,7 @@ class ProfileController extends Controller
 			$users = $reform["users"]->getData();
 			foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(1); }}
 			$em->flush();
-            return $this->redirectToRoute('personalprofile');
+			return $this->redirectToRoute('personalprofile');
 		}
 		return $this->render(
 			'profile/activateusers.html.twig',
@@ -98,7 +98,7 @@ class ProfileController extends Controller
 					'choices' => $repo->findAllActiveUsers(), // User objects are value
 					'multiple' => true,
 					'expanded' => true,
-                    'label' => 'Velg de brukere du vil deaktivere',
+					'label' => 'Velg de brukere du vil deaktivere',
 					'choice_label' => function ($user) { return $user->getFullName(); }
 				))
 
@@ -113,9 +113,9 @@ class ProfileController extends Controller
 			//$d = $deform->getData();
 			echo('flush');
 			$users = $deform["users"]->getData(); // returns all chosen values
-            foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(0); }}
+			foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(0); }}
 			$this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('personalprofile');
+			return $this->redirectToRoute('personalprofile');
 		}
 		return $this->render(
 			'profile/deactivateusers.html.twig',
@@ -130,14 +130,13 @@ class ProfileController extends Controller
 			throw $this->createAccessDeniedException();
 		}
 		$you = $this->get('security.token_storage')->getToken()->getUser();
-        $first = $you->getFirstName(); // Search functionality needs fixing
+		$first = $you->getFirstName(); // Search functionality needs fixing
 		$last = $you->getLastName(); // Search functionality needs fixing
 		$s = $this->getDoctrine()->getRepository('AppBundle:Person')->findPersonsBySearch(array($first,$last)); // returns an array, ja?
-		if (!(empty($s))) { // Is this OK, Mommy?
-			$p = reset($s);
+		if (!(empty($s))) {
+			$p = reset($s); // Is this OK, Mommy?
 			return $this->render(':actor:person.html.twig', array('person' => $p, 'key'=> $this->container->getParameter('api_key')));
 		}
-		//return $this->redirectToRoute('create_person'); // Not filling stuff on beforehand
 		$person = new Person();
 		$person->setEmail($you->getEmail());
 		$person->setFirstName($you->getFirstName());

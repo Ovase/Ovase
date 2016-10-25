@@ -21,21 +21,19 @@ class PersonRepository extends EntityRepository
 
 	public function findPersonsBySearch($search)
 	{
-		$fullquery = implode(' ',$search); // BF searching with all terms in array input
         $firstNamesearch = $this->createQueryBuilder('Person')
 			->select('Person')
-			->where('Person.firstName LIKE :searchTerm')
-			//->orWhere('Person.lastName LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.$fullquery.'%')
+			->where('Person.firstName IN (:searchTerm)')
+			->setParameter('searchTerm', $search)
 			->getQuery()
 			->getResult(); // returns an array, ja?
         $lastNamesearch = $this->createQueryBuilder('Person')
             ->select('Person')
-            ->where('Person.lastName LIKE :searchTerm')
-            ->setParameter('searchTerm', '%'.$fullquery.'%')
+            ->where('Person.lastName IN (:searchTerm)')
+            ->setParameter('searchTerm', $search)
             ->getQuery()
             ->getResult(); // returns an array, ja?
-        $result = array_merge($firstNamesearch,$lastNamesearch);
+        $result = array_merge($firstNamesearch,$lastNamesearch); // Merge is binary, still extendable with expertise field
         return $result;
 	}
 
