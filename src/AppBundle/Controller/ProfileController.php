@@ -130,8 +130,9 @@ class ProfileController extends Controller
 			throw $this->createAccessDeniedException();
 		}
 		$you = $this->get('security.token_storage')->getToken()->getUser();
-		$n = $you->getFullName();
-		$s = $this->getDoctrine()->getRepository('AppBundle:Person')->findPersonsBySearch($n); // returns an array, ja?
+        $first = $you->getFirstName(); // Search functionality needs fixing
+		$last = $you->getLastName(); // Search functionality needs fixing
+		$s = $this->getDoctrine()->getRepository('AppBundle:Person')->findPersonsBySearch(array($first,$last)); // returns an array, ja?
 		if (!(empty($s))) { // Is this OK, Mommy?
 			$p = reset($s);
 			return $this->render(':actor:person.html.twig', array('person' => $p, 'key'=> $this->container->getParameter('api_key')));

@@ -19,15 +19,24 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-	public function findPersonsBySearch($searchTerm)
+	public function findPersonsBySearch($search)
 	{
-		return $this->createQueryBuilder('Person')
+		$fullquery = implode(' ',$search); // BF searching with all terms in array input
+        $firstNamesearch = $this->createQueryBuilder('Person')
 			->select('Person')
 			->where('Person.firstName LIKE :searchTerm')
-			->orWhere('Person.lastName LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			//->orWhere('Person.lastName LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$fullquery.'%')
 			->getQuery()
-			->getResult();
+			->getResult(); // returns an array, ja?
+        $lastNamesearch = $this->createQueryBuilder('Person')
+            ->select('Person')
+            ->where('Person.lastName LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$fullquery.'%')
+            ->getQuery()
+            ->getResult(); // returns an array, ja?
+        $result = array_merge($firstNamesearch,$lastNamesearch);
+        return $result;
 	}
 
 	public function findEditedPersons()
