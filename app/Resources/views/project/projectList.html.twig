@@ -15,21 +15,30 @@
 			-->
 
 		<!--Search form -->
-		{{ form_start(form) }}
-		{{ form_widget(form) }}
-		{{ form_end(form) }}
-		</br>
-		</br>
-		<button style="margin-left:1vw"><a class="fp-card" href="/anlegg/ny">Lag nytt prosjekt</a></button>
-		</br>
-		</br>
+		<div>
+			<div>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+			</br>
+			</br>
+
+			<div>
+				<span style="font-size:25px; margin-left:1vw; margin-right:25px; color:#6D6D6D;">Lag nytt prosjekt</span>
+				<button type="button" class="btn btn-circle btn-primary btn-raised"><a class="btn-text" href="/anlegg/ny">+</a></button>
+			</div>
+
+			</br>
+			</br>
+		</div>
 
 
 		{% for project in projects %}
 
 			<div class="col-md-6">
 
-				<div class="card card" style="background-color:#d3d3d3; display:block">
+				<div class="card card" style="background-color:#f2f2f2; display:block">
 					<div style="margin:0 2vw 0 2vw">
 						<div class="card-block">
 							<h1 class="card-title">{{ project.getName() }}</h1>
