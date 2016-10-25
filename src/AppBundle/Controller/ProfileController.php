@@ -80,34 +80,37 @@ class ProfileController extends Controller
 			)
 		);
 	}
-	public function editMyProfileAction()
+	public function editMyProfileAction(Request $request)
 	{
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException();
         }
 		$you = $this->get('security.token_storage')->getToken()->getUser();
-	}
+        $form = $this->createForm(EditUserType::class, $you);
+        $em = $this->getDoctrine()->getManager();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { // Is not valid?
+            $em->flush();
+            return $this->redirectToRoute('personalprofile');
+        }
+        return $this->render(
+            'login/register.html.twig',
+            array('form' => $form->createView())
+        );
+    }
 	public function editProfileAction(Request $request)
 	{
-		/*
-		 * TODO:
-		 *  - Find id (declared in request)
-		 *  - Find user object based on id
-		 *  - Call on form factory and pass EditUser as arg.
-		 *  - The Usual Form stuff
-		 * */
 		if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
 			throw $this->createAccessDeniedException("Kun redaktører skal kunne redigere andres brukerprofiler.");
 		}
 		$id = $request->get('id');
 		$user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
-		$form = $this->createForm(EditUserType::class, $user, array());
-		if ($form->isSubmitted() && $form->isValid()) {
-			// Flush
-			$em = $this->getDoctrine()->getManager();
-			// $em->persist($user);
+		$form = $this->createForm(EditUserType::class, $user);
+        $em = $this->getDoctrine()->getManager();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { // Is not valid?
 			$em->flush();
-			return $this->redirectToRoute('personalprofile');
+			//return $this->redirectToRoute('personalprofile');
 		}
 		return $this->render(
 			'login/register.html.twig',

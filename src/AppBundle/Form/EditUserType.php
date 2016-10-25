@@ -21,7 +21,7 @@ class EditUserType extends AbstractType
 			->add('firstName', TextType::class)
 			->add('phone', TextType::class)
 
-			->add('save', SubmitType::class, array('label' => 'Registrer bruker'));
+			->add('save', SubmitType::class, array('label' => 'Endre bruker'));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
