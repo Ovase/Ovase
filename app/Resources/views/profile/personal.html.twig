@@ -26,10 +26,10 @@
 							{# This is called duct typing #}
 							{% if a.getFirstName is defined %}
 								{# This is a person #}
-								<p><a href= {{ path("person", {'id': person.getId()}) }}> {{ a.getName() }}</p></a>
+								<p><a href= {{ path("person", {'id': a.getId()}) }}> {{ a.getName() }}</p></a>
 							{% else %}
 								{# This is a company #}
-								<p><a href= {{ path("company", {'id': company.getId()}) }}> {{ a.getName() }}</p></a>
+								<p><a href= {{ path("company", {'id': a.getId()}) }}> {{ a.getName() }}</p></a>
 							{% endif %}
 						{% endfor %}
 					{% endif %}
