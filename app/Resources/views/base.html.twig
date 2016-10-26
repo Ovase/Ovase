@@ -68,14 +68,11 @@
 									<li>
 										<a href="http://ovase.no/wiki/index.php/Forside" class="navbar-txt">FAGWIKI</a>
 									</li>
-									<li>
-										<a href="{{ path('personalprofile') }}" class="navbar-txt">PROFIL</a>
-									</li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
 								{% if app.user%}
 									<li>
-										<a href="{{ path('home')}}" class="navbar-txt">
+										<a href="{{ path('personalprofile') }}" class="navbar-txt">
 												<span class="glyphicon glyphicon-user"></span>
 													Min side
 										</a>
