@@ -5,27 +5,89 @@
 {% endblock %}
 
 {% block body %}
-    <a href="/person/ny">Lag person</a>
-    <a href="/company/ny">Lag selskap</a>
-    <br>
-    <h3>Personer</h3>
+<body onload="checkCookie()">
 
-    {{ form_start(personForm) }}
-    {{ form_widget(personForm) }}
-    {{ form_end(personForm) }}
+    <button type="button" onclick="show('persons');">Personer</button>
+    <button type="button" onclick="show('companies');">Selskaper</button>
 
-    {% for person in persons %}
-        <a href="/person/{{ person.getId() }}"><p>{{ person.getId() }} {{ person.getFirstName() }}</p></a>
-    {% endfor %}
+    <div id="persons">
+        <a href="/person/ny">Lag person</a>
+        </br>
+        <h5>Personer</h5>
 
-    <h3>Selskaper</h3>
+        <!-- Person search -->
+        {{ form_start(personForm) }}
+        {{ form_widget(personForm) }}
+        {{ form_end(personForm) }}
+        </br>
 
-    {{ form_start(companyForm) }}
-    {{ form_widget(companyForm) }}
-    {{ form_end(companyForm) }}
+        <!-- Person cards -->
+        <div>
+        {% for person in persons %}
+            <div class="col-md-3">
+                <a class="actor-card" href="/person/{{ person.getId() }}">
+                    <div style="background-color:#d3d3d3; display:block">
+                        <div style="margin:0 2vw 0 2vw">
+                            <div>
+                                <h1 class="card-title">{{ person.getFirstName() }} {{person.getLastName()}}</h1>
+                            </div>
+                            <div>
+                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                            </div>
+                            <div id="p-text">
+                                <p class="card-subtitle">Kontaktinformasjon:</p>
 
-    {% for company in companies %}
-        <a href="/selskap/{{ company.getId() }}"> <p>{{ company.getId() }} {{ company.getName() }}</p></a>
-    {% endfor %}
+                                <p class="card-text">
+                                        {{ person.getEmail() }}
+                                        </br>
+                                        {#{{ person.getPhone() }} #}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+    <div id="companies" style="display:none">
+        <a href="/company/ny">Lag selskap</a>
+        </br>
+        <h5>Selskaper</h5>
+
+        <!-- Company search -->
+        {{ form_start(companyForm) }}
+        {{ form_widget(companyForm) }}
+        {{ form_end(companyForm) }}
+        </br>
+
+        <!-- Company cards -->
+        {% for company in companies %}
+            <div class="col-md-3">
+                <a class="actor-card" href="/selskap/{{ company.getId() }}">
+                    <div style="background-color:#d3d3d3; display:block">
+                        <div style="margin:0 2vw 0 2vw">
+                            <div>
+                                <h1 class="card-title">{{ company.getName() }}</h1>
+                            </div>
+                            <div>
+                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                            </div>
+                            <div id="p-text">
+                                <p class="card-subtitle">Kontaktinformasjon:</p>
+
+                                <p class="card-text">
+                                        Id: {{ company.getId() }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="{{ asset('static/js/showActor.js') }}"></script>
 {% endblock %}
 

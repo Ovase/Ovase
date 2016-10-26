@@ -4,8 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,12 +27,11 @@ class ProjectType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('name', TextType::class, array('attr' => array('placeholder' => 'Navn på prosjekt')))
-			->add('field', TextType::class, array('attr' => array('placeholder' => 'Felt')))
-            ->add('images', FileType::class, array('mapped' => false, 'multiple' => true))
-			->add('startdate', DateTimeType::class)
-			->add('enddate', DateTimeType::class)
-			->add('description', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av prosjektet')))
+			->add('name', TextType::class, array('label' => 'Navn','attr' => array('placeholder' => 'Navn på prosjekt')))
+			->add('field', TextType::class, array('label' => 'Felt','attr' => array('placeholder' => 'Felt')))
+			->add('startdate', DateType::class,array('label' => 'Start dato','widget' => 'single_text'))
+			->add('enddate', DateType::class, array('label' => 'Slutt dato','widget' => 'single_text'))
+			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('placeholder' => 'Beskrivelse av prosjektet')))
             ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet')))
             ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'Areal')))
             ->add('cost', MoneyType::class, array('currency' => 'NOK',))
@@ -42,7 +40,9 @@ class ProjectType extends AbstractType
             ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px')))
 
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px')))
+			->add('location', TextType::class, array('label' => 'Lokasjon','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px')))
+
+
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(
 
@@ -92,8 +92,8 @@ class ProjectType extends AbstractType
                 'entry_type' => MeasureType::class,
                 'allow_add' => true
             ))
-			->add('captcha', CaptchaType::class, array(
-				'label' => ' ',
+			->add('captcha', CaptchaType::class, array('attr' => array('placeholder' => 'Skriv tegnene'),
+				'label' => 'Bevis at du ikke er en robot',
 				'width' => 200,
 				'height' => 50,
 				'length' => 5,
