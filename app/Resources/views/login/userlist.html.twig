@@ -1,0 +1,14 @@
+{# app/Resources/views/login/userlist.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% if babes is defined %}
+		{% for element in babes %}
+			Profil: <a href="{{ path('publicprofile', {'id': element.id}) }}">{{element}}</a>
+			{% if babes is defined %}
+				- <a href="{{ path('editotherprofile', {'id': element.id}) }}">Rediger</a> <br>
+			{% endif %}
+		{% endfor %}
+    {% endif %}
+{% endblock %}

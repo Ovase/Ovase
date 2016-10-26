@@ -62,6 +62,46 @@ edit:
   path:     /rediger
   defaults: { _controller: AppBundle:EditList:show}
 
+personalprofile:
+  path:     /me
+  defaults: { _controller: AppBundle:Profile:showMyProfile}
+
+editpersonalprofile:
+  path:     /me/e
+  defaults: { _controller: AppBundle:Profile:editMyProfile}
+
+activate_users:
+  path:     /me/activate
+  defaults: { _controller: AppBundle:Profile:activateUsers}
+
+deactivate_users:
+  path:     /me/deactivate
+  defaults: { _controller: AppBundle:Profile:deactivateUsers}
+
+# View other's profile
+publicprofile:
+  path: /prof/{id}
+  defaults: {_controller: AppBundle:Profile:showProfile}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+# Edit other's profile
+editotherprofile:
+  path: /rp/{id}
+  defaults: {_controller: AppBundle:Profile:editProfile}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+userlist:
+  path: /brukere
+  defaults: { _controller: AppBundle:User:showAllUsers}
+
+queryme:
+  path:     /me/qp
+  defaults: { _controller: AppBundle:Profile:queryMe}
+
 edit_project:
   path:     /anlegg/rediger/{id}
   defaults: { _controller: AppBundle:Project:edit}

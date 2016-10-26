@@ -176,6 +176,10 @@ class User implements AdvancedUserInterface, \Serializable
 	{
 		$this->email = $email;
 	}
+
+	/**
+	 * @var boolean
+	 */
 	public function setIsActive($isActive)
 	{
 		$this->isActive = $isActive;
@@ -184,11 +188,11 @@ class User implements AdvancedUserInterface, \Serializable
 	/**
 	 * Get the user's roles in the system.
 	 *
-	 * @return string[]
+	 * @return array
 	 */
 	public function getRoles()
 	{
-		return $this->roles->toArray();
+		return $this->roles->toArray(); // Her ligger problemet.
 	}
 	/**
 	 * Set lastName.
