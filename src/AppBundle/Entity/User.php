@@ -188,11 +188,11 @@ class User implements AdvancedUserInterface, \Serializable
 	/**
 	 * Get the user's roles in the system.
 	 *
-	 * @return string[]
+	 * @return array
 	 */
 	public function getRoles()
 	{
-		return $this->roles;//->toArray(); // Her ligger problemet.
+		return $this->roles->toArray(); // Her ligger problemet.
 	}
 	/**
 	 * Set lastName.
