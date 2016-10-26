@@ -33,8 +33,8 @@ class ProjectController extends Controller
 
     public function createAction(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException('Du må være logget inn for å lage et prosjekt');
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Du må være logget inn og aktivert av en redaktør for å lage et prosjekt');
         }
         $em = $this->getDoctrine()->getManager();
         $project = new Project();
@@ -64,8 +64,8 @@ class ProjectController extends Controller
 
     public function editAction(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException("Du må være logget inn for å se denne siden");
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException("Du må være logget inn og aktivert av en redaktør for å se denne siden");
         }
 
         $requestID = $request->get('id');
@@ -77,7 +77,7 @@ class ProjectController extends Controller
 
         $form = $this->createForm(ProjectType::class, $project, array('method' => 'PUT'));
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isValid()) {
             $project->incrementVersion();
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);
