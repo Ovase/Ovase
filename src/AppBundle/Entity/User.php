@@ -99,14 +99,14 @@ class User implements AdvancedUserInterface, \Serializable
 	private $actors;
 
 	/**
-     * @var array
-     * @ORM\ManyToMany(targetEntity="Project")
-     * @ORM\JoinTable(name="user_can_edit_project",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")}
-     *      )
-     */
-    private $projects;
+     	* @var array
+     	* @ORM\ManyToMany(targetEntity="Project")
+     	* @ORM\JoinTable(name="user_can_edit_project",
+     	*      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     	*      inverseJoinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")}
+     	*      )
+     	*/
+    	private $projects;
 
 	public function __construct()
 	{
@@ -498,5 +498,10 @@ class User implements AdvancedUserInterface, \Serializable
     public function canEditProject($project)
     {
     	return $this->projects->contains($project);
+    }
+	
+    public function canEditActor($actor)
+    {
+    	return $this->actors->contains($actor);
     }
 }
