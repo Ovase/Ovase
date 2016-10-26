@@ -6,14 +6,13 @@
 
 {% block body %}
 <body onload="checkCookie()">
-    <a href="/person/ny">Lag person</a>
-    </br>
-    <a href="/company/ny">Lag selskap</a>
-    </br>
+
     <button type="button" onclick="show('persons');">Personer</button>
     <button type="button" onclick="show('companies');">Selskaper</button>
 
     <div id="persons">
+        <a href="/person/ny">Lag person</a>
+        </br>
         <h5>Personer</h5>
 
         <!-- Person search -->
@@ -53,6 +52,8 @@
     </div>
 
     <div id="companies" style="display:none">
+        <a href="/company/ny">Lag selskap</a>
+        </br>
         <h5>Selskaper</h5>
 
         <!-- Company search -->
