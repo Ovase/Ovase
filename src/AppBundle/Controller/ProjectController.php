@@ -71,7 +71,7 @@ class ProjectController extends Controller
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
 
-        if (!$this->getUser()->canEditProject($project)) {
+        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
 
