@@ -8,21 +8,36 @@
 		{% block stylesheets %}
 			<link href="{{ asset('static/css/normalize.css') }}" rel="stylesheet" type="text/css">
 			<link href="{{ asset('static/css/style.css') }}" rel="stylesheet" type="text/css">
-			<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet">
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<!-- Latest compiled and minified CSS -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+			<!-- Optional theme -->
+
+			<!--
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		-->
+			<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+			{#<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet">#}
+			{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+			{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
 		{% endblock %}
-		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+
+		<!-- Favicon for all -->
+
+		<link rel="icon" type="image/x-icon" href="{{ asset('static/images/index/favicons/favicon.ico') }}" />
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('static/images/index/favicons/apple-touch-icon.png') }}">
+		<link rel="icon" type="image/png" href="{{ asset('static/images/index/favicons/favicon-32x32.png') }}" sizes="32x32">
+		<link rel="icon" type="image/png" href="{{ asset('static/images/index/favicons/favicon-16x16.png') }}" sizes="16x16">
+		<link rel="manifest" href="{{ asset('static/images/index/favicons/manifest.json') }}">
+		<link rel="mask-icon" href="{{ asset('static/images/index/favicons/apple-touch-icon.png') }}/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="apple-mobile-web-app-title" content="Overvannssenteret">
+		<meta name="application-name" content="Overvannssenteret">
+		<meta name="theme-color" content="#ffffff">
+
 		{% block javascripts %}
-			<!--{% if app.environment == 'dev'%}
-				<script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.js"></script>
-				<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
-			{% else %}
-				<script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.min.js"></script>
-				<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
-			{% endif %}
-			<script src="/web/static/js/jquery.js"></script>-->
-			<!--<script src="/web/static/js/wiki_auth.js"></script>-->
 		{% endblock %}
 	</head>
 	<body>
@@ -30,7 +45,11 @@
 				<header>
 					<nav class="navbar navbar-fixed-top navbar-custom">
 						<div class="container">
-							<p style="color:#6D6D6D;font-weight:400;font-size:200%;"> OVASE </p>
+							<p style="color:#6D6D6D;font-weight:400;font-size:200%;">
+								<a href="{{ path('home') }}" class = "header-text">
+									<img id = "header-logo" src="{{ asset('static/images/index/ovaselogo.png') }}">	 OVASE
+								</a>
+							</p>
 								<div class="navbar-header">
 									<button type="button" class="navbar-toggle navbar-custom-btn" data-toggle="collapse" data-target="#myNavbar">
 										<span class="icon-bar style-bgc-grey"></span>
@@ -41,50 +60,65 @@
 							<div class="collapse navbar-collapse" id="myNavbar">
 								<ul class="nav navbar-nav" style={navbarButtonStyle}>
 									<li>
-										<a href="{{ path('home') }}" class="navbar-txt">FRAMSIDE</a>
-									</li>
-									<li>
 										<a href="{{ path('projectlist') }}" class="navbar-txt">PROSJEKTER</a>
 									</li>
 									<li>
 										<a href="{{ path('actorlist') }}" class="navbar-txt">AKTØRER</a>
 									</li>
 									<li>
-										<a href="{{ path('login') }}" class="navbar-txt">FAGWIKI</a>
+										<a href="http://ovase.no/wiki/index.php/Forside" class="navbar-txt">FAGWIKI</a>
 									</li>
 									<li>
 										<a href="{{ path('personalprofile') }}" class="navbar-txt">PROFIL</a>
 									</li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
+								{% if app.user%}
+									<li>
+										<a href="{{ path('home')}}" class="navbar-txt">
+												<span class="glyphicon glyphicon-user"></span>
+													Min side
+										</a>
+									</li>
+									<li>
+										<a href="{{ path('logout')}}" class="navbar-txt">
+												<span class="glyphicon glyphicon-log-out"></span>
+													Logg ut
+										</a>
+									</li>
+								{% else %}
 									<li>
 										<a href="{{ path('create_user')}}" class="navbar-txt">
-											<span class="glyphicon glyphicon-user"></span> 
-												Registrer deg på OVASE
+											<span class="glyphicon glyphicon-user"></span>
+												Registrer
 										</a>
 									</li>
 									<li>
 										<a href="{{ path('login') }}" class="navbar-txt">
-											<span class="glyphicon glyphicon-log-in"></span> 
+											<span class="glyphicon glyphicon-log-in"></span>
 												Logg inn
 										</a>
 									</li>
+								{% endif %}
 								</ul>
 							</div>
 						</div>
 					</nav>
 				</header>
 		{% endblock %}
-		<div style="margin-left:50px;">
-		{% block body %}{% endblock %}
+		<div id="wrap">
+			<div id = "main">
+				{% block body %}
+				{% endblock %}
+			</div>
 		</div>
 		{% block footer %}
 			<div class="footer-container">
 				<div class="inner-container" id="footer-inner">
 					<div class="footer">
-						<a href= {{ path('home') }} >Hjem</a> |
-						<a href="#">Om siden</a> | 
-						<a href="#popup4">Foto</a> | 
+						<a href= "{{ path('home') }}" >Hjem</a> |
+						<a href="#">Om siden</a> |
+						<a href="#popup4">Foto</a> |
 						Kontakt: mail@ovase.no |
 						{% if app.user%}
 							Du er {{app.user}} |
@@ -96,5 +130,7 @@
 				</div>
 			</div>
 		{% endblock %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</body>
 </html>
