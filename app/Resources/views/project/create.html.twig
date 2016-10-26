@@ -5,10 +5,20 @@
 {% endblock %}
 
 {% block body %}
+	<body onload="initCreateProjectPage()">
+
+	<button type="button" onclick="show('div1');">Steg 1</button>
+	<button type="button" onclick="show('div2');">Steg 2</button>
+	<button type="button" onclick="show('div3');">Steg 3</button>
+	<button type="button" onclick="show('div4');">Steg 4</button>
 
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
+
+	<script src="{{ asset('static/js/showFieldsInProject.js') }}"></script>
+	<script src="{{ asset('static/js/datepicker-no.js') }}"></script>
+
 
 {% endblock %}
 
