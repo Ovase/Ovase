@@ -18,7 +18,9 @@ class UserTypeTest extends TypeTestCase
 			'phone' => '45133754',
 		);
 
-		$form = $this->factory->create(UserType::class);
+		$form = $this->factory->create(UserType::class, null, array(
+        'environment' => 'test',
+    	));
 
 		$user = new User();
 		$user->fromArray($formData);

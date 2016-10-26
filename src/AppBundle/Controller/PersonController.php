@@ -19,6 +19,10 @@ class PersonController extends Controller
 
 	public function createAction(Request $request)
 	{
+		if(!$this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+        {
+            throw $this->createAccessDeniedException('Du må være en aktivert bruker og logget inn for å få lov til å definere en ny aktør');
+        }
 		$person = new Person();
 		$form = $this->createForm(PersonType::class, $person);
 		$form->handleRequest($request);
@@ -26,7 +30,7 @@ class PersonController extends Controller
         if($form->isSubmitted()){
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
             $user = $this->getUser();
-            $user->setPerson($person);
+            $user->addActor($person);
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();

@@ -5,27 +5,87 @@
 {% endblock %}
 
 {% block body %}
+			<!--
+				<div class="input-group">
+					<input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
+					<span class="input-group-btn">
+						<button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
+					</span>
+				</div>
+			-->
 
-	<a href="/anlegg/ny">Lag nytt prosjekt</a>
+		<!--Search form -->
+		<div>
+			<div>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+			</br>
+			</br>
 
-	<p></p>
+			<div>
+				<span style="font-size:25px; margin-left:1vw; margin-right:25px; color:#6D6D6D;">Lag nytt prosjekt</span>
+				<a class="btn-text" href="/anlegg/ny"><button type="button" class="btn btn-circle btn-primary btn-raised">+</button></a>
+			</div>
 
-	{{ form_start(form) }}
- 	{{ form_widget(form) }}
-	{{ form_end(form) }}
+			</br>
+			</br>
+		</div>
 
-	<p></p>
+
+		{% for project in projects %}
+
+			<div class="col-md-6">
+
+				<div style="background-color:#f2f2f2; display:block">
+					<div style="margin:0 2vw 0 2vw">
+						<div>
+							<h1 class="card-title">{{ project.getName() }}</h1>
+							<h4 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h4>
+						</div>
+
+
+						<div>
+								<img class="center-block card-img" src="{{ asset('static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="Card image">
+						</div>
+
+						<div id="p-text">
+								<p class="card-subtitle">
+									Beskrivelse:
+								</p>
+
+								<p class="card-text">
+									{{ project.getDescription() }}
+								</p>
+
+						</div>
+
+						<div>
+							<p class="card-subtitle">Tekniske løsninger:</p>
+							<p class="card-text">
+							{% for p in project.getTechnicalSolutions() %}
+								{{ p }}
+							{% endfor %}
+							</p>
+						</div>
+
+						<div>
+							<a href="{{ path('project', {'id': project.getId()}) }}" class="btn btn-default" role="button">Se mer</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		{% endfor %}
+
+
+
+
 
 	<br>
 	{% if message is defined %}
 		<p>{{ message }}</p>
 	{% endif %}
 
-	<h3>Prosjekter</h3>
-	{% for project in projects %}
-		<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
-	{% endfor %}
-
 {% endblock %}
-
-

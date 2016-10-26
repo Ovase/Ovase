@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    image_service:
+      class: AppBundle\Services\ImageService
+      arguments: [%cloud_name%, %cloud_api_key%, %cloud_api_secret%]

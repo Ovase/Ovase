@@ -39,25 +39,13 @@ class Company extends Actor
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Person")
-     * @ORM\JoinTable(name="companies_persons",
-     *      joinColumns={@ORM\JoinColumn(name="company_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="companies")
+     * @ORM\JoinTable(name="person_in_company")
      */
     private $persons;
-    /**
-     * @var array
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="user_can_edit_company",
-     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     *      )
-     */
-    private $users;
 
     public function __construct() {
-        parent::__construct(); // Not needed?
+        parent::__construct(); // Not needed? C2C: It's not in "Person"
         $this->persons = new ArrayCollection();
     }
 
@@ -154,43 +142,23 @@ class Company extends Actor
         $this->persons->removeElement($person);
     }
     /**
-     * Add Users.
-     *
-     * @param user $user
-     *
-     * @return Project
-     */
-    public function addUser($user)
-    {
-        $this->users[] = $user;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Remove Users.
-     *
-     * @param user $user
-     */
-    public function removeUser($user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
      * get persons
      *
      * @return \doctrine\common\collections\collection
      */
-    public function getpersons()
+    public function getPersons()
     {
         return $this->persons;
     }
+
+    /**
+     * Get name of subclass. Used when viewing 
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        return "Company";
+    }
+
 }

@@ -19,14 +19,31 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-	public function findPersonsBySearch($searchTerm)
+	public function findPersonsBySearch($search)
+	{
+        $firstNamesearch = $this->createQueryBuilder('Person')
+			->select('Person')
+			->where('Person.firstName IN (:searchTerm)')
+			->setParameter('searchTerm', $search)
+			->getQuery()
+			->getResult(); // returns an array, ja?
+        $lastNamesearch = $this->createQueryBuilder('Person')
+            ->select('Person')
+            ->where('Person.lastName IN (:searchTerm)')
+            ->setParameter('searchTerm', $search)
+            ->getQuery()
+            ->getResult(); // returns an array, ja?
+        $result = array_merge($firstNamesearch,$lastNamesearch); // Merge is binary, still extendable with expertise field
+        return $result;
+	}
+
+	public function findEditedPersons()
 	{
 		return $this->createQueryBuilder('Person')
 			->select('Person')
-			->where('Person.firstName LIKE :searchTerm')
-			->orWhere('Person.lastName LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.$searchTerm.'%')
+			->where('Person.version > 0')
 			->getQuery()
 			->getResult();
 	}
+	
 }
