@@ -3,8 +3,6 @@ function initCreateProjectPage() {
 	$( "#project_startdate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$( "#project_enddate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$("#project_actors").select2({width: '25vw'});
-
-
 }
 
 function show(page) {
@@ -20,9 +18,17 @@ function show(page) {
 	document.getElementById('project_save').style.display = "none";
 	document.getElementsByClassName("captcha_image")[0].style.display = "none";
 
+	var selectSpan = document.getElementsByClassName("selection")[0];
+	if(selectSpan) { //The selection span is not defined on load
+		document.getElementsByClassName("selection")[0].style.display = "none";
+	}
+
 	if(page === 1){
 		displayBlock(["name","startdate","enddate","location","actors",
 						"areaType","projectType","cost","totalArea"])
+		if(selectSpan) {
+			document.getElementsByClassName("selection")[0].style.display = "block";
+		}	
 	}
 	if(page === 2){
 		//background,summary
