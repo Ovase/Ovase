@@ -5,7 +5,22 @@ function initCreateProjectPage() {
 	$("#project_actors").select2({width: '25vw'});
 }
 
+function updatePageButtons(page){
+	document.getElementById('page1').style.backgroundColor = "lightGrey";
+	document.getElementById('page2').style.backgroundColor = "lightGrey";
+	document.getElementById('page3').style.backgroundColor = "lightGrey";
+	document.getElementById('page4').style.backgroundColor = "lightGrey";
+	document.getElementById('page'+page).style.backgroundColor = "lightGreen";
+}
+
+var pageNumber = null;
+
 function show(page) {
+	if(parseInt(page)){
+		pageNumber = page;
+		updatePageButtons(pageNumber);
+	}
+	
 
 	arr = ["name","field","images","startdate","enddate","description","soilConditions",
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
@@ -29,14 +44,22 @@ function show(page) {
 		if(selectSpan) {
 			document.getElementsByClassName("selection")[0].style.display = "block";
 		}	
+
+		document.getElementById('next').disabled = false;
+		document.getElementById('previous').disabled = true;
 	}
 	if(page === 2){
 		//background,summary
 		displayBlock(["images"]);
+
+		document.getElementById('next').disabled = false;
+		document.getElementById('previous').disabled = false;
 	}
 
 	if(page === 3){
 		displayBlock(["measures"]);
+		document.getElementById('next').disabled = false;
+		document.getElementById('previous').disabled = false;
 	}
 
 	if(page === 4){
@@ -44,8 +67,27 @@ function show(page) {
 		document.getElementsByClassName("captcha_image")[0].style.display = "block";
 		document.getElementById('project_save').style.display = "block";
 
+		document.getElementById('next').disabled = true;
+		document.getElementById('previous').disabled = false;
 	}
 
+	if(page === "next" && pageNumber !== 4){
+		pageNumber += 1;
+		if(pageNumber === 4) {
+			document.getElementById(page).disabled = true;
+		}
+		document.getElementById('previous').disabled = false;
+		show(pageNumber)
+		
+	}
+	if(page === "previous" && pageNumber !== 1){
+		pageNumber -= 1;
+		if(pageNumber === 1) {
+			document.getElementById(page).disabled = true;
+		}
+		document.getElementById('next').disabled = false;
+		show(pageNumber)
+	}
 }
 
 function displayBlock(idArray){
