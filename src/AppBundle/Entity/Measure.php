@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Measure
@@ -22,9 +23,18 @@ class Measure
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="text")
+     */
+    private $title;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="totalArea", type="integer")
+     * @Assert\NotNull()
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
      */
     private $totalArea;
 
@@ -308,6 +318,22 @@ class Measure
     public function getExperiencesGained()
     {
         return $this->experiencesGained;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
 }

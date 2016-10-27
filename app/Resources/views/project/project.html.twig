@@ -37,12 +37,25 @@
 
 	<div class="row">
 		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
-			<a href= "/anlegg/rediger/{{ project.getId() }}">{{"Rediger prosjekt"}}</a>
 			<p></p>
 
 			{% if message is defined %}
 				<p>{{ message }}</p>
 			{% endif %}
+
+			{% if canEdit %}
+				<a href="{{  path('edit_project', {'id': project.getId()}) }}">{{"Rediger prosjekt"}}</a>
+                <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">Legg til tiltak</a>
+            {% endif %}
+			{% for measure in project.getMeasures() %}
+				<p2>{{ measure.getTitle() }}</p2>
+				<p2>{{ measure.getTotalArea() }}</p2>
+				<p2>{{ measure.getCosts() }}</p2>
+				{% if canEdit %}
+                    <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Endre tiltak</a>
+                    <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
+            	{% endif %}
+            {% endfor %}
 
 			<h1>Prosjektnavn: {{ project.getName() }}</h1>
 

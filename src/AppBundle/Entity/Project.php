@@ -125,11 +125,11 @@ class Project
 	private $actors;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Measure", cascade="persist")
+     * @ORM\ManyToMany(targetEntity="Measure", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="projects_measures",
      *     joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")
      * },
-     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true)}
+     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true, onDelete="cascade")}
      *     )
      * @Assert\Valid
      */

@@ -87,10 +87,6 @@ class ProjectType extends AbstractType
                 'required' => false,
                 // 'expanded' => true,
             ))
-            ->add('measures', CollectionType::class, array(
-                'entry_type' => MeasureType::class,
-                'allow_add' => true
-            ))
             ->add('captcha', CaptchaType::class, array('attr' => array('placeholder' => 'Skriv tegnene'),
                 'label' => 'Bevis at du ikke er en robot',
                 'width' => 200,
