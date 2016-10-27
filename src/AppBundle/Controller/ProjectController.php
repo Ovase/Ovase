@@ -28,12 +28,6 @@ class ProjectController extends Controller
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
         # The API key to use on Google Maps Embed API is defined as a global parameter accessable through the service container.
-//        $canEdit = false;
-//        if(!$this->getUser() == null){
-//            if($this->getUser()->canEditProject($project)){
-//                $canEdit = true;
-//            }
-//        }
         $canEdit = false;
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && $this->getUser()->canEditProject($project)) {
             $canEdit = true;
