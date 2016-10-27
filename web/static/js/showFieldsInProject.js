@@ -1,12 +1,13 @@
 function initCreateProjectPage() {
-	show('div1');
+	show(1);
 	$( "#project_startdate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$( "#project_enddate" ).datepicker( $.datepicker.regional[ "no" ] );
+	$("#project_actors").select2({width: '25vw'});
 
 
 }
 
-function show(id) {
+function show(page) {
 
 	arr = ["name","field","images","startdate","enddate","description","soilConditions",
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
@@ -19,20 +20,20 @@ function show(id) {
 	document.getElementById('project_save').style.display = "none";
 	document.getElementsByClassName("captcha_image")[0].style.display = "none";
 
-	if(id === 'div1'){
+	if(page === 1){
 		displayBlock(["name","startdate","enddate","location","actors",
 						"areaType","projectType","cost","totalArea"])
 	}
-	if(id === 'div2'){
+	if(page === 2){
 		//background,summary
 		displayBlock(["images"]);
 	}
 
-	if(id === 'div3'){
+	if(page === 3){
 		displayBlock(["measures"]);
 	}
 
-	if(id === 'div4'){
+	if(page === 4){
 		displayBlock(["field","description","soilConditions","technicalSolutions","captcha"]);
 		document.getElementsByClassName("captcha_image")[0].style.display = "block";
 		document.getElementById('project_save').style.display = "block";

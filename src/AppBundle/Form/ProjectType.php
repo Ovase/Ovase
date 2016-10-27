@@ -101,6 +101,7 @@ class ProjectType extends AbstractType
                 'required' => false,
 				// 'expanded' => true,
 				'label_attr' => array('id' => 'actors_label'),
+				'attr' => array('class'=>'js-example-basic-multiple js-states form-control')
 			))
             ->add('measures', CollectionType::class, array(
                 'entry_type' => MeasureType::class,
