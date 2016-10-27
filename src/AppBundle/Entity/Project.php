@@ -79,7 +79,6 @@ class Project
      * @var array
      * @ORM\Column(type="array")
      * @Assert\All({
-     *	 @Assert\NotBlank,
      *   @Assert\Type("string"),
      * })
      */

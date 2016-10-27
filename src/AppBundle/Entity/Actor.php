@@ -35,15 +35,11 @@ class Actor
 	private $tlf;
 
 	/**
-	 * @var array
+	 * @var string
 	 *
-	 * @ORM\Column(name="images", type="array")
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Url
-	 * })
+     * @ORM\Column(name="image", type="string", nullable=true)
 	 */
-	private $images;
+	private $image;
 
 	/**
 	 * @var array
@@ -55,6 +51,11 @@ class Actor
 	 * })
 	 */
 	private $keyKnowledges;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $competence;
 
 	/**
 	 * @var string
@@ -93,7 +94,6 @@ class Actor
 	public function __construct()
 	{
 		$this->keyKnowledges = new ArrayCollection();
-		$this->images = new ArrayCollection();
 		$this->location = new ArrayCollection();
 		$this->projects = new ArrayCollection();
 	}
@@ -132,29 +132,21 @@ class Actor
 		return $this->tlf;
 	}
 
-	/**
-	 * Set images
-	 *
-	 * @param array $images
-	 *
-	 * @return Actor
-	 */
-	public function setImages($images)
-	{
-		$this->images = $images;
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 
-		return $this;
-	}
-
-	/**
-	 * Get images
-	 *
-	 * @return array
-	 */
-	public function getImages()
-	{
-		return $this->images;
-	}
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
 	/**
 	 * Set keyKnowledges
@@ -329,5 +321,22 @@ class Actor
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCompetence()
+    {
+        return $this->competence;
+    }
+
+    /**
+     * @param mixed $competence
+     */
+    public function setCompetence($competence)
+    {
+        $this->competence = $competence;
+    }
+
 
 }

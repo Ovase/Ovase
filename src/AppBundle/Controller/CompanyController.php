@@ -13,7 +13,6 @@ class CompanyController extends Controller
 
 		$requestID = $request->get('id');
 		$company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find($requestID);
-
 		return $this->render(':actor:company.html.twig', array('company' => $company, 'key'=> $this->container->getParameter('api_key')));
 	}
 
@@ -23,18 +22,20 @@ class CompanyController extends Controller
         {
             throw $this->createAccessDeniedException('Du må være logget inn for å definere et selskap');
         }
+        $em = $this->getDoctrine()->getManager();
         $company = new Company();
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
 		if($form->isSubmitted()){
-			$this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->create($company);
-			            $user = $this->getUser();
+            $url = $this->get('image_service')->upload($form['image']->getData());
+            $company->setImage($url);
+			$em->persist($company);
+            $user = $this->getUser();
             $user->addActor($company);
-			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();
-			return $this->redirect('/actor');
+			return $this->redirect('/selskap/' . $company->getId());
 		}
 		return $this->render(
 			'actor/create_company.html.twig', array(
