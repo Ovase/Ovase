@@ -7,14 +7,19 @@
 {% block body %}
 	<body onload="initCreateProjectPage()">
 
-	<button type="button" onclick="show(1);">Steg 1</button>
-	<button type="button" onclick="show(2);">Steg 2</button>
-	<button type="button" onclick="show(3);">Steg 3</button>
-	<button type="button" onclick="show(4);">Steg 4</button>
-
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
+	</br>
+	</br>
+	<div style="margin-left:15vw">
+		<button type="button" id="previous" class="glyphicon glyphicon-chevron-left" onclick="show('previous');"> </button>
+		<button type="button" id="page1" onclick="show(1);">Steg 1</button>
+		<button type="button" id="page2" onclick="show(2);">Steg 2</button>
+		<button type="button" id="page3" onclick="show(3);">Steg 3</button>
+		<button type="button" id="page4" onclick="show(4);">Steg 4</button>
+		<button type="button" id="next" class="glyphicon glyphicon-chevron-right" onclick="show('next');"> </button>
+	</div>
 
 	<script src="{{ asset('static/js/showFieldsInProject.js') }}"></script>
 	<script src="{{ asset('static/js/datepicker-no.js') }}"></script>
