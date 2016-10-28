@@ -47,7 +47,11 @@
 
 
 						<div>
-								<img class="center-block card-img" src="{{ asset('static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="Card image">
+								{% for key,image in project.getImages() %}
+								<div class="item {%if key == 0%} active {%endif%}">
+									<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
+								</div>
+								{% endfor %}
 						</div>
 
 						<div id="p-text">

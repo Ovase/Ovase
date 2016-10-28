@@ -31,11 +31,11 @@ class Project
 	 */
 	private $field;
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="string")
 	 */
 	private $startdate;
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="string")
 	 */
 	private $enddate;
 	/**
@@ -236,7 +236,7 @@ class Project
 	/**
 	 * Set startdate
 	 *
-	 * @param \DateTime $startdate
+	 * @param \string $startdate
 	 *
 	 * @return Project
 	 */
@@ -250,7 +250,7 @@ class Project
 	/**
 	 * Get startdate
 	 *
-	 * @return \DateTime
+	 * @return \string
 	 */
 	public function getStartdate()
 	{
@@ -260,7 +260,7 @@ class Project
 	/**
 	 * Set enddate
 	 *
-	 * @param \DateTime $enddate
+	 * @param \string $enddate
 	 *
 	 * @return Project
 	 */
@@ -274,7 +274,7 @@ class Project
 	/**
 	 * Get enddate
 	 *
-	 * @return \DateTime
+	 * @return \string
 	 */
 	public function getEnddate()
 	{
