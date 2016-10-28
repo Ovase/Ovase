@@ -179,8 +179,11 @@ header {
 }
 
 
+/* --------- PROFILE--------- */
 
-/* --------- LOWER PART OF HEADER --------- */
+.profile-head {
+	font-size: 30px;
+}
 
 #below-header {
 	display: -webkit-flex;
@@ -196,7 +199,6 @@ header {
 .infobox {
 	background: rgba(255,255,255,0.85);
 	width: 60%;
-	margin-left: 15em;
 	padding: 1em 2em 1em 3em;
 	color: black;
 	border-bottom-right-radius: 20px;
@@ -315,7 +317,7 @@ a.fp-card {
 }
 
 .actor-card {
-	
+
 }
 
 a.actor-card {
@@ -538,7 +540,7 @@ a.header-text{
 }
 
 
-/* --------- INDEX --------- */
+
 
 
 /* -------- POPUP BOX ---------*/

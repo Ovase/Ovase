@@ -16,7 +16,7 @@
 					{% if user is defined %}
 						<p>Registrert epost-adresse: {{user.Email()}}</p>
 						<p>Navn: {{user.getFullName()}} </p>
-						{#<p>Ditt telefonnummer er {{user.getphone()}} </p>#}
+						{#<p>Telefonnummer er {{user.getphone()}} </p>#}
 						<p>Vedkommende kan redigere følgende prosjekter: </p>
 						{% for project in user.getProjects() %}
 							<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
