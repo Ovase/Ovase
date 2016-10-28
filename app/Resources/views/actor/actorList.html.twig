@@ -10,9 +10,19 @@
     <button type="button" onclick="show('persons');">Personer</button>
     <button type="button" onclick="show('companies');">Selskaper</button>
 
+    <br>
+    <br>
+
     <div id="persons">
-        <a href="/person/ny">Lag person</a>
+
+        Lag person
+        <a href="/person/ny">
+          <button type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          </button>
+        </a>
         </br>
+        <br>
         <h5>Personer</h5>
 
         <!-- Person search -->
@@ -52,7 +62,12 @@
     </div>
 
     <div id="companies" style="display:none">
-        <a href="/company/ny">Lag selskap</a>
+        Lag selskap
+        <a href="/company/ny">
+          <button type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+          </button>
+        </a>
         </br>
         <h5>Selskaper</h5>
 
@@ -90,4 +105,3 @@
 
     <script src="{{ asset('static/js/showActor.js') }}"></script>
 {% endblock %}
-
