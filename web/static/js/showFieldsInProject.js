@@ -1,8 +1,9 @@
 function initCreateProjectPage() {
-	show(1);
 	$( "#project_startdate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$( "#project_enddate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$("#project_actors").select2({width: '25vw'});
+
+	show(1);
 }
 
 function updatePageButtons(page){
@@ -20,7 +21,6 @@ function show(page) {
 		pageNumber = page;
 		updatePageButtons(pageNumber);
 	}
-	
 
 	arr = ["name","images","startdate","enddate","description","soilConditions",
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
@@ -35,6 +35,8 @@ function show(page) {
 	}
 	document.getElementById('project_save').style.display = "none";
 	document.getElementsByClassName("captcha_image")[0].style.display = "none";
+	document.getElementById('showImages').style.display = "none";
+
 
 	var selectSpan = document.getElementsByClassName("selection")[0];
 	if(selectSpan) { //The selection span is not defined on load
@@ -60,6 +62,9 @@ function show(page) {
 	}
 
 	if(page === lastPage){
+
+		document.getElementById('showImages').style.display = "inline";
+
 		displayBlock(["captcha","imageFiles","summary"]);
 		document.getElementsByClassName("captcha_image")[0].style.display = "block";
 		document.getElementById('project_save').style.display = "block";

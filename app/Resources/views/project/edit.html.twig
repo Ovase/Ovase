@@ -7,9 +7,11 @@
 {% block body %}
 	<body onload="initCreateProjectPage()">
 	{{ form_start(form) }}
+	<div id="showImages">
 	{% for url in form.vars.value.images %}
-		<img src="{{ url }}" style="max-width: 20vw"/>
+		<img src="{{ url }}" style="max-width: 20vw; display:inline"/>
 	{% endfor %}
+	</div>
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
 	</br>
