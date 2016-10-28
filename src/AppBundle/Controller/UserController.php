@@ -6,6 +6,8 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\Form;
 
 class UserController extends Controller
 {
@@ -27,9 +29,10 @@ class UserController extends Controller
 
 		// 2) handle the submit (will only happen on POST)
 		$form->handleRequest($request);
+        $this->validatePassword($form);
 		if ($form->isSubmitted() && $form->isValid()) {
 
-			// 3) Encode the password and set user salt (you could also do this via Doctrine listener)
+            // 3) Encode the password and set user salt (you could also do this via Doctrine listener)
 
 			// Generate random salt. Warning: The algorithm may fail. TODO: Investigate bcrypt (which Symfony recommends) and other better algorithms for salting passwords.
 			$salt=$this->generateSalt();
@@ -50,7 +53,7 @@ class UserController extends Controller
 			$em->persist($user);
 			$em->flush();
 
-			// TODO:
+			// TODO: bcrypt
 			// ... do any other work - like sending them an email, etc
 			// maybe set a "flash" success message for the user
 
@@ -63,8 +66,28 @@ class UserController extends Controller
 			array('form' => $form->createView())
 		);
 	}
-	private function validPassLen($password){
-		return strlen($password)>=7;
+    // Password validation. May be subject to change? Does it conflict w/ usability requirements?
+	private function validatePassword(Form $form){
+        $password = $form['password']->getData();
+        if (! preg_match("^(?=.*[a-z]).+$", $password)) {
+            $form->addError(new FormError("Ditt passord må inneholde minst 1 liten bokstav fra det engelske alfabetet!"));
+        }
+        if (! preg_match("^(?=.*[A-Z]).+$", $password)) {
+            $form->addError(new FormError("Ditt passord må inneholde minst 1 stor bokstav fra det engelske alfabetet!"));
+        }
+        if (! preg_match("^(?=.*[æøåÆØÅ]).+$", $password)) {
+            $form->addError(new FormError("Ditt passord må inneholde minst 1 av de spesielle bokstavene i det dansk-norske alfabet!"));
+        }
+        if (strcspn($password, '0123456789') == strlen($password)) // see http://php.net/manual/en/function.strcspn.php - it is infact faster then a number regex
+        {
+            $form->addError(new FormError("Ditt passord må inneholde minst ett siffer!"));
+        }
+        if (! preg_match("^(?=.*[!#¤_%&/=?£]).+$", $password)) {
+            $form->addError(new FormError("Ditt passord må inneholde minst ett spesialtegn. Kontakt systemets administrator for nærmere informasjon"));
+        }
+        if (strlen($password)<7) {
+            $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon"));
+        }
 	}
 
 	/**
