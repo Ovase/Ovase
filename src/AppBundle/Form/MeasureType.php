@@ -28,6 +28,7 @@ class MeasureType extends AbstractType
             ->add('costs', NumberType::class, array('attr' => array('placeholder' => 'Totale kostnader')))
             ->add('technicalFunctions', TextareaType::class, array('attr' => array('placeholder' => 'Tekniske funksjoner')))
             ->add('elaboration', TextareaType::class, array('attr' => array('placeholder' => 'Utdypning')))
+            ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
             ->add('additionalValues', TextareaType::class, array('attr' => array('placeholder' => 'Nytteverdier')))
             ->add('geometricDesignElaboration', TextareaType::class, array('attr' => array('placeholder' => 'Utdypning av geometrisk utforming')))
             ->add('constructionDetails', TextareaType::class, array('attr' => array('placeholder' => 'Utdypning av geometrisk utforming')))

@@ -4,8 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,7 +30,6 @@ class ProjectType extends AbstractType
 		$builder
 			->add('name', TextType::class, array('label' => 'Navn','attr' => array('placeholder' => 'Navn på prosjekt'),'label_attr' => array('id' => 'name_label')))
 
-			->add('field', TextType::class, array('label' => 'Felt','attr' => array('placeholder' => 'Felt'),'label_attr' => array('id' => 'field_label')))
 
 			->add('images', CollectionType::class, array(
                 'entry_type' => HiddenType::class,
@@ -52,9 +51,13 @@ class ProjectType extends AbstractType
 
 			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('placeholder' => 'Beskrivelse av prosjektet'),'label_attr' => array('id' => 'description_label')))
 
+            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
+            ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
+
             ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet'),'label_attr' => array('id' => 'soilConditions_label')))
 
             ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'Areal'),'label_attr' => array('id' => 'totalArea_label')))
+            ->add('waterArea', NumberType::class, array('attr' => array('placeholder' => 'Water area'),'label_attr' => array('id' => 'totalArea_label')))
 
             ->add('cost', MoneyType::class, array('currency' => false,'label_attr' => array('id' => 'cost_label')))
 
