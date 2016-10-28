@@ -58,7 +58,7 @@ class ProjectController extends Controller
             $em->persist($project);
             $em->persist($user);
             $em->flush();
-            return $this->redirect('/anlegg/' . $project->getId());
+            return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
         }
         return $this->render(
             'project/create.html.twig', array(
@@ -84,7 +84,7 @@ class ProjectController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFiles = $form['imageFiles']->getData();
-            $urls = clone $project->getImages();
+            $urls = clone $project->getImages(); // returns an array, ja?
             foreach ($imageFiles as $image) {
                 if ($image != null) {
                     $urls->add($this->get('image_service')->upload($image));
@@ -95,7 +95,7 @@ class ProjectController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);
             $em->flush();
-            return $this->redirect('/anlegg/' . (string)$requestID);
+            return $this->redirectToRoute('project', array( 'id' => (string)$requestID) );
         }
         return $this->render(
             'project/edit.html.twig', array(

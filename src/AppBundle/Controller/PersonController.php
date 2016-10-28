@@ -34,7 +34,7 @@ class PersonController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();
-            return $this->redirect('/actor');
+            return $this->redirectToRoute('actorlist');
         }
         return $this->render(
             'actor/create_person.html.twig', array(

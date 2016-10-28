@@ -35,7 +35,7 @@ class CompanyController extends Controller
             $user->addActor($company);
 			$em->persist($user);
 			$em->flush();
-			return $this->redirect('/selskap/' . $company->getId());
+            return $this->redirectToRoute('company', array( 'id' => $company->getId() ));
 		}
 		return $this->render(
 			'actor/create_company.html.twig', array(

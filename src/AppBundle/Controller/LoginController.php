@@ -18,11 +18,11 @@ class LoginController extends Controller
 
 		// TODO: Define login directory under app/Resources/views, and login.html.twig within this directory
 		return $this->render(
-						'login/login.html.twig', array(
+					'login/login.html.twig', array(
 					// last username entered by the user
 					'last_username' => $lastUsername,
 					'error' => $error,
-						)
+					)
 		);
 	}
 
