@@ -9,18 +9,18 @@
     <h3>Anlegg</h3>
 
     {% for project in projects %}
-        <a href="/anlegg/rediger/{{ project.getId() }}"><p>{{ project.getName() }}</p></a>
+        <p><a href= {{ path("edit_project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
     {% endfor %}
 
     <h3>Personer</h3>
 
     {% for person in persons %}
-        <a href="/person/rediger/{{ person.getId() }}"><p>{{ person.getName() }}</p></a>
+        <p><a href= {{ path("edit_person", {'id': person.getId()}) }}> {{ person.getName() }}</a></p>
     {% endfor %}
 
     <h3>Selskaper</h3>
 
     {% for company in companies %}
-        <a href="/selskap/rediger/{{ company.getId() }}"> <p>{{ company.getName() }}</p></a>
+        <p><a href= {{ path("edit_company", {'id': company.getId()}) }}> {{ company.getName() }}</a></p>
     {% endfor %}
 {% endblock %}

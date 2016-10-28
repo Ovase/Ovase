@@ -11,21 +11,21 @@
     <button type="button" onclick="show('companies');">Selskaper</button>
 
     <div id="persons">
-        <a href="/person/ny">Lag person</a>
-        </br>
+        <a href={{ path('create_person') }}>Lag person</a>
+        <br>
         <h5>Personer</h5>
 
         <!-- Person search -->
         {{ form_start(personForm) }}
         {{ form_widget(personForm) }}
         {{ form_end(personForm) }}
-        </br>
+        <br>
 
         <!-- Person cards -->
         <div>
         {% for person in persons %}
             <div class="col-md-3">
-                <a class="actor-card" href="/person/{{ person.getId() }}">
+                <a class="actor-card" href= {{ path("person", {'id': person.getId()}) }}>
                     <div style="background-color:#d3d3d3; display:block">
                         <div style="margin:0 2vw 0 2vw">
                             <div>
@@ -39,7 +39,7 @@
 
                                 <p class="card-text">
                                         {{ person.getEmail() }}
-                                        </br>
+                                        <br>
                                         {#{{ person.getPhone() }} #}
                                 </p>
                             </div>
@@ -52,20 +52,20 @@
     </div>
 
     <div id="companies" style="display:none">
-        <a href="/company/ny">Lag selskap</a>
-        </br>
+        <a href={{ path('create_company') }}>Lag selskap</a>
+        <br>
         <h5>Selskaper</h5>
 
         <!-- Company search -->
         {{ form_start(companyForm) }}
         {{ form_widget(companyForm) }}
         {{ form_end(companyForm) }}
-        </br>
+        <br>
 
         <!-- Company cards -->
         {% for company in companies %}
             <div class="col-md-3">
-                <a class="actor-card" href="/selskap/{{ company.getId() }}">
+                <a class="actor-card" href= {{ path("company", {'id': company.getId()}) }}>
                     <div style="background-color:#d3d3d3; display:block">
                         <div style="margin:0 2vw 0 2vw">
                             <div>
