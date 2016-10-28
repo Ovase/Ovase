@@ -13,12 +13,16 @@
 	</br>
 	</br>
 	<div style="margin-left:15vw">
-		<button type="button" id="previous" class="glyphicon glyphicon-chevron-left" onclick="show('previous');"> </button>
-		<button type="button" id="page1" onclick="show(1);">Steg 1</button>
-		<button type="button" id="page2" onclick="show(2);">Steg 2</button>
-		<button type="button" id="page3" onclick="show(3);">Steg 3</button>
-		<button type="button" id="page4" onclick="show(4);">Steg 4</button>
-		<button type="button" id="next" class="glyphicon glyphicon-chevron-right" onclick="show('next');"> </button>
+		<button type="button" id="previous" class="btn btn-default" onclick="show('previous');">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</button>
+		<button type="button" id="page1" class="btn btn-default" onclick="show(1);">Steg 1</button>
+		<button type="button" id="page2" class="btn btn-default" onclick="show(2);">Steg 2</button>
+		<button type="button" id="page3" class="btn btn-default" onclick="show(3);">Steg 3</button>
+		<button type="button" id="page4" class="btn btn-default" onclick="show(4);">Steg 4</button>
+		<button type="button" id="next" class="btn btn-default" onclick="show('next');">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</button>
 	</div>
 
 	<script src="{{ asset('static/js/showFieldsInProject.js') }}"></script>

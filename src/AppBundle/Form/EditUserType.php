@@ -21,7 +21,7 @@ class EditUserType extends AbstractType
 			->add('firstName', TextType::class)
 			->add('phone', TextType::class)
 
-			->add('save', SubmitType::class, array('label' => 'Endre bruker'));
+			->add('save', SubmitType::class, array('label' => 'Endre bruker','attr'=>array('class'=>'btn btn-default')));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

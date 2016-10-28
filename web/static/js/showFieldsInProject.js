@@ -14,6 +14,7 @@ function updatePageButtons(page){
 }
 
 var pageNumber = null;
+var lastPage = 4;
 
 function show(page) {
 	if(parseInt(page)){
@@ -62,7 +63,7 @@ function show(page) {
 		document.getElementById('previous').disabled = false;
 	}
 
-	if(page === 4){
+	if(page === lastPage){
 		displayBlock(["field","description","soilConditions","technicalSolutions","captcha"]);
 		document.getElementsByClassName("captcha_image")[0].style.display = "block";
 		document.getElementById('project_save').style.display = "block";
@@ -71,9 +72,9 @@ function show(page) {
 		document.getElementById('previous').disabled = false;
 	}
 
-	if(page === "next" && pageNumber !== 4){
+	if(page === "next" && pageNumber !== lastPage){
 		pageNumber += 1;
-		if(pageNumber === 4) {
+		if(pageNumber === lastPage) {
 			document.getElementById(page).disabled = true;
 		}
 		document.getElementById('previous').disabled = false;

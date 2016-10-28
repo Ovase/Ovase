@@ -29,7 +29,7 @@ class UserType extends AbstractType
 				'second_options' => array('label' => 'Gjenta Passord'),
 				)
 			)
-			->add('save', SubmitType::class, array('label' => 'Registrer bruker'));
+			->add('save', SubmitType::class, array('label' => 'Registrer bruker','attr'=>array('class'=>'btn btn-default')));
 		if ($env != 'test') {
 			$builder->add('captcha', CaptchaType::class, array(
 				'label' => ' ',

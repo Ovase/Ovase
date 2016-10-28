@@ -13,7 +13,7 @@ class CompanySearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', SearchType::class, array('label' => ' ','attr' => array('placeholder' => 'Søk på navn, lokasjon, ...'), 'required' => false))
-            ->add('save', SubmitType::class, array ('label' => 'Søk'));
+            ->add('search', SearchType::class, array('label' => ' ','attr' => array('placeholder' => 'Søk på navn, lokasjon, ...','class'=>'form-control'), 'required' => false))
+            ->add('save', SubmitType::class, array ('label' => ' ','attr'=>array('class'=>'btn btn-default glyphicon glyphicon-search')));
     }
 } 

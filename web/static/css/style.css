@@ -417,7 +417,7 @@ input[id$="_search_form_search"] {
 
 button[id$="_search_form_save"] {
 	margin-left:0px;
-	height:36px;
+	height: 34px;
 	background-color: #E5E5E5;
 }
 
@@ -434,7 +434,6 @@ button[id$="_search_form_save"] {
 
 	button[id$="_search_form_save"] {
 		margin-left:0px;
-		height:36px;
 		background-color: #E5E5E5;
 	}
 }

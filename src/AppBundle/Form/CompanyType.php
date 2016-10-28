@@ -29,7 +29,7 @@ class CompanyType extends AbstractType
 			'distortion' => false,
 			'background_color' => [255, 255, 255],
 		))
-			->add('save', SubmitType::class, array('label' => 'Lag selskap',));
+			->add('save', SubmitType::class, array('label' => 'Lag selskap','attr'=>array('class'=>'btn btn-default')));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

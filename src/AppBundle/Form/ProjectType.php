@@ -118,7 +118,7 @@ class ProjectType extends AbstractType
 				'keep_value' => true,
 				'distortion' => false,
 				'background_color' => [255, 255, 255]))
-			->add('save', SubmitType::class, array ('label' => 'Lag'));//,'label_attr' => array('id' => 'save_label')));
+			->add('save', SubmitType::class, array ('label' => 'Lag','attr'=>array('class'=>'btn btn-default')));//,'label_attr' => array('id' => 'save_label')));
         $builder->get('technicalSolutions')->addModelTransformer(new CallbackTransformer(
             function ($tagsAsArray) {
                 // transform the array to a string
