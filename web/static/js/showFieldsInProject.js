@@ -35,7 +35,11 @@ function show(page) {
 	}
 	document.getElementById('project_save').style.display = "none";
 	document.getElementsByClassName("captcha_image")[0].style.display = "none";
-	document.getElementById('showImages').style.display = "none";
+	
+	var showImages = document.getElementById('showImages');
+	if(showImages) {
+		showImages.style.display = "none";
+	}
 
 
 	var selectSpan = document.getElementsByClassName("selection")[0];
@@ -62,9 +66,10 @@ function show(page) {
 	}
 
 	if(page === lastPage){
-
-		document.getElementById('showImages').style.display = "inline";
-
+		if(showImages) {
+			document.getElementById('showImages').style.display = "inline";
+		}
+		
 		displayBlock(["captcha","imageFiles","summary"]);
 		document.getElementsByClassName("captcha_image")[0].style.display = "block";
 		document.getElementById('project_save').style.display = "block";

@@ -19,10 +19,10 @@ class UserType extends AbstractType
 	{
 		$env = $options['environment'];
 		$builder
-			->add('email', EmailType::class)
-			->add('lastName', TextType::class)
-			->add('firstName', TextType::class)
-			->add('phone', TextType::class)
+			->add('email', EmailType::class,array('label'=>'Email',))
+			->add('lastName', TextType::class,array('label'=>'Etternavn',))
+			->add('firstName', TextType::class,array('label'=>'Fornavn',))
+			->add('phone', TextType::class,array('label'=>'Telefonnummer',))
 			->add('password', RepeatedType::class, array(
 				'type' => PasswordType::class,
 				'first_options'  => array('label' => 'Passord'),

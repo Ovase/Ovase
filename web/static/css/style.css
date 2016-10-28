@@ -317,6 +317,10 @@ a.btn-text {
 #project_summary{
 	width: 40vw;
 }
+
+#company_location {
+	width: 500px;
+}
 /* ----------- FRONT PAGE CARDS ----------------*/
 
 .fp-card {

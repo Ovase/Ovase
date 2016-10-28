@@ -40,17 +40,18 @@
                         <div style="margin:0 2vw 0 2vw">
                             <div>
                                 <h1 class="card-title">{{ person.getName()}}</h1>
+                                <h4 class="card-subtitle text-muted">{{person.getCompetence()}}</h4>
+
                             </div>
                             <div>
-                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                                <img class="center-block card-img" src="{{ person.getImage() }}" alt="Card image" style="max-width:10vw;max-height:15vw">
                             </div>
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
 
-                                <p class="card-text">
-                                        {{ person.getEmail() }}
-                                        </br>
-                                        {#{{ person.getPhone() }} #}
+                                <p class="card-text" style="padding-bottom: 15px">
+                                        Email: {{ person.getEmail() }}</br>
+                                        Telefonnummer: {{ person.getTlf() }}
                                 </p>
                             </div>
                         </div>
@@ -86,15 +87,17 @@
                         <div style="margin:0 2vw 0 2vw">
                             <div>
                                 <h1 class="card-title">{{ company.getName() }}</h1>
+                                <h4 class="card-subtitle text-muted">Type: {{company.getType()}}</h4>
                             </div>
                             <div>
-                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                                <img class="center-block card-img" src="{{ company.getImage() }}" alt="Card image" style="max-width:10vw;max-height:15vw">
                             </div>
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
 
-                                <p class="card-text">
-                                        Id: {{ company.getId() }}
+                                <p class="card-text" style="padding-bottom: 15px">
+                                        Email: {{ company.getEmail() }} </br>
+                                        Telefonnummer: {{company.getTlf()}}
                                 </p>
                             </div>
                         </div>

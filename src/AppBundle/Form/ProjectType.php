@@ -38,7 +38,7 @@ class ProjectType extends AbstractType
                 'label_attr' => array('id'=>'images_label')
             ))
 
-            ->add('imageFiles', FileType::class, array('mapped' => false, 'multiple' => true,'label_attr' => array('id'=>'imageFiles_label')))
+            ->add('imageFiles', FileType::class, array('label' => 'Last opp bilder','mapped' => false, 'multiple' => true,'label_attr' => array('id'=>'imageFiles_label')))
 
 			->add('startdate', TextType::class,array(
 			    'label' => 'Start dato',
@@ -55,19 +55,19 @@ class ProjectType extends AbstractType
             
             ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'dimentionalDemands_label')))
 
-            ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet'),'label_attr' => array('id' => 'soilConditions_label')))
+            ->add('soilConditions', TextareaType::class, array('label' => 'Beskrivelse av jordsmonnet','attr' => array('placeholder' => 'Beskrivelse av jordsmonnet'),'label_attr' => array('id' => 'soilConditions_label')))
 
-            ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'Areal'),'label_attr' => array('id' => 'totalArea_label')))
+            ->add('totalArea', NumberType::class, array('label' => 'Totalt areal for prosjektområde','attr' => array('placeholder' => 'Areal'),'label_attr' => array('id' => 'totalArea_label')))
             
-            ->add('waterArea', NumberType::class, array('attr' => array('placeholder' => 'Water area'),'label_attr' => array('id' => 'waterArea_label')))
+            ->add('waterArea', NumberType::class, array('label' => 'Totalt areal for nedbørsfelt','attr' => array('placeholder' => 'Water area'),'label_attr' => array('id' => 'waterArea_label')))
 
-            ->add('cost', MoneyType::class, array('currency' => false,'label_attr' => array('id' => 'cost_label')))
+            ->add('cost', MoneyType::class, array('label'=>'Totale kostnader','currency' => false,'label_attr' => array('id' => 'cost_label')))
 
-            ->add('areaType', TextType::class, array('attr' => array('placeholder' => 'Type område.'),'label_attr' => array('id' => 'areaType_label')))
+            ->add('areaType', TextType::class, array('label'=>'Område-type','attr' => array('placeholder' => 'Type område.'),'label_attr' => array('id' => 'areaType_label')))
 
-            ->add('projectType', TextType::class, array('attr' => array('placeholder' => 'Prosjektkategori'),'label_attr' => array('id' => 'projectType_label')))
+            ->add('projectType', TextType::class, array('label'=>'Prosjekt-type','attr' => array('placeholder' => 'Prosjektkategori'),'label_attr' => array('id' => 'projectType_label')))
 
-            ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px'),'label_attr' => array('id' => 'technicalSolutions_label')))
+            ->add('technicalSolutions', TextType::class, array('label'=>'Tekniske løsninger','attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px'),'label_attr' => array('id' => 'technicalSolutions_label')))
 
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
 			->add('location', TextType::class, array('label' => 'Lokasjon','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px'),'label_attr' => array('id' => 'location_label')))
@@ -108,6 +108,7 @@ class ProjectType extends AbstractType
 			*/
 			->add('actors', EntityType::class, array(
 				// query choices from this entity
+				'label'=>'Medvirkende',
 				'class' => 'AppBundle:Actor',
 
 				// use the Actor.email property as the visible option string

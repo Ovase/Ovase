@@ -16,10 +16,10 @@ class EditUserType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('email', EmailType::class)
-			->add('lastName', TextType::class)
-			->add('firstName', TextType::class)
-			->add('phone', TextType::class)
+			->add('email', EmailType::class
+			->add('lastName', TextType::class,array('label'=>'Etternavn',))
+			->add('firstName', TextType::class,array('label'=>'Fornavn',))
+			->add('phone', TextType::class,array('label'=>'Telefonnummer',))
 
 			->add('save', SubmitType::class, array('label' => 'Endre bruker','attr'=>array('class'=>'btn btn-default')));
 	}
