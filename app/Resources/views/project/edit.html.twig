@@ -7,6 +7,9 @@
 {% block body %}
 
 	{{ form_start(form) }}
+	{% for url in form.vars.value.images %}
+		<img src="{{ url }}" />
+	{% endfor %}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
 

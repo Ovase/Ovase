@@ -171,6 +171,9 @@
 				{% for s in project.getTechnicalSolutions() %}
 					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
 				{% endfor %}
+				{% for url in project.getImages() %}
+					<p>{{ url }}</p>
+				{% endfor %}
 			</ul>
 			</div>
 		</div>
