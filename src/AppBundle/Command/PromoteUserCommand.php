@@ -59,7 +59,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 
 		$rolequestion = new ChoiceQuestion(
 			'Please select the user role (defaults to USER)',
-			array("ROLE_GUEST", "ROLE_USER","ROLE_EDITOR"),
+			array("inactive", "ROLE_USER","ROLE_EDITOR"),
 			0
 		);
 		$rolequestion->setErrorMessage('Role %s is invalid.');
@@ -67,11 +67,8 @@ class PromoteUserCommand extends ContainerAwareCommand
 		// Assuming valid role 
 		$role = $helper->ask($input, $output, $rolequestion);
 		$output->writeln('You have just selected: '.$role);
-		if ($role == "ROLE_GUEST") {
+		if ($role == "inactive") {
 			$user->setIsActive(0); // YOU SHALL NOT PASS!!!...
-			if (!in_array("ROLE_GUEST", $user->getRoles())) {
-				$user->addRole("ROLE_GUEST");
-			}
 			if (in_array("ROLE_USER", $user->getRoles())) {
 				$user->removeRole("ROLE_USER");
 			}
@@ -81,9 +78,6 @@ class PromoteUserCommand extends ContainerAwareCommand
 		}
 		else if ($role == "ROLE_USER") {
 			$user->setIsActive(1); // For now, you may pass...
-			if (!in_array("ROLE_GUEST", $user->getRoles())) {
-				$user->addRole("ROLE_GUEST");
-			}
 			if (!in_array("ROLE_USER", $user->getRoles())) {
 				$user->addRole("ROLE_USER");
 			}
@@ -93,8 +87,8 @@ class PromoteUserCommand extends ContainerAwareCommand
 		}
 		else if ($role == "ROLE_EDITOR") {
 			$user->setIsActive(1); // For now, you may pass...
-			/*if (!in_array("ROLE_GUEST", $user->getRoles())) {
-				$user->addRole("ROLE_GUEST");
+			/*if (!in_array("inactive", $user->getRoles())) {
+				$user->addRole("inactive");
 			}
 			if (!in_array("ROLE_USER", $user->getRoles())) {
 				$user->addRole("ROLE_USER");
@@ -102,7 +96,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 			if (!in_array("ROLE_EDITOR", $user->getRoles())) {
 				$user->addRole("ROLE_EDITOR");
 			} */
-			$user->setRoles(array("ROLE_EDITOR", "ROLE_USER", "ROLE_GUEST"));
+			$user->setRoles(array("ROLE_EDITOR", "ROLE_USER", "inactive"));
 		}
 		else { return; }
 		$em->persist($user);

@@ -38,7 +38,7 @@ class UserController extends Controller
             $encodedPass = $encoder->encodePassword($user, $plainPassword);
             $user->setPassword($encodedPass);
 
-			// Authorize User as... GUEST. TODO: Remove Guest role, as it is not used.
+			// Authorize User as... GUEST. TODO: Remove Guest role, as it is not needed. We can always just use IS_AUTHENTICATED_FULLY.
 			$user->addRole("ROLE_USER");
 			
 			$user->setIsActive(0); // YOU! SHALL NOT! PASS!!

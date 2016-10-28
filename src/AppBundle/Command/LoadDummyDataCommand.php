@@ -49,7 +49,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$em = $this->getContainer()->get('doctrine')->getManager();
 
 		// Creating test users for testing authorization - refer to these when logging into secured areas of KMS
-		$guestuser = $this->createUser('petjo@test.test', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "ROLE_GUEST"); // Sentinel value: $email == 'petjo@ovase.no'
+		$guestuser = $this->createUser('petjo@test.test', 'Johansen-Gjest', 'Peter', '48562021', 'feyrlodWhaLe', "guest"); // Sentinel value: $email == 'petjo@ovase.no'
 		$plainuser = $this->createUser('derp@test.test', 'Bruker', 'Ny', '72171642', '_Dx9QZQSVXgzkj4$', "ROLE_USER"); // Sentinel value: 'derp@ovase.no'
 		$editoruser = $this->createUser('redaktor@test.test', 'Drageset', 'Anine', '73075003', '-PWbZT9a%wScj&z$', "ROLE_EDITOR"); // Sentinel value: 'redaktor@ovase.no'
 		// Define a couple of Person Actor thingies
@@ -130,11 +130,11 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 
         $n = 1;
         if ($role == "ROLE_EDITOR") {
-            $user->setRoles(array("ROLE_EDITOR", "ROLE_USER", "ROLE_GUEST"));
+            $user->setRoles(array("ROLE_EDITOR", "ROLE_USER"));
             $user->setIsActive(1);
         }
         else if ($role == "ROLE_USER"){
-            $user->setRoles(array("ROLE_USER", "ROLE_GUEST"));
+            $user->setRoles(array("ROLE_USER"));
             $user->setIsActive($n);
         }
         else {
