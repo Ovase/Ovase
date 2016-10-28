@@ -32,7 +32,7 @@ class MeasureController extends Controller
             return $this->redirect('/anlegg/' . $project->getId());
         }
         return $this->render(
-            'project/create.html.twig', array(
+            'measure/create.html.twig', array(
                 'form' => $form->createView()
             )
         );
@@ -57,7 +57,7 @@ class MeasureController extends Controller
             return $this->redirect('/anlegg/' . $project->getId());
         }
         return $this->render(
-            'project/create.html.twig', array(
+            'measure/create.html.twig', array(
                 'form' => $form->createView()
             )
         );

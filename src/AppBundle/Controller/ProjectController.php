@@ -85,13 +85,14 @@ class ProjectController extends Controller
         $form = $this->createForm(ProjectType::class, $project, array('method' => 'PUT'));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form['imageFiles']->getData();
-            foreach ($images as $image) {
+            $imageFiles = $form['imageFiles']->getData();
+            $urls = clone $project->getImages();
+            foreach ($imageFiles as $image) {
                 if ($image != null) {
-                    $project->getImages()->add($this->get('image_service')->upload($image));
+                    $urls->add($this->get('image_service')->upload($image));
                 }
             }
-            $urls = $project->getImages();
+            $project->setImages($urls);
             $project->incrementVersion();
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);

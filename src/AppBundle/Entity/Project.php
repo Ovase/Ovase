@@ -26,11 +26,6 @@ class Project
 	 */
 	private $name;
 	/**
-	 * @ORM\Column(type="string", length=255)
-	 * @Assert\Type("string")
-	 */
-	private $field;
-	/**
 	 * @ORM\Column(type="string")
 	 */
 	private $startdate;
@@ -38,6 +33,21 @@ class Project
 	 * @ORM\Column(type="string")
 	 */
 	private $enddate;
+    /**
+     * @var float
+     * @ORM\Column(type="float")
+     * @Assert\Type("float")
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     */
+    private $waterArea;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $dimentionalDemands;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $summary;
 	/**
 	 * @ORM\Column(type="text")
 	 */
@@ -207,30 +217,6 @@ class Project
 	public function getActors()
 	{
 		return $this->actors;
-	}
-
-	/**
-	 * Set field
-	 *
-	 * @param string $field
-	 *
-	 * @return Project
-	 */
-	public function setField($field)
-	{
-		$this->field = $field;
-
-		return $this;
-	}
-
-	/**
-	 * Get field
-	 *
-	 * @return string
-	 */
-	public function getField()
-	{
-		return $this->field;
 	}
 
 	/**
@@ -505,6 +491,54 @@ class Project
     public function addMeasure($measure)
     {
         $this->measures->add($measure);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param mixed $summary
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWaterArea()
+    {
+        return $this->waterArea;
+    }
+
+    /**
+     * @param mixed $waterArea
+     */
+    public function setWaterArea($waterArea)
+    {
+        $this->waterArea = $waterArea;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDimentionalDemands()
+    {
+        return $this->dimentionalDemands;
+    }
+
+    /**
+     * @param mixed $dimentionalDemands
+     */
+    public function setDimentionalDemands($dimentionalDemands)
+    {
+        $this->dimentionalDemands = $dimentionalDemands;
     }
 
 }

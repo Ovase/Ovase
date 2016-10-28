@@ -39,6 +39,11 @@ class Measure
     private $totalArea;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $dimentionalDemands;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="costs", type="integer", nullable=true)
@@ -334,6 +339,22 @@ class Measure
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDimentionalDemands()
+    {
+        return $this->dimentionalDemands;
+    }
+
+    /**
+     * @param mixed $dimentionalDemands
+     */
+    public function setDimentionalDemands($dimentionalDemands)
+    {
+        $this->dimentionalDemands = $dimentionalDemands;
     }
 
 }
