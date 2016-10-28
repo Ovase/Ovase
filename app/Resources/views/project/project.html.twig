@@ -42,11 +42,24 @@
 				<p>{{ message }}</p>
 			{% endif %}
 
+			<br>
+
 			{% if canEdit %}
-				<div class="divMargins">
-					<a href="{{  path('edit_project', {'id': project.getId()}) }}">{{"Rediger prosjekt"}}</a>
-	                <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">Legg til tiltak</a>
-	            </div>
+				<div class="divButton">
+					Rediger prosjekt
+					<a href="{{  path('edit_project', {'id': project.getId()}) }}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+					</a>
+					Legg til tiltak
+	        <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+  						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</a>
+
+				</div>
             {% endif %}
 
 			<h1>Prosjektnavn: {{ project.getName() }}</h1>
@@ -137,11 +150,23 @@
 
 				</br>
 				<div class="divMargins">
-				{% if canEdit %}
-                    <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Endre tiltak</a>
-                    <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
-            	{% endif %}
-            	</div>
+						{% if canEdit %}
+							Rediger tiltak
+            	<a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">
+								<button type="button" class="btn btn-default" aria-label="Left Align">
+		  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								</button>
+							</a>
+
+							Slett tiltak
+              <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">
+								<button type="button" class="btn btn-default" aria-label="Left Align">
+		  						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</a>
+
+        		{% endif %}
+        </div>
             	<hr style="border-color:#547980">
             {% endfor %}
 			</br>
@@ -155,7 +180,7 @@
 			{# For options on usage of the Embed API, see https://developers.google.com/maps/documentation/embed/guide #}
 			</iframe>
 			</div>
-			
+
 			<p2> <b>Lenker</b> </p2>
 			<div class="divMargins">
 			<ul>
