@@ -119,25 +119,27 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 	private function createUser($email, $lastName, $firstName, $phone, $plainpass, $role) {
 		$user = new User();
 
-		$salt = null;
-		$isSecure = 0;
-		$ATTEMPTS_LIMIT = 9999; // fail-safe for infinite loop
+        $encoder = $this->getContainer()->get('security.password_encoder');
+        $encodedPass = $encoder->encodePassword($user, $plainpass);
+        $user->setPassword($encodedPass);
 
-		while (!$isSecure && $ATTEMPTS_LIMIT > 0) {
-			$salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));
-			$ATTEMPTS_LIMIT--;
-		}
-
-		$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($plainpass, $salt);
 		$user->setEmail($email);
 		$user->setFirstName($firstName);
 		$user->setLastName($lastName);
 		$user->setPhone($phone);
-		$user->setPassword($pass_hash);
-		$user->setSalt($salt);
-		$user->addRole($role);
-		if ($role == "ROLE_GUEST") {$user->setIsActive(0);}
-		else { $user->setIsActive(1); }
+
+        $n = 1;
+        if ($role == "ROLE_EDITOR") {
+            $user->setRoles(array("ROLE_EDITOR", "ROLE_USER", "ROLE_GUEST"));
+            $user->setIsActive(1);
+        }
+        else if ($role == "ROLE_USER"){
+            $user->setRoles(array("ROLE_USER", "ROLE_GUEST"));
+            $user->setIsActive($n);
+        }
+        else {
+            $user->setIsActive(0);
+        }
 		return $user;
 	}
 
@@ -208,7 +210,6 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$p = new Project();
 
 		$p->setName($name);
-		$p->setField($field);
 		$p->setStartdate($start);
 		$p->setEnddate($end);
 		$p->setLocation($locTupl);

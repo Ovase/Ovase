@@ -4,6 +4,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Project;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * AppBundle\Entity\User.
@@ -74,21 +75,6 @@ class User implements AdvancedUserInterface, \Serializable
 	 */
 	private $roles;
 	/**
-	 * @ORM\column(type="string", nullable=true)
-	 */
-	private $new_user_code;
-	/**
-	 * The auto generated salt for the user
-	 *
-	 * The salt is stored as a 64 byte string
-	 *
-	 * @var string  $salt	  the salt
-	 *
-	 * @ORM\Column(type="string", length = 64)
-	 */
-	private $salt;
-
-	/**
 	 * @var array
 	 * @ORM\ManyToMany(targetEntity="Actor")
 	 * @ORM\JoinTable(name="user_can_edit_actor",
@@ -154,7 +140,6 @@ class User implements AdvancedUserInterface, \Serializable
 	 * Hash and set the (hashed) password of the user
 	 *
 	 * @param string $password	  the password, in hashed form
-	 * @param \Symfony\Component\Security\Core\Encoder\ $encoderFactory	  encoder factory for hasher
 	 *
 	 * @return User	  returns self after setting the password hash
 	 */
@@ -261,7 +246,7 @@ class User implements AdvancedUserInterface, \Serializable
 		return $this->phone;
 	}
 	/**
-	 * Add roles.
+	 * Add role.
 	 *
 	 * @param string $roles
 	 *
@@ -282,29 +267,7 @@ class User implements AdvancedUserInterface, \Serializable
 		$this->roles->removeElement($roles);
 	}
 
-	/**
-	 * Set new_user_code.
-	 *
-	 * @param string $newUserCode
-	 *
-	 * @return User
-	 */
-	public function setNewUserCode($newUserCode)
-	{
-		$this->new_user_code = $newUserCode;
-		return $this;
-	}
-	/**
-	 * Get new_user_code.
-	 *
-	 * @return string
-	 */
-	public function getNewUserCode()
-	{
-		return $this->new_user_code;
-	}
-
-	// Used for unit testing 
+	// Used for unit testing
 	public function fromArray($data = array())
 	{
 		foreach ($data as $property => $value) {
@@ -348,6 +311,7 @@ class User implements AdvancedUserInterface, \Serializable
 	}
 	/**
 	 * @see \Serializable::unserialize(
+     * @param array $serialized  the serialized version of the User object
 	 */
 	public function unserialize($serialized)
 	{
@@ -377,26 +341,15 @@ class User implements AdvancedUserInterface, \Serializable
 		return $this->isActive;
 	}
 	/**
-	 * {@inheritdoc}. Sets the salt of the user
-	 *
-	 * @param string $salt  the salt
-	 *
-	 * @return User	  returns self after setting the salt
-	 */
-	public function setSalt($salt)
-	{
-		$this->salt = $salt;
-		return $this;
-	}
-	/**
 	 * {@inheritdoc}. Gets the salt of the user
 	 *
-	 * @return string   the salt
+	 * @return null   The bcrypt algorithm doesn't require a separate salt.
 	 */
 	public function getSalt()
 	{
-		return $this->salt;
+		return null;
 	}
+
 
 
 	/**
@@ -440,7 +393,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return User
      */
-    public function addActor(\AppBundle\Entity\Actor $actor)
+    public function addActor(Actor $actor)
     {
         $this->actors[] = $actor;
 
@@ -451,8 +404,10 @@ class User implements AdvancedUserInterface, \Serializable
      * Revoke edit rights for actor
      *
      * @param \AppBundle\Entity\Actor $actor
+     *
+     * @return User
      */
-    public function removeActor(\AppBundle\Entity\Actor $actor)
+    public function removeActor(Actor $actor)
     {
         $this->actors->removeElement($actor);
 
@@ -476,7 +431,7 @@ class User implements AdvancedUserInterface, \Serializable
      *
      * @return User
      */
-    public function addProject(\AppBundle\Entity\Project $project)
+    public function addProject(Project $project)
     {
         $this->projects[] = $project;
 
@@ -487,8 +442,9 @@ class User implements AdvancedUserInterface, \Serializable
      * Revoke edit rights for project
      *
      * @param \AppBundle\Entity\Project $project
+     * @return User
      */
-    public function removeProject(\AppBundle\Entity\Project $project)
+    public function removeProject(Project $project)
     {
         $this->projects->removeElement($project);
 

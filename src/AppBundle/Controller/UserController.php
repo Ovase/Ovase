@@ -14,7 +14,7 @@ class UserController extends Controller
     public function showAllUsersAction() {
 
         return $this->render(
-            'login/userlist.html.twig', // TO BE impleemented
+            'login/userlist.html.twig', // TO BE implemented
             array('babes' => $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll())
         );
 
@@ -32,19 +32,14 @@ class UserController extends Controller
         $this->validatePassword($form);
 		if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Encode the password and set user salt (you could also do this via Doctrine listener)
-
-			// Generate random salt. Warning: The algorithm may fail. TODO: Investigate bcrypt (which Symfony recommends) and other better algorithms for salting passwords.
-			$salt=$this->generateSalt();
-
-			// Hash password
-			$pass_hash = $this->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($form->get('password')->getData(), $salt);
-
-			$user->setPassword($pass_hash);
-			$user->setSalt($salt);
+            // 3) Encode the password with bcrypt (you could also do this via Doctrine listener)
+            $plainPassword = $form->get('password')->getData();
+            $encoder = $this->container->get('security.password_encoder');
+            $encodedPass = $encoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encodedPass);
 
 			// Authorize User as... GUEST. TODO: Remove Guest role, as it is not used.
-			$user->addRole("ROLE_GUEST");
+			$user->addRole("ROLE_USER");
 			
 			$user->setIsActive(0); // YOU! SHALL NOT! PASS!!
 			
@@ -53,11 +48,6 @@ class UserController extends Controller
 			$em->persist($user);
 			$em->flush();
 
-			// TODO: bcrypt
-			// ... do any other work - like sending them an email, etc
-			// maybe set a "flash" success message for the user
-
-			// permament redirect to login.
 			return $this->redirectToRoute('login',array(),301);
 		}
 
@@ -68,7 +58,8 @@ class UserController extends Controller
 	}
     // Password validation. May be subject to change? Does it conflict w/ usability requirements?
 	private function validatePassword(Form $form){
-        $password = $form['password']->getData();
+        //$password = $form['password']->getData();
+        $password = $form->get('password')->getData();
         if (! preg_match("^(?=.*[a-z]).+$", $password)) {
             $form->addError(new FormError("Ditt passord må inneholde minst 1 liten bokstav fra det engelske alfabetet!"));
         }
@@ -88,26 +79,5 @@ class UserController extends Controller
         if (strlen($password)<7) {
             $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon"));
         }
-	}
-
-	/**
-	 * Generates a Salt
-	 *
-	 * Generates a random 64-byte long string by converting a 32 byte binary
-	 * openssl pseudo random string into a 64 byte hex string.
-	 *
-	 * @return null|string  the salt. If null is returned, something went wrong.
-	 */
-	private function generateSalt()
-	{
-		$salt = null;
-		$isSecure = 0;
-		$ATTEMPTS_LIMIT = 999; // fail-safe for infinite loop
-
-		while (!$isSecure && $ATTEMPTS_LIMIT > 0) {
-			$salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));
-			$ATTEMPTS_LIMIT--;
-		}
-		return $salt;
 	}
 }

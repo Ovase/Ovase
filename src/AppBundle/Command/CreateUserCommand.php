@@ -72,26 +72,18 @@ class CreateUserCommand extends ContainerAwareCommand
 		while ($pass === '0') {
 			$pass = $helper->ask($input, $output, $passq);
 		}
-		$salt = null;
-		$isSecure = 0;
-		$ATTEMPTS_LIMIT = 999; // fail-safe for infinite loop
 
-		while (!$isSecure && $ATTEMPTS_LIMIT > 0) {
-			$salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));
-			$ATTEMPTS_LIMIT--;
-		}
-		$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($pass, $salt);
 		$em = $this->getContainer()->get('doctrine')->getManager();
 		$user = new User();
 		$user->setEmail($uname);
 		$user->setFirstName($firstName);
 		$user->setLastName($lastName);
 		$user->setPhone($phone);
-		$user->setPassword($pass_hash);
-		$user->setSalt($salt);
-		// Authorize User as... GUEST, because laziness.
-		$user->addRole("ROLE_GUEST");
-		$user->setIsActive(0); // For now, you may NOT pass...
+        $encoder = $this->getContainer()->get('security.password_encoder');
+        $encodedPass = $encoder->encodePassword($user, $pass);
+        $user->setPassword($encodedPass);
+		$user->addRole("ROLE_USER");
+		$user->setIsActive(1);
 		$em->persist($user);
 		$em->flush();
 		$em->close();
