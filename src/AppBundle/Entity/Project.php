@@ -31,11 +31,11 @@ class Project
 	 */
 	private $field;
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="string")
 	 */
 	private $startdate;
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="string")
 	 */
 	private $enddate;
 	/**
@@ -79,7 +79,6 @@ class Project
      * @var array
      * @ORM\Column(type="array")
      * @Assert\All({
-     *	 @Assert\NotBlank,
      *   @Assert\Type("string"),
      * })
      */
@@ -125,11 +124,11 @@ class Project
 	private $actors;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Measure", cascade="persist")
+     * @ORM\ManyToMany(targetEntity="Measure", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="projects_measures",
      *     joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")
      * },
-     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true)}
+     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true, onDelete="cascade")}
      *     )
      * @Assert\Valid
      */
@@ -237,7 +236,7 @@ class Project
 	/**
 	 * Set startdate
 	 *
-	 * @param \DateTime $startdate
+	 * @param \string $startdate
 	 *
 	 * @return Project
 	 */
@@ -251,7 +250,7 @@ class Project
 	/**
 	 * Get startdate
 	 *
-	 * @return \DateTime
+	 * @return \string
 	 */
 	public function getStartdate()
 	{
@@ -261,7 +260,7 @@ class Project
 	/**
 	 * Set enddate
 	 *
-	 * @param \DateTime $enddate
+	 * @param \string $enddate
 	 *
 	 * @return Project
 	 */
@@ -275,7 +274,7 @@ class Project
 	/**
 	 * Get enddate
 	 *
-	 * @return \DateTime
+	 * @return \string
 	 */
 	public function getEnddate()
 	{

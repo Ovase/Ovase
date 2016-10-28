@@ -179,8 +179,11 @@ header {
 }
 
 
+/* --------- PROFILE--------- */
 
-/* --------- LOWER PART OF HEADER --------- */
+.profile-head {
+	font-size: 30px;
+}
 
 #below-header {
 	display: -webkit-flex;
@@ -196,7 +199,6 @@ header {
 .infobox {
 	background: rgba(255,255,255,0.85);
 	width: 60%;
-	margin-left: 15em;
 	padding: 1em 2em 1em 3em;
 	color: black;
 	border-bottom-right-radius: 20px;
@@ -315,7 +317,7 @@ a.fp-card {
 }
 
 .actor-card {
-	
+
 }
 
 a.actor-card {
@@ -417,7 +419,7 @@ input[id$="_search_form_search"] {
 
 button[id$="_search_form_save"] {
 	margin-left:0px;
-	height:36px;
+	height: 34px;
 	background-color: #E5E5E5;
 }
 
@@ -434,7 +436,6 @@ button[id$="_search_form_save"] {
 
 	button[id$="_search_form_save"] {
 		margin-left:0px;
-		height:36px;
 		background-color: #E5E5E5;
 	}
 }
@@ -462,6 +463,30 @@ form div img {
 
 form div button {
 	margin-left: 15vw;
+}
+
+.select2 {
+	margin-left: 15vw !important;
+}
+
+.select2-search__field {
+	margin-left: 0;
+}
+
+.select2-container--default .select2-selection--multiple:before {
+	content: ' ';
+	display: block;
+	position: absolute;
+	border-color: #888 transparent transparent transparent;
+	border-style: solid;
+	border-width: 5px 4px 0 4px;
+	height: 0;
+	right: 6px;
+	margin-left: -4px;
+	margin-top: -2px;
+	top: 50%;
+	width: 0;
+	cursor: pointer
 }
 
 #project_location {
@@ -515,7 +540,7 @@ a.header-text{
 }
 
 
-/* --------- INDEX --------- */
+
 
 
 /* -------- POPUP BOX ---------*/

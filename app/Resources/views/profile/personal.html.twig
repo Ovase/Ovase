@@ -3,20 +3,26 @@
 {% block body %}
 	<div class ="header-container" id="big-header-container">
 		<div class="inner-container" id="header-inner">
-			<header>
-				<div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
-				<div id="title-box">
-					<h1><a href="/"><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
-					<h2>Profil</h2>
-				</div>
-			</header>
+
+			<div class="profile-head">
+					Min profil
+					<a href= {{ path("editpersonalprofile") }}>
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+			  			<span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Rediger profil"></span>
+						</button>
+					</a>
+			</div>
+
+
 			<div id="below-header">
+				<div>
+						<img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+				</div>
 				<section class="infobox">
-					<h3>Informasjon om innlogget bruker</h3>
 					{% if user is defined %}
-						<p>Din registrerte epost-adresse er {{user.Email()}}</p>
-						<p>Du er {{user.getFullName()}} </p>
-						<p>Ditt telefonnummer er {{user.getphone()}} </p>
+						<p>E-post: {{user.Email()}}</p>
+						<p>Navn: {{user.getFullName()}} </p>
+						<p>Telefon nummer: {{user.getphone()}} </p>
 						<p>Du kan redigere følgende prosjekter: </p>
 						{% for project in user.getProjects() %}
 							<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
@@ -38,12 +44,10 @@
 		</div>
 		{# Is this a good solution?? #}
 		<p>Du er registrert som <a href= {{ path("queryme") }}>følgende</a> person i aktørregisteret. </p>
-		<p></p>
-		{%for role in app.user.roles%}
-			{{role}}
-		{%endfor%}
-		<br>Vis liste over <a href= {{ path("userlist") }}>registrerte brukere</a><br>
-		<a href= {{ path("editpersonalprofile") }}><h3>Rediger egen profil</h3></a>
+
+
+		<br>Liste over <a href= {{ path("userlist") }}>registrerte brukere</a><br>
+
 		{% if is_granted('ROLE_EDITOR') %}
 			{# Import editor panel here. TODO: Bulk activate zero or more users #}
 			<a href= {{ path("activate_users") }}><h3>Aktiver brukere</h3></a>

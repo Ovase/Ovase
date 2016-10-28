@@ -58,6 +58,27 @@ create_project:
   path:     /anlegg/ny
   defaults: { _controller: AppBundle:Project:create}
 
+create_measure_in_project:
+  path:     /anlegg/{project_id}/tiltak/ny
+  defaults: { _controller: AppBundle:Measure:create}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+edit_measure:
+  path:     /anlegg/{project_id}/tiltak/{measure_id}
+  defaults: { _controller: AppBundle:Measure:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+delete_measure:
+  path:     /anlegg/{project_id}/tiltak/{measure_id}/delete
+  defaults: { _controller: AppBundle:Measure:delete}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
 edit:
   path:     /rediger
   defaults: { _controller: AppBundle:EditList:show}

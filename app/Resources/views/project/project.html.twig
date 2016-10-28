@@ -7,25 +7,25 @@
 {% block body %}
 	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-left:10vw;margin-right:10vw;min-height:25vw;max-height:25vw;">
 	  <!-- Indicators -->
+
 		<ol class="carousel-indicators">
-			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		{% for key in project.getImages()|keys %}
+			<li data-target="#carousel-example-generic" data-slide-to="{{ key }}"
+			{%if key == 0 %} class="active" {%endif%} >
+			</li>
+		{% endfor %}
 		</ol>
-	 
+
+
 	  <!-- Wrapper for slides -->
 		<div class="carousel-inner">
-			<div class="item active">
-				<img class="img-responsive center-block" src="{{ asset('/static/images/header/San_Joaquin_River_headwaters.jpg') }}" alt="..." style="margin: auto;max-height:25vw">
+			{% for key,image in project.getImages() %}
+			<div class="item {%if key == 0%} active {%endif%}">
+				<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
 			</div>
-			<div class="item">
-				<img class="img-responsive center-block" src="{{ asset('static/images/header/San_Joaquin_River_headwaters_1080.jpg') }}" alt="..." style="margin: auto;max-height:25vw">
-			</div>
-			<div class="item">
-				<img class="img-responsive center-block" src="{{ asset('static/images/company/anlegg_og_utemiljoe.png') }}" alt="..." style="margin: auto;max-height:25vw;">
-			</div>
+			{% endfor %}
 		</div>
-	 
+
 		<!-- Controls -->
 		<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left"></span>
@@ -37,67 +37,105 @@
 
 	<div class="row">
 		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
-			<a href= "/anlegg/rediger/{{ project.getId() }}">{{"Rediger prosjekt"}}</a>
+			<a style="margin-left:5vw;" href= "/anlegg/rediger/{{ project.getId() }}">{{"Rediger prosjekt"}}</a>
 			<p></p>
 
 			{% if message is defined %}
 				<p>{{ message }}</p>
 			{% endif %}
 
+			{% if canEdit %}
+				<a href="{{  path('edit_project', {'id': project.getId()}) }}">{{"Rediger prosjekt"}}</a>
+                <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">Legg til tiltak</a>
+            {% endif %}
+			{% for measure in project.getMeasures() %}
+				<p2>{{ measure.getTitle() }}</p2>
+				<p2>{{ measure.getTotalArea() }}</p2>
+				<p2>{{ measure.getCosts() }}</p2>
+				{% if canEdit %}
+                    <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Endre tiltak</a>
+                    <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
+            	{% endif %}
+            {% endfor %}
+
 			<h1>Prosjektnavn: {{ project.getName() }}</h1>
 
 			<h2>Fakta</h2>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.
 
-			Quisque rhoncus lectus vel volutpat vulputate. Sed maximus mollis mi at ornare. Pellentesque efficitur pretium ligula. Curabitur dictum vestibulum lectus, vel vehicula odio tempus eget. Aenean in lorem ex. Fusce fermentum ut arcu at vulputate. Donec orci lectus, pharetra ut lorem eget, imperdiet commodo ante. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam sit amet sapien vitae nisl consectetur placerat. Sed hendrerit, lorem quis mattis elementum, dolor enim sollicitudin eros, vitae hendrerit justo neque quis erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis pellentesque facilisis justo, in bibendum neque accumsan ut. Duis porttitor quam vel justo condimentum pellentesque. Praesent vitae ligula efficitur, suscipit ex in, iaculis sem. Duis in pellentesque leo, eget volutpat orci. Etiam hendrerit ultricies accumsan.</p2>
+
+			<p2>Prosjekt startdato: {{ project.getStartdate() }}</p2>
+			<p2>Prosjekt sluttdato: {{ project.getEnddate() }}</p2>
+
+			<br>
+
+			<p2>Adresse: {{project.getLocation}} </p2>
+
+			<br>
+
+			<p2> Medvirkende: project.getActors </p2>
+
+			<br>
+
+			<p2> Område-type: {{project.getAreaType}} </p2>
+			<p2> Prosjekt-type: {{project.getProjectType}} </p2>
+
+			<br>
+
+			<p2> Totale kostnader for hele byggeprosjektet: {{project.getCost}} NOK </p2>
+			<br>
+			<p2> Totalt areal for prosjektområde: {{project.getTotalArea}} m² </p2>
+			<p2> Totalt areal for nedbørsfelt til overvannstiltakene: project.getWaterArea</p2>
+			<br>
+			<p2> Grunnforhold: {{project.getSoilConditions}} </p2>
+			<br>
+			<p2> Dimensjonerende krav til overvannshåndtering: </p2>
+
+			<br>
+			<br>
 
 			<h2>Bakgrunn</h2>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
+
+			<p2> {{project.getDescription}} </p2>
+
+			<br>
+			<br>
 
 			<h2>Oppsummering</h2>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula.</p2>
+
+			<p2> project.getSummary </p2>
+
+			<br>
+			<br>
+
 
 			<h1>Anlagte tiltak</h1>
-			
+
 			<h2>Regnbed</h2>
 			<h3>Fakta</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Geometrisk utforming</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula.</p2>
+
 			<h3>Konstruksjonsdetaljer og anleggelse</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Drift, vedlikehold og oppfølging</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Erfaringer og tips</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula.</p2>
 
 			{#...Flere tiltak, alle skal ha samme deloverskrivfter i h3 #}
 
 			<h1>Andre tiltak</h1>
 			<h2>Brukerinvolvering</h2>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Beskrivelse av tiltaket</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Erfaringer og tips</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 
 			<h1>Samarbeid</h1>
 			<h3>Beskrivelse av tiltaket</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Erfaringer og tips</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 
 			<h1>Planprosess</h1>
 			<h3>Beskrivelse av tiltaket</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Erfaringer og tips</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 
 			<h1>Kunnskapsinnhenting</h1>
 			<h3>Beskrivelse av tiltaket</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 			<h3>Erfaringer og tips</h3>
-			<p2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor odio vel nibh feugiat tincidunt. Donec fringilla iaculis metus. Etiam egestas lectus eu vestibulum vehicula. Nunc commodo consectetur dui, a suscipit odio posuere eget. Nullam eu fringilla enim, sed gravida sem. Nullam pellentesque lorem vel mauris vestibulum bibendum. Donec sed erat at sem maximus fermentum a sit amet justo. Pellentesque dictum, ex eget scelerisque convallis, nibh quam dictum dui, tempor mollis felis erat sit amet justo.</p2>
 
 			<h1>Oppfølging og kommentarer</h1>
 			<p2>"Dato, navn og bilde av aktør + Kommentar"</p2>
@@ -116,7 +154,7 @@
 			{#<p2>{{ project.getTechnicalSolutions() }}</p2>#}
 
 			{#<p2>{{ project.getDescription() }}</p2>#}
-			
+
 			</br>
 			</br>
 
@@ -126,8 +164,6 @@
 
 			<p2>{{ project.getName() }}</p2>
 			<p2>{{ project.getField () }}</p2>
-			<p2>{{ project.getStartdate()|date("d/m/Y") }}</p2>
-			<p2>{{ project.getEnddate()|date("m/d/Y") }}</p2>
 			<p2>{{ project.getDescription() }}</p2>
 			<p2>{{ project.getLocation() }}</p2>
 
@@ -158,11 +194,12 @@
 				{% for s in project.getTechnicalSolutions() %}
 					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
 				{% endfor %}
+				{% for url in project.getImages() %}
+					<p>{{ url }}</p>
+				{% endfor %}
 			</ul>
 			</div>
 		</div>
 	</div>
 
 {% endblock %}
-
-

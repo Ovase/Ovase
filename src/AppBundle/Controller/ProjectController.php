@@ -28,7 +28,13 @@ class ProjectController extends Controller
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
         # The API key to use on Google Maps Embed API is defined as a global parameter accessable through the service container.
-        return $this->render('project/project.html.twig', array('project' => $project, 'key' => $this->container->getParameter('api_key')));
+        $canEdit = false;
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && $this->getUser()->canEditProject($project)) {
+            $canEdit = true;
+        }
+        return $this->render('project/project.html.twig', array('project' => $project,
+            'key' => $this->container->getParameter('api_key'),
+            'canEdit' => $canEdit));
     }
 
     public function createAction(Request $request)
@@ -38,11 +44,10 @@ class ProjectController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $project = new Project();
-        $project->getMeasures()->add(new Measure());
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $images = $form['images']->getData();
+            $images = $form['imageFiles']->getData();
             foreach ($images as $image) {
                 if ($image != null) {
                     $project->getImages()->add($this->get('image_service')->upload($image));
@@ -53,7 +58,7 @@ class ProjectController extends Controller
             $em->persist($project);
             $em->persist($user);
             $em->flush();
-            return $this->redirect('/anlegg');
+            return $this->redirect('/anlegg/' . $project->getId());
         }
         return $this->render(
             'project/create.html.twig', array(
@@ -77,7 +82,14 @@ class ProjectController extends Controller
 
         $form = $this->createForm(ProjectType::class, $project, array('method' => 'PUT'));
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form['imageFiles']->getData();
+            foreach ($images as $image) {
+                if ($image != null) {
+                    $project->getImages()->add($this->get('image_service')->upload($image));
+                }
+            }
+            $urls = $project->getImages();
             $project->incrementVersion();
             $em = $this->getDoctrine()->getManager();
             $em->persist($project);
