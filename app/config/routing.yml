@@ -15,11 +15,11 @@ actorlist:
   defaults: { _controller: AppBundle:ActorList:show }
 
 login:
-    path: /logginn
+    path: /login
     defaults: { _controller: AppBundle:Login:login}
 
 logout:
-    path: /loggut
+    path: /logout
 
 create_user:
     path:     /register

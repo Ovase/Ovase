@@ -29,20 +29,20 @@ class CreateUserCommand extends ContainerAwareCommand
 		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
-		// outputs multiple lines to the console (adding "\n" at the end of each line)
+		// outputs multiple lines to the console (adding "" at the end of each line)
 		$output->writeln([
 			'User Creator',
 			'============',
 			'',
 		]);
 
-		// outputs a message followed by a "\n"
+		// outputs a message followed by a ""
 		$output->writeln('Howdy, partner!');
 
-		// outputs a message without adding a "\n" at the end of the line
+		// outputs a message without adding a "" at the end of the line
 		$output->write('You are about to ');
-		$output->write('create a user.\n');
-		$output->write('\n');
+		$output->write('create a user.');
+		$output->writeln('');
 		$helper = $this->getHelper('question');
 
 		$unameq = new Question('Please enter the email of the new user ', '0');
@@ -87,7 +87,7 @@ class CreateUserCommand extends ContainerAwareCommand
 		$em->persist($user);
 		$em->flush();
 		$em->close();
-		$output->write('\n');
+		$output->writeln('');
 		$output->writeln('Bye!');
 		// WARNING: DO NOT RUN IN prod-mode. Mainly ment for devs ;)
 	}

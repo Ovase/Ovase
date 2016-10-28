@@ -31,7 +31,7 @@ class PromoteUserCommand extends ContainerAwareCommand
 		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
-		// outputs multiple lines to the console (adding "\n" at the end of each line)
+		// outputs multiple lines to the console (adding "" at the end of each line)
 		$output->writeln([
 			'User Roleplayer',
 			'============',
@@ -43,18 +43,18 @@ class PromoteUserCommand extends ContainerAwareCommand
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
 		} catch (NoResultException $t) {
-			$output->write('That user is in another castle. Bye!\n');
+			$output->writeln('That user is in another castle. Bye!');
 			return;
 		}
 
-		// outputs a message followed by a "\n"
-		$output->writeln('Howdy, partner!');
+		// outputs a message followed by a ""
+		$output->writeln('Howdy, partner! You are currently operating on user');
 		$output->writeln($user->getFullName());
 
-		// outputs a message without adding a "\n" at the end of the line
+		// outputs a message without adding a "" at the end of the line
 		$output->write('You are about to ');
-		$output->write("do sum'thin' BAD.\n");
-		$output->write('\n');
+		$output->write("do sum'thin' BAD.");
+		$output->writeln('');
 		$helper = $this->getHelper('question');
 
 		$rolequestion = new ChoiceQuestion(

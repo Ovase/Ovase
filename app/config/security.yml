@@ -28,10 +28,10 @@ security:
             form_login:
                 default_target_path: /
                 always_use_default_target_path: true
-                login_path: logginn
-                check_path: logginn
+                login_path: login
+                check_path: login
             logout:
-                path: loggut
+                path: logout
                 target: /
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate

@@ -30,43 +30,43 @@ class DeleteUserCommand extends ContainerAwareCommand
 		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
-		// outputs multiple lines to the console (adding "\n" at the end of each line)
+		// outputs multiple lines to the console (adding "" at the end of each line)
 		$output->writeln([
 			'User delete',
 			'============',
 			'',
 		]);
 
-		// outputs a message followed by a "\n"
+		// outputs a message followed by a ""
 		$output->writeln('Howdy, partner!');
 
-		// outputs a message without adding a "\n" at the end of the line
+		// outputs a message without adding a "" at the end of the line
 		$output->write('Now, we gonna ');
-		$output->write("do sum'thin' BAD.\n");
-		$output->write('\n');
+		$output->write("do sum'thin' BAD.");
+		$output->writeln('');
 
 		$em = $this->getContainer()->get('doctrine')->getManager();
 		$user = null;
 		try {
 			$user = $em->getRepository("AppBundle:User")->findUserByEmail($input->getArgument('username'));
 		} catch (NoResultException $t) {
-			$output->write('That user is in another castle. Bye!\n');
+			$output->writeln('That user is in another castle. Bye!');
 			$em->flush();
-			$output->write('\n');
+			$output->writeln('');
 			return;
 		}
 		try {
 			$em->remove($user);
 		} catch (Exception $t) {
 			var_dump($t);
-			$output->write('\n');
+			$output->writeln('');
 			$em->flush();
-			$output->write('\n');
-			$output->write('that is all. Bye!\n');
+			$output->writeln('');
+			$output->writeln('that is all. Bye!');
 			return;
 		}
 		$em->flush();
-		$output->write('\n');
-		$output->write('Bye!\n');
+		$output->writeln('');
+		$output->writeln('Bye!');
 	}
 }
