@@ -37,26 +37,17 @@
 
 	<div class="row">
 		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
-			<a style="margin-left:5vw;" href= "/anlegg/rediger/{{ project.getId() }}">{{"Rediger prosjekt"}}</a>
-			<p></p>
 
 			{% if message is defined %}
 				<p>{{ message }}</p>
 			{% endif %}
 
 			{% if canEdit %}
-				<a href="{{  path('edit_project', {'id': project.getId()}) }}">{{"Rediger prosjekt"}}</a>
-                <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">Legg til tiltak</a>
+				<div class="divMargins">
+					<a href="{{  path('edit_project', {'id': project.getId()}) }}">{{"Rediger prosjekt"}}</a>
+	                <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">Legg til tiltak</a>
+	            </div>
             {% endif %}
-			{% for measure in project.getMeasures() %}
-				<p2>{{ measure.getTitle() }}</p2>
-				<p2>{{ measure.getTotalArea() }}</p2>
-				<p2>{{ measure.getCosts() }}</p2>
-				{% if canEdit %}
-                    <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Endre tiltak</a>
-                    <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
-            	{% endif %}
-            {% endfor %}
 
 			<h1>Prosjektnavn: {{ project.getName() }}</h1>
 
@@ -72,7 +63,18 @@
 
 			<br>
 
-			<p2> Medvirkende: project.getActors </p2>
+			<p2> Medvirkende: </p2>
+			<div class="divMargins">
+			<ul>
+				{% for actor in project.getActors() %}
+					{% if actor.getClassName == "Company"%}
+						<li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName}}</a></li>
+					{% else %}
+						<li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName}}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			</div>
 
 			<br>
 
@@ -110,45 +112,39 @@
 
 			<h1>Anlagte tiltak</h1>
 
-			<h2>Regnbed</h2>
-			<h3>Fakta</h3>
-			<h3>Geometrisk utforming</h3>
+			{% for measure in project.getMeasures() %}
+				<h2>{{ measure.getTitle() }}</h2>
 
-			<h3>Konstruksjonsdetaljer og anleggelse</h3>
-			<h3>Drift, vedlikehold og oppfølging</h3>
-			<h3>Erfaringer og tips</h3>
+				<h3>Fakta</h3>
+				<p2>Totalt areal: {{ measure.getTotalArea() }} m²</p2>
+				<p2>Dimensjonerende krav til overvannshåndtering for tiltaket: measure.dimetionalDemands</p2>
+				<p2>Kostnad for tiltaket: {{ measure.getCosts() }} NOK</p2>
+				<p2>Tekniske funksjoner: {{measure.getTechnicalFunctions() }}</p2>
+				<p2>Tilleggsverdier: {{measure.getAdditionalValues()}}</p2>
+				<p2>Utdypelse: {{measure.getElaboration()}}</p2>
 
-			{#...Flere tiltak, alle skal ha samme deloverskrivfter i h3 #}
+				<h3>Geometrisk utforming</h3>
+				<p2>{{measure.getGeometricDesignElaboration()}}</p2>
 
-			<h1>Oppfølging og kommentarer</h1>
-			<p2>"Dato, navn og bilde av aktør + Kommentar"</p2>
-			<h3>Redigeringsinformasjon</h3>
-			<p2>Prosjektbeskrivelsen ble først publisert (dato) </p2>
-			<p2>Prosjektbeskrivelsen ble sist endra (dato) av (navn på aktør)</p2>
+				<h3>Konstruksjonsdetaljer og anleggelse</h3>
+				<p2>{{measure.getConstructionDetails()}}</p2>
 
+				<h3>Drift, vedlikehold og oppfølging</h3>
+				<p2>{{measure.getMaintenance()}}</p2>
 
+				<h3>Erfaringer og tips</h3>
+				<p2>{{measure.getExperiencesGained()}}</p2>
 
-
-
-			{#<p2>Felt: {{ project.getField () }}</p2>#}
-
-			{#<p2>Start dato: {{ project.getStartdate() }}</p2>#}
-			{#<p2>Slutt dato: {{ project.getEnddate() }}</p2>#}
-			{#<p2>{{ project.getTechnicalSolutions() }}</p2>#}
-
-			{#<p2>{{ project.getDescription() }}</p2>#}
-
+				</br>
+				<div class="divMargins">
+				{% if canEdit %}
+                    <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Endre tiltak</a>
+                    <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
+            	{% endif %}
+            	</div>
+            	<hr style="border-color:#547980">
+            {% endfor %}
 			</br>
-			</br>
-
-			<p2>Lokasjon: {{ project.getLocation() }}</p2>
-
-			</br>
-
-			<p2>{{ project.getName() }}</p2>
-			<p2>{{ project.getField () }}</p2>
-			<p2>{{ project.getDescription() }}</p2>
-			<p2>{{ project.getLocation() }}</p2>
 
 			<div class="divMargins">
 			<iframe
@@ -159,24 +155,14 @@
 			{# For options on usage of the Embed API, see https://developers.google.com/maps/documentation/embed/guide #}
 			</iframe>
 			</div>
-			<p2> <b>Bidragsytere</b> </p2>
-			<div class="divMargins">
-			<ul>
-				{% for actor in project.getActors() %}
-					{% if actor.getClassName == "Company"%}
-						<li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName}}</a></li>
-					{% else %}
-						<li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName}}</a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
-			</div>
+			
 			<p2> <b>Lenker</b> </p2>
 			<div class="divMargins">
 			<ul>
 				{% for s in project.getTechnicalSolutions() %}
 					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
 				{% endfor %}
+
 				{% for url in project.getImages() %}
 					<p>{{ url }}</p>
 				{% endfor %}
