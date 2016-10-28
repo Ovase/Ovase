@@ -28,16 +28,18 @@ class ProjectType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('images', CollectionType::class, array(
-                'entry_type' => HiddenType::class,
-                'disabled' => true,
-                'allow_delete' => true
-            ))
-            ->add('imageFiles', FileType::class, array('mapped' => false, 'multiple' => true))
 			->add('name', TextType::class, array('label' => 'Navn','attr' => array('placeholder' => 'Navn på prosjekt'),'label_attr' => array('id' => 'name_label')))
 
 			->add('field', TextType::class, array('label' => 'Felt','attr' => array('placeholder' => 'Felt'),'label_attr' => array('id' => 'field_label')))
 
+			->add('images', CollectionType::class, array(
+                'entry_type' => HiddenType::class,
+                'disabled' => true,
+                'allow_delete' => true,
+                'label_attr' => array('id'=>'images_label')
+            ))
+
+            ->add('imageFiles', FileType::class, array('mapped' => false, 'multiple' => true,'label_attr' => array('id'=>'imageFiles_label')))
 
 			->add('startdate', TextType::class,array(
 			    'label' => 'Start dato',

@@ -25,9 +25,12 @@ function show(page) {
 
 	arr = ["name","field","images","startdate","enddate","description","soilConditions",
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
-			"actors","measures","captcha","save"]
+			"actors","captcha","imageFiles"]
 
-	for (var i = 0; i < arr.length-1; i++) {
+	for (var i = 0; i < arr.length; i++) {
+		if(!document.getElementById(arr[i]+"_label")){
+			console.log(arr[i])
+		}
 		document.getElementById(arr[i]+"_label").style.display = "none";
 		document.getElementById("project_"+arr[i]).style.display = "none";
 	}
@@ -51,14 +54,14 @@ function show(page) {
 	}
 	if(page === 2){
 		//background,summary
-		displayBlock(["images"]);
+		displayBlock(["imageFiles"]);
 
 		document.getElementById('next').disabled = false;
 		document.getElementById('previous').disabled = false;
 	}
 
 	if(page === 3){
-		displayBlock(["measures"]);
+		//displayBlock(["measures"]);
 		document.getElementById('next').disabled = false;
 		document.getElementById('previous').disabled = false;
 	}
