@@ -27,10 +27,10 @@ security:
             form_login:
                 default_target_path: /
                 always_use_default_target_path: true
-                login_path: login
-                check_path: login
+                login_path: logginn
+                check_path: logginn
             logout:
-                path: logout
+                path: loggut
                 target: /
             # http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
@@ -38,5 +38,5 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logginn, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/glemt-passord, roles: IS_AUTHENTICATED_ANONYMOUSLY }
