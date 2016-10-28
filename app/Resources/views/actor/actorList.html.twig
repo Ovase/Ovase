@@ -7,8 +7,8 @@
 {% block body %}
 <body onload="checkCookie()">
 
-    <button type="button" onclick="show('persons');">Personer</button>
-    <button type="button" onclick="show('companies');">Selskaper</button>
+    <button type="button" id="btn-persons" class="btn btn-default" onclick="show('persons');">Personer</button>
+    <button type="button" id="btn-companies" class="btn btn-default" onclick="show('companies');">Selskaper</button>
 
     <br>
     <br>
@@ -68,6 +68,7 @@
             <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
           </button>
         </a>
+        </br>
         </br>
         <h5>Selskaper</h5>
 

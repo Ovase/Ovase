@@ -32,7 +32,13 @@ function checkCookie() {
 function show(id) { 
 	 document.getElementById("persons").style.display="none";
 	 document.getElementById("companies").style.display="none";
+
+     document.getElementById("btn-persons").style.backgroundColor="white";
+     document.getElementById("btn-companies").style.backgroundColor="white";
+
 	 document.getElementById(id).style.display="block";
+     document.getElementById("btn-"+id).style.backgroundColor="lightGreen";
+
 	 setCookie("actor", id, 100);
 }
 
