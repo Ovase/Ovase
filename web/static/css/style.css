@@ -521,44 +521,6 @@ a.header-text{
 	color: grey !important;
 }
 
-/* --------- CONTENT --------- */
-
-
-.content-container {
-}
-
-.content-container h3 {
-	font-weight:200;
-}
-
-#content-inner {
-	margin: auto;
-	padding-bottom:;
-	background:rgba(255,255,255,0.7);
-	background: linear-gradient(
-	rgba(255,255,255,0.5),
-	rgba(255,255,255,0.6),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.6),
-	rgba(255,255,255,0.4),
-	rgba(255,255,255,0.2)
-	);
-
-
-}
-
-#buffer-container {
-	margin:auto;
-	height: 30px;
-}
-
-
-
-
 
 /* -------- POPUP BOX ---------*/
 
@@ -570,68 +532,6 @@ h1 {
   margin: 80px 0;
 }
 
-
-
-
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
-
-.popup {
-  margin: 5em auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  top: 10em;
-  transition: all 5s ease-in-out;
-}
-
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
-}
-.popup .close:hover {
-  color: #12a79d;
-}
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
-
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
-}
 /*---------- BODY -------------*/
 
 #wrap{
@@ -646,8 +546,6 @@ h1 {
 }
 
 /* --------- FOOTER --------- */
-
-
 
 .footer a {
 	color: #6D6D6D;
