@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<body onload="initCreateProjectPage()">
+	<body onload="initCreateProjectPage();addHelpText()">
 	{{ form_start(form) }}
 	<div id="showImages">
 	{% for url in form.vars.value.images %}
@@ -28,8 +28,9 @@
 		</button>
 	</div>
 
-	<script src="{{ asset('static/js/showFieldsInProject.js') }}"></script>
+	<script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
 	<script src="{{ asset('static/js/datepicker-no.js') }}"></script>
+	<script src="{{ asset('static/js/helpText.js') }}"></script>
 
 {% endblock %}
 

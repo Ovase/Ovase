@@ -24,45 +24,40 @@ function show(page) {
 
 	arr = ["name","images","startdate","enddate","description","soilConditions",
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
-			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands"]
+			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
+			"save"]
 
 	for (var i = 0; i < arr.length; i++) {
-		if(!document.getElementById(arr[i]+"_label")){
-			console.log(arr[i])
+		var input = document.getElementById("project_"+arr[i]);
+		
+		if(!input){
+			console.log("Missing: "+arr[i]);
 		}
-		document.getElementById(arr[i]+"_label").style.display = "none";
-		document.getElementById("project_"+arr[i]).style.display = "none";
+
+		input.parentNode.setAttribute('id',arr[i]+'Div');
+		document.getElementById(arr[i]+"Div").style.display = "none";
 	}
-	document.getElementById('project_save').style.display = "none";
-	document.getElementsByClassName("captcha_image")[0].style.display = "none";
 	
 	var showImages = document.getElementById('showImages');
 	if(showImages) {
 		showImages.style.display = "none";
 	}
 
-
-	var selectSpan = document.getElementsByClassName("selection")[0];
-	if(selectSpan) { //The selection span is not defined on load
-		document.getElementsByClassName("selection")[0].style.display = "none";
-	}
+	var nextBtnDisabled = document.getElementById('next').disabled;
+	var previousBtnDisabled = document.getElementById('previous').disabled;
 
 	if(page === 1){
 		displayBlock(["name","startdate","enddate","location","actors","cost","totalArea","waterArea"])
-		if(selectSpan) {
-			document.getElementsByClassName("selection")[0].style.display = "block";
-		}	
 
-		document.getElementById('next').disabled = false;
-		document.getElementById('previous').disabled = true;
+		nextBtnDisabled = false;
+		previousBtnDisabled = true;
 	}
 	if(page === 2){
-		//background,summary
 		displayBlock(["areaType","projectType","description",
 					  "dimentionalDemands","soilConditions","technicalSolutions"]);
 
-		document.getElementById('next').disabled = false;
-		document.getElementById('previous').disabled = false;
+		nextBtnDisabled = false;
+		previousBtnDisabled = false;
 	}
 
 	if(page === lastPage){
@@ -70,12 +65,10 @@ function show(page) {
 			document.getElementById('showImages').style.display = "inline";
 		}
 		
-		displayBlock(["captcha","imageFiles","summary"]);
-		document.getElementsByClassName("captcha_image")[0].style.display = "block";
-		document.getElementById('project_save').style.display = "block";
+		displayBlock(["captcha","imageFiles","summary","save"]);
 
-		document.getElementById('next').disabled = true;
-		document.getElementById('previous').disabled = false;
+		nextBtnDisabled = true;
+		previousBtnDisabled = false;
 	}
 
 	if(page === "next" && pageNumber !== lastPage){
@@ -83,7 +76,7 @@ function show(page) {
 		if(pageNumber === lastPage) {
 			document.getElementById(page).disabled = true;
 		}
-		document.getElementById('previous').disabled = false;
+		previousBtnDisabled.disabled = false;
 		show(pageNumber)
 		
 	}
@@ -92,19 +85,18 @@ function show(page) {
 		if(pageNumber === 1) {
 			document.getElementById(page).disabled = true;
 		}
-		document.getElementById('next').disabled = false;
+		nextBtnDisabled = false;
 		show(pageNumber)
 	}
 }
 
 function displayBlock(idArray){
 	for (var i = 0; i < idArray.length; i++) {
-		idArray[i]
-		document.getElementById(idArray[i]+"_label").style.display = "block";
-		document.getElementById("project_"+idArray[i]).style.display = "block";
+		document.getElementById(idArray[i]+"Div").style.display = "block";
 	}
 }
 
+// Disable enddate picker's dates (before startdate)
 function disableDates() {
 	$("#project_enddate").datepicker("option","minDate",$("#project_startdate").datepicker("getDate"));
 }

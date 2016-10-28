@@ -318,6 +318,19 @@ a.btn-text {
 	width: 40vw;
 }
 
+.help-block {
+	margin-left: 15vw;
+	margin-right: 15vw;
+}
+
+.help-btn {
+	height: 25px;
+	width: 25px;
+	padding: 0px 0px 0px 0px !important;
+	margin-left: 10px !important;
+	font-size: 20px !important;
+}
+
 #company_location {
 	width: 500px;
 }
@@ -416,7 +429,7 @@ a.actor-card {
 /* ------------ STYLING FORMS --------------*/
 
 form div label {
-	display: block;
+	display: inline;
 	font-size: 200%;
 	color: #6D6D6D !important;
 	margin-left: 15vw;
@@ -463,6 +476,7 @@ form div input {
 	width: 300px;
 	margin-left: 15vw;
 	margin-bottom: 15px;
+	display: block;
 }
 
 form div textarea {
@@ -471,6 +485,7 @@ form div textarea {
 	min-width: 300px;
 	height: 100px;
 	margin-left: 15vw;
+	display: block;
 }
 
 form div img {
@@ -484,6 +499,7 @@ form div button {
 
 .select2 {
 	margin-left: 15vw !important;
+	display: block !important;
 }
 
 .select2-search__field {
