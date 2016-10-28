@@ -51,13 +51,15 @@ class ProjectType extends AbstractType
 
 			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('placeholder' => 'Beskrivelse av prosjektet'),'label_attr' => array('id' => 'description_label')))
 
-            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
-            ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
+            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'summary_label')))
+            
+            ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'dimentionalDemands_label')))
 
             ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet'),'label_attr' => array('id' => 'soilConditions_label')))
 
             ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'Areal'),'label_attr' => array('id' => 'totalArea_label')))
-            ->add('waterArea', NumberType::class, array('attr' => array('placeholder' => 'Water area'),'label_attr' => array('id' => 'totalArea_label')))
+            
+            ->add('waterArea', NumberType::class, array('attr' => array('placeholder' => 'Water area'),'label_attr' => array('id' => 'waterArea_label')))
 
             ->add('cost', MoneyType::class, array('currency' => false,'label_attr' => array('id' => 'cost_label')))
 

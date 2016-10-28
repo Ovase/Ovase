@@ -304,6 +304,18 @@ a.btn-text {
 	text-decoration: none !important;
 	color: white !important;
 }
+
+.btn-project-step{
+	border: none;
+}
+
+#project_description {
+	width: 40vw;
+}
+
+#project_summary{
+	width: 40vw;
+}
 /* ----------- FRONT PAGE CARDS ----------------*/
 
 .fp-card {

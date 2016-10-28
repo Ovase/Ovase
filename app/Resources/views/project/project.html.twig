@@ -59,7 +59,7 @@
 
 			<br>
 
-			<p2>Adresse: {{project.getLocation}} </p2>
+			<p2>Adresse: {{project.getLocation()}} </p2>
 
 			<br>
 
@@ -68,9 +68,9 @@
 			<ul>
 				{% for actor in project.getActors() %}
 					{% if actor.getClassName == "Company"%}
-						<li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName}}</a></li>
+						<li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName()}}</a></li>
 					{% else %}
-						<li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName}}</a></li>
+						<li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName()}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>
@@ -78,33 +78,33 @@
 
 			<br>
 
-			<p2> Område-type: {{project.getAreaType}} </p2>
-			<p2> Prosjekt-type: {{project.getProjectType}} </p2>
+			<p2> Område-type: {{project.getAreaType()}} </p2>
+			<p2> Prosjekt-type: {{project.getProjectType()}} </p2>
 
 			<br>
 
-			<p2> Totale kostnader for hele byggeprosjektet: {{project.getCost}} NOK </p2>
+			<p2> Totale kostnader for hele byggeprosjektet: {{project.getCost()}} NOK </p2>
 			<br>
-			<p2> Totalt areal for prosjektområde: {{project.getTotalArea}} m² </p2>
-			<p2> Totalt areal for nedbørsfelt til overvannstiltakene: project.getWaterArea</p2>
+			<p2> Totalt areal for prosjektområde: {{project.getTotalArea()}} m² </p2>
+			<p2> Totalt areal for nedbørsfelt til overvannstiltakene: {{project.getWaterArea()}} m²</p2>
 			<br>
-			<p2> Grunnforhold: {{project.getSoilConditions}} </p2>
+			<p2> Grunnforhold: {{project.getSoilConditions()}} </p2>
 			<br>
-			<p2> Dimensjonerende krav til overvannshåndtering: </p2>
+			<p2> Dimensjonerende krav til overvannshåndtering: {{project.getDimentionalDemands()}}</p2>
 
 			<br>
 			<br>
 
 			<h2>Bakgrunn</h2>
 
-			<p2> {{project.getDescription}} </p2>
+			<p2> {{project.getDescription()}} </p2>
 
 			<br>
 			<br>
 
 			<h2>Oppsummering</h2>
 
-			<p2> project.getSummary </p2>
+			<p2> {{project.getSummary()}} </p2>
 
 			<br>
 			<br>

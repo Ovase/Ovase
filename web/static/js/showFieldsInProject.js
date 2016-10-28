@@ -6,15 +6,14 @@ function initCreateProjectPage() {
 }
 
 function updatePageButtons(page){
-	document.getElementById('page1').style.backgroundColor = "lightGrey";
-	document.getElementById('page2').style.backgroundColor = "lightGrey";
-	document.getElementById('page3').style.backgroundColor = "lightGrey";
-	document.getElementById('page4').style.backgroundColor = "lightGrey";
+	document.getElementById('page1').style.backgroundColor = "white";
+	document.getElementById('page2').style.backgroundColor = "white";
+	document.getElementById('page3').style.backgroundColor = "white";
 	document.getElementById('page'+page).style.backgroundColor = "lightGreen";
 }
 
 var pageNumber = null;
-var lastPage = 4;
+var lastPage = 3;
 
 function show(page) {
 	if(parseInt(page)){
@@ -23,9 +22,9 @@ function show(page) {
 	}
 	
 
-	arr = ["name","field","images","startdate","enddate","description","soilConditions",
+	arr = ["name","images","startdate","enddate","description","soilConditions",
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
-			"actors","captcha","imageFiles"]
+			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands"]
 
 	for (var i = 0; i < arr.length; i++) {
 		if(!document.getElementById(arr[i]+"_label")){
@@ -43,8 +42,7 @@ function show(page) {
 	}
 
 	if(page === 1){
-		displayBlock(["name","startdate","enddate","location","actors",
-						"areaType","projectType","cost","totalArea"])
+		displayBlock(["name","startdate","enddate","location","actors","cost","totalArea","waterArea"])
 		if(selectSpan) {
 			document.getElementsByClassName("selection")[0].style.display = "block";
 		}	
@@ -54,20 +52,15 @@ function show(page) {
 	}
 	if(page === 2){
 		//background,summary
-		displayBlock(["imageFiles"]);
+		displayBlock(["areaType","projectType","description",
+					  "dimentionalDemands","soilConditions","technicalSolutions"]);
 
-		document.getElementById('next').disabled = false;
-		document.getElementById('previous').disabled = false;
-	}
-
-	if(page === 3){
-		//displayBlock(["measures"]);
 		document.getElementById('next').disabled = false;
 		document.getElementById('previous').disabled = false;
 	}
 
 	if(page === lastPage){
-		displayBlock(["field","description","soilConditions","technicalSolutions","captcha"]);
+		displayBlock(["captcha","imageFiles","summary"]);
 		document.getElementsByClassName("captcha_image")[0].style.display = "block";
 		document.getElementById('project_save').style.display = "block";
 
