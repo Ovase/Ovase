@@ -34,11 +34,12 @@ class ProjectType extends AbstractType
 			->add('images', CollectionType::class, array(
                 'entry_type' => HiddenType::class,
                 'disabled' => true,
+                'required' => false,
                 'allow_delete' => true,
                 'label_attr' => array('id'=>'images_label')
             ))
 
-            ->add('imageFiles', FileType::class, array('mapped' => false, 'multiple' => true,'label_attr' => array('id'=>'imageFiles_label')))
+            ->add('imageFiles', FileType::class, array('required' => false, 'mapped' => false, 'multiple' => true,'label_attr' => array('id'=>'imageFiles_label')))
 
 			->add('startdate', TextType::class,array(
 			    'label' => 'Start dato',
