@@ -1,0 +1,30 @@
+AppBundle\Tests\Controller\ActorController
+ [x] Create company fail
+
+AppBundle\Tests\Controller\HomeController
+ [x] Home
+
+AppBundle\Tests\Controller\LoginController
+ [x] Login
+
+AppBundle\Tests\Controller\ProjectController
+ [x] Create project fail
+
+AppBundle\Tests\Controller\ProjectListController
+ [x] Project list
+
+AppBundle\Tests\Controller\UserController
+ [x] Register
+
+AppBundle\Tests\Form\CompanySearchForm
+ [x] Submit valid data
+
+AppBundle\Tests\Form\PersonSearchForm
+ [x] Submit valid data
+
+AppBundle\Tests\Form\ProjectSearchForm
+ [x] Submit valid data
+
+AppBundle\Tests\Form\UserType
+ [x] Submit valid data
+
