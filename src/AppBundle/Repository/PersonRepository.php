@@ -19,7 +19,7 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-	public function findPersonsBySearch($search) // search is an array...
+	public function findPersonsBySearch(array $search) // search is an array...
 	{
         $freetxtsearch = array(); // $fieldsearch
         foreach ($search as $s) {

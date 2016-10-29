@@ -15,7 +15,10 @@ class HomeControllerTest extends WebTestCase
 		// Add a couple of html source code checks
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertGreaterThan(0,$crawler->filter('html:contains("OVASE")')->count());
-        $this->assertGreaterThan(0,$crawler->filter('html:contains("fp-card")')->count());
+        $this->assertGreaterThan(0,$crawler->filter('a:contains("PROSJEKTER")')->count());
+        $this->assertGreaterThan(0,$crawler->filter('a:contains("AKTØRER")')->count());
+        $this->assertGreaterThan(0,$crawler->filter('a:contains("FAGWIKI")')->count());
+        $this->assertGreaterThan(0,$crawler->filter('a:contains("Logg inn")')->count());
 		// This one actually matters
         $this->assertTrue($client->getResponse()->isSuccessful());
 	}

@@ -18,39 +18,25 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 		return $company;
 	}
 
-	public function findCompaniesBySearch($searchTerm)
+	private function findCompaniesBySearch($searchTerm)
 	{
 		return $this->createQueryBuilder('Company')
 			->select('Company')
 			->where('Company.name LIKE :searchTerm')
 			->orWhere('Company.location LIKE :searchTerm')
+            ->orWhere('Company.field LIKE :searchTerm')
+            ->orWhere('Company.competence LIKE :searchTerm')
+            ->orWhere('Company.competence LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
 			->getResult();
 	}
 
-    public function findCompaniesBySearchArray($search)
+    public function findCompaniesBySearchArray(array $search)
     {
         $freetxtsearch = array(); // $fieldsearch
         foreach ($search as $s) {
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Company')
-                ->select('Company')
-                ->where('Company.field LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Company')
-                ->select('Company')
-                ->where('Company.competence LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Company')
-                ->select('Company')
-                ->where('Company.competence LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
+            $freetxtsearch = array_merge($freetxtsearch, $this->findCompaniesBySearch($s));
         }
         $freetxtsearch = array_unique($freetxtsearch);
         return $freetxtsearch;
