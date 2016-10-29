@@ -2,49 +2,30 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Project;
 use Doctrine\ORM\EntityRepository;
 
 class ProjectRepository extends EntityRepository
 {
-	public function findProjectsByLocation($searchTerm) // Beta version of function
+	public function findProjectsBySearch($searchTerm) // Beta version of function
 	{
 		return $this->createQueryBuilder('Project')
 			->select('Project')
 			->where('Project.name LIKE :searchTerm')
-			->orwhere('Project.location LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
+			->orWhere('Project.location LIKE :searchTerm')
+            ->orWhere('Project.location LIKE :searchTerm')
+            ->orWhere('Project.summary LIKE :searchTerm')
+            ->orWhere('Project.description LIKE :searchTerm')
+            ->orWhere('Project.technical_solutions LIKE :searchTerm')
+            ->orWhere('Project.dimentional_demands LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
 			->getResult();
 	}
-    public function findProjectsByArray($search) // Description, demands and summary are text fields that could interchange
+    public function findProjectsByArray($searchArr) // Description, demands and summary are text fields that could interchange
     {
         $freetxtsearch = array();
-        foreach ($search as $s) {
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Project')
-                ->select('Project')
-                ->where('Project.dimentional_demands LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Project')
-                ->select('Project')
-                ->where('Project.summary LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Project')
-                ->select('Project')
-                ->where('Project.description LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Project')
-                ->select('Project')
-                ->where('Project.technical_solutions LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
+        foreach ($searchArr as $s) {
+            $freetxtsearch = array_merge($freetxtsearch, $this->findProjectsBySearch($s));
         }
         $freetxtsearch = array_unique($freetxtsearch);
         return $freetxtsearch;
