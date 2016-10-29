@@ -60,7 +60,7 @@ class UserController extends Controller
 	private function validatePassword(Form $form){
         //$password = $form['password']->getData();
         $password = $form->get('password')->getData();
-        if (! preg_match("/^(?=.*[a-z]).+$/", $password)) { // [a-z]
+        if (! preg_match("/^(?=.*[a-z]).+$/", $password)) {
             $form->addError(new FormError("Ditt passord må inneholde minst 1 liten bokstav fra det engelske alfabetet!"));
         }
         if (! preg_match("/^(?=.*[A-Z]).+$/", $password)) {
@@ -73,11 +73,11 @@ class UserController extends Controller
         {
             $form->addError(new FormError("Ditt passord må inneholde minst ett siffer!"));
         }
-        if (! preg_match("/^(?=.*[!#¤_%&£]).+$/", $password)) {
-            $form->addError(new FormError("Ditt passord må inneholde minst ett spesialtegn (!#¤_%&£). Kontakt systemets administrator for nærmere informasjon."));
+        if (! preg_match("/^(?=.*[!#¤_%&=?£]).+$/", $password)) {
+            $form->addError(new FormError("Ditt passord må inneholde minst ett spesialtegn. Kontakt systemets administrator for nærmere informasjon"));
         }
         if (strlen($password)<7) {
-            $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon."));
+            $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon")); //Hvorfor skal man kontakte sysadm for dette??
         }
 	}
 }
