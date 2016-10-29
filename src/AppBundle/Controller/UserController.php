@@ -60,24 +60,24 @@ class UserController extends Controller
 	private function validatePassword(Form $form){
         //$password = $form['password']->getData();
         $password = $form->get('password')->getData();
-        if (! preg_match("^(?=.*[a-z]).+$", $password)) {
+        if (! preg_match("/^(?=.*[a-z]).+$/", $password)) {
             $form->addError(new FormError("Ditt passord må inneholde minst 1 liten bokstav fra det engelske alfabetet!"));
         }
-        if (! preg_match("^(?=.*[A-Z]).+$", $password)) {
+        if (! preg_match("/^(?=.*[A-Z]).+$/", $password)) {
             $form->addError(new FormError("Ditt passord må inneholde minst 1 stor bokstav fra det engelske alfabetet!"));
         }
-        if (! preg_match("^(?=.*[æøåÆØÅ]).+$", $password)) {
+        if (! preg_match("/^(?=.*[æøåÆØÅ]).+$/", $password)) {
             $form->addError(new FormError("Ditt passord må inneholde minst 1 av de spesielle bokstavene i det dansk-norske alfabet!"));
         }
         if (strcspn($password, '0123456789') == strlen($password)) // see http://php.net/manual/en/function.strcspn.php - it is infact faster then a number regex
         {
             $form->addError(new FormError("Ditt passord må inneholde minst ett siffer!"));
         }
-        if (! preg_match("^(?=.*[!#¤_%&/=?£]).+$", $password)) {
+        if (! preg_match("/^(?=.*[!#¤_%&=?£]).+$/", $password)) {
             $form->addError(new FormError("Ditt passord må inneholde minst ett spesialtegn. Kontakt systemets administrator for nærmere informasjon"));
         }
         if (strlen($password)<7) {
-            $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon"));
+            $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon")); //Hvorfor skal man kontakte sysadm for dette??
         }
 	}
 }
