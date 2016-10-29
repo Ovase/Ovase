@@ -19,8 +19,23 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-	public function findPersonsBySearch($search)
+	public function findPersonsBySearch($search) // search is an array...
 	{
+        $freetxtsearch = array(); // $fieldsearch
+        foreach ($search as $s) {
+            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Person')
+                ->select('Person')
+                ->where('Person.field LIKE :searchTerm')
+                ->setParameter('searchTerm', '%'.$s.'%')
+                ->getQuery()
+                ->getResult()); // returns an array, ja?
+            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Person')
+                ->select('Person')
+                ->where('Person.competence LIKE :searchTerm')
+                ->setParameter('searchTerm', '%'.$s.'%')
+                ->getQuery()
+                ->getResult()); // returns an array, ja?
+        }
         $firstNamesearch = $this->createQueryBuilder('Person')
 			->select('Person')
 			->where('Person.firstName IN (:searchTerm)')
@@ -33,7 +48,8 @@ class PersonRepository extends EntityRepository
             ->setParameter('searchTerm', $search)
             ->getQuery()
             ->getResult(); // returns an array, ja?
-        $result = array_merge($firstNamesearch,$lastNamesearch); // Merge is binary, still extendable with expertise field
+        $result = array_merge(array_merge($firstNamesearch,$lastNamesearch),$freetxtsearch); // Merge is binary, still extendable with expertise field
+        $result = array_unique($result);
         return $result;
 	}
 
