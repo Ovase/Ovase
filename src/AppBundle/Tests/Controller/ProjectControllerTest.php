@@ -31,19 +31,13 @@ class ProjectControllerTest extends WebTestCase
 		$crawler = $client->request('GET', '/prosjekter');
 
 		//Check if link to create Project exists
-        $b = $crawler->selectButton('+');
-		$links = $crawler
-			->filter('a:contains("+")'); // link exchanged with button
-		$this->assertEquals(1, $links->count());
+        $button = $crawler->filter('button:contains("+")')->selectButton('+'); // link exchanged with button
+		$this->assertEquals(1, $button->count());
         $this->assertGreaterThan(0,$crawler->filter('title:contains("Prosjekter")')->count());
         $this->assertGreaterThan(0,$crawler->filter('span:contains("Lag nytt prosjekt")')->count());
 
-		/*$link = $links
-			->eq(0)
-			->link(); */
-
 		//Click on create project and get redirected to login
-		$client->click($b);
+        $crawler = $client->click($crawler->filter('a:contains("+")')->eq(0)->link());
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
         $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
