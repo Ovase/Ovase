@@ -27,7 +27,7 @@ class ProjectControllerTest extends WebTestCase
 	public function testCreateProjectFail()
 	{
 		$client = static::createClient();
-		$crawler = $client->request('GET', '/anlegg');
+		$crawler = $client->request('GET', '/prosjekter');
 
 		//Check if link to create Project exists
 		$links = $crawler

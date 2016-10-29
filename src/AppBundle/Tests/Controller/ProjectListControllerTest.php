@@ -7,8 +7,8 @@ class ProjectListControllerTest extends WebTestCase
 {
 	public function testProjectList(){
 		$client = static::createClient();
-		$crawler = $client->request('GET', '/anlegg');
+		$crawler = $client->request('GET', '/prosjekter');
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-		$this->assertTrue($crawler->filter('title:contains("Anlegg")')->count() > 0);
+		$this->assertTrue($crawler->filter('title:contains("Prosjekter")')->count() > 0);
 	}
 }

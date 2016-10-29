@@ -26,12 +26,7 @@ class PersonRepository extends EntityRepository
             $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Person')
                 ->select('Person')
                 ->where('Person.field LIKE :searchTerm')
-                ->setParameter('searchTerm', '%'.$s.'%')
-                ->getQuery()
-                ->getResult()); // returns an array, ja?
-            $freetxtsearch = array_merge($freetxtsearch, $this->createQueryBuilder('Person')
-                ->select('Person')
-                ->where('Person.competence LIKE :searchTerm')
+                ->orWhere('Person.field LIKE :searchTerm')
                 ->setParameter('searchTerm', '%'.$s.'%')
                 ->getQuery()
                 ->getResult()); // returns an array, ja?

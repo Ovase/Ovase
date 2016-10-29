@@ -41,8 +41,8 @@ class UserControllerTest extends WebTestCase
 			'user[firstName]' => 'Gunnar',
 			'user[phone]' => '45133754',
 			'user[password]' => array(
-				'first' => 'Lucas Plein',
-				'second' => 'Lucas Plein'
+				'first' => 'Lucasæ0_9Plein',
+				'second' => 'Lucasæ0_9Plein'
 			)
 		), 'POST');
 
