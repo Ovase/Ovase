@@ -4,7 +4,6 @@ namespace AppBundle\Tests\Entity;
 
 use AppBundle\Entity\Project;
 
-
 class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
     
 	// Check whether the setPassword function is working correctly
@@ -45,9 +44,11 @@ class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
 
         // Use the setPhone method
         $p->setTotalArea(12312312.0);
+        $p->setWaterArea(7231.0);
 
         // Assert the result
         $this->assertEquals(12312312.0, $p->getTotalArea());
+        $this->assertEquals(7231.0, $p->getWaterArea());
     }
     // Check whether the setName function is working correctly
     public function testSetName(){
@@ -62,6 +63,19 @@ class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
         // Assert the result
         $this->assertEquals('This Project completely incompetent', $p->getName());
 
+    }
+    // Check whether the setSoilConditions function is working correctly
+    public function testSetDates(){
+
+        // new entity
+        $p = new Project();
+        $p->setStartdate('2016-01-01');
+        $p->setEnddate('2016-10-10');
+        //$this->assertT
+        $result = $p->getEnddate();
+        $start = $p->getStartdate();
+        $this->assertEquals('2016-01-01', $start);
+        $this->assertEquals('2016-10-10', $result);
     }
     // Check whether the setSoilConditions function is working correctly
     public function testSetSoilConditions(){

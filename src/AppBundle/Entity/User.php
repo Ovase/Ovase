@@ -365,8 +365,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function setRoles($roles)
     {
-        $this->roles = $roles;
-
+        foreach ($roles as $r) {
+            if (!($this->roles->contains($r)) && ($r == "ROLE_EDITOR" || $r == "ROLE_USER")) {
+                $this->addRole($r);
+            }
+        }
         return $this;
     }
 

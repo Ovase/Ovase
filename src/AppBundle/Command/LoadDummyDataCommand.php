@@ -65,8 +65,8 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$okr = $this->createCompany("Oslo Kommune Regnsekt", "public entity", "985808713", "23579504", array("documentation","water engineering","rain gardening","spray ponds", "green roof"), "TEST", "60.389444, 5.33", "kontakt@osloregn.no");
 
 		// Define some projects
-		$pa = $this->createProject("Grønt Tak på Operaen", "TEST", new DateTime('2016-01-01'), new DateTime('2017-07-06'), "59.906944, 10.753611", array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
-		$pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "TEST", new DateTime('2016-11-02'), new DateTime('2017-08-08'), "60.40, 6.12", array("multifunctional playground","rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
+		$pa = $this->createProject("Grønt Tak på Operaen", "TEST", '2016-01-01', '2017-07-06', "59.906944, 10.753611", array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
+		$pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "TEST", '2016-11-02', '2017-08-08', "60.40, 6.12", array("multifunctional playground","rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
 
 		// Define relations
 		$editoruser->addActor($ovase);
