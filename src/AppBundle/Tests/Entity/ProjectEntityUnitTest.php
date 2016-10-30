@@ -62,7 +62,6 @@ class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
 
         // Assert the result
         $this->assertEquals('This Project completely incompetent', $p->getName());
-
     }
     // Check whether the setSoilConditions function is working correctly
     public function testSetDates(){

@@ -90,5 +90,42 @@ class CompanyEntityUnitTest extends \PHPUnit_Framework_TestCase {
     }
 
     // Here follows company specific tests...
+    public function testSetType(){
+
+        // new entity
+        $a = new Company();
+
+        // Use the setEmail method
+        $a->setType("test");
+
+        // Assert the result
+        $this->assertEquals("test", $a->getType());
+    }
+    // Check whether the setName function is working correctly
+    public function testSetName(){
+
+        // new entity
+        $p = new Company();
+        $name = 'This Project completely incompetent';
+
+        // Use the setPhone method
+        $p->setName($name);
+
+        // Assert the result
+        $this->assertEquals('This Project completely incompetent', $p->getName());
+    }
+    // Check whether the setOrgNo function is working correctly
+    public function testSetOrgNo(){
+
+        // new entity
+        $p = new Company();
+        $no = '911976575';
+
+        // Use the setPhone method
+        $p->setOrgNr($no);
+
+        // Assert the result
+        $this->assertEquals('911976575', $p->getOrgNr());
+    }
 
 }
