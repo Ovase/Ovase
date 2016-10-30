@@ -445,12 +445,19 @@ input[id$="_search_form_search"] {
 	background-color: #E5E5E5;
 	width: 30vw;
 	min-width: 250px;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 button[id$="_search_form_save"] {
 	margin-left:0px;
 	height: 34px;
 	background-color: #E5E5E5;
+	margin-top:-1px;
+}
+
+label[for$="_search_form_search"] {
+	display: block;
 }
 
 @media only screen and (max-width: 991px){
