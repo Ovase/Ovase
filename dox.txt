@@ -16,6 +16,59 @@ AppBundle\Tests\Controller\ProjectListController
 AppBundle\Tests\Controller\UserController
  [x] Register
 
+AppBundle\Tests\Entity\ActorEntityUnit
+ [x] Key knowledges
+ [x] Set tlf
+ [x] Set competence
+ [x] Set email
+ [x] Set field
+ [x] Set location
+
+AppBundle\Tests\Entity\CompanyEntityUnit
+ [x] Key knowledges
+ [x] Set tlf
+ [x] Set competence
+ [x] Set email
+ [x] Set field
+ [x] Set location
+ [x] Set type
+ [x] Set name
+ [x] Set org no
+
+AppBundle\Tests\Entity\PersonEntityUnit
+ [x] Key knowledges
+ [x] Set tlf
+ [x] Set competence
+ [x] Set email
+ [x] Set field
+ [x] Set location
+ [x] Set name
+
+AppBundle\Tests\Entity\ProjectEntityUnit
+ [x] Technical solutions
+ [x] Set cost
+ [x] Set area
+ [x] Set name
+ [x] Set dates
+ [x] Set soil conditions
+ [x] Set dimensional demands
+ [x] Set summary
+ [x] Set description
+ [x] Set project type
+ [x] Set area type
+ [x] Set location
+
+AppBundle\Tests\Entity\UserEntityUnit
+ [x] Set password
+ [x] Set email
+ [x] Set is active
+ [x] Set roles
+ [x] Set last name
+ [x] Set firstname
+ [x] Set picture path
+ [x] Set phone
+ [x] Add role
+
 AppBundle\Tests\Form\CompanySearchForm
  [x] Submit valid data
 
