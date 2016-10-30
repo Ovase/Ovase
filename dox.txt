@@ -35,6 +35,19 @@ AppBundle\Tests\Entity\CompanyEntityUnit
  [x] Set name
  [x] Set org no
 
+AppBundle\Tests\Entity\MeasureEntityUnit
+ [x] Technical solutions
+ [x] Set cost
+ [x] Set area
+ [x] Set name
+ [x] Set elaboration
+ [x] Set additional values
+ [x] Set design elaboration
+ [x] Set construction details
+ [x] Set maintenance
+ [x] Set experiences gained
+ [x] Set dimensional demands
+
 AppBundle\Tests\Entity\PersonEntityUnit
  [x] Key knowledges
  [x] Set tlf

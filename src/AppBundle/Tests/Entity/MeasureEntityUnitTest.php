@@ -41,13 +41,11 @@ class MeasureEntityUnitTest extends \PHPUnit_Framework_TestCase {
 
         // Use the setPhone method
         $p->setTotalArea(12312312.0);
-        $p->setWaterArea(7231.0);
 
         // Assert the result
         $this->assertEquals(12312312.0, $p->getTotalArea());
-        $this->assertEquals(7231.0, $p->getWaterArea());
     }
-    // Check whether the setName function is working correctly
+    // Check whether the setTitle function is working correctly
     public function testSetName(){
 
         // new entity
@@ -55,36 +53,79 @@ class MeasureEntityUnitTest extends \PHPUnit_Framework_TestCase {
         $name = 'This Measure completely incompetent';
 
         // Use the setPhone method
-        $p->setName($name);
+        $p->setTitle($name);
 
         // Assert the result
-        $this->assertEquals('This Measure completely incompetent', $p->getName());
+        $this->assertEquals('This Measure completely incompetent', $p->getTitle());
     }
-    // Check whether the setSoilConditions function is working correctly
-    public function testSetDates(){
-
-        // new entity
-        $p = new Measure();
-        $p->setStartdate('2016-01-01');
-        $p->setEnddate('2016-10-10');
-        //$this->assertT
-        $result = $p->getEnddate();
-        $start = $p->getStartdate();
-        $this->assertEquals('2016-01-01', $start);
-        $this->assertEquals('2016-10-10', $result);
-    }
-    // Check whether the setSoilConditions function is working correctly
-    public function testSetSoilConditions(){
+    // Check whether the setElaboration function is working correctly
+    public function testSetElaboration(){
 
         // new entity
         $p = new Measure();
 
         // Use the setSoilConditions method
-        $p->setSoilConditions("Soil needs only be normal");
+        $p->setElaboration("test");
 
         // Assert the result
-        $this->assertEquals("Soil needs only be normal", $p->getSoilConditions());
+        $this->assertEquals("test", $p->getElaboration());
+    }
+    public function testSetAdditionalValues(){
 
+        // new entity
+        $p = new Measure();
+
+        // Use the setSoilConditions method
+        $p->setAdditionalValues("test");
+
+        // Assert the result
+        $this->assertEquals("test", $p->getAdditionalValues());
+    }
+    public function testSetDesignElaboration(){
+
+        // new entity
+        $p = new Measure();
+
+        // Use the setSoilConditions method
+        $p->setGeometricDesignElaboration("test");
+
+        // Assert the result
+        $this->assertEquals("test", $p->getGeometricDesignElaboration());
+    }
+
+
+    public function testSetConstructionDetails(){
+
+        // new entity
+        $p = new Measure();
+
+        // Use the setSoilConditions method
+        $p->setConstructionDetails("test");
+
+        // Assert the result
+        $this->assertEquals("test", $p->getConstructionDetails());
+    }
+    public function testSetMaintenance(){
+
+        // new entity
+        $p = new Measure();
+
+        // Use the setSoilConditions method
+        $p->setMaintenance("test");
+
+        // Assert the result
+        $this->assertEquals("test", $p->getMaintenance());
+    }
+    public function testSetExperiencesGained(){
+
+        // new entity
+        $p = new Measure();
+
+        // Use the setSoilConditions method
+        $p->setExperiencesGained("test");
+
+        // Assert the result
+        $this->assertEquals("test", $p->getExperiencesGained());
     }
 
     public function testSetDimensionalDemands(){
@@ -97,67 +138,6 @@ class MeasureEntityUnitTest extends \PHPUnit_Framework_TestCase {
 
         // Assert the result
         $this->assertEquals("We do not know about this field", $p->getDimentionalDemands());
-    }
-
-    public function testSetSummary(){
-
-        // new entity
-        $p = new Measure();
-
-        // Use the setSoilConditions method
-        $p->setSummary("We do not know jack about this field");
-
-        // Assert the result
-        $this->assertEquals("We do not know jack about this field", $p->getSummary());
-    }
-
-    public function testSetDescription(){
-
-        // new entity
-        $p = new Measure();
-
-        // Use the setSoilConditions method
-        $p->setDescription("We do not know about this field");
-
-        // Assert the result
-        $this->assertEquals("We do not know about this field", $p->getDescription());
-    }
-
-    // Check whether the setMeasureType function is working correctly
-    public function testSetMeasureType(){
-
-        // new entity
-        $p = new Measure();
-
-        // Use the setType method
-        $p->setMeasureType("engineering");
-
-        // Assert the result
-        $this->assertEquals("engineering", $p->getMeasureType());
-    }
-    // Check whether the setMeasureType function is working correctly
-    public function testSetAreaType(){
-
-        // new entity
-        $p = new Measure();
-
-        // Use the setType method
-        $p->setAreaType("residential");
-
-        // Assert the result
-        $this->assertEquals("residential", $p->getAreaType());
-    }
-    // Check whether the setLocation function is working correctly
-    public function testSetLocation(){
-
-        // new entity
-        $p = new Measure();
-
-        // Use the setLoc method
-        $p->setLocation("Elvebakk, Åfjord");
-
-        // Assert the result
-        $this->assertEquals("Elvebakk, Åfjord", $p->getLocation());
     }
 
 }
