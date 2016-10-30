@@ -90,6 +90,43 @@ class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("Soil needs only be normal", $p->getSoilConditions());
 
     }
+
+    public function testSetDimensionalDemands(){
+
+        // new entity
+        $p = new Project();
+
+        // Use the setSoilConditions method
+        $p->setDimentionalDemands("We do not know about this field");
+
+        // Assert the result
+        $this->assertEquals("We do not know about this field", $p->getDimentionalDemands());
+    }
+
+    public function testSetSummary(){
+
+        // new entity
+        $p = new Project();
+
+        // Use the setSoilConditions method
+        $p->setSummary("We do not know jack about this field");
+
+        // Assert the result
+        $this->assertEquals("We do not know jack about this field", $p->getSummary());
+    }
+
+    public function testSetDescription(){
+
+        // new entity
+        $p = new Project();
+
+        // Use the setSoilConditions method
+        $p->setDescription("We do not know about this field");
+
+        // Assert the result
+        $this->assertEquals("We do not know about this field", $p->getDescription());
+    }
+
     // Check whether the setProjectType function is working correctly
     public function testSetProjectType(){
 
