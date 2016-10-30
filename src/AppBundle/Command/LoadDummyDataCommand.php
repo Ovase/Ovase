@@ -101,7 +101,8 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$em->persist($pb);
 
 		try {
-            $em->flush(); // Error when flushing?
+            $em->flush(); // Error when flushing: Array to string conversion.
+            // At Overvann\vendor\doctrine\dbal\lib\Doctrine\DBAL\Driver\PDOStatement.php(67): PDOStatement->bindValue(7, Array, 2)
         }
         catch ( Exception $e) {
             echo($e->getMessage());
@@ -112,7 +113,6 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$em->close();
 		$output->writeln('');
 		$output->writeln('Bye!');
-		// WARNING: DO NOT RUN IN prod-mode. Mainly ment for devs ;)
 	}
 
 	/**
