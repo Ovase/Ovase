@@ -89,5 +89,20 @@ class PersonEntityUnitTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals("Elvebakk, Åfjord", $a->getLocation());
     }
     // Here follows person specific tests...
+    // Check whether the setName function is working correctly
+    public function testSetName(){
+
+        // new entity
+        $p = new Person();
+        $fname = 'Jan';
+        $lname = 'B. Nilsen';
+
+        // Use the setPhone method
+        $p->setFirstName($fname);
+        $p->setLastName($lname);
+
+        // Assert the result
+        $this->assertEquals('Jan B. Nilsen', $p->getName());
+    }
 
 }
