@@ -18,17 +18,18 @@ class CompanyController extends Controller
 
     public function createAction(Request $request)
     {
-        if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_USER'))
         {
-            throw $this->createAccessDeniedException('Du må være logget inn for å definere et selskap');
+            throw $this->createAccessDeniedException('Du må være aktivert i systemet og logget inn for å definere et selskap');
         }
         $em = $this->getDoctrine()->getManager();
         $company = new Company();
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
-		if($form->isSubmitted()){
-            $url = $this->get('image_service')->upload($form['image']->getData());
+		if($form->isValid()){
+            $url = null;
+            if ($form['image']->getData() != null) {$url = $this->get('image_service')->upload($form['image']->getData()); }
             $company->setImage($url);
 			$em->persist($company);
             $user = $this->getUser();

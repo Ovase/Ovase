@@ -27,7 +27,10 @@ class PersonController extends Controller
 		$form = $this->createForm(PersonType::class, $person);
 		$form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isValid()){
+            /*$url = null;
+            if ($form['image']->getData() != null) {$url = $this->get('image_service')->upload($form['image']->getData()); }
+            $person->setImage($url); */
             $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
             $user = $this->getUser();
             $user->addActor($person);
