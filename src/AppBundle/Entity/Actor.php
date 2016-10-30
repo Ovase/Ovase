@@ -94,7 +94,6 @@ class Actor
 	public function __construct()
 	{
 		$this->keyKnowledges = new ArrayCollection();
-		$this->location = new ArrayCollection();
 		$this->projects = new ArrayCollection();
 	}
 
@@ -200,7 +199,7 @@ class Actor
 	 *
 	 * @param string $location
 	 *
-	 * @return Project
+	 * @return Actor
 	 */
 	public function setLocation($location)
 	{
@@ -291,7 +290,7 @@ class Actor
 	 */
 	public function getProjects()
 	{
-		return $this->projects;
+		return $this->projects->toArray(); // hotfix
 	}
 
     /**
