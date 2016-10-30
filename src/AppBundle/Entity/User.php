@@ -4,7 +4,6 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Project;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * AppBundle\Entity\User.
@@ -69,7 +68,6 @@ class User implements AdvancedUserInterface, \Serializable
 	 */
 	private $roles;
 	/**
-	 * @var array
 	 * @ORM\ManyToMany(targetEntity="Actor")
 	 * @ORM\JoinTable(name="user_can_edit_actor",
 	 *	  joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -79,7 +77,6 @@ class User implements AdvancedUserInterface, \Serializable
 	private $actors;
 
 	/**
-     	* @var array
      	* @ORM\ManyToMany(targetEntity="Project")
      	* @ORM\JoinTable(name="user_can_edit_project",
      	*      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
@@ -90,11 +87,11 @@ class User implements AdvancedUserInterface, \Serializable
 
 	public function __construct()
 	{
-		$this->roles = new ArrayCollection();
 		$this->isActive = false;
 		$this->picture_path = 'static/images/person/defaultprofile.png';
 		$this->actors = new ArrayCollection();
 		$this->projects = new ArrayCollection();
+        $this->roles = new ArrayCollection();
 	}
 	public function getId()
 	{
@@ -380,7 +377,7 @@ class User implements AdvancedUserInterface, \Serializable
 	 */
 	public function getActors()
 	{
-		return $this->actors;
+		return $this->actors->toArray();
 	}
 
     /**
@@ -418,7 +415,7 @@ class User implements AdvancedUserInterface, \Serializable
 	 */
 	public function getProjects()
 	{
-		return $this->projects;
+		return $this->projects->toArray();
 	}
 
     /**

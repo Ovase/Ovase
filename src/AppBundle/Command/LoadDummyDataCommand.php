@@ -9,7 +9,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Company;
 use AppBundle\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use \DateTime;
+use Exception;
 
 class LoadDummyDataCommand extends ContainerAwareCommand
 {
@@ -85,7 +85,8 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$pa->addActor($sm);
 		$pb->addActor($uncas);
 
-		$em->persist($guestuser);
+		// PHPStorm does not think we have the entity manager.
+        $em->persist($guestuser);
 		$em->persist($plainuser);
 		$em->persist($editoruser);
 		$em->persist($gg);
@@ -99,8 +100,15 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$em->persist($pa);
 		$em->persist($pb);
 
-		$em->flush(); // Error when flushing
-        echo("\nblod");
+		try {
+            $em->flush(); // Error when flushing?
+        }
+        catch ( Exception $e) {
+            echo($e->getMessage());
+            echo('\n');
+            echo($e->getTraceAsString());
+        }
+        echo("\n");
 		$em->close();
 		$output->writeln('');
 		$output->writeln('Bye!');
