@@ -85,6 +85,9 @@ AppBundle\Tests\Entity\UserEntityUnit
 AppBundle\Tests\Form\CompanySearchForm
  [x] Submit valid data
 
+AppBundle\Tests\Form\EditUserType
+ [x] Submit valid data
+
 AppBundle\Tests\Form\PersonSearchForm
  [x] Submit valid data
 
