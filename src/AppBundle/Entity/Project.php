@@ -370,7 +370,7 @@ class Project
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getAreaType()
     {
@@ -378,7 +378,7 @@ class Project
     }
 
     /**
-     * @param array $areaType
+     * @param string $areaType
      */
     public function setAreaType($areaType)
     {
@@ -386,7 +386,7 @@ class Project
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getProjectType()
     {
@@ -394,7 +394,7 @@ class Project
     }
 
     /**
-     * @param array $projectType
+     * @param string $projectType
      */
     public function setProjectType($projectType)
     {
@@ -461,15 +461,22 @@ class Project
      */
     public function getImages()
     {
-        return $this->images;
+        return $this->images->toArray();
     }
 
     /**
+     * Appends an array of images to existing images
      * @param array $images
+     * @return Project
      */
-    public function setImages($images)
+    public function addImages($images)
     {
-        $this->images = $images;
+        foreach ($images as $img) {
+            if (!($this->images->contains($img))) {
+                $this->images->add($img);
+            }
+        }
+        return $this;
     }
 
     /**

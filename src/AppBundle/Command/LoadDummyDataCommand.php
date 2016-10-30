@@ -68,7 +68,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$pa = $this->createProject("Grønt Tak på Operaen", "TEST", '2016-01-01', '2017-07-06', "59.906944, 10.753611", array("green roof", "salt water pollution control", "rainwater deferring"), "Dekk operaen i Bjørvika med et grønt tak for å forhindre at regnvann skylles ut i havet og oversvømmer byen. Avventer per dags dato godkjenning fra Riksantikvaren");
 		$pb = $this->createProject("Multifunksjonelt lekeområde på Ulriken Oppvekstsenter ", "TEST", '2016-11-02', '2017-08-08', "60.40, 6.12", array("multifunctional playground","rainwater deferring, public cost"), "Utform eksisterende lekeareal på Ulriken Oppvekstsenter til å transportere regnvann til et naturlig fuglebasseng og samtidig utfolde lekearealet.");
 
-		// Define relations
+        // Define relations
 		$editoruser->addActor($ovase);
 		$plainuser->addActor($ovase);
 		$editoruser->addActor($uncas);
@@ -82,6 +82,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$okr->addPerson($bh);
 		$pa->addActor($ad);
 		$pa->addActor($okr);
+        echo("\nBLood");
 		$pa->addActor($sm);
 		$pb->addActor($uncas);
 
@@ -164,6 +165,8 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$p->setLocation($locTupl);
 		$p->setField($field);
 
+        $p->setCompetence('None');
+        $p->setImage('http://publicdomainvectors.org/photos/defaultprofile.png'); // Not sure if very naive.
 		return $p;
 	}
 
@@ -190,6 +193,7 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$c->setTlf($phone);
 		$c->setKeyKnowledges($kkArr);
 		$c->setLocation($locTupl);
+        $c->setCompetence('None');
 
 		return $c;
 	}
@@ -215,6 +219,15 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$p->setLocation($locTupl);
 		$p->setTechnicalSolutions($techSolArr);
 		$p->setDescription($desc);
+        $p->setAreaType('default');
+        $p->setCost(100.0);
+        $p->setDescription('test');
+        $p->setDimentionalDemands('none');
+        $p->setWaterArea(1.0);
+        $p->setTotalArea(2.0);
+        $p->setSummary('test');
+        $p->setSoilConditions('test');
+        $p->setProjectType('test');
 
 		return $p;
 	}
