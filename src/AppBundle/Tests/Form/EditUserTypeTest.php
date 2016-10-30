@@ -1,13 +1,13 @@
 <?php
 
-// src/AppBundle/Tests/Form/UserTypeTest.php
+// src/AppBundle/Tests/Form/EditUserTypeTest.php
 namespace AppBundle\Tests\Form;
 
-use AppBundle\Form\UserType;
+use AppBundle\Form\EditUserType;
 use AppBundle\Entity\User;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-class UserTypeTest extends TypeTestCase
+class EditUserTypeTest extends TypeTestCase
 {
 	public function testSubmitValidData()
 	{
@@ -18,7 +18,7 @@ class UserTypeTest extends TypeTestCase
 			'phone' => '45133754',
 		);
 
-		$form = $this->factory->create(UserType::class);
+		$form = $this->factory->create(EditUserType::class);
 
 		$user = new User();
 		$user->fromArray($formData);
