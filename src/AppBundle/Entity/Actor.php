@@ -42,8 +42,6 @@ class Actor
 	private $image;
 
 	/**
-	 * @var array
-	 *
 	 * @ORM\Column(name="key_knowledges", type="array")
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
@@ -156,7 +154,6 @@ class Actor
 	 */
 	public function setKeyKnowledges($keys)
 	{
-		$this->keyKnowledges = $keys;
         foreach ($keys as $k) {
             if (!($this->keyKnowledges->contains($k))) {
                 $this->keyKnowledges->add($k);
@@ -301,11 +298,11 @@ class Actor
     /**
      * Add project the actor is related to
      *
-     * @param \AppBundle\Entity\Project $project
+     * @param Project $project
      *
      * @return Actor
      */
-    public function addProject(\AppBundle\Entity\Project $project)
+    public function addProject(Project $project)
     {
         $this->projects[] = $project;
 
@@ -315,11 +312,11 @@ class Actor
     /**
      * Remove project the actor is related to
      *
-     * @param \AppBundle\Entity\Project $project
+     * @param Project $project
      *
      * @return Actor
      */
-    public function removeProject(\AppBundle\Entity\Project $project)
+    public function removeProject(Project $project)
     {
         $this->projects->removeElement($project);
 

@@ -99,7 +99,6 @@ class Person extends Actor
     {
         $this->companies->removeElement($company);
     }
-    /**
     public function getCompanies()
     {
         return $this->companies;

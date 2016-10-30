@@ -144,11 +144,11 @@ class Company extends Actor
     /**
      * get persons
      *
-     * @return \doctrine\common\collections\collection
+     * @return array
      */
     public function getPersons()
     {
-        return $this->persons;
+        return $this->persons->toArray();
     }
 
     /**

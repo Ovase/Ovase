@@ -82,7 +82,6 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$okr->addPerson($bh);
 		$pa->addActor($ad);
 		$pa->addActor($okr);
-        echo("\nBLood");
 		$pa->addActor($sm);
 		$pb->addActor($uncas);
 
@@ -100,7 +99,8 @@ class LoadDummyDataCommand extends ContainerAwareCommand
 		$em->persist($pa);
 		$em->persist($pb);
 
-		$em->flush();
+		$em->flush(); // Error when flushing
+        echo("\nblod");
 		$em->close();
 		$output->writeln('');
 		$output->writeln('Bye!');
