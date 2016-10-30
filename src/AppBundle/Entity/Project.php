@@ -276,7 +276,8 @@ class Project
 	 */
 	public function setTechnicalSolutions($technicalSolutions)
 	{
-		$this->technicalSolutions = $technicalSolutions;
+		unset($this->technicalSolutions);
+        $this->technicalSolutions = $technicalSolutions;
 
 		return $this;
 	}

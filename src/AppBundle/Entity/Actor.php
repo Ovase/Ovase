@@ -150,13 +150,18 @@ class Actor
 	/**
 	 * Set keyKnowledges
 	 *
-	 * @param array $keyKnowledges
+	 * @param array $keys
 	 *
 	 * @return Actor
 	 */
-	public function setKeyKnowledges($keyKnowledges)
+	public function setKeyKnowledges($keys)
 	{
-		$this->keyKnowledges = $keyKnowledges;
+		$this->keyKnowledges = $keys;
+        foreach ($keys as $k) {
+            if (!($this->keyKnowledges->contains($k))) {
+                $this->keyKnowledges->add($k);
+            }
+        }
 
 		return $this;
 	}
@@ -168,7 +173,7 @@ class Actor
 	 */
 	public function getKeyKnowledges()
 	{
-		return $this->keyKnowledges;
+		return $this->keyKnowledges->toArray();
 	}
 
 	/**
