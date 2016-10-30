@@ -8,73 +8,97 @@ use AppBundle\Entity\Project;
 class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
     
 	// Check whether the setPassword function is working correctly
-	public function testKeyKnowledges(){
+	public function testTechnicalSolutions(){
 		
 		// new entity
 		$p = new Project();
 		
-		$keyKnowledges = array("water engineering","energy","rain gardening","spray ponds","systems administration","multifunctional playground", "green roof");
+		$technicalSolutions = array("water engineering","energy","rain gardening","spray ponds","systems administration","multifunctional playground", "green roof");
 		
 		// Use the setPassword method 
-		$p->setKeyKnowledges($keyKnowledges);
+		$p->setTechnicalSolutions($technicalSolutions);
 		
 		// Assertions
-        $this->assertContains("energy", $p->getKeyKnowledges());
-        $this->assertContains("water engineering", $p->getKeyKnowledges());
-        $this->assertNotEmpty($p->getKeyKnowledges());
+        $this->assertContains("energy", $p->getTechnicalSolutions());
+        $this->assertContains("water engineering", $p->getTechnicalSolutions());
+        $this->assertNotEmpty($p->getTechnicalSolutions());
 
 	}
-	// Check whether the setTlf function is working correctly
-	public function testSetTlf(){
+	// Check whether the setCost function is working correctly
+	public function testSetCost(){
 		
 		// new entity
 		$p = new Project();
 		
 		// Use the setPhone method 
-		$p->setTlf("12312312");
+		$p->setCost(12312312.0);
 		
 		// Assert the result 
-		$this->assertEquals("12312312", $p->getTlf());
+		$this->assertEquals(12312312.0, $p->getCost());
 		
 	}
-    // Check whether the setCompetence function is working correctly
-    public function testSetCompetence(){
+    // Check whether the setCost function is working correctly
+    public function testSetArea(){
 
         // new entity
         $p = new Project();
-        $competence = 'This Project completely incompetent';
 
         // Use the setPhone method
-        $p->setCompetence($competence);
+        $p->setTotalArea(12312312.0);
 
         // Assert the result
-        $this->assertEquals('This Project completely incompetent', $p->getCompetence());
+        $this->assertEquals(12312312.0, $p->getTotalArea());
+    }
+    // Check whether the setName function is working correctly
+    public function testSetName(){
+
+        // new entity
+        $p = new Project();
+        $name = 'This Project completely incompetent';
+
+        // Use the setPhone method
+        $p->setName($name);
+
+        // Assert the result
+        $this->assertEquals('This Project completely incompetent', $p->getName());
 
     }
-    // Check whether the setEmail function is working correctly
-    public function testSetEmail(){
+    // Check whether the setSoilConditions function is working correctly
+    public function testSetSoilConditions(){
 
         // new entity
         $p = new Project();
 
-        // Use the setEmail method
-        $p->setEmail("per@mail.com");
+        // Use the setSoilConditions method
+        $p->setSoilConditions("Soil needs only be normal");
 
         // Assert the result
-        $this->assertEquals("per@mail.com", $p->getEmail());
+        $this->assertEquals("Soil needs only be normal", $p->getSoilConditions());
 
     }
-    // Check whether the setField function is working correctly
-    public function testSetField(){
+    // Check whether the setProjectType function is working correctly
+    public function testSetProjectType(){
 
         // new entity
         $p = new Project();
 
-        // Use the setEmail method
-        $p->setField("engineering");
+        // Use the setType method
+        $p->setProjectType("engineering");
 
         // Assert the result
-        $this->assertEquals("engineering", $p->getField());
+        $this->assertEquals("engineering", $p->getProjectType());
+    }
+    // Check whether the setProjectType function is working correctly
+    public function testSetAreaType(){
+
+        // new entity
+        $p = new Project();
+
+        // Use the setType method
+        $p->setAreaType("residential");
+
+        // Assert the result
+        $this->assertEquals("residential", $p->getAreaType());
     }
     // Check whether the setLocation function is working correctly
     public function testSetLocation(){
@@ -82,7 +106,7 @@ class ProjectEntityUnitTest extends \PHPUnit_Framework_TestCase {
         // new entity
         $p = new Project();
 
-        // Use the setEmail method
+        // Use the setLoc method
         $p->setLocation("Elvebakk, Åfjord");
 
         // Assert the result
