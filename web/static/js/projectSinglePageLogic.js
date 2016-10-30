@@ -43,21 +43,21 @@ function show(page) {
 		showImages.style.display = "none";
 	}
 
-	var nextBtnDisabled = document.getElementById('next').disabled;
-	var previousBtnDisabled = document.getElementById('previous').disabled;
+	var nextBtn = document.getElementById('next');
+	var previousBtn = document.getElementById('previous');
 
 	if(page === 1){
 		displayBlock(["name","startdate","enddate","location","actors","cost","totalArea","waterArea"])
 
-		nextBtnDisabled = false;
-		previousBtnDisabled = true;
+		nextBtn.disabled = false;
+		previousBtn.disabled = true;
 	}
 	if(page === 2){
 		displayBlock(["areaType","projectType","description",
 					  "dimentionalDemands","soilConditions","technicalSolutions"]);
 
-		nextBtnDisabled = false;
-		previousBtnDisabled = false;
+		nextBtn.disabled = false;
+		previousBtn.disabled = false;
 	}
 
 	if(page === lastPage){
@@ -66,9 +66,8 @@ function show(page) {
 		}
 		
 		displayBlock(["captcha","imageFiles","summary","save"]);
-
-		nextBtnDisabled = true;
-		previousBtnDisabled = false;
+		nextBtn.disabled = true;
+		previousBtn.disabled = false;
 	}
 
 	if(page === "next" && pageNumber !== lastPage){
@@ -76,7 +75,7 @@ function show(page) {
 		if(pageNumber === lastPage) {
 			document.getElementById(page).disabled = true;
 		}
-		previousBtnDisabled.disabled = false;
+		previousBtn.disabled = false;
 		show(pageNumber)
 		
 	}
@@ -85,7 +84,7 @@ function show(page) {
 		if(pageNumber === 1) {
 			document.getElementById(page).disabled = true;
 		}
-		nextBtnDisabled = false;
+		nextBtn.disabled = false;
 		show(pageNumber)
 	}
 }
