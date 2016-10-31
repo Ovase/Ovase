@@ -39,8 +39,8 @@ class ProjectController extends Controller
 
     public function createAction(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_GUEST')) { 
-        //TODO: Change from ROLE_GUEST to ROLE_USER.
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_GUEST')) {
+            //TODO: Change from ROLE_GUEST to ROLE_USER.
             throw $this->createAccessDeniedException('Du må være logget inn og aktivert av en redaktør for å lage et prosjekt');
         }
         $em = $this->getDoctrine()->getManager();

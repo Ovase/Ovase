@@ -6,10 +6,14 @@
 
 {% block body %}
 	<body onload="initCreateProjectPage();addHelpText()">
+    <script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
+    <script src="{{ asset('static/js/datepicker-no.js') }}"></script>
+    <script src="{{ asset('static/js/helpText.js') }}"></script>
 	{{ form_start(form) }}
 	<div id="showImages">
-	{% for url in form.vars.value.images %}
+	{% for i,url in form.vars.value.images %}
 		<img src="{{ url }}" style="max-width: 20vw; display:inline"/>
+		<button type="button" onclick="deleteImage(event, {{ i }},'{{ url }}')">Slett</button>
 	{% endfor %}
 	</div>
 	{{ form_widget(form) }}
@@ -28,9 +32,6 @@
 		</button>
 	</div>
 
-	<script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
-	<script src="{{ asset('static/js/datepicker-no.js') }}"></script>
-	<script src="{{ asset('static/js/helpText.js') }}"></script>
 
 {% endblock %}
 

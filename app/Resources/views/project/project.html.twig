@@ -10,8 +10,8 @@
 
 		<ol class="carousel-indicators">
 		{% for key in project.getImages()|keys %}
-			<li data-target="#carousel-example-generic" data-slide-to="{{ key }}"
-			{%if key == 0 %} class="active" {%endif%} >
+			<li data-target="#carousel-example-generic" data-slide-to="{{ loop.index - 1 }}"
+			{%if loop.index == 1%} class="active" {%endif%} >
 			</li>
 		{% endfor %}
 		</ol>
@@ -20,7 +20,7 @@
 	  <!-- Wrapper for slides -->
 		<div class="carousel-inner">
 			{% for key,image in project.getImages() %}
-			<div class="item {%if key == 0%} active {%endif%}">
+			<div class="item {%if loop.index == 1%} active {%endif%}">
 				<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
 			</div>
 			{% endfor %}
@@ -186,10 +186,6 @@
 			<ul>
 				{% for s in project.getTechnicalSolutions() %}
 					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
-				{% endfor %}
-
-				{% for url in project.getImages() %}
-					<p>{{ url }}</p>
 				{% endfor %}
 			</ul>
 			</div>

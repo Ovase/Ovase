@@ -16,6 +16,18 @@ function updatePageButtons(page){
 var pageNumber = null;
 var lastPage = 3;
 
+function deleteImage(event, index, url) {
+	console.log('wtf');
+	alert('ok')
+	$(event.target).remove();
+	console.log('ef');
+	var wtf  = $('#project_images_' + index)
+	wtf.remove();
+	wtf  = $('#project_images_' + index)
+	console.log(wtf)
+	$('img[src="' + url + '"]').remove();
+}
+
 function show(page) {
 	if(parseInt(page)){
 		pageNumber = page;
