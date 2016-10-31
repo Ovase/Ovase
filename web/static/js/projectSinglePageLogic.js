@@ -48,7 +48,7 @@ function show(page) {
 			"totalArea","cost","areaType","projectType","technicalSolutions","location",
 			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
 			"save"];
-	
+
 	if(parseInt(page)){
 		pageNumber = page;
 		updatePageButtons(pageNumber);
@@ -60,7 +60,6 @@ function show(page) {
 			console.log("Missing: "+ids[i]);
 		}
 		document.getElementById(ids[i]+"Div").style.display = "none";
-		console.log(i);
 	}
 
 	var showImages = document.getElementById('showImages');
