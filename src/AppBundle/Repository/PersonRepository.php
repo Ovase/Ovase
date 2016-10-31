@@ -44,7 +44,7 @@ class PersonRepository extends EntityRepository
             ->getQuery()
             ->getResult(); // returns an array, ja?
         $result = array_merge(array_merge($firstNamesearch,$lastNamesearch),$freetxtsearch); // Merge is binary, still extendable with expertise field
-        $result = array_unique($result);
+        $result = array_unique($result, SORT_REGULAR);
         return $result;
 	}
 
