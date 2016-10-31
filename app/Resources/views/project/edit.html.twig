@@ -8,14 +8,20 @@
 	<body onload="initCreateProjectPage();addHelpText()">
     <script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
     <script src="{{ asset('static/js/datepicker-no.js') }}"></script>
-    <script src="{{ asset('static/js/helpText.js') }}"></script>
+    <script src="{{ asset('static/js/helpTextProject.js') }}"></script>
 	{{ form_start(form) }}
-	<div id="showImages">
+	<
+	<div id="showImages" style="margin-left:15vw;margin-right: 15vw;">
 	{% for i,url in form.vars.value.images %}
-		<img src="{{ url }}" style="max-width: 20vw; display:inline"/>
-		<button type="button" onclick="deleteImage(event, {{ i }},'{{ url }}')">Slett</button>
+		<div style="display: inline-block; margin-top: 5vw;">
+		    <img src="{{ url }}" class="editProjectImages"/>
+		    <input class="deleteButton" type="button" value="x" onclick="deleteImage(event, {{ i }},'{{ url }}')"/>
+		</div>
 	{% endfor %}
 	</div>
+	<br>
+	<br>
+	<br>
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
 	</br>

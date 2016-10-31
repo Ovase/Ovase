@@ -1,8 +1,29 @@
+var ids = ["name","images","startdate","enddate","description","soilConditions",
+			"totalArea","cost","areaType","projectType","technicalSolutions","location",
+			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
+			"save"];
+
+
 function initCreateProjectPage() {
 	$( "#project_startdate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$( "#project_enddate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$("#project_actors").select2({width: '25vw'});
 
+	for (var i = 0; i < ids.length; i++) {
+		var input = document.getElementById("project_"+ids[i]);
+
+		if(!input){
+			console.log("Missing: "+ids[i]);
+		}
+
+		input.parentNode.setAttribute('id',ids[i]+'Div');
+	}
+
+	showImages = document.getElementById('showImages');
+	if(showImages) {
+		document.getElementById('imageFilesDiv').appendChild(showImages);
+	}
+	
 	show(1);
 }
 
@@ -28,20 +49,12 @@ function show(page) {
 		updatePageButtons(pageNumber);
 	}
 
-	arr = ["name","images","startdate","enddate","description","soilConditions",
-			"totalArea","cost","areaType","projectType","technicalSolutions","location",
-			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
-			"save"]
-
-	for (var i = 0; i < arr.length; i++) {
-		var input = document.getElementById("project_"+arr[i]);
-
+	for (var i = 0; i < ids.length; i++) {
+		var input = document.getElementById("project_"+ids[i]);
 		if(!input){
-			console.log("Missing: "+arr[i]);
+			console.log("Missing: "+ids[i]);
 		}
-
-		input.parentNode.setAttribute('id',arr[i]+'Div');
-		document.getElementById(arr[i]+"Div").style.display = "none";
+		document.getElementById(ids[i]+"Div").style.display = "none";
 	}
 
 	var showImages = document.getElementById('showImages');
@@ -68,7 +81,8 @@ function show(page) {
 
 	if(page === lastPage){
 		if(showImages) {
-			document.getElementById('showImages').style.display = "inline";
+			document.getElementById('showImages').style.display = "block";
+
 		}
 
 		displayBlock(["captcha","imageFiles","summary","save"]);

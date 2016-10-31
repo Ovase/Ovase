@@ -621,6 +621,27 @@ form div button {
 	position: relative;
 }
 
+.deleteButton {
+	position: relative;
+	vertical-align: top;
+	top:0;
+	margin-left:10vw;
+	left:-40px;
+	width: 40px;
+	height: 40px;
+	color:red;
+}
+
+.editProjectImages{
+	max-width: 10vw;
+	min-width: 10vw;
+	max-height: 20vw;
+	margin-left:1vw;
+	display:inline;
+	position: relative;
+	float:left;
+}
+
 /* ------------ header --------------*/
 #header-logo {
 	max-width: 45px !important;
