@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class PersonType extends AbstractType
 {

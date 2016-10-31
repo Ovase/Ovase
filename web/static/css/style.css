@@ -33,6 +33,11 @@ h2 {
 	font-weight: bold !important;
 }
 
+pActor {
+	font-size: 1.5vw;
+	display:block;
+}
+
 p2 {
 	margin-left: 5vw;
 	font-size: 150%;
@@ -53,6 +58,15 @@ h5 {
 	font-size: 3vw !important;
 	font-weight: bold !important;
 	margin-left:1vw;
+}
+
+hActor{
+	font-size:4vw;
+}
+
+iframe {
+	width: 40vw;
+	height: 30vw;
 }
 
 
@@ -92,19 +106,19 @@ a {
 
 @media only screen and (max-width: 1000px){
 
-.inner-container {
-	width:100% !important;
-	min-width: 700px;
-}
+	.inner-container {
+		width:100% !important;
+		min-width: 700px;
+	}
 
-.content-container h3 {
-	font-style: regular;
-}
+	.content-container h3 {
+		font-style: regular;
+	}
 
-.card-box {
-	width: 600px !important;
-	margin:auto;
-}
+	.card-box {
+		width: 600px !important;
+		margin:auto;
+	}
 
 }
 
@@ -205,6 +219,80 @@ header {
 	border-bottom-right-radius: 20px;
 
 }
+/* --------- ACTOR PROFILES --------- */
+
+#below-header-actor {
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	display: flex;
+	flex-direction: row;
+	max-width: 100%;
+	margin-top: 2em;
+	padding-bottom: 3em;
+}
+
+.infobox-actor {
+	background: rgba(255,255,255,0.85);
+	width: 60%;
+	padding: 1em 2em 1em 3em;
+	color: black;
+	border-bottom-right-radius: 20px;
+
+}
+
+.actor-img {
+	max-width:15vw;
+	max-height:20vw
+}
+
+.actor-ul {
+	font-size: 1vw;
+}
+
+@media only screen and (max-width: 991px){
+
+	#below-header-actor {
+		display: -webkit-flex;
+		-webkit-flex-direction: row;
+		display: flex;
+		flex-direction: row;
+		max-width: 100%;
+		margin-top: 2em;
+		//padding-bottom: 2em;
+	}
+
+
+	.infobox-actor {
+		background: rgba(255,255,255,0.85);
+		width: 60%;
+		padding: 1em 2em 1em 3em;
+		color: black;
+		border-bottom-right-radius: 20px;
+	}
+
+	.actor-img {
+		max-width:30vw;
+		max-height:40vw;
+	}
+
+	.actor-ul {
+		font-size: 2vw;
+	}
+
+	pActor {
+		font-size: 3vw !important;
+	}
+
+	hActor {
+		font-size:10vw;
+	}
+
+	iframe {
+		width: 80vw;
+		height: 60vw;
+	}
+}
+
 
 /* --------- MAIN COLOR STYLES --------- */
 

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CompanyType extends AbstractType
 {
@@ -24,6 +25,20 @@ class CompanyType extends AbstractType
 			->add('type', TextType::class)
 			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer',))
 			->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			->add('persons', EntityType::class, array(
+				// query choices from this entity
+				'label'=>'Medvirkende',
+				'class' => 'AppBundle:Person',
+
+				// use the Actor.email property as the visible option string
+				'choice_label' => 'name',
+
+                // used to render a select box, check boxes or radios
+                'multiple' => true,
+                'required' => false,
+				// 'expanded' => true,
+				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'Vennligst velg de aktørene som har vært med på prosjektet. Trykk først inn på feltet, velg deretter aktører ved enten å trykke på navnet deres eller skriv inn navn og trykk på enter. For å fjerne en aktør fra feltet trykk på krysset til venstre for navnet eller bruk backspace. PS: Dersom aktøren ikke finnes her må den opprettes på aktør siden.')
+			))
 			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,

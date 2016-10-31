@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block body %}
-
+<body onload="fixParentDivs()">
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}
+
+<script src="{{ asset('static/js/helpTextMeasure.js') }}"></script>
 {% endblock %}
 
 
