@@ -48,7 +48,7 @@
 
 						<div>
 								{% for key,image in project.getImages() %}
-									{%if key == 0%}
+									{%if loop.index == 1%}
 										<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
 									{%endif%}
 								{% endfor %}
