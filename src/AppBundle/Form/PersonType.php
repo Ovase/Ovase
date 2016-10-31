@@ -16,13 +16,13 @@ class PersonType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('image', FileType::class, array('mapped' => false, 'required'=>false, ))
+            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('email', EmailType::class)
-            ->add('tlf', TextType::class)
-            ->add('competence', TextareaType::class)
-			->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
+            ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
+			->add('firstName', TextType::class,array('label'=>'Fornavn',))
+            ->add('lastName', TextType::class,array('label'=>'Etternavn',))
+			->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,

@@ -48,9 +48,9 @@
 
 						<div>
 								{% for key,image in project.getImages() %}
-								<div class="item {%if key == 0%} active {%endif%}">
-									<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
-								</div>
+									{%if loop.index == 1%}
+										<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
+									{%endif%}
 								{% endfor %}
 						</div>
 

@@ -7,11 +7,25 @@
 {% block body %}
 <body onload="checkCookie()">
 
-    <button type="button" onclick="show('persons');">Personer</button>
-    <button type="button" onclick="show('companies');">Selskaper</button>
+    <button type="button" id="btn-persons" class="btn btn-default" onclick="show('persons');">Personer</button>
+    <button type="button" id="btn-companies" class="btn btn-default" onclick="show('companies');">Selskaper</button>
+
+    <br>
+    <br>
 
     <div id="persons">
+<<<<<<< HEAD
         <a href={{ path('create_person') }}>Lag person</a>
+=======
+
+        Lag person
+        <a href="/person/ny">
+          <button type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          </button>
+        </a>
+        </br>
+>>>>>>> master
         <br>
         <h5>Personer</h5>
 
@@ -29,18 +43,26 @@
                     <div style="background-color:#d3d3d3; display:block">
                         <div style="margin:0 2vw 0 2vw">
                             <div>
-                                <h1 class="card-title">{{ person.getFirstName() }} {{person.getLastName()}}</h1>
+                                <h1 class="card-title">{{ person.getName()}}</h1>
+                                <h4 class="card-subtitle text-muted">{{person.getCompetence()}}</h4>
+
                             </div>
                             <div>
-                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                                <img class="center-block card-img" src="{{ person.getImage() }}" alt="Card image" style="max-width:10vw;max-height:15vw">
                             </div>
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
 
+<<<<<<< HEAD
                                 <p class="card-text">
                                         {{ person.getEmail() }}
                                         <br>
                                         {#{{ person.getPhone() }} #}
+=======
+                                <p class="card-text" style="padding-bottom: 15px">
+                                        Email: {{ person.getEmail() }}</br>
+                                        Telefonnummer: {{ person.getTlf() }}
+>>>>>>> master
                                 </p>
                             </div>
                         </div>
@@ -52,8 +74,19 @@
     </div>
 
     <div id="companies" style="display:none">
+<<<<<<< HEAD
         <a href={{ path('create_company') }}>Lag selskap</a>
         <br>
+=======
+        Lag selskap
+        <a href="/company/ny">
+          <button type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+          </button>
+        </a>
+        </br>
+        </br>
+>>>>>>> master
         <h5>Selskaper</h5>
 
         <!-- Company search -->
@@ -70,15 +103,17 @@
                         <div style="margin:0 2vw 0 2vw">
                             <div>
                                 <h1 class="card-title">{{ company.getName() }}</h1>
+                                <h4 class="card-subtitle text-muted">Type: {{company.getType()}}</h4>
                             </div>
                             <div>
-                                <img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                                <img class="center-block card-img" src="{{ company.getImage() }}" alt="Card image" style="max-width:10vw;max-height:15vw">
                             </div>
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
 
-                                <p class="card-text">
-                                        Id: {{ company.getId() }}
+                                <p class="card-text" style="padding-bottom: 15px">
+                                        Email: {{ company.getEmail() }} </br>
+                                        Telefonnummer: {{company.getTlf()}}
                                 </p>
                             </div>
                         </div>
@@ -90,4 +125,3 @@
 
     <script src="{{ asset('static/js/showActor.js') }}"></script>
 {% endblock %}
-

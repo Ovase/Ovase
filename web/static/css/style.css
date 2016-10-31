@@ -139,6 +139,7 @@ header {
 	margin-right: 5vw;
 }
 
+
 #logo-box {
 	margin: auto 1.6em auto 3em;
 
@@ -304,6 +305,35 @@ a.btn-text {
 	text-decoration: none !important;
 	color: white !important;
 }
+
+.btn-project-step{
+	border: none;
+}
+
+#project_description {
+	width: 40vw;
+}
+
+#project_summary{
+	width: 40vw;
+}
+
+.help-block {
+	margin-left: 15vw;
+	margin-right: 15vw;
+}
+
+.help-btn {
+	height: 25px;
+	width: 25px;
+	padding: 0px 0px 0px 0px !important;
+	margin-left: 10px !important;
+	font-size: 20px !important;
+}
+
+#company_location {
+	width: 500px;
+}
 /* ----------- FRONT PAGE CARDS ----------------*/
 
 .fp-card {
@@ -399,7 +429,7 @@ a.actor-card {
 /* ------------ STYLING FORMS --------------*/
 
 form div label {
-	display: block;
+	display: inline;
 	font-size: 200%;
 	color: #6D6D6D !important;
 	margin-left: 15vw;
@@ -415,12 +445,19 @@ input[id$="_search_form_search"] {
 	background-color: #E5E5E5;
 	width: 30vw;
 	min-width: 250px;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 button[id$="_search_form_save"] {
 	margin-left:0px;
 	height: 34px;
 	background-color: #E5E5E5;
+	margin-top:-1px;
+}
+
+label[for$="_search_form_search"] {
+	display: block;
 }
 
 @media only screen and (max-width: 991px){
@@ -446,6 +483,7 @@ form div input {
 	width: 300px;
 	margin-left: 15vw;
 	margin-bottom: 15px;
+	display: block;
 }
 
 form div textarea {
@@ -454,6 +492,7 @@ form div textarea {
 	min-width: 300px;
 	height: 100px;
 	margin-left: 15vw;
+	display: block;
 }
 
 form div img {
@@ -467,6 +506,7 @@ form div button {
 
 .select2 {
 	margin-left: 15vw !important;
+	display: block !important;
 }
 
 .select2-search__field {
@@ -504,44 +544,6 @@ a.header-text{
 	color: grey !important;
 }
 
-/* --------- CONTENT --------- */
-
-
-.content-container {
-}
-
-.content-container h3 {
-	font-weight:200;
-}
-
-#content-inner {
-	margin: auto;
-	padding-bottom:;
-	background:rgba(255,255,255,0.7);
-	background: linear-gradient(
-	rgba(255,255,255,0.5),
-	rgba(255,255,255,0.6),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.7),
-	rgba(255,255,255,0.6),
-	rgba(255,255,255,0.4),
-	rgba(255,255,255,0.2)
-	);
-
-
-}
-
-#buffer-container {
-	margin:auto;
-	height: 30px;
-}
-
-
-
-
 
 /* -------- POPUP BOX ---------*/
 
@@ -553,68 +555,6 @@ h1 {
   margin: 80px 0;
 }
 
-
-
-
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
-
-.popup {
-  margin: 5em auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  top: 10em;
-  transition: all 5s ease-in-out;
-}
-
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
-}
-.popup .close:hover {
-  color: #12a79d;
-}
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
-
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
-}
 /*---------- BODY -------------*/
 
 #wrap{
@@ -629,8 +569,6 @@ h1 {
 }
 
 /* --------- FOOTER --------- */
-
-
 
 .footer a {
 	color: #6D6D6D;

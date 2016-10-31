@@ -28,7 +28,7 @@ class ProjectType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('name', TextType::class, array('label' => 'Navn','attr' => array('placeholder' => 'Navn på prosjekt'),'label_attr' => array('id' => 'name_label')))
+			->add('name', TextType::class, array('label' => 'Navn','attr' => array('help' => 'Vennligst skriv inn navnet prosjektet skal ha på nettsiden.')))
 
 
 			->add('images', CollectionType::class, array(
@@ -36,40 +36,39 @@ class ProjectType extends AbstractType
                 'disabled' => true,
                 'required' => false,
                 'allow_delete' => true,
-                'label_attr' => array('id'=>'images_label')
             ))
 
-            ->add('imageFiles', FileType::class, array('required' => false, 'mapped' => false, 'multiple' => true,'label_attr' => array('id'=>'imageFiles_label')))
+            ->add('imageFiles', FileType::class, array('required' => false, 'label' => 'Last opp bilder','mapped' => false, 'multiple' => true,'attr' => array('help' => "Vennligst klikk 'Velg filer', trykk deg frem til mappen med bildene du vil laste opp. Velg deretter ett eller flere bilder du vil ha på prosjekt siden din. For å velge flere bilder holder du inn 'ctrl' knappen og trykker på bildene du vil ha (bildene må ligge i samme mappe). Deretter trykk 'Åpne'.")))
 
 			->add('startdate', TextType::class,array(
 			    'label' => 'Start dato',
-                'attr' => array(
-			        'onchange' => 'disableDates()'),
-                    'label_attr' => array(
-			            'id' => 'startdate_label')))
+                'attr' => array('onchange' => 'disableDates()','help' => 'Vennligst trykk på feltet og velg en dato fra kalenderen. Du kan også skrive inn dato selv på formen: dd.mm.åååå')
+                ))
 
-			->add('enddate', TextType::class, array('label' => 'Slutt dato','label_attr' => array('id' => 'enddate_label')))
+			->add('enddate', TextType::class, array('label' => 'Slutt dato','attr' => array('help' => 'Vennligst trykk på feltet og velg en dato fra kalenderen. Du kan også skrive inn dato selv på formen: dd.mm.åååå. Det vil ikke gå ann å sette en slutt-dato som er før start-datoen du har satt.')))
 
-			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('placeholder' => 'Beskrivelse av prosjektet'),'label_attr' => array('id' => 'description_label')))
+			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('help' => 'Vennligst fyll inn en beskrivelse av prosjektet. Hva er utgangs-situasjonen, hvorfor ble det bygget/gjort tiltak? Hvis det har vært problemer eller skader på forhånd, hva var det?')))
 
-            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
-            ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('placeholder' => 'Oppsummering'),'label_attr' => array('id' => 'description_label')))
+            ->add('summary', TextareaType::class, array('attr' => array('placeholder' => 'Oppsummering','help' => 'Vennligst fyll inn en oppsummering av prosjektet. Hvordan håndteres overvannet? Hvor går vannets veier? Hvorfor ble tiltaket/-ene valgt? Erfaringer og tips - Hva er viktig for suksess i lignende prosjekter? ')))
+            
+            ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('help' => 'Vennligst fyll inn de dimensjonerende kravene til overvannshåndtering til prosjektet. For eksempel fordrøyningsvolum på tomta før påslipp til kommunalt anlegg.')))
 
-            ->add('soilConditions', TextareaType::class, array('attr' => array('placeholder' => 'Beskrivelse av jordsmonnet'),'label_attr' => array('id' => 'soilConditions_label')))
+            ->add('soilConditions', TextareaType::class, array('label' => 'Beskrivelse av jordsmonnet','attr' => array('help' => 'Vennligst fyll inn en beskrivelse av jordsmonnet der prosjektet er gjennomført.')))
 
-            ->add('totalArea', NumberType::class, array('attr' => array('placeholder' => 'Areal'),'label_attr' => array('id' => 'totalArea_label')))
-            ->add('waterArea', NumberType::class, array('attr' => array('placeholder' => 'Water area'),'label_attr' => array('id' => 'totalArea_label')))
+            ->add('totalArea', NumberType::class, array('label' => 'Totalt areal for prosjektområde','attr' => array('help' => 'Vennligst fyll inn totalt areal for prosjektområde i m². Vennligst fyll inn et heltall uten mellomrom, komma eller punktum.')))
+            
+            ->add('waterArea', NumberType::class, array('label' => 'Totalt areal for nedbørsfelt','attr' => array('help' => 'Vennligst fyll inn totalt areal for nedbørsfelt til overvannstiltakene i m². Vennligst fyll inn et heltall uten mellomrom, komma eller punktum.')))
 
-            ->add('cost', MoneyType::class, array('currency' => false,'label_attr' => array('id' => 'cost_label')))
+            ->add('cost', MoneyType::class, array('label'=>'Totale kostnader','currency' => false,'attr' => array('help' => 'Vennligst fyll inn totale kostnader for hele byggeprosjektet i NOK. Vennligst fyll inn et heltall uten mellomrom, komma eller punktum.')))
 
-            ->add('areaType', TextType::class, array('attr' => array('placeholder' => 'Type område.'),'label_attr' => array('id' => 'areaType_label')))
+            ->add('areaType', TextType::class, array('label'=>'Område-type','attr' => array('placeholder' => 'Type område.','help' => 'Vennligst fyll inn område-type for prosjektet. For eksempel \'Skolegård\'')))
 
-            ->add('projectType', TextType::class, array('attr' => array('placeholder' => 'Prosjektkategori'),'label_attr' => array('id' => 'projectType_label')))
+            ->add('projectType', TextType::class, array('label'=>'Prosjekt-type','attr' => array('placeholder' => 'Prosjektkategori','help' => 'Vennligst fyll inn prosjekt-type for prosjektet. For eksempel \'Kommunalt\'.')))
 
-            ->add('technicalSolutions', TextType::class, array('attr' => array('placeholder' => 'Oppgi tiltak. Skill med komma og mellomrom. Hvert ord skal samsvare med en artikkel i wikien.', 'style' => 'width: 800px'),'label_attr' => array('id' => 'technicalSolutions_label')))
+            ->add('technicalSolutions', TextType::class, array('label'=>'Tekniske løsninger','attr' => array('help' => 'Vennligst oppgi tiltak som er brukt i prosjektet. Skill tiltakene med komma og mellomrom. Hvert ord skal samsvare med en artikkel i <a href="http://ovase.no/wiki/index.php/Forside">wikien</a> . For eksempel \'Grønne tak for flomdemping, Regnbed\'.')))
 
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
-			->add('location', TextType::class, array('label' => 'Lokasjon','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'", 'style' => 'width: 600px'),'label_attr' => array('id' => 'location_label')))
+			->add('location', TextType::class, array('label' => 'Lokasjon','attr' => array('help' => 'Vennligst fyll inn en adresse på formen \'gatenavn gatenummer, tettsted\'. For eksempel \'Kongens gate 9, 7013 Trondheim\'.')))
 
 
 			/* This form field has better usability, but I could not make the api key work.
@@ -107,6 +106,7 @@ class ProjectType extends AbstractType
 			*/
 			->add('actors', EntityType::class, array(
 				// query choices from this entity
+				'label'=>'Medvirkende',
 				'class' => 'AppBundle:Actor',
 
 				// use the Actor.email property as the visible option string
@@ -116,11 +116,9 @@ class ProjectType extends AbstractType
                 'multiple' => true,
                 'required' => false,
 				// 'expanded' => true,
-				'label_attr' => array('id' => 'actors_label'),
-				'attr' => array('class'=>'js-example-basic-multiple js-states form-control')
+				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'Vennligst velg de aktørene som har vært med på prosjektet. Trykk først inn på feltet, velg deretter aktører ved enten å trykke på navnet deres eller skriv inn navn og trykk på enter. For å fjerne en aktør fra feltet trykk på krysset til venstre for navnet eller bruk backspace. PS: Dersom aktøren ikke finnes her må den opprettes på aktør siden.')
 			))
-			->add('captcha', CaptchaType::class, array('attr' => array('placeholder' => 'Skriv tegnene'),
-				'label_attr' => array('id' => 'captcha_label'),
+			->add('captcha', CaptchaType::class, array('attr' => array('placeholder' => 'Skriv tegnene','help' => 'test catpcha'),
 				'label' => 'Bevis at du ikke er en robot',
 				'width' => 200,
 				'height' => 50,

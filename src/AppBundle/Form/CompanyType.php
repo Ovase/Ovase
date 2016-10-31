@@ -16,14 +16,14 @@ class CompanyType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('image', FileType::class, array('mapped' => false, 'required'=>false,))
+            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('email', EmailType::class)
-            ->add('tlf', TextType::class)
-			->add('name', TextType::class)
-            ->add('competence', TextareaType::class)
+            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
+			->add('name', TextType::class,array('label'=>'Navn',))
+            ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
 			->add('type', TextType::class)
-			->add('org_nr', TextType::class)
-			->add('location', TextType::class, array('attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer',))
+			->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('captcha', CaptchaType::class, array(
 			'label' => ' ',
 			'width' => 200,
