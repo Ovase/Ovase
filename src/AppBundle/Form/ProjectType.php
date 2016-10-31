@@ -33,9 +33,7 @@ class ProjectType extends AbstractType
 
 			->add('images', CollectionType::class, array(
                 'entry_type' => HiddenType::class,
-                'disabled' => true,
-                'required' => false,
-                'allow_delete' => true,
+                'allow_delete' => true
             ))
 
             ->add('imageFiles', FileType::class, array('required' => false, 'label' => 'Last opp bilder','mapped' => false, 'multiple' => true,'attr' => array('help' => "Vennligst klikk 'Velg filer', trykk deg frem til mappen med bildene du vil laste opp. Velg deretter ett eller flere bilder du vil ha på prosjekt siden din. For å velge flere bilder holder du inn 'ctrl' knappen og trykker på bildene du vil ha (bildene må ligge i samme mappe). Deretter trykk 'Åpne'.")))

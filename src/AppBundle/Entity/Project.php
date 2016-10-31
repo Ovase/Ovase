@@ -458,11 +458,19 @@ class Project
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getImages()
     {
-        return $this->images->toArray();
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
     }
 
     /**

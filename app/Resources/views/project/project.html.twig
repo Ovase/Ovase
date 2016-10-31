@@ -37,12 +37,6 @@
 
 	<div class="row">
 		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
-<<<<<<< HEAD
-			{#  <a style="margin-left:5vw;" href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a>  "/anlegg/rediger/{{ project.getId() }}">{{"Rediger prosjekt"}}</a> #}
-			<p></p>
-=======
->>>>>>> master
-
 			{% if message is defined %}
 				<p>{{ message }}</p>
 			{% endif %}
@@ -185,22 +179,6 @@
 			{# For options on usage of the Embed API, see https://developers.google.com/maps/documentation/embed/guide #}
 			</iframe>
 			</div>
-<<<<<<< HEAD
-			<p2> <b>Bidragsytere</b> </p2>
-			<div class="divMargins">
-			<ul>
-				{% for actor in project.getActors() %}
-					{% if actor.getClassName == "Company"%}
-						<li> Selskap: <a href= "{{  path('company', {'id': actor.getId()}) }}">{{actor.getName}}</a></li>
-					{% else %}
-						<li> Person: <a href= "{{  path('person', {'id': actor.getId()}) }}">{{actor.getName}}</a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
-			</div>
-=======
-
->>>>>>> master
 			<p2> <b>Lenker</b> </p2>
 			<div class="divMargins">
 			<ul>
