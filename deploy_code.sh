@@ -5,7 +5,6 @@
 # Usage: 	./deploy_code.sh ovase 			to deploy the main ovase page
 # 		./deploy_code.sh wiki 			to deploy the wiki part
 # 		./deploy_code.sh ovase wiki 		to deploy both parts
-# DEPRECATED
 
 OVASE_DIR=/var/www/html
 WIKI_DIR=/var/www/html/web/wiki
