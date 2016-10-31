@@ -19,10 +19,11 @@ class ActorListController extends Controller
 		if($companyForm->isSubmitted() && $companyForm->isValid()){
 			$companySearchTerm = $companyForm->getData()['search'];
 		}
- 
-		$companies = $this->get('doctrine')
+        $companySearchTerm = (explode(" ",$companySearchTerm));
+
+        $companies = $this->get('doctrine')
 			->getRepository('AppBundle:Company')
-			->findCompaniesBySearch($companySearchTerm);
+			->findCompaniesBySearchArray($companySearchTerm);
 
 		$personSearchTerm = '';
 		$personForm = $this -> createForm(PersonSearchForm::class);
@@ -31,10 +32,11 @@ class ActorListController extends Controller
 		if($personForm->isSubmitted() && $personForm->isValid()){
 			$personSearchTerm = $personForm->getData()['search'];
 		}
- 
+        $personSearchTerm = (explode(" ",$personSearchTerm));
+
 		$persons = $this->get('doctrine')
 			->getRepository('AppBundle:Person')
-			->findPersonsBySearch($personSearchTerm);
+			->findPersonsBySearchArray($personSearchTerm);
 
 		return $this->render(
 			'actor/actorList.html.twig', array(

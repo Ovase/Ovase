@@ -4,10 +4,11 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     encoders:
         AppBundle\Entity\User:
-            algorithm: sha256
+            algorithm: bcrypt
+            cost: 15
     role_hierarchy:
         ROLE_EDITOR: ROLE_USER
-        ROLE_USER: IS_AUTHENTICATED_FULLY, ROLE_GUEST
+        ROLE_USER: IS_AUTHENTICATED_FULLY
         # See also: http://symfony.com/doc/current/security.html#roles
     providers:
         our_db_provider:
@@ -38,5 +39,5 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logginn, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/glemt-passord, roles: IS_AUTHENTICATED_ANONYMOUSLY }

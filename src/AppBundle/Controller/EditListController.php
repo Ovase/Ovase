@@ -9,7 +9,7 @@ class EditListController extends Controller
   
 	public function showAction()
 	{
-		/*
+		/* // To be fixed
 		if(!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR'))
         {
             throw $this->createAccessDeniedException('Kun redaktører kan vise denne siden');

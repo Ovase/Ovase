@@ -16,7 +16,7 @@ class CompanyType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false))
+            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('email', EmailType::class)
             ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
 			->add('name', TextType::class,array('label'=>'Navn',))

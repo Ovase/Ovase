@@ -29,7 +29,7 @@ class MeasureController extends Controller
             $project->addMeasure($measure);
             $em->persist($project);
             $em->flush();
-            return $this->redirect('/anlegg/' . $project->getId());
+            return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
         }
         return $this->render(
             'measure/create.html.twig', array(
@@ -54,7 +54,7 @@ class MeasureController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($measure);
             $em->flush();
-            return $this->redirect('/anlegg/' . $project->getId());
+            return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
         }
         return $this->render(
             'measure/create.html.twig', array(
@@ -76,6 +76,6 @@ class MeasureController extends Controller
         $measure = $em->find('AppBundle:Measure', $request->get('measure_id'));
         $em->remove($measure);
         $em->flush();
-        return $this->redirect('/anlegg/' . $project->getId());
+        return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
     }
 }

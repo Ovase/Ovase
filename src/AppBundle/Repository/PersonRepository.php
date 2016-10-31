@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
-
 /**
  * PersonRepository
  *
@@ -19,23 +18,28 @@ class PersonRepository extends EntityRepository
 		return $person;
 	}
 
-	public function findPersonsBySearch($search)
+	public function findPersonsBySearch($searchTerm)
 	{
-        $firstNamesearch = $this->createQueryBuilder('Person')
+        return $this->createQueryBuilder('Person')
 			->select('Person')
-			->where('Person.firstName IN (:searchTerm)')
-			->setParameter('searchTerm', $search)
+			->where('Person.firstName LIKE :searchTerm')
+			->orWhere('Person.lastName LIKE :searchTerm')
+			->orWhere('Person.field LIKE :searchTerm')
+            ->orWhere('Person.competence LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
-			->getResult(); // returns an array, ja?
-        $lastNamesearch = $this->createQueryBuilder('Person')
-            ->select('Person')
-            ->where('Person.lastName IN (:searchTerm)')
-            ->setParameter('searchTerm', $search)
-            ->getQuery()
-            ->getResult(); // returns an array, ja?
-        $result = array_merge($firstNamesearch,$lastNamesearch); // Merge is binary, still extendable with expertise field
-        return $result;
+			->getResult();
 	}
+
+	public function findPersonsBySearchArray(array $search)
+    {
+        $freetxtsearch = array(); // $fieldsearch
+        foreach ($search as $s) {
+            $freetxtsearch = array_merge($freetxtsearch, $this->findPersonsBySearch($s));
+        }
+        $freetxtsearch = array_unique($freetxtsearch, SORT_REGULAR);
+        return $freetxtsearch;
+    }
 
 	public function findEditedPersons()
 	{

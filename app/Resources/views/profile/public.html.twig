@@ -6,8 +6,7 @@
 			<header>
 				<div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
 				<div id="title-box">
-					<h1><a href="/"><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
-					<h2>Profil</h2>
+					<h1><a href={{ path('home') }}><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
 				</div>
 			</header>
 			<div id="below-header">
@@ -17,21 +16,18 @@
 						<p>Registrert epost-adresse: {{user.Email()}}</p>
 						<p>Navn: {{user.getFullName()}} </p>
 						{#<p>Telefonnummer er {{user.getphone()}} </p>#}
-						<p>Vedkommende kan redigere følgende prosjekter: </p>
+						{#<p>Vedkommende kan redigere følgende prosjekter: </p>
 						{% for project in user.getProjects() %}
 							<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
 						{% endfor %}
 						<p>Vedkommende kan redigere følgende aktører: </p>
 						{% for a in user.getActors() %}
-							{# This is called duct typing #}
 							{% if a.getFirstName is defined %}
-								{# This is a person #}
 								<p><a href= {{ path("person", {'id': a.getId()}) }}> {{ a.getName() }}</p></a>
 							{% else %}
-								{# This is a company #}
 								<p><a href= {{ path("company", {'id': a.getId()}) }}> {{ a.getName() }}</p></a>
 							{% endif %}
-						{% endfor %}
+						{% endfor %}#}
 					{% endif %}
 				</section>
 			</div>

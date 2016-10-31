@@ -13,7 +13,6 @@ class PersonController extends Controller
 
 		$requestID = $request->get('id');
 		$person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
-
 		return $this->render(':actor:person.html.twig', array('person' => $person, 'key'=> $this->container->getParameter('api_key')));
 	}
 
@@ -23,18 +22,21 @@ class PersonController extends Controller
         {
             throw $this->createAccessDeniedException('Du må være en aktivert bruker og logget inn for å få lov til å definere en ny aktør');
         }
+        $em = $this->getDoctrine()->getManager();
 		$person = new Person();
 		$form = $this->createForm(PersonType::class, $person);
 		$form->handleRequest($request);
 
-        if($form->isSubmitted()){
-            $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->create($person);
+        if($form->isValid()){
+            $url = null;
+            if ($form['image']->getData() != null) {$url = $this->get('image_service')->upload($form['image']->getData()); }
+            $person->setImage($url);
+            $em->persist($person);
             $user = $this->getUser();
             $user->addActor($person);
-			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();
-            return $this->redirect('/actor');
+            return $this->redirectToRoute('person', array( 'id' => $person->getId() ));
         }
         return $this->render(
             'actor/create_person.html.twig', array(

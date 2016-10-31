@@ -36,6 +36,7 @@ class Person extends Actor
     private $companies;
 
     public function __construct() {
+        parent::__construct(); // Not really necessary.
         $this->companies = new ArrayCollection();
     }
 	/**
@@ -101,20 +102,10 @@ class Person extends Actor
         $this->companies[] = $company;
         return $this;
     }
-    /**
-     * Remove companies.
-     *
-     * @param Company $company
-     */
     public function removeCompany($company)
     {
         $this->companies->removeElement($company);
     }
-    /**
-     * Get companies
-     *
-     * @return \doctrine\common\collections\collection
-     */
     public function getCompanies()
     {
         return $this->companies;

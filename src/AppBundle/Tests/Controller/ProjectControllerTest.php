@@ -2,7 +2,7 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Doctrine\ORM\NoResultException;
+//use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ProjectControllerTest extends WebTestCase
@@ -10,36 +10,34 @@ class ProjectControllerTest extends WebTestCase
 	/**
 	 * @var \Doctrine\ORM\EntityManager
 	 */
-	private $em;
+	//private $em;
 
 	public function setUp()
 	{
 		self::bootKernel();
-		$this->em = static::$kernel->getContainer()
+		/*$this->em = static::$kernel->getContainer()
 			->get('doctrine')
-			->getManager();
+			->getManager(); */
 	}
 
     /*
      * As a non-authenticated user, attempting to create a project must fail and redirect you to login page.
-     * This test asserts that that there is al ink on the overview page /anlegg
+     * This test asserts that that there is al ink on the overview page /prosjekter.
+     * TODO: Make test with authorized client that succesfully creates a project.
      * */
 	public function testCreateProjectFail()
 	{
 		$client = static::createClient();
-		$crawler = $client->request('GET', '/anlegg');
+		$crawler = $client->request('GET', '/prosjekter');
 
 		//Check if link to create Project exists
-		$links = $crawler
-			->filter('a:contains("Lag nytt prosjekt")');
-		$this->assertEquals(1, $links->count());
-
-		$link = $links
-			->eq(0)
-			->link();
+        $button = $crawler->filter('button:contains("+")')->selectButton('+'); // link exchanged with button
+		$this->assertEquals(1, $button->count());
+        $this->assertGreaterThan(0,$crawler->filter('title:contains("Prosjekter")')->count());
+        $this->assertGreaterThan(0,$crawler->filter('span:contains("Lag nytt prosjekt")')->count());
 
 		//Click on create project and get redirected to login
-		$client->click($link);
+        $crawler = $client->click($crawler->filter('a:contains("+")')->eq(0)->link());
 		$this->assertEquals(302, $client->getResponse()->getStatusCode());
         $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -62,7 +60,8 @@ class ProjectControllerTest extends WebTestCase
 	public function tearDown()
 	{
 		parent::tearDown();
-		$projects = null;
+		/*
+        $projects = null;
 		try {
 			$projects = $this->em->getRepository('AppBundle:Project')->findProjectsByName('testProsjekt');
 		} catch (NoResultException $t) {
@@ -76,6 +75,6 @@ class ProjectControllerTest extends WebTestCase
 			$this->em->flush();
 		}
 		$this->em->close();
-        unset($this->em);
+        unset($this->em); */
 	}
 }

@@ -33,18 +33,18 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
 		// Prohibit command from executing unless we are in the test environment
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
-		// outputs multiple lines to the console (adding "\n" at the end of each line)
+		// outputs multiple lines to the console (adding "" at the end of each line)
 		$output->writeln([
 			'Purging test data. Stand by.',
 			'============',
 			'',
 		]);
 
-		// outputs a message followed by a "\n"
+		// outputs a message followed by a ""
 		$output->writeln('Howdy, partner!');
 
-		// outputs a message without adding a "\n" at the end of the line
-		$output->write("KILL ALL THE TEST DATAS!\n");
+		// outputs a message without adding a "" at the end of the line
+		$output->write("KILL ALL THE TEST DATAS!");
 
 		// Entity Manager
 		$em = $this->getContainer()->get('doctrine')->getManager();
@@ -93,7 +93,7 @@ class PurgeDummyDataCommand extends ContainerAwareCommand
 
 		$em->flush();
 		$em->close();
-		$output->write('\n');
+		$output->write('');
 		$output->writeln('Bye!');
 		// WARNING: DO NOT RUN IN prod-mode. Mainly ment for devs ;)
 	}

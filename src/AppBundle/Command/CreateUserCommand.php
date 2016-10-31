@@ -29,20 +29,20 @@ class CreateUserCommand extends ContainerAwareCommand
 		// Prohibit command from executing unless we are in the test environment. Tip: use --env=dev
 		// $env = $this->getContainer()->getParameter('kernel.environment');
 		// if (($env != 'dev') { return; }
-		// outputs multiple lines to the console (adding "\n" at the end of each line)
+		// outputs multiple lines to the console (adding "" at the end of each line)
 		$output->writeln([
 			'User Creator',
 			'============',
 			'',
 		]);
 
-		// outputs a message followed by a "\n"
+		// outputs a message followed by a ""
 		$output->writeln('Howdy, partner!');
 
-		// outputs a message without adding a "\n" at the end of the line
+		// outputs a message without adding a "" at the end of the line
 		$output->write('You are about to ');
-		$output->write('create a user.\n');
-		$output->write('\n');
+		$output->write('create a user.');
+		$output->writeln('');
 		$helper = $this->getHelper('question');
 
 		$unameq = new Question('Please enter the email of the new user ', '0');
@@ -72,30 +72,22 @@ class CreateUserCommand extends ContainerAwareCommand
 		while ($pass === '0') {
 			$pass = $helper->ask($input, $output, $passq);
 		}
-		$salt = null;
-		$isSecure = 0;
-		$ATTEMPTS_LIMIT = 999; // fail-safe for infinite loop
 
-		while (!$isSecure && $ATTEMPTS_LIMIT > 0) {
-			$salt = bin2hex(openssl_random_pseudo_bytes(32, $isSecure));
-			$ATTEMPTS_LIMIT--;
-		}
-		$pass_hash = $this->getContainer()->get('security.encoder_factory')->getEncoder(User::class)->encodePassword($pass, $salt);
 		$em = $this->getContainer()->get('doctrine')->getManager();
 		$user = new User();
 		$user->setEmail($uname);
 		$user->setFirstName($firstName);
 		$user->setLastName($lastName);
 		$user->setPhone($phone);
-		$user->setPassword($pass_hash);
-		$user->setSalt($salt);
-		// Authorize User as... GUEST, because laziness.
-		$user->addRole("ROLE_GUEST");
-		$user->setIsActive(0); // For now, you may NOT pass...
+        $encoder = $this->getContainer()->get('security.password_encoder');
+        $encodedPass = $encoder->encodePassword($user, $pass);
+        $user->setPassword($encodedPass);
+		$user->addRole("ROLE_USER");
+		$user->setIsActive(1);
 		$em->persist($user);
 		$em->flush();
 		$em->close();
-		$output->write('\n');
+		$output->writeln('');
 		$output->writeln('Bye!');
 		// WARNING: DO NOT RUN IN prod-mode. Mainly ment for devs ;)
 	}

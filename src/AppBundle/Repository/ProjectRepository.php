@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Project;
 use Doctrine\ORM\EntityRepository;
 
 class ProjectRepository extends EntityRepository
@@ -12,12 +11,24 @@ class ProjectRepository extends EntityRepository
 		return $this->createQueryBuilder('Project')
 			->select('Project')
 			->where('Project.name LIKE :searchTerm')
-			->orwhere('Project.location LIKE :searchTerm')
-//			->orWhere('Project.technicalSolutions LIKE :searchTerm')
-			->setParameter('searchTerm', '%'.strtolower($searchTerm).'%')
+			->orWhere('Project.location LIKE :searchTerm')
+            ->orWhere('Project.summary LIKE :searchTerm')
+            ->orWhere('Project.description LIKE :searchTerm')
+            ->orWhere('Project.technicalSolutions LIKE :searchTerm')
+            ->orWhere('Project.dimentionalDemands LIKE :searchTerm')
+			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
 			->getResult();
 	}
+    public function findProjectsByArray($searchArr) // Description, demands and summary are text fields that could interchange
+    {
+        $freetxtsearch = array();
+        foreach ($searchArr as $s) {
+            $freetxtsearch = array_merge($freetxtsearch, $this->findProjectsBySearch($s));
+        }
+        $freetxtsearch = array_unique($freetxtsearch);
+        return $freetxtsearch;
+    }
 
 	// Used for testing purposes
 	public function findProjectsByName($name)

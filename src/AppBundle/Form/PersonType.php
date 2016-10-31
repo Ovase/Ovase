@@ -6,6 +6,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
@@ -15,7 +16,7 @@ class PersonType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false))
+            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('email', EmailType::class)
             ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
             ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))

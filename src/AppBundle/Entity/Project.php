@@ -86,7 +86,6 @@ class Project
 	private $projectType = "";
 
     /**
-     * @var array
      * @ORM\Column(type="array")
      * @Assert\All({
      *   @Assert\Type("string"),
@@ -95,7 +94,6 @@ class Project
     private $images;
 
     /**
-     * @var array
      * @ORM\Column(type="array")
      * @Assert\All({
      *	 @Assert\NotBlank,
@@ -127,7 +125,6 @@ class Project
     private $cost;
 
 	/**
-	 * @var array
 	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="projects")
 	 * @ORM\JoinTable(name="actor_in_project")
 	 */
@@ -147,7 +144,7 @@ class Project
 	public function __construct()
 	{
 		$this->actors = new ArrayCollection();
-        $this->technicalSolutions = array();
+        $this->technicalSolutions = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->measures = new ArrayCollection();
 	}
@@ -216,7 +213,7 @@ class Project
 	 */
 	public function getActors()
 	{
-		return $this->actors;
+		return $this->actors->toArray();
 	}
 
 	/**
@@ -270,13 +267,17 @@ class Project
 	/**
 	 * Set technicalSolutions
 	 *
-	 * @param array $technicalSolutions
+	 * @param array $tech
 	 *
 	 * @return Project
 	 */
-	public function setTechnicalSolutions($technicalSolutions)
+	public function setTechnicalSolutions($tech)
 	{
-		$this->technicalSolutions = $technicalSolutions;
+        foreach ($tech as $k) {
+            if (!($this->technicalSolutions->contains($k))) {
+                $this->technicalSolutions->add($k);
+            }
+        }
 
 		return $this;
 	}
@@ -288,7 +289,7 @@ class Project
 	 */
 	public function getTechnicalSolutions()
 	{
-		return $this->technicalSolutions;
+		return $this->technicalSolutions->toArray();
 	}
 
 	/**
@@ -317,11 +318,11 @@ class Project
 	/**
 	 * Add Actors.
 	 *
-	 * @param actor $actor
+	 * @param Actor $actor
 	 *
 	 * @return Project
 	 */
-	public function addActor($actor)
+	public function addActor(Actor $actor)
 	{
 		$this->actors[] = $actor;
 		return $this;
@@ -370,7 +371,7 @@ class Project
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getAreaType()
     {
@@ -378,7 +379,7 @@ class Project
     }
 
     /**
-     * @param array $areaType
+     * @param string $areaType
      */
     public function setAreaType($areaType)
     {
@@ -386,7 +387,7 @@ class Project
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getProjectType()
     {
@@ -394,7 +395,7 @@ class Project
     }
 
     /**
-     * @param array $projectType
+     * @param string $projectType
      */
     public function setProjectType($projectType)
     {
@@ -461,15 +462,22 @@ class Project
      */
     public function getImages()
     {
-        return $this->images;
+        return $this->images->toArray();
     }
 
     /**
+     * Appends an array of images to existing images
      * @param array $images
+     * @return Project
      */
-    public function setImages($images)
+    public function addImages($images)
     {
-        $this->images = $images;
+        foreach ($images as $img) {
+            if (!($this->images->contains($img))) {
+                $this->images->add($img);
+            }
+        }
+        return $this;
     }
 
     /**

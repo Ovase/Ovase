@@ -27,7 +27,7 @@ class ActorControllerTest extends WebTestCase
 	public function testCreateCompanyFail()
 	{
 		$client = static::createClient();
-		$crawler = $client->request('GET', '/actor');
+		$crawler = $client->request('GET', '/akteur');
 
 		//Check if link to create company exists
 		$links = $crawler

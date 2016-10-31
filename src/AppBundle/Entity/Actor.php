@@ -42,8 +42,6 @@ class Actor
 	private $image;
 
 	/**
-	 * @var array
-	 *
 	 * @ORM\Column(name="key_knowledges", type="array")
 	 * @Assert\All({
 	 *	 @Assert\NotBlank,
@@ -94,7 +92,6 @@ class Actor
 	public function __construct()
 	{
 		$this->keyKnowledges = new ArrayCollection();
-		$this->location = new ArrayCollection();
 		$this->projects = new ArrayCollection();
 	}
 
@@ -151,13 +148,17 @@ class Actor
 	/**
 	 * Set keyKnowledges
 	 *
-	 * @param array $keyKnowledges
+	 * @param array $keys
 	 *
 	 * @return Actor
 	 */
-	public function setKeyKnowledges($keyKnowledges)
+	public function setKeyKnowledges($keys)
 	{
-		$this->keyKnowledges = $keyKnowledges;
+        foreach ($keys as $k) {
+            if (!($this->keyKnowledges->contains($k))) {
+                $this->keyKnowledges->add($k);
+            }
+        }
 
 		return $this;
 	}
@@ -169,7 +170,7 @@ class Actor
 	 */
 	public function getKeyKnowledges()
 	{
-		return $this->keyKnowledges;
+		return $this->keyKnowledges->toArray();
 	}
 
 	/**
@@ -200,7 +201,7 @@ class Actor
 	 *
 	 * @param string $location
 	 *
-	 * @return Project
+	 * @return Actor
 	 */
 	public function setLocation($location)
 	{
@@ -291,17 +292,17 @@ class Actor
 	 */
 	public function getProjects()
 	{
-		return $this->projects;
+		return $this->projects->toArray(); // hotfix
 	}
 
     /**
      * Add project the actor is related to
      *
-     * @param \AppBundle\Entity\Project $project
+     * @param Project $project
      *
      * @return Actor
      */
-    public function addProject(\AppBundle\Entity\Project $project)
+    public function addProject(Project $project)
     {
         $this->projects[] = $project;
 
@@ -311,11 +312,11 @@ class Actor
     /**
      * Remove project the actor is related to
      *
-     * @param \AppBundle\Entity\Project $project
+     * @param Project $project
      *
      * @return Actor
      */
-    public function removeProject(\AppBundle\Entity\Project $project)
+    public function removeProject(Project $project)
     {
         $this->projects->removeElement($project);
 
