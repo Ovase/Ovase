@@ -14,18 +14,13 @@
     <br>
 
     <div id="persons">
-<<<<<<< HEAD
-        <a href={{ path('create_person') }}>Lag person</a>
-=======
-
         Lag person
-        <a href="/person/ny">
+        <a href={{ path('create_person') }}>
           <button type="button" class="btn btn-default" aria-label="Left Align">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
           </button>
         </a>
         </br>
->>>>>>> master
         <br>
         <h5>Personer</h5>
 
@@ -53,16 +48,9 @@
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
 
-<<<<<<< HEAD
-                                <p class="card-text">
-                                        {{ person.getEmail() }}
-                                        <br>
-                                        {#{{ person.getPhone() }} #}
-=======
                                 <p class="card-text" style="padding-bottom: 15px">
                                         Email: {{ person.getEmail() }}</br>
                                         Telefonnummer: {{ person.getTlf() }}
->>>>>>> master
                                 </p>
                             </div>
                         </div>
@@ -74,19 +62,14 @@
     </div>
 
     <div id="companies" style="display:none">
-<<<<<<< HEAD
-        <a href={{ path('create_company') }}>Lag selskap</a>
-        <br>
-=======
         Lag selskap
-        <a href="/company/ny">
+        <a href={{ path('create_company') }}>
           <button type="button" class="btn btn-default" aria-label="Left Align">
             <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
           </button>
         </a>
         </br>
         </br>
->>>>>>> master
         <h5>Selskaper</h5>
 
         <!-- Company search -->
