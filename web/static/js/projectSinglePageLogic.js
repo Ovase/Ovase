@@ -17,14 +17,8 @@ var pageNumber = null;
 var lastPage = 3;
 
 function deleteImage(event, index, url) {
-	console.log('wtf');
-	alert('ok')
 	$(event.target).remove();
-	console.log('ef');
-	var wtf  = $('#project_images_' + index)
-	wtf.remove();
-	wtf  = $('#project_images_' + index)
-	console.log(wtf)
+	$('#project_images_' + index).remove();
 	$('img[src="' + url + '"]').remove();
 }
 
@@ -41,7 +35,7 @@ function show(page) {
 
 	for (var i = 0; i < arr.length; i++) {
 		var input = document.getElementById("project_"+arr[i]);
-		
+
 		if(!input){
 			console.log("Missing: "+arr[i]);
 		}
@@ -49,7 +43,7 @@ function show(page) {
 		input.parentNode.setAttribute('id',arr[i]+'Div');
 		document.getElementById(arr[i]+"Div").style.display = "none";
 	}
-	
+
 	var showImages = document.getElementById('showImages');
 	if(showImages) {
 		showImages.style.display = "none";
@@ -76,7 +70,7 @@ function show(page) {
 		if(showImages) {
 			document.getElementById('showImages').style.display = "inline";
 		}
-		
+
 		displayBlock(["captcha","imageFiles","summary","save"]);
 		nextBtn.disabled = true;
 		previousBtn.disabled = false;
@@ -89,7 +83,7 @@ function show(page) {
 		}
 		previousBtn.disabled = false;
 		show(pageNumber)
-		
+
 	}
 	if(page === "previous" && pageNumber !== 1){
 		pageNumber -= 1;
