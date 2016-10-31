@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,8 +30,14 @@ class Person extends Actor
 	 */
 	private $lastName;
 
+	/**
+     * @ORM\ManyToMany(targetEntity="Company", mappedBy="persons")
+     */
+    private $companies;
+
     public function __construct() {
         parent::__construct(); // Not really necessary.
+        $this->companies = new ArrayCollection();
     }
 	/**
 	 * Set firstName
@@ -90,7 +97,7 @@ class Person extends Actor
     	return $this->firstName . " " . $this->lastName;
     }
 
-    /*public function addCompany($company)
+    public function addCompany($company)
     {
         $this->companies[] = $company;
         return $this;
@@ -102,7 +109,7 @@ class Person extends Actor
     public function getCompanies()
     {
         return $this->companies;
-    } */
+    }
 
     /**
      * Get name of subclass. Used when viewing 

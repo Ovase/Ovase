@@ -36,7 +36,7 @@ class ActorListController extends Controller
 
 		$persons = $this->get('doctrine')
 			->getRepository('AppBundle:Person')
-			->findPersonsBySearch($personSearchTerm);
+			->findPersonsBySearchArray($personSearchTerm);
 
 		return $this->render(
 			'actor/actorList.html.twig', array(
