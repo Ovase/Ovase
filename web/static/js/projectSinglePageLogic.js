@@ -1,13 +1,12 @@
-var ids = ["name","images","startdate","enddate","description","soilConditions",
-			"totalArea","cost","areaType","projectType","technicalSolutions","location",
-			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
-			"save"];
-
-
 function initCreateProjectPage() {
 	$( "#project_startdate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$( "#project_enddate" ).datepicker( $.datepicker.regional[ "no" ] );
 	$("#project_actors").select2({width: '25vw'});
+
+	ids = ["name","images","startdate","enddate","description","soilConditions",
+			"totalArea","cost","areaType","projectType","technicalSolutions","location",
+			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
+			"save"];
 
 	for (var i = 0; i < ids.length; i++) {
 		var input = document.getElementById("project_"+ids[i]);
@@ -44,6 +43,12 @@ function deleteImage(event, index, url) {
 }
 
 function show(page) {
+
+	ids = ["name","images","startdate","enddate","description","soilConditions",
+			"totalArea","cost","areaType","projectType","technicalSolutions","location",
+			"actors","captcha","imageFiles","summary","waterArea","dimentionalDemands",
+			"save"];
+
 	if(parseInt(page)){
 		pageNumber = page;
 		updatePageButtons(pageNumber);

@@ -6,6 +6,10 @@ home:
     path: /
     defaults: { _controller: AppBundle:Home:showHome}
 
+aboutus:
+    path: /omoss
+    defaults: { _controller: AppBundle:AboutUs:show}
+
 projectlist:
   path: /prosjekter
   defaults: { _controller: AppBundle:ProjectList:projectList}
