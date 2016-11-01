@@ -2,6 +2,7 @@
 // src/AppBundle/Command/PromoteUserCommand.php
 namespace AppBundle\Command;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -69,34 +70,21 @@ class PromoteUserCommand extends ContainerAwareCommand
 		$output->writeln('You have just selected: '.$role);
 		if ($role == "inactive") {
 			$user->setIsActive(0); // YOU SHALL NOT PASS!!!...
-			if (in_array("ROLE_USER", $user->getRoles())) {
-				$user->removeRole("ROLE_USER");
-			}
-			if (in_array("ROLE_EDITOR", $user->getRoles())) {
-				$user->removeRole("ROLE_EDITOR");
-			}
+            $roles = new ArrayCollection();
+            $user->setRoles($roles);
 		}
 		else if ($role == "ROLE_USER") {
-			$user->setIsActive(1); // For now, you may pass...
-			if (!in_array("ROLE_USER", $user->getRoles())) {
-				$user->addRole("ROLE_USER");
-			}
-			if (in_array("ROLE_EDITOR", $user->getRoles())) {
-				$user->removeRole("ROLE_EDITOR");
-			}
+            $user->setIsActive(1); // For now, you may pass...
+            $roles = new ArrayCollection();
+            $roles->add("ROLE_USER");
+            $user->setRoles($roles);
 		}
 		else if ($role == "ROLE_EDITOR") {
-			$user->setIsActive(1); // For now, you may pass...
-			/*if (!in_array("inactive", $user->getRoles())) {
-				$user->addRole("inactive");
-			}
-			if (!in_array("ROLE_USER", $user->getRoles())) {
-				$user->addRole("ROLE_USER");
-			}
-			if (!in_array("ROLE_EDITOR", $user->getRoles())) {
-				$user->addRole("ROLE_EDITOR");
-			} */
-			$user->setRoles(array("ROLE_EDITOR", "ROLE_USER", "inactive"));
+            $user->setIsActive(1); // For now, you may pass...
+		    $roles = new ArrayCollection();
+            $roles->add("ROLE_USER");
+            $roles->add("ROLE_EDITOR");
+		    $user->setRoles($roles);
 		}
 		else { return; }
 		$em->persist($user);

@@ -162,15 +162,6 @@ class User implements AdvancedUserInterface, \Serializable
 	}
 
 	/**
-	 * Get the user's roles in the system.
-	 *
-	 * @return array
-	 */
-	public function getRoles()
-	{
-		return $this->roles->toArray(); // Her ligger problemet.
-	}
-	/**
 	 * Set lastName.
 	 *
 	 * @param string $lastName
@@ -353,22 +344,6 @@ class User implements AdvancedUserInterface, \Serializable
 		return $this->email;
 	}
 
-    /**
-     * Set roles
-     *
-     * @param array $roles
-     *
-     * @return User
-     */
-    public function setRoles($roles)
-    {
-        foreach ($roles as $r) {
-            if (!($this->roles->contains($r)) && ($r == "ROLE_EDITOR" || $r == "ROLE_USER")) {
-                $this->addRole($r);
-            }
-        }
-        return $this;
-    }
 
     /**
 	 * Get the actors the user can edit
@@ -453,5 +428,21 @@ class User implements AdvancedUserInterface, \Serializable
     public function canEditActor($actor)
     {
     	return $this->actors->contains($actor);
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles->toArray();
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 }
