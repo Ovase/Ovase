@@ -16,15 +16,16 @@ class PersonType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
-			->add('email', EmailType::class)
-            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
-            ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
 			->add('firstName', TextType::class,array('label'=>'Fornavn',))
             ->add('lastName', TextType::class,array('label'=>'Etternavn',))
-			->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+			->add('email', EmailType::class,array('label'=>'E-post',))
+            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
+            ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+            ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
+            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('captcha', CaptchaType::class, array(
-			'label' => ' ',
+			'attr' => array('placeholder' => 'Skriv tegnene'),
+			'label' => 'Bevis at du ikke er en robot',
 			'width' => 200,
 			'height' => 50,
 			'length' => 5,

@@ -47,7 +47,7 @@ class ProjectType extends AbstractType
 
 			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('help' => 'Vennligst fyll inn en beskrivelse av prosjektet. Hva er utgangs-situasjonen, hvorfor ble det bygget/gjort tiltak? Hvis det har vært problemer eller skader på forhånd, hva var det?')))
 
-            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('placeholder' => 'Oppsummering','help' => 'Vennligst fyll inn en oppsummering av prosjektet. Hvordan håndteres overvannet? Hvor går vannets veier? Hvorfor ble tiltaket/-ene valgt? Erfaringer og tips - Hva er viktig for suksess i lignende prosjekter? ')))
+            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('help' => 'Vennligst fyll inn en oppsummering av prosjektet. Hvordan håndteres overvannet? Hvor går vannets veier? Hvorfor ble tiltaket/-ene valgt? Erfaringer og tips - Hva er viktig for suksess i lignende prosjekter? ')))
             
             ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('help' => 'Vennligst fyll inn de dimensjonerende kravene til overvannshåndtering til prosjektet. For eksempel fordrøyningsvolum på tomta før påslipp til kommunalt anlegg.')))
 
@@ -59,9 +59,9 @@ class ProjectType extends AbstractType
 
             ->add('cost', MoneyType::class, array('label'=>'Totale kostnader','currency' => false,'attr' => array('help' => 'Vennligst fyll inn totale kostnader for hele byggeprosjektet i NOK. Vennligst fyll inn et heltall uten mellomrom, komma eller punktum.')))
 
-            ->add('areaType', TextType::class, array('label'=>'Område-type','attr' => array('placeholder' => 'Type område.','help' => 'Vennligst fyll inn område-type for prosjektet. For eksempel \'Skolegård\'')))
+            ->add('areaType', TextType::class, array('label'=>'Område-type','attr' => array('help' => 'Vennligst fyll inn område-type for prosjektet. For eksempel \'Skolegård\'')))
 
-            ->add('projectType', TextType::class, array('label'=>'Prosjekt-type','attr' => array('placeholder' => 'Prosjektkategori','help' => 'Vennligst fyll inn prosjekt-type for prosjektet. For eksempel \'Kommunalt\'.')))
+            ->add('projectType', TextType::class, array('label'=>'Prosjekt-type','attr' => array('help' => 'Vennligst fyll inn prosjekt-type for prosjektet. For eksempel \'Kommunalt\'.')))
 
             ->add('technicalSolutions', TextType::class, array('label'=>'Tekniske løsninger','attr' => array('help' => 'Vennligst oppgi tiltak som er brukt i prosjektet. Skill tiltakene med komma og mellomrom. Hvert ord skal samsvare med en artikkel i <a href="http://ovase.no/wiki/index.php/Forside">wikien</a> . For eksempel \'Grønne tak for flomdemping, Regnbed\'.')))
 

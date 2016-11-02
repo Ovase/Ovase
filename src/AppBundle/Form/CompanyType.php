@@ -17,14 +17,12 @@ class CompanyType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
-			->add('email', EmailType::class)
-            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
 			->add('name', TextType::class,array('label'=>'Navn',))
-            ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
+			->add('email', EmailType::class,array('label'=>'E-post',))
+            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
+            ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('type', TextType::class)
 			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer',))
-			->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('persons', EntityType::class, array(
 				// query choices from this entity
 				'label'=>'Medvirkende',
@@ -39,8 +37,11 @@ class CompanyType extends AbstractType
 				// 'expanded' => true,
 				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'Vennligst velg de aktørene som har vært med på prosjektet. Trykk først inn på feltet, velg deretter aktører ved enten å trykke på navnet deres eller skriv inn navn og trykk på enter. For å fjerne en aktør fra feltet trykk på krysset til venstre for navnet eller bruk backspace. PS: Dersom aktøren ikke finnes her må den opprettes på aktør siden.')
 			))
+			->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
+			->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('captcha', CaptchaType::class, array(
-			'label' => ' ',
+			'attr' => array('placeholder' => 'Skriv tegnene'),
+			'label' => 'Bevis at du ikke er en robot',
 			'width' => 200,
 			'height' => 50,
 			'length' => 5,

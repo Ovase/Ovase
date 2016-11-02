@@ -65,7 +65,7 @@ class Project
 	 * @Assert\Type("float")
 	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
 	 */
-	private $totalArea = 0.0;
+	private $totalArea;
 
 	/**
 	 * @var string

@@ -542,6 +542,7 @@ form div label {
 	font-size: 200%;
 	color: #6D6D6D !important;
 	margin-left: 15vw;
+	margin-top: 20px;
 }
 
 div[id$="_search_form"] {
