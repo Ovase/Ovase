@@ -23,21 +23,29 @@
 						<p>E-post: {{user.Email()}}</p>
 						<p>Navn: {{user.getFullName()}} </p>
 						<p>Telefon nummer: {{user.getphone()}} </p>
-						<p>Du kan redigere følgende prosjekter: </p>
+
+						{% if user.getProjects() is not empty %}<p>Du kan redigere følgende prosjekter: </p>
+						<ul>
 						{% for project in user.getProjects() %}
-							<p><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></p>
+							<li><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></li>
 						{% endfor %}
-						<p>Du kan redigere følgende aktører: </p>
+						</ul>
+						{% endif %}
+
+						{% if user.getActors() is not empty %}<p>Du kan redigere følgende aktører: </p>
+						<ul>
 						{% for a in user.getActors() %}
 							{# This is called duct typing #}
 							{% if a.getFirstName is defined %}
 								{# This is a person #}
-								<p><a href= {{ path("person", {'id': a.getId()}) }}> {{ a.getName() }}</p></a>
+								<li><a href= {{ path("person", {'id': a.getId()}) }}> {{ a.getName() }}</a></li>
 							{% else %}
 								{# This is a company #}
-								<p><a href= {{ path("company", {'id': a.getId()}) }}> {{ a.getName() }}</p></a>
+								<li><a href= {{ path("company", {'id': a.getId()}) }}> {{ a.getName() }}</a></li>
 							{% endif %}
 						{% endfor %}
+						</ul>
+						{% endif %}
 					{% endif %}
 				</section>
 			</div>

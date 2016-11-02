@@ -43,7 +43,7 @@
 
                             </div>
                             <div>
-                                <img class="center-block card-img" src="{{ person.getImage() }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                                <img class="center-block card-img" src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image" style="max-width:10vw;max-height:15vw">
                             </div>
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
@@ -89,7 +89,7 @@
                                 <h4 class="card-subtitle text-muted">Type: {{company.getType()}}</h4>
                             </div>
                             <div>
-                                <img class="center-block card-img" src="{{ company.getImage() }}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                                <img class="center-block card-img" src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image" style="max-width:10vw;max-height:15vw">
                             </div>
                             <div id="p-text">
                                 <p class="card-subtitle">Kontaktinformasjon:</p>
