@@ -44,7 +44,6 @@ class ActorControllerTest extends WebTestCase
         $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
 
-		/* //
 		$companyName = 'test selskap';
 		//Get the form
 		$form = $crawler->selectButton('company[save]')->form(array(
@@ -57,7 +56,7 @@ class ActorControllerTest extends WebTestCase
 		$client->followRedirect();
 
 		//Check if the company exists in the list
-		$this->assertContains($companyName, $client->getResponse()->getContent()); */
+		$this->assertContains($companyName, $client->getResponse()->getContent());
 	}
 
 
