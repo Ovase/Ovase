@@ -514,6 +514,27 @@ a.actor-card {
 	}
 }
 
+#aboutusDiv {
+	margin-right: 19.5vw;
+	margin-left: 19.5vw;
+}
+
+#aboutusImg {
+	max-width: 40vw;
+}
+
+@media screen and (max-width: 991px) {
+	#aboutusDiv {
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	#aboutusImg {
+		max-width: 70vw;
+	}
+}
+
+
 /* ------------ STYLING FORMS --------------*/
 
 form div label {

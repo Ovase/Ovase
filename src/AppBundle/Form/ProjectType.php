@@ -47,7 +47,7 @@ class ProjectType extends AbstractType
 
 			->add('description', TextareaType::class, array('label' => 'Beskrivelse','attr' => array('help' => 'Vennligst fyll inn en beskrivelse av prosjektet. Hva er utgangs-situasjonen, hvorfor ble det bygget/gjort tiltak? Hvis det har vært problemer eller skader på forhånd, hva var det?')))
 
-            ->add('summary', TextareaType::class, array('attr' => array('placeholder' => 'Oppsummering','help' => 'Vennligst fyll inn en oppsummering av prosjektet. Hvordan håndteres overvannet? Hvor går vannets veier? Hvorfor ble tiltaket/-ene valgt? Erfaringer og tips - Hva er viktig for suksess i lignende prosjekter? ')))
+            ->add('summary', TextareaType::class, array('label' => 'Oppsummering','attr' => array('placeholder' => 'Oppsummering','help' => 'Vennligst fyll inn en oppsummering av prosjektet. Hvordan håndteres overvannet? Hvor går vannets veier? Hvorfor ble tiltaket/-ene valgt? Erfaringer og tips - Hva er viktig for suksess i lignende prosjekter? ')))
             
             ->add('dimentionalDemands', TextareaType::class, array('label' => 'Dimensjonerende krav','attr' => array('help' => 'Vennligst fyll inn de dimensjonerende kravene til overvannshåndtering til prosjektet. For eksempel fordrøyningsvolum på tomta før påslipp til kommunalt anlegg.')))
 
