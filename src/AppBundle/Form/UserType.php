@@ -28,11 +28,11 @@ class UserType extends AbstractType
 				'first_options'  => array('label' => 'Passord'),
 				'second_options' => array('label' => 'Gjenta Passord'),
 				)
-			)
-			->add('save', SubmitType::class, array('label' => 'Registrer bruker','attr'=>array('class'=>'btn btn-default')));
+			);
 		if ($env != 'test') {
 			$builder->add('captcha', CaptchaType::class, array(
-				'label' => ' ',
+				'attr' => array('placeholder' => 'Skriv tegnene'),
+				'label' => 'Bevis at du ikke er en robot',
 				'width' => 200,
 				'height' => 50,
 				'length' => 5,
@@ -42,6 +42,7 @@ class UserType extends AbstractType
 				'background_color' => [255, 255, 255],
 			));
 		}
+		$builder->add('save', SubmitType::class, array('label' => 'Registrer bruker','attr'=>array('class'=>'btn btn-default')));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
