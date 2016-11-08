@@ -19,7 +19,7 @@
 
             <div id="below-header-actor">
                 <div>
-                        <img class="center-block card-img actor-img" src="{{ company.getImage() }}" alt="Card image">
+                        <img class="center-block card-img actor-img" src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image">
                 </div>
                 <section class="infobox-actor">
                     <pActor><b>Type:</b> {{ company.getType () }}</pActor>
