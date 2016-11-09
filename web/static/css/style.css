@@ -558,8 +558,18 @@ input[id$="_search_form_search"] {
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 }
+input[type="checkbox"], input[type="radio"] {
+	display:inline-block;
+	width:20px;
+}
+label[for^="form_users"]{
+	font-size:15px;
+	margin-left: 0px !important;
+	margin-right: 50px;
+}
 
 button[id$="_search_form_save"] {
+	display:block;
 	margin-left:0px;
 	height: 34px;
 	background-color: #E5E5E5;

@@ -1,25 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class ="header-container" id="big-header-container">
-		<div class="inner-container" id="header-inner">
-			<header>
-				<div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
-				<div id="title-box">
-					<h1><a href={{ path("home") }}><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
-					<h2>Aktiver brukere</h2>
-				</div>
-			</header>
-			<div id="below-header">
-				<section class="infobox">
-					{% if reform is defined %}
-						{{ form_start(reform) }}
-						{{ form_widget(reform) }}
-						{{ form_end(reform) }}
-					{% endif %}
-				</section>
-			</div>
-		</div>
-		<a href= {{ path("deactivate_users") }}><h3>Deaktiver brukere</h3></a>
-	</div>
+
+<div style="margin-right: 15vw;margin-left: 15vw">
+		{% if reform is defined %}
+			{{ form_start(reform) }}
+			{{ form_widget(reform) }}
+			{{ form_end(reform) }}
+		{% endif %}
+		<br>
+	
+	<a href="{{ path('deactivate_users') }}" class="btn btn-default" role="button">Deaktiver brukere</a>
+</div>
+
 {% endblock %}

@@ -54,10 +54,10 @@
 		{% if is_granted('ROLE_EDITOR') %}
 			<br>Liste over <a href= {{ path("userlist") }}>registrerte brukere</a><br>
 			{# Import editor panel here. TODO: Bulk activate zero or more users #}
-			<a href= {{ path("activate_users") }}><h3>Aktiver brukere</h3></a>
+			<a href= {{ path("activate_users") }} class="btn btn-default" role="button">Aktiver brukere</a>
 			{#{ render(controller('AppBundle:Profile:activateUsers')) }#}
 			{#% include 'profile/activateusers.html.twig' %#}
-			<a href= {{ path("deactivate_users") }}><h3>Deaktiver brukere</h3></a>
+			<a href= {{ path("deactivate_users") }} class="btn btn-default" role="button">Deaktiver brukere</a>
 			{#{ render(controller('AppBundle:Profile:deactivateUsers')) }#}
 			{#% include 'profile/deactivateusers.html.twig' %#}
 		{% endif %}

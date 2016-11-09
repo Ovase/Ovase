@@ -1,27 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class ="header-container" id="big-header-container">
-		<div class="inner-container" id="header-inner">
-			<header>
-				<div id="logo-box"><img src="{{ asset('static/images/header/ovase_logo.png') }}" alt="Ovase sin logo"></div>
-				<div id="title-box">
-					<h1><a href={{ path('home') }}><strong>O</strong>VER<strong>VA</strong>NNS<strong>SE</strong>NTERET</a></h1>
-					<h2>Deaktiver brukere</h2>
-				</div>
-			</header>
-			<br>
-			<p></p>
-			<div id="below-header">
-				<section class="infobox">
-					{% if deform is defined %}
-						{{ form_start(deform) }}
-						{{ form_widget(deform) }}
-						{{ form_end(deform) }}
-					{% endif %}
-				</section>
-			</div>
-		</div>
-		<a href= {{ path("activate_users") }}><h3>Aktiver brukere</h3></a>
+
+	<div style="margin-right: 15vw;margin-left: 15vw">
+		{% if deform is defined %}
+			{{ form_start(deform) }}
+			{{ form_widget(deform) }}
+			{{ form_end(deform) }}
+		{% endif %}
+		<br>
+	
+	<a href="{{ path("activate_users") }}" class="btn btn-default" role="button">Aktiver brukere</a>
 	</div>
+
 {% endblock %}
