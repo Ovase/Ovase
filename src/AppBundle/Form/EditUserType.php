@@ -16,9 +16,9 @@ class EditUserType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('email', EmailType::class)
-			->add('lastName', TextType::class,array('label'=>'Etternavn',))
+			->add('email', EmailType::class,array('label'=>'E-post',))
 			->add('firstName', TextType::class,array('label'=>'Fornavn',))
+			->add('lastName', TextType::class,array('label'=>'Etternavn',))
 			->add('phone', TextType::class,array('label'=>'Telefonnummer',))
 
 			->add('save', SubmitType::class, array('label' => 'Endre bruker','attr'=>array('class'=>'btn btn-default')));
