@@ -8,7 +8,15 @@
 #<a name="MacOS">Mac OS</a>
 ##Installation guide
 
-###1: Clone the project
+Open the terminal ([iTerm2](https://www.iterm2.com) is recommended on mac)
+
+###1: Navigate to the directory you want the project to be installed in
+
+```
+cd ~/
+```
+
+###2: Clone the project
 
 Using [git](https://git-scm.com/doc):
 
@@ -17,7 +25,7 @@ git clone https://github.com/vegardbb/Overvann.git
 ```
 
 
-###2: Install php
+###3: Install php
 
 ####Using [homebrew](http://brew.sh): 
 
@@ -31,7 +39,7 @@ brew install php71
 Install from [php.net](http://php.net/manual/en/install.macosx.php)
 
 
-###3: Install mySQL
+###4: Install mySQL
 
 ####Using [homebrew](http://brew.sh): 
 
@@ -44,7 +52,7 @@ brew install mysql
 Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installation-pkg.html)
 
 
-###4: Download and install mySQL server:
+###5: Download and install mySQL server:
 
 IMPORTANT: Write down the password shown to you after installing.
 
@@ -52,7 +60,7 @@ From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install t
 
 
 
-###5: Download all dependencies:
+###6: Download all dependencies:
 ```
 # Make sure you are in the directory of the project.
 cd ~/Overvann
@@ -62,7 +70,7 @@ cd ~/Overvann
 php composer.phar install
 ```
 
-###6: Create and setup database:
+###7: Create and setup database:
 
 Make sure the MySQL server is running. To start the server, go to System Preferences. On the bottom, you can see MySQL. 
 
