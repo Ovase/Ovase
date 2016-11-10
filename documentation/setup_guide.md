@@ -1,6 +1,9 @@
+## Installation guide:
 ### [MacOS](#MacOS)
 
 ### [Windows](#Windows)
+
+## [How to run the server](#run)
 
 <br>
 <br>
