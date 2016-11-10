@@ -60,33 +60,6 @@ php app/console doctrine:schema:update --force
 ```
 
 #### You are now ready to run the server from your machine!
-
-<br>
-
-##How to run the server
-Make sure MySQL server is running and that you are in the directory of the project.
-
-To run the server:
-```
-php app/console server:run
-```
-
-
-
-
-#### You are now ready to run the server from your machine!
-
-<br>
-
-##How to run the server
-Make sure MySQL server is running and that you are in the directory of the project.
-
-To run the server:
-```
-php app/console server:run
-```
-
-<br>
 <br>
 <br>
 
@@ -140,15 +113,14 @@ php app/console doctrine:schema:update --force
 
 <br>
 
-##How to run the server
+#<a name="run">How to run the server</a>
+
 Make sure MySQL server is running and that you are in the directory of the project.
 
 To run the server:
 ```
 php app/console server:run
 ```
-
-
 
 
 
