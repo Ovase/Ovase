@@ -40,7 +40,7 @@ git clone https://github.com/vegardbb/Overvann.git
 ###3: Download all dependencies:
 ```
 # Make sure you are in the directory of the project.
-cd /Applications/XAMPP/htdocs/Overvann
+cd Overvann/
 
 # Install required bundles.
 # The script is going to ask for parameteres. If you are not sure what to write, just press enter.
