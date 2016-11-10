@@ -1,6 +1,6 @@
-## [MacOS](#MacOS)
+### [MacOS](#MacOS)
 
-## [Windows](#Windows)
+### [Windows](#Windows)
 
 <br>
 <br>
@@ -16,7 +16,6 @@ Using [git](https://git-scm.com/doc):
 git clone https://github.com/vegardbb/Overvann.git
 ```
 
-<br>
 
 ###2: Install php
 
@@ -30,7 +29,6 @@ brew install php71
 
 Install from [php.net](http://php.net/manual/en/install.macosx.php)
 
-<br>
 
 ###3: Install mySQL
 
@@ -44,7 +42,6 @@ brew install mysql
 
 Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installation-pkg.html)
 
-<br>
 
 ###4: Download and install mySQL server:
 
@@ -52,7 +49,6 @@ IMPORTANT: Write down the password shown to you after installing.
 
 From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install the preferred installation filetype.
 
-<br>
 
 
 ###5: Download all dependencies:
@@ -64,7 +60,6 @@ cd ~/Overvann
 # IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
 php composer.phar install
 ```
-<br>
 
 ###6: Create and setup database:
 
@@ -84,7 +79,6 @@ php app/console doctrine:schema:update --force
 
 #### You are now ready to run the server from your machine!
 
-<br>
 <br>
 
 ##How to run the server
@@ -107,7 +101,6 @@ php app/console server:run
 ###1: Install XAMPP
 Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
 
-<br>
 
 ###2: Clone the project in the XAMPP\htdocs folder
 
@@ -120,7 +113,6 @@ cd C:\xampp\htdocs
 git clone https://github.com/vegardbb/Overvann.git
 ```
 
-<br>
 
 ###3: Create and setup database:
 
@@ -137,7 +129,6 @@ php app/console doctrine:database:create
 php app/console doctrine:schema:update --force
 ```
 
-<br>
 
 
 ###4: Download all dependencies:
@@ -152,7 +143,6 @@ php composer.phar install
 
 #### You are now ready to run the server from your machine!
 
-<br>
 <br>
 
 ##How to run the server
