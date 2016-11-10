@@ -39,7 +39,7 @@ brew install php71
 Install from [php.net](http://php.net/manual/en/install.macosx.php)
 
 
-###4: Install mySQL
+###4: Install MySQL
 
 ####Using [homebrew](http://brew.sh): 
 
@@ -52,7 +52,7 @@ brew install mysql
 Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installation-pkg.html)
 
 
-###5: Download and install mySQL server:
+###5: Download and install MySQL server:
 
 IMPORTANT: Write down the password shown to you after installing.
 
