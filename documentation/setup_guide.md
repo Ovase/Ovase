@@ -75,7 +75,7 @@ php composer.phar install
 Make sure the MySQL server is running. To start the server, go to System Preferences. On the bottom, you can see MySQL. 
 
 ```
-# Navigate to the directory of the project
+# Make sure you are in the directory of the project.
 cd Overvann/
 
 # Create the database
