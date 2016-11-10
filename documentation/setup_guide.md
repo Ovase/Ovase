@@ -114,7 +114,17 @@ git clone https://github.com/vegardbb/Overvann.git
 ```
 
 
-###3: Create and setup database:
+###3: Download all dependencies:
+```
+# Make sure you are in the directory of the project.
+cd C:\xampp\htdocs\Overvann
+
+# Install bundles required.
+# The script is going to ask for parameteres. If you are not sure what to write, just press enter.
+php composer.phar install
+```
+
+###4: Create and setup database:
 
 Make sure the MySQL server is running. To start the server, open XAMPP and click the start button besides MySQL. 
 
@@ -127,18 +137,6 @@ php app/console doctrine:database:create
 
 # Generate the tables in the database
 php app/console doctrine:schema:update --force
-```
-
-
-
-###4: Download all dependencies:
-```
-# Make sure you are in the directory of the project.
-cd C:\xampp\htdocs\Overvann
-
-# Install bundles required.
-# The script is going to ask for parameteres. If you are not sure what to write, just press enter.
-php composer.phar install
 ```
 
 #### You are now ready to run the server from your machine!
