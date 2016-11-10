@@ -146,7 +146,7 @@ php app/console doctrine:schema:update --force
 cd C:\xampp\htdocs\Overvann
 
 # Install bundles required.
-# IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
+# The script is going to ask for parameteres. If you are not sure what to write, just press enter.
 php composer.phar install
 ```
 
