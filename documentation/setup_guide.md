@@ -56,7 +56,7 @@ From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install t
 # Make sure you are in the directory of the project.
 cd ~/Overvann
 
-# Install bundles required.
+# Install required bundles.
 # IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
 php composer.phar install
 ```
@@ -119,7 +119,7 @@ git clone https://github.com/vegardbb/Overvann.git
 # Make sure you are in the directory of the project.
 cd C:\xampp\htdocs\Overvann
 
-# Install bundles required.
+# Install required bundles.
 # The script is going to ask for parameteres. If you are not sure what to write, just press enter.
 php composer.phar install
 ```
