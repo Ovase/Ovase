@@ -1,7 +1,6 @@
-## [Windows](#Windows)
-
 ## [MacOS](#MacOS)
 
+## [Windows](#Windows)
 
 <br>
 <br>
