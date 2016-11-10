@@ -10,73 +10,50 @@
 
 Open the terminal ([iTerm2](https://www.iterm2.com) is recommended on mac)
 
-###1: Navigate to the directory you want the project to be installed in
+
+
+###1: Install XAMPP
+
+#### Using [Homebrew Cask](https://caskroom.github.io)
 
 ```
-cd ~/
+brew cask install xamppp
 ```
+
+#### Otherwise:
+
+Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
+
 
 ###2: Clone the project
 
-Using [git](https://git-scm.com/doc):
+Using [git](https://git-scm.com/doc), clone the project in the XAMPP/htdocs/ folder:
 
 ```
+# Navigate to xampp/htdocs
+cd /Applications/XAMPP/htdocs/
+
 git clone https://github.com/vegardbb/Overvann.git
 ```
 
 
-###3: Install php
-
-####Using [homebrew](http://brew.sh): 
-
-```
-# Install php 7.1 or any similar version if this is not available
-brew install php71
-```
-
-####Otherwise 
-
-Install from [php.net](http://php.net/manual/en/install.macosx.php)
-
-
-###4: Install MySQL
-
-####Using [homebrew](http://brew.sh): 
-
-```
-brew install mysql
-```
-
-####Otherwise 
-
-Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installation-pkg.html)
-
-
-###5: Install MySQL server:
-
-IMPORTANT: Write down the password shown to you after installing.
-
-From [mysql.com](https://dev.mysql.com/downloads/mysql/), download the DMG file on the bottom of the page.
-
-
-
-###6: Download all dependencies:
+###3: Download all dependencies:
 ```
 # Make sure you are in the directory of the project.
-cd ~/Overvann
+cd C:\xampp\htdocs\Overvann
 
 # Install required bundles.
-# IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
+# The script is going to ask for parameteres. If you are not sure what to write, just press enter.
 php composer.phar install
 ```
 
-###7: Create and setup database:
+###4: Create and setup database:
 
-Make sure the MySQL server is running. To start the server, go to System Preferences. On the bottom, you can see MySQL. 
+Make sure the MySQL server is running. To start the server, open XAMPP and click the start button besides MySQL. 
 
 ```
-# Make sure you are in the directory of the project.
-cd Overvann/
+# Navigate to the directory of the project
+cd C:\xampp\htdocs\Overvann
 
 # Create the database
 php app/console doctrine:database:create
@@ -84,6 +61,20 @@ php app/console doctrine:database:create
 # Generate the tables in the database
 php app/console doctrine:schema:update --force
 ```
+
+#### You are now ready to run the server from your machine!
+
+<br>
+
+##How to run the server
+Make sure MySQL server is running and that you are in the directory of the project.
+
+To run the server:
+```
+php app/console server:run
+```
+
+
 
 
 #### You are now ready to run the server from your machine!
