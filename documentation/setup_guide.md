@@ -52,7 +52,7 @@ brew install mysql
 Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installation-pkg.html)
 
 
-###5: Download and install MySQL server:
+###5: Install MySQL server:
 
 IMPORTANT: Write down the password shown to you after installing.
 
@@ -111,9 +111,9 @@ php app/console server:run
 Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
 
 
-###2: Clone the project in the XAMPP\htdocs folder
+###2: Download the project
 
-Using [git](https://git-scm.com/doc):
+Using [git](https://git-scm.com/doc), clone the project in the XAMPP\htdocs folder:
 
 ```
 # Navigate to in C:\xampp\htdocs
