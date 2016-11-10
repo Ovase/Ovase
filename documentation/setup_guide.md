@@ -52,9 +52,6 @@ php composer.phar install
 Make sure the MySQL server is running. To start the server, open XAMPP and click the start button besides MySQL. 
 
 ```
-# Make sure you are in the directory of the project.
-cd /Applications/XAMPP/htdocs/Overvann
-
 # Create the database
 php app/console doctrine:database:create
 
