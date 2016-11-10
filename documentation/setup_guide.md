@@ -3,6 +3,8 @@
 
 ### - [Windows](#Windows)
 
+<br>
+
 #### [How to run the server](#run)
 
 <br>
