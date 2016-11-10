@@ -111,7 +111,7 @@ php app/console server:run
 Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
 
 
-###2: Download the project
+###2: Clone the project
 
 Using [git](https://git-scm.com/doc), clone the project in the XAMPP\htdocs folder:
 
