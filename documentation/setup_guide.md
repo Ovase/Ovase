@@ -1,9 +1,10 @@
-[Windows](#Windows)
+## [Windows](#Windows)
 
-[MacOS](#MacOS)
+## [MacOS](#MacOS)
 
 
-
+<br>
+<br>
 
 #<a name="MacOS">Mac OS</a>
 ##Installation guide
