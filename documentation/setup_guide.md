@@ -1,4 +1,11 @@
-#MacOS
+[Windows](#Windows)
+
+[MacOS](#MacOS)
+
+
+
+
+#<a name="MacOS">Mac OS</a>
 ##Installation guide
 
 ###1: Clone the project
@@ -47,7 +54,19 @@ From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install t
 
 <br>
 
-###5: Create and setup database:
+
+###5: Download all dependencies:
+```
+# Make sure you are in the directory of the project.
+cd ~/Overvann
+
+# Install bundles required.
+# IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
+php composer.phar install
+```
+<br>
+
+###6: Create and setup database:
 
 Make sure the MySQL server is running. To start the server, go to System Preferences. On the bottom, you can see MySQL. 
 
@@ -62,18 +81,6 @@ php app/console doctrine:database:create
 php app/console doctrine:schema:update --force
 ```
 
-<br>
-
-
-###6: Download all dependencies:
-```
-# Make sure you are in the directory of the project.
-cd ~/Overvann
-
-# Install bundles required.
-# IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
-php composer.phar install
-```
 
 #### You are now ready to run the server from your machine!
 
@@ -92,7 +99,7 @@ php app/console server:run
 <br>
 <br>
 
-#Windows
+#<a name="Windows">Windows</a>
 ##Installation guide
 
 
@@ -102,7 +109,7 @@ Download and install from [apachefriends.org](https://www.apachefriends.org/down
 
 <br>
 
-###2: Clone the project in the XAMPP folder
+###2: Clone the project in the XAMPP\htdocs folder
 
 Using [git](https://git-scm.com/doc):
 
