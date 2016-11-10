@@ -64,7 +64,7 @@ php app/console doctrine:database:create
 php app/console doctrine:schema:update --force
 ```
 
-#### You are now ready to run the server from your machine!
+#### You are now ready to [run](#run) the server from your machine!
 <br>
 <br>
 
@@ -112,7 +112,7 @@ php app/console doctrine:database:create
 php app/console doctrine:schema:update --force
 ```
 
-#### You are now ready to run the server from your machine!
+#### You are now ready to [run](#run) the server from your machine!
 
 <br>
 
