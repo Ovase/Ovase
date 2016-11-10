@@ -56,7 +56,7 @@ Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installatio
 
 IMPORTANT: Write down the password shown to you after installing.
 
-From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install the preferred installation filetype.
+From [mysql.com](https://dev.mysql.com/downloads/mysql/), download the DMG file on the bottom of the page.
 
 
 
