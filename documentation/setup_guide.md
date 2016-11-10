@@ -22,6 +22,7 @@ git clone https://github.com/vegardbb/Overvann.git
 ####Using [homebrew](http://brew.sh): 
 
 ```
+# Install php 7.1 or any similar version if this is not available
 brew install php71
 ```
 
