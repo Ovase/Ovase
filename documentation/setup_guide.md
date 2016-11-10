@@ -43,7 +43,7 @@ Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installatio
 
 IMPORTANT: Write down the password shown to you after installing.
 
-From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install the preferred installation filetype (for me it was DMG)
+From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install the preferred installation filetype.
 
 <br>
 
@@ -88,5 +88,75 @@ To run the server:
 php app/console server:run
 ```
 
-Note: This setup does not support serving phpmyadmin, which is a visual tool to view the database. One can alternatively run queries to the database with the `console` program under the ./app directory or run SQL queries through the mysql command line.
+<br>
+<br>
+<br>
+
+#Windows
+##Installation guide
+
+
+
+###1: Install XAMPP
+Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
+
+<br>
+
+###2: Clone the project in the XAMPP folder
+
+Using [git](https://git-scm.com/doc):
+
+```
+# Navigate to in C:\xampp\htdocs
+cd C:\xampp\htdocs
+
+git clone https://github.com/vegardbb/Overvann.git
+```
+
+<br>
+
+###3: Create and setup database:
+
+Make sure the MySQL server is running. To start the server, open XAMPP and click the start button besides MySQL. 
+
+```
+# Navigate to the directory of the project
+cd C:\xampp\htdocs\Overvann
+
+# Create the database
+php app/console doctrine:database:create
+
+# Generate the tables in the database
+php app/console doctrine:schema:update --force
+```
+
+<br>
+
+
+###4: Download all dependencies:
+```
+# Make sure you are in the directory of the project.
+cd C:\xampp\htdocs\Overvann
+
+# Install bundles required.
+# IMPORTANT: This will prompt for some fields. When it asks for password, insert the password you should have written down from step #4.
+php composer.phar install
+```
+
+#### You are now ready to run the server from your machine!
+
+<br>
+<br>
+
+##How to run the server
+Make sure MySQL server is running and that you are in the directory of the project.
+
+To run the server:
+```
+php app/console server:run
+```
+
+
+
+
 
