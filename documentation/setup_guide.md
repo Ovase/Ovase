@@ -22,7 +22,7 @@ Open the terminal ([iTerm2](https://www.iterm2.com) is recommended on mac)
 #### Using [Homebrew Cask](https://caskroom.github.io)
 
 ```
-brew cask install xamppp
+brew cask install xampp
 ```
 
 #### Otherwise:
