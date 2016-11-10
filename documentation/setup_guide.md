@@ -43,7 +43,7 @@ Install from [mysql.com](https://dev.mysql.com/doc/refman/5.7/en/osx-installatio
 
 IMPORTANT: Write down the password shown to you after installing.
 
-From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install the preferred installation filetype.
+From [mysql.com](https://dev.mysql.com/downloads/mysql/), download and install the preferred installation filetype (for me it was DMG)
 
 <br>
 
@@ -88,5 +88,5 @@ To run the server:
 php app/console server:run
 ```
 
-
+Note: This setup does not support serving phpmyadmin, which is a visual tool to view the database. One can alternatively run queries to the database with the `console` program under the ./app directory or run SQL queries through the mysql command line.
 
