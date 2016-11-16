@@ -14,26 +14,33 @@ The recommended (by Symfony) folder structure is maintained throughout the
 project. Go to http://symfony.com/doc/current/quick_tour/the_architecture.html
 for a more detailed description. It looks like this:
 
-app/
+* app/
+
 The application configuration, templates and translations.
 
-bin/
+* bin/
+
 Executable files (e.g. bin/console).
 
-src/
+* src/
+
 The project's PHP code.
 
-vendor/
+* vendor/
+
 The third-party dependencies.
 
-web/
+* web/
+
 The web root directory.
 
 
 This project has additionally two folders:
 
-configuration/
+* configuration/
+
 Configuration parameters for the wiki page
 
-documentation/
+* documentation/
+
 Documentation
