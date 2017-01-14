@@ -1,5 +1,0 @@
-
-# We really don't want to add certain things to git
-sql_user.txt
-sql_user.secret
-mw_keys.secret
