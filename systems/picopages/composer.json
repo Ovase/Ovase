@@ -1,0 +1,34 @@
+{
+    "name": "ovase/picopages",
+    "description": "Front page and static pages of Ovase.no",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Peder Voldnes Langdal",
+            "email": "peder.langdal@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "url": "https://github.com/LangdalP/Ovase-Pico-Theme.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/LangdalP/pico_edit.git",
+            "type": "git"
+        }
+    ],
+    "require": {
+        "picocms/pico": "^1.0",
+        "pedervl/ovase-pico-theme": "dev-master",
+        "pedervl/pico_edit": "dev-master"
+    },
+    "autoload": {
+        "classmap": ["installer"]
+    },
+    "scripts": {
+        "post-install-cmd": "Ovase\\PicoInstaller::postInstall"
+    },
+    "minimum-stability": "stable"
+}
