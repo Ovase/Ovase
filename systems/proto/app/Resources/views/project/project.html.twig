@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Anlegg
+{% endblock %}
+
+{% block body %}
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-left:10vw;margin-right:10vw;min-height:25vw;max-height:25vw;">
+	  <!-- Indicators -->
+
+		<ol class="carousel-indicators">
+		{% for key in project.getImages()|keys %}
+			<li data-target="#carousel-example-generic" data-slide-to="{{ loop.index - 1 }}"
+			{%if loop.index == 1%} class="active" {%endif%} >
+			</li>
+		{% endfor %}
+		</ol>
+
+
+	  <!-- Wrapper for slides -->
+		<div class="carousel-inner">
+			{% for key,image in project.getImages() %}
+			<div class="item {%if loop.index == 1%} active {%endif%}">
+				<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
+			</div>
+			{% endfor %}
+		</div>
+
+		<!-- Controls -->
+		<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a class="right carousel-control" href="#carousel-example-generic" Frole="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div> <!-- Carousel -->
+
+	<div class="row">
+		<div class="small-12   medium-6 medium-offset-3  large-6 large-offset-3 columns">
+			{% if message is defined %}
+				<p>{{ message }}</p>
+			{% endif %}
+
+			<br>
+
+			{% if canEdit %}
+				<div class="divMargins">
+					Rediger prosjekt
+					<a href="{{  path('edit_project', {'id': project.getId()}) }}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+					</a>
+					Legg til tiltak
+	        <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+  						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</a>
+
+				</div>
+            {% endif %}
+
+			<h1>Prosjektnavn: {{ project.getName() }}</h1>
+
+			<h2>Fakta</h2>
+
+
+			<p2>Prosjekt startdato: {{ project.getStartdate() }}</p2>
+			<p2>Prosjekt sluttdato: {{ project.getEnddate() }}</p2>
+
+			<br>
+
+			<p2>Adresse: {{project.getLocation()}} </p2>
+
+			<br>
+
+			<p2> Medvirkende: </p2>
+			<div class="divMargins">
+			<ul>
+				{% for actor in project.getActors() %}
+					{% if actor.getClassName == "Company"%}
+						<li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName()}}</a></li>
+					{% else %}
+						<li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName()}}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			</div>
+
+			<br>
+
+			<p2> Område-type: {{project.getAreaType()}} </p2>
+			<p2> Prosjekt-type: {{project.getProjectType()}} </p2>
+
+			<br>
+
+			<p2> Totale kostnader for hele byggeprosjektet: {{project.getCost()}} NOK </p2>
+			<br>
+			<p2> Totalt areal for prosjektområde: {{project.getTotalArea()}} m² </p2>
+			<p2> Totalt areal for nedbørsfelt til overvannstiltakene: {{project.getWaterArea()}} m²</p2>
+			<br>
+			<p2> Grunnforhold: {{project.getSoilConditions()}} </p2>
+			<br>
+			<p2> Dimensjonerende krav til overvannshåndtering: {{project.getDimentionalDemands()}}</p2>
+
+			<br>
+			<br>
+
+			<h2>Bakgrunn</h2>
+
+			<p2> {{project.getDescription()}} </p2>
+
+			<br>
+			<br>
+
+			<h2>Oppsummering</h2>
+
+			<p2> {{project.getSummary()}} </p2>
+
+			<br>
+			<br>
+
+
+			<h1>Anlagte tiltak</h1>
+
+			{% for measure in project.getMeasures() %}
+				<h2>{{ measure.getTitle() }}</h2>
+
+				<h3>Fakta</h3>
+				<p2>Totalt areal: {{ measure.getTotalArea() }} m²</p2>
+				<p2>Dimensjonerende krav til overvannshåndtering for tiltaket: measure.dimetionalDemands</p2>
+				<p2>Kostnad for tiltaket: {{ measure.getCosts() }} NOK</p2>
+				<p2>Tekniske funksjoner: {{measure.getTechnicalFunctions() }}</p2>
+				<p2>Tilleggsverdier: {{measure.getAdditionalValues()}}</p2>
+				<p2>Utdypelse: {{measure.getElaboration()}}</p2>
+
+				<h3>Geometrisk utforming</h3>
+				<p2>{{measure.getGeometricDesignElaboration()}}</p2>
+
+				<h3>Konstruksjonsdetaljer og anleggelse</h3>
+				<p2>{{measure.getConstructionDetails()}}</p2>
+
+				<h3>Drift, vedlikehold og oppfølging</h3>
+				<p2>{{measure.getMaintenance()}}</p2>
+
+				<h3>Erfaringer og tips</h3>
+				<p2>{{measure.getExperiencesGained()}}</p2>
+
+				</br>
+				<div class="divMargins">
+						{% if canEdit %}
+							Rediger tiltak
+            	<a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">
+								<button type="button" class="btn btn-default" aria-label="Left Align">
+		  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								</button>
+							</a>
+
+							Slett tiltak
+              <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">
+								<button type="button" class="btn btn-default" aria-label="Left Align">
+		  						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</a>
+
+        		{% endif %}
+        </div>
+            	<hr style="border-color:#547980">
+            {% endfor %}
+			</br>
+
+			<div class="divMargins">
+			<iframe
+			width="600"
+			height="450"
+			frameborder="0" style="border:0"
+			src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ project.getLocation() }}" allowfullscreen>
+			{# For options on usage of the Embed API, see https://developers.google.com/maps/documentation/embed/guide #}
+			</iframe>
+			</div>
+			<p2> <b>Lenker</b> </p2>
+			<div class="divMargins">
+			<ul>
+				{% for s in project.getTechnicalSolutions() %}
+					<li> <a href= "http://ovase.no/wiki/index.php/{{s}}">{{ s }}</a></li>
+				{% endfor %}
+			</ul>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

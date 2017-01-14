@@ -3,12 +3,11 @@
 # Script used to deploy the wiki part or the node part of ovase.no
 #
 # Usage: 	./deploy_code.sh ovase 			to deploy the main ovase page
-# 			./deploy_code.sh wiki 			to deploy the wiki part
-# 			./deploy_code.sh ovase wiki 	to deploy both parts
-#
+# 		./deploy_code.sh wiki 			to deploy the wiki part
+# 		./deploy_code.sh ovase wiki 		to deploy both parts
 
 OVASE_DIR=/var/www/html
-WIKI_DIR=/var/www/html/wiki
+WIKI_DIR=/var/www/html/web/wiki
 BACKUP_ROOT=~/deploy_backups
 BACKUP_DIR="${BACKUP_ROOT}/backup_$(date +%Y%m%d_%H%M%S)"
 
@@ -51,20 +50,20 @@ fi
 if [ "$DEPLOY_OVASE" = true ]; then
 	pushd .
 	cd $OVASE_DIR
-	cp -rf !(wiki) $BACKUP_DIR
+	cp -rf !(./web/wiki) $BACKUP_DIR
 	popd
 fi
 
 # Copy files to ovase_web (the portion of the site which is not the wiki)
 if [ "$DEPLOY_OVASE" = true ]; then
 	echo "========== Copying ovase files =========="
-	cp -rf !(wiki|configuration|documentation|README.md|deploy_code.sh|install_app_service.sh|delete_folders_older_than.sh) $OVASE_DIR
+	cp -rf !(./web/wiki|configuration|documentation|README.md|deploy_code.sh|install_app_service.sh|delete_folders_older_than.sh) $OVASE_DIR
 fi
 
 # Copy files to /var/www/html (the wiki-portion of the site)
 if [ "$DEPLOY_WIKI" = true ]; then
 	echo "========== Copying wiki files =========="
-	cd wiki
+	cd ./web/wiki
 	cp -rf !(images|cache) $WIKI_DIR
 	cd ..
 fi

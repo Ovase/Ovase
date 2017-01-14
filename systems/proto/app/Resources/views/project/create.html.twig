@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Anlegg
+{% endblock %}
+
+{% block body %}
+	<body onload="initCreateProjectPage();addHelpText()">
+
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+	
+	</br>
+	</br>
+	<div style="margin-left:15vw">
+		<button type="button" id="previous" class="btn btn-default" onclick="show('previous');">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		</button>
+		<button type="button" id="page1" class="btn btn-default btn-project-step" onclick="show(1);">Steg 1</button>
+		<button type="button" id="page2" class="btn btn-default btn-project-step" onclick="show(2);">Steg 2</button>
+		<button type="button" id="page3" class="btn btn-default btn-project-step" onclick="show(3);">Steg 3</button>
+		<button type="button" id="next" class="btn btn-default" onclick="show('next');">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</button>
+	</div>
+
+	<script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
+	<script src="{{ asset('static/js/datepicker-no.js') }}"></script>
+	<script src="{{ asset('static/js/helpTextProject.js') }}"></script>
+
+
+{% endblock %}
+
+

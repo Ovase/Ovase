@@ -1,0 +1,9 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    image_service:
+      class: AppBundle\Services\ImageService
+      arguments: [%cloud_name%, %cloud_api_key%, %cloud_api_secret%]
