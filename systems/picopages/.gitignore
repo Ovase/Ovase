@@ -1,0 +1,6 @@
+
+# For now
+composer.lock
+
+# Should be created by composer install
+vendor/
