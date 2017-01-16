@@ -43,7 +43,10 @@ class PicoInstaller
         $pico_cfg_source = $root_dir . "/config/config.php";
         $pico_edit_cfg_source = $root_dir . "/config/pico_edit/config.php";
         if (!file_exists($pico_dir . "/config/config.php")) {
-            symlink($pico_cfg_source, $pico_dir . "/config.php");
+            symlink($pico_cfg_source, $pico_dir . "/config/config.php");
+        }
+        if (!is_link($plugin_source . "/config.php")) {
+            unlink($plugin_source . "/config.php");
         }
         if (!file_exists($plugin_source . "/config.php")) {
             symlink($pico_edit_cfg_source, $plugin_source . "/config.php");
