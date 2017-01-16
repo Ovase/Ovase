@@ -119,8 +119,8 @@ php app/console server:run
 
 Ovase use the Apache HTTP Server. To use this application with Apache, one must do the following:
 
-1) Customize and add `proto.conf` to the appropriate Apache config folder
-2) Fix file permissions
+1. Customize and add `proto.conf` to the appropriate Apache config folder
+2. Fix file permissions
 
 #### Fixing file permissions for app/cache and app/logs
 
