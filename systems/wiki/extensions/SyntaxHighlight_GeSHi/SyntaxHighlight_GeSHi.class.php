@@ -48,11 +48,8 @@ class SyntaxHighlight_GeSHi {
 		if ( $wgPygmentizePath === false ) {
 			$wgPygmentizePath = __DIR__ . '/pygments/pygmentize';
 		}
-
-		if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
-			require_once __DIR__ . '/vendor/autoload.php';
-		}
 	}
+
 	/**
 	 * Get the Pygments lexer name for a particular language.
 	 *
@@ -111,8 +108,11 @@ class SyntaxHighlight_GeSHi {
 	public static function parserHook( $text, $args = array(), $parser ) {
 		global $wgUseTidy;
 
+		// Replace strip markers (For e.g. {{#tag:syntaxhighlight|<nowiki>...}})
+		$out = $parser->mStripState->unstripNoWiki( $text );
+
 		// Don't trim leading spaces away, just the linefeeds
-		$out = preg_replace( '/^\n+/', '', rtrim( $text ) );
+		$out = preg_replace( '/^\n+/', '', rtrim( $out ) );
 
 		// Convert deprecated attributes
 		if ( isset( $args['enclose'] ) ) {
@@ -200,7 +200,7 @@ class SyntaxHighlight_GeSHi {
 	 * @return Status Status object, with HTML representing the highlighted
 	 *  code as its value.
 	 */
-	protected static function highlight( $code, $lang = null, $args = array() ) {
+	public static function highlight( $code, $lang = null, $args = array() ) {
 		global $wgPygmentizePath;
 
 		$status = new Status;
@@ -271,7 +271,7 @@ class SyntaxHighlight_GeSHi {
 			$options['nowrap'] = 1;
 		}
 
-		$cache = wfGetMainCache();
+		$cache = ObjectCache::getMainWANInstance();
 		$cacheKey = self::makeCacheKey( $code, $lexer, $options );
 		$output = $cache->get( $cacheKey );
 
@@ -497,8 +497,8 @@ class SyntaxHighlight_GeSHi {
 
 	/** Backward-compatibility shim for extensions. */
 	public static function buildHeadItem( $geshi ) {
-			wfDeprecated( __METHOD__ );
-			$geshi->parse_code();
-			return '';
+		wfDeprecated( __METHOD__ );
+		$geshi->parse_code();
+		return '';
 	}
 }
