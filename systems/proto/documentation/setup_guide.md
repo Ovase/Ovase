@@ -1,23 +1,16 @@
 ## Installation guide:
-### - [MacOS](#MacOS)
 
-### - [Windows](#Windows)
+### Sections
 
-<br>
+- [MacOS](#mac-os)
+- [Windows](#windows)
+- [How to run the server](#run)
 
-#### [How to run the server](#run)
-
-<br>
-<br>
-
-#<a name="MacOS">Mac OS</a>
-##Installation guide
+[MacOS Installation](#mac-os)
 
 Open the terminal ([iTerm2](https://www.iterm2.com) is recommended on mac)
 
-
-
-###1: Install XAMPP
+### 1: Install XAMPP
 
 #### Using [Homebrew Cask](https://caskroom.github.io)
 
@@ -30,7 +23,7 @@ brew cask install xampp
 Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
 
 
-###2: Clone the project
+### 2: Clone the project
 
 Using [git](https://git-scm.com/doc), clone the project in the XAMPP/htdocs/ folder:
 
@@ -65,19 +58,14 @@ php app/console doctrine:schema:update --force
 ```
 
 #### You are now ready to [run](#run) the server from your machine!
-<br>
-<br>
 
-#<a name="Windows">Windows</a>
-##Installation guide
+[Windows Installation](#windows)
 
-
-
-###1: Install XAMPP
+### 1: Install XAMPP
 Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
 
 
-###2: Clone the project
+### 2: Clone the project
 
 Using [git](https://git-scm.com/doc), clone the project in the XAMPP\htdocs folder:
 
@@ -89,7 +77,7 @@ git clone https://github.com/vegardbb/Overvann.git
 ```
 
 
-###3: Download all dependencies:
+### 3: Download all dependencies:
 ```
 # Navigate to the directory of the project.
 cd Overvann
@@ -99,7 +87,7 @@ cd Overvann
 php composer.phar install
 ```
 
-###4: Create and setup database:
+### 4: Create and setup database:
 
 Make sure the MySQL server is running. To start the server, open XAMPP and click the start button besides MySQL. 
 
@@ -114,9 +102,7 @@ php app/console doctrine:schema:update --force
 
 #### You are now ready to [run](#run) the server from your machine!
 
-<br>
-
-#<a name="run">How to run the server</a>
+[Run the Server](#run)
 
 Make sure MySQL server is running and that you are in the directory of the project.
 
