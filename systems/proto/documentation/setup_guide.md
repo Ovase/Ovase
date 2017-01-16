@@ -2,11 +2,11 @@
 
 ### Sections
 
-- [MacOS](#mac-os)
-- [Windows](#windows)
-- [How to run the server](#run)
+- [Installing on MacOS](#macos-installation)
+- [Installing on Windows](#windows-installation)
+- [Running the Server](#running-the-server)
 
-[MacOS Installation](#mac-os)
+## MacOS Installation
 
 Open the terminal ([iTerm2](https://www.iterm2.com) is recommended on mac)
 
@@ -59,7 +59,7 @@ php app/console doctrine:schema:update --force
 
 #### You are now ready to [run](#run) the server from your machine!
 
-[Windows Installation](#windows)
+## Windows Installation
 
 ### 1: Install XAMPP
 Download and install from [apachefriends.org](https://www.apachefriends.org/download.html)
@@ -102,7 +102,7 @@ php app/console doctrine:schema:update --force
 
 #### You are now ready to [run](#run) the server from your machine!
 
-[Run the Server](#run)
+## Running the Server
 
 Make sure MySQL server is running and that you are in the directory of the project.
 
