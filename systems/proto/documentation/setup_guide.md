@@ -2,14 +2,14 @@
 
 ### TODOs For This Guide
 
-- Mention how to run with Apache
-- Include Apache gotchas
+Find out how to set the application in dev/prod mode
 
 ### Sections
 
 - [Installing on MacOS](#macos-installation)
 - [Installing on Windows](#windows-installation)
 - [Running the server during development](#running-the-server-during-development)
+- [Deploying the application](#deploying-the-application)
 
 ## MacOS installation
 
@@ -128,9 +128,9 @@ Instructions below taken from [here](http://symfony.com/doc/2.0/book/installatio
 
 ```
 cd proto
+# Them do either: 
 rm -rf app/cache/*
 rm -rf app/logs/*
-# Them do either: 
 sudo chmod +a "www-data allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 # Or:
