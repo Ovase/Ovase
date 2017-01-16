@@ -115,7 +115,7 @@ To run the server:
 php app/console server:run
 ```
 
-### Deploying the application
+## Deploying the application
 
 Ovase use the Apache HTTP Server. To use this application with Apache, one must do the following:
 
