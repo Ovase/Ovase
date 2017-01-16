@@ -2,5 +2,9 @@
 # For now
 composer.lock
 
-# Should be created by composer install
+# Packages installed by composer
 vendor/
+
+# Symlink to Pico
+www/
+
