@@ -3,3 +3,8 @@
 sql_user.txt
 sql_user.secret
 mw_keys.secret
+
+# Images should not be in VCS
+images/*
+!images/.htaccess
+!images/README
