@@ -35,7 +35,7 @@ $wgResourceBasePath = $wgScriptPath;
 
 ## The URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
-$wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
+$wgLogo = "$wgResourceBasePath/resources/assets/ovase-logo-small.png";
 
 ## UPO means: this is also a user preference option
 
@@ -50,6 +50,8 @@ $wgEnotifWatchlist = false; # UPO
 $wgEmailAuthentication = true;
 
 ## Database settings
+
+## TODO: Move secrets to unstaged files when deploying
 $wgDBtype = "mysql";
 $wgDBserver = "localhost";
 $wgDBname = "fagwiki";
@@ -147,11 +149,37 @@ wfLoadExtension( 'WikiEditor' );
 # End of automatically generated settings.
 # Add more configuration options below.
 
+#
 # Load more extensions
-wfLoadExtension( 'VisualEditor' );
+#
 
-#Configure extensions
+wfLoadExtension( 'VisualEditor' ); // Visual editing
+wfLoadExtension( 'TemplateData' ); // Simple template metadata
+require_once "$IP/extensions/Scribunto/Scribunto.php"; // Citations
+
+#
+# Configure extensions
+#
 
 ## VisualEditor
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
 $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
+$wgVirtualRestConfig['modules']['parsoid'] = array(
+    // Port is probably 8000 or 8142
+    'url' => 'http://localhost:8142',
+    'domain' => 'localhost',
+    'prefix' => 'localhost'
+);
+
+## TemplateData
+$wgTemplateDataUseGUI = true; # Enables graphical template editing
+
+## Scribunto
+$wgScribuntoDefaultEngine = 'luastandalone';
+
+#
+# Configure skins
+#
+
+// wfLoadSkin( 'Dgraph' );
+// $wgDefaultSkin = "dgraph";
