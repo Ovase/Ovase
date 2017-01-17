@@ -21,6 +21,7 @@ Eg forsøker å sette opp fresh MediaWiki lokalt. Apache 2.4, PHP 7
 7) Installerte Parsoid: [link](https://www.mediawiki.org/wiki/Parsoid/Setup)
     * På Ubuntu/Debian: Service by default
     * Må endre `/etc/mediawiki/parsoid/config.yaml` og restarte service
+    * Måtte legge inn `127.0.0.1 wiki.localhost` i `/etc/hosts` for at Parsoid/curl skulle finne wiki
 
 ## Ting å legge til i system scripts
 

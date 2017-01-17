@@ -20,8 +20,10 @@ sudo yum install -y git
 sudo yum install -y gcc gcc-c++ make
 
 # Node and Parsoid
+# For CentOS: https://www.centos.org/forums/viewtopic.php?f=47&t=53223&p=225372#p225372
 echo "[OVASE] Installing Parsoid dependencies"
 curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 sudo yum -y install nodejs
+# BEDRE: 
 
 # TODO: Parsoid cloning and installing
