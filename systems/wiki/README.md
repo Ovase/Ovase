@@ -25,6 +25,7 @@ Eg forsøker å sette opp fresh MediaWiki lokalt. Apache 2.4, PHP 7
     * På Ubuntu/Debian: Service by default
     * Må endre `/etc/mediawiki/parsoid/config.yaml` og restarte service
     * Må sjekke at port i LocalSettings.php er korrekt (8000 eller 8142)
+    * Måtte legge inn `127.0.0.1 wiki.localhost` i `/etc/hosts` for at Parsoid/curl skulle finne wiki
 10) Satte opp ny infoboks-mal
     * CSS-kode i artikkelen MediaWiki:Common.css
     * Mal-kode i artikkelen Mal:Infoboks tiltak
