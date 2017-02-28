@@ -5,6 +5,7 @@
     background-color: #F9F9F9;
     width: 320px;
     float: right;
+    margin-left: 1em;
     display: inline-block;
 }
 .infobox h2 {
@@ -47,8 +48,10 @@
     font-size: 1rem;
 }
 
-.infobox-image-credits {
+.infobox .image-credits {
     font-size: 0.9em;
+    text-align: center;
+    margin: 0;
 }
 
 .infobox-section-content {
@@ -59,6 +62,7 @@ ul.clean-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: center;
 }
 
 .ib-tiltak {

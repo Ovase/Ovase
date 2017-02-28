@@ -1,0 +1,123 @@
+__NOTOC__
+<div class="infobox ib-tiltak">
+  <div class="infobox-section">
+    <h2>{{{prosjektNavn}}}</h2>
+    <div class="infobox-section-content">
+      <!-- If illuBildeNavn is defined, create section -->
+      {{#if: {{{illuBildeNavn}}} |
+      <div class="infobox-image">
+        [[File:{{{illuBildeNavn}}}|thumb|300px|{{{illuBildeTekst}}}]]
+        {{#if: {{{illuBildeKreditering}}} |
+        <p class="image-credits">Foto: {{{illuBildeKreditering}}}</p>| }} <!-- endif -->
+      </div>| }} <!-- endif -->
+    </div>
+  </div>
+  <!-- If skisseBildeNavn is defined, create section -->
+  {{#if: {{{skisseBildeNavn}}} |
+  <div class="infobox-section">
+    <h3>Skisse</h3>
+    <div class="infobox-section-content">
+      <div class="infobox-image">
+        [[File:{{{skisseBildeNavn}}}|frameless|300px]]
+        {{#if: {{{skisseBildeKreditering}}} |
+        <p class="image-credits">Foto: {{{skisseBildeKreditering}}}</p>| }} <!-- endif -->
+      </div>
+    </div>
+  </div>| }} <!-- endif -->
+  <div class="infobox-section">
+    <h3>Tiltaksnivå</h3>
+    <div class="infobox-section-content">
+      <div class="infobox-image">
+        [[File:{{{tiltaksNivaBildeNavn}}}|frameless|300px]]
+      </div>
+    </div>
+  </div>
+  <!-- If anlegg1 is defined, create section -->
+  {{#if: {{{tiltak1}}} |
+  <div class="infobox-section">
+    <h3>Anlagte tiltak</h3>
+    <div class="infobox-section-content">
+      <ul class="clean-list">
+        <li>[[{{{tiltak1}}}]]</li>{{#if: {{{tiltak2}}} |<li>[[{{{tiltak2}}}]]</li>|}}<!-- endif -->{{#if: {{{tiltak3}}} |<li>[[{{{tiltak3}}}]]</li>|}}<!-- endif -->{{#if: {{{tiltak4}}} |<li>[[{{{tiltak4}}}]]</li>|}}<!-- endif -->
+      </ul>
+    </div>
+  </div>
+  | }} <!-- endif -->
+</div>
+<noinclude>
+<templatedata>
+{
+  "params": {
+    "prosjektNavn": {
+      "label": "Prosjektnavn",
+      "type": "string",
+      "required": true
+    },
+    "illuBildeNavn": {
+      "label": "Filnavnet til illustrasjonsbildet",
+      "type": "string",
+      "required": true
+    },
+    "illuBildeTekst": {
+      "label": "Bildetekst for illustrasjonsbilde",
+      "type": "string",
+      "suggested": true
+    },
+    "illuBildeKreditering": {
+      "label": "Kreditering for illustrasjonsbilde",
+      "type": "string",
+      "suggested": true
+    },
+    "skisseBildeNavn": {
+      "label": "Skisse-bilde",
+      "description": "Filnavnet til en skisse som illustrerer tiltaket",
+      "type": "string",
+      "suggested": true,
+      "example": "Regnbed-skisse.jpg"
+    },
+    "skisseBildeKreditering": {
+      "label": "Kreditering for skisse-bilde",
+      "description": "Skaper eller rettighetshaver av skisse-bildet",
+      "example": "Exflood",
+      "type": "string",
+      "suggested": true
+    },
+    "tiltaksNivaBildeNavn": {
+      "label": "Bilde for tiltaksnivå",
+      "description": "Et bilde som viser tiltaksnivå",
+      "example": "Trinn12.png",
+      "type": "string",
+      "suggested": true
+    },
+    "tiltak1": {
+      "label": "Tiltak 1",
+      "description": "Navnet på tiltakstype 1",
+      "example": "Regnbed",
+      "type": "string",
+      "suggested": true
+    },
+    "tiltak2": {
+      "label": "Tiltak 2",
+      "description": "Navnet på tiltakstype 2",
+      "example": "Regnbed",
+      "type": "string",
+      "suggested": true
+    },
+    "tiltak3": {
+      "label": "Tiltak 3",
+      "description": "Navnet på tiltakstype 3",
+      "example": "Regnbed",
+      "type": "string",
+      "suggested": true
+    },
+    "tiltak4": {
+      "label": "Tiltak 4",
+      "description": "Navnet på tiltakstype 4",
+      "example": "Regnbed",
+      "type": "string",
+      "suggested": true
+    }
+  }
+}
+</templatedata>
+</noinclude>

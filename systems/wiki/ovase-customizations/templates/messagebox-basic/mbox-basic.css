@@ -1,0 +1,15 @@
+
+.messagebox {
+    margin: 1rem auto;
+    max-width: 80%;
+    border: 1px solid #BCBCBC;
+    background-color: #FFDE8D;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.messagebox img {
+    display: inline-block;
+    margin-right: 2rem;
+    float: left;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="no-NB">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title></title>
+
+  <link rel="stylesheet" href="infobox.css">
+</head>
+
+<body>
+  <div class="infobox ib-tiltak">
+    <div class="infobox-section">
+      <h2>{{{tiltakNavn}}}</h2>
+      <div class="infobox-section-content">
+        <!-- If illuBildeNavn is defined, create section -->
+        <div class="infobox-image">
+          <p>bilde</p>
+        </div>
+      </div>
+    </div>
+    <!-- If skisseBildeNavn is defined, create section -->
+    <div class="infobox-section">
+      <h3>Skisse</h3>
+      <div class="infobox-section-content">
+        <div class="infobox-image">
+          <p>skisse</p>
+        </div>
+      </div>
+    </div>
+    <div class="infobox-section">
+      <h3>Funksjon</h3>
+      <div class="infobox-section-content">
+        <ul class="clean-list">
+          <li>{{{funksjon1}}}</li>
+          <li>{{{funksjon2}}}</li>
+          <li>{{{funksjon3}}}</li>
+          <li>{{{funksjon4}}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="infobox-section">
+      <h3>Tiltaksnivå</h3>
+      <div class="infobox-section-content">
+        <div class="infobox-image">
+          <p>tretrinnsbilde</p>
+        </div>
+      </div>
+    </div>
+    <!-- If anlegg1 is defined, create section -->
+    <div class="infobox-section">
+      <h3>Anlegg i Norge</h3>
+      <div class="infobox-section-content">
+        <ul class="clean-list">
+          <li>{{{anlegg1}}}</li>
+          <li>{{{anlegg2}}}</li>
+          <li>{{{anlegg3}}}</li>
+          <li>{{{anlegg4}}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>

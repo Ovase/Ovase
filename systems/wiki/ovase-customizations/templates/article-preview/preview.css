@@ -2,11 +2,11 @@
     width: 100%;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .article-preview {
-    width: 31%;
+    width: 26rem;
     margin-bottom: 1.3em;
     margin-right: 1em;
     overflow: hidden;
