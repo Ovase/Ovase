@@ -54,8 +54,8 @@ $wgEmailAuthentication = true;
 ## TODO: Move secrets to unstaged files when deploying
 $wgDBtype = "mysql";
 $wgDBserver = "localhost";
-$wgDBname = "fagwiki";
-$wgDBuser = "fagwiki";
+$wgDBname = "ovase_test";
+$wgDBuser = "root";
 $wgDBpassword = "Kake55";
 
 # MySQL specific settings
@@ -155,6 +155,7 @@ wfLoadExtension( 'WikiEditor' );
 
 wfLoadExtension( 'VisualEditor' ); // Visual editing
 wfLoadExtension( 'TemplateData' ); // Simple template metadata
+require_once "$IP/extensions/DeleteBatch/DeleteBatch.php"; // Additional page deletion capabilities
 require_once "$IP/extensions/Scribunto/Scribunto.php"; // Citations
 
 #
@@ -174,8 +175,12 @@ $wgVirtualRestConfig['modules']['parsoid'] = array(
 ## TemplateData
 $wgTemplateDataUseGUI = true; # Enables graphical template editing
 
-## Scribunto
+## Scribunto - supposedly used for citation/references
 $wgScribuntoDefaultEngine = 'luastandalone';
+
+## DeleteBatch
+$wgGroupPermissions['bureaucrat']['deletebatch'] = true;
+$wgGroupPermissions['sysop']['deletebatch'] = true;
 
 #
 # Configure skins

@@ -38,6 +38,10 @@ Eg forsøker å sette opp fresh MediaWiki lokalt. Apache 2.4, PHP 7
 
 - Theme
 - Lage "distribusjons-pakke" for artiklar, malar + css, bilete
+- Lage overskrifts-felt til meldingsboks
+- Tilpasse lisensar
+- Gi ein lisens til alle bilde
+- Sjå over
 
 ## Ting å legge til i system scripts
 

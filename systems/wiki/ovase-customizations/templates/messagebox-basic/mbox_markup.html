@@ -1,0 +1,35 @@
+<div class="messagebox" {{#if: {{{fargekode}}} | style="background-color: {{{fargekode}}};" | }}>
+{{#if: {{{ikon}}} | [[File:{{{ikon}}}|left|Ikon meldingsboks]] | [[File:iconmonstr-warning-6.png|left|Ikon meldingsboks]] }}
+<p>{{{melding}}}</p>
+</div>
+<noinclude>
+<templatedata>
+{
+  "params": {
+    "fargekode": {
+      "label": "Fargekode",
+      "description": "Om boksen skal ha en spesiell fargekode, kan denne angis her. Må være heksadesimal.",
+      "type": "string",
+      "suggested": true,
+      "default": "#FFDE8D"
+    },
+    "ikon": {
+      "label": "Ikon",
+      "description": "En bildefil som vises til venstre i meldingsboksen",
+      "type": "string",
+      "suggested": true,
+      "default": "iconmonstr-warning-6.png"
+    },
+    "melding": {
+      "label": "Melding",
+      "description": "Meldingen som står i boksen",
+      "example": "Denne artikkelen er ikke vurdert, og kan inneholde faktafeil.",
+      "type": "string",
+      "required": true
+    }
+  },
+  "description": "Viser en meldingsboks på siden. Brukes gjerne til å vise advarsler og notifikasjoner om en fil eller artikkel.",
+  "format": "inline"
+}
+</templatedata>
+</noinclude>
