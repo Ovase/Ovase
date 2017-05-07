@@ -12,7 +12,8 @@ Ovase use Pico for static pages such as the frontpage and the "about us" page. T
 ## How to set up
 
 1. Check that the two `config.php` files of the config folder look correct
-2. Run composer install
+2. Run composer install (maybe twice in a row)
+3. Create `twig-cache` folder inside the new www-folder (symlinked folder). Check folder permissions.
 
 ## Potential hick-ups
 
