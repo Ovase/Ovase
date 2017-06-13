@@ -30,7 +30,7 @@ class PicoInstaller
         }
 
         echo "Creating theme and plugin symlinks... \n";
-        $theme_source = $root_dir . "/vendor/pedervl/ovase-pico-theme";
+        $theme_source = $root_dir . "/vendor/ovase/ovase-pico-theme";
         $plugin_source = $root_dir . "/vendor/pedervl/pico_edit";
         if (!is_dir($pico_dir . "/themes/ovase-theme")) {
             symlink($theme_source, $pico_dir . "/themes/ovase-theme");
