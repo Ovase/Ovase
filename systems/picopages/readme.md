@@ -15,6 +15,7 @@ Ovase use Pico for static pages such as the frontpage and the "about us" page. T
 2. Run composer install (maybe twice in a row)
 3. Create `twig-cache` folder inside the new www-folder (symlinked folder). Check folder permissions.
 
-## Potential hick-ups
+## Known bugs
 
-- You might need to run composer install as admin/su to create the symlinks
+- The *clear cache* functionality of pico_edit does currently not work.
+    + A workaround is to ssh into the `twig-cache` folder and manually delete contents
