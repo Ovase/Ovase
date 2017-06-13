@@ -23,7 +23,7 @@ services:
         # For backwards compatibility, and to continue to support non-static
         # configs for the time being, optionally provide a path to a
         # localsettings.js file.  See localsettings.example.js
-        localsettings: ./localsettings.js
+        #localsettings: ./localsettings.js
 
         # Set your own user-agent string
         # Otherwise, defaults to:
@@ -31,15 +31,16 @@ services:
         #userAgent: 'My-User-Agent-String'
 
         # Configure Parsoid to point to your MediaWiki instances.
-        #mwApis:
-        #- # This is the only required parameter,
+        mwApis:
+        - # This is the only required parameter,
           # the URL of you MediaWiki API endpoint.
-          #uri: 'http://localhost/wiki/api.php'
+          uri: 'http://wiki.localhost/api.php'
           # The "domain" is used for communication with Visual Editor
           # and RESTBase.  It defaults to the hostname portion of
-          # the `uri` property below, but you can manually set it
-          # to an arbitrary string.
-          #domain: 'localhost'  # optional
+          # the `uri` property above, but you can manually set it
+          # to an arbitrary string. It must match the "domain" set
+          # in $wgVirtualRestConfig.
+          # domain: 'wiki.localhost'  # optional
           # To specify a proxy (or proxy headers) specific to this prefix
           # (which overrides defaultAPIProxyURI). Alternatively, set `proxy`
           # to `null` to override and force no proxying when a default proxy
@@ -54,7 +55,7 @@ services:
         # 'enwikivoyage' etc.
         # The default for this is false. Uncomment the line below if you want
         # to load WMF's config for wikipedias, etc.
-        loadWMF: true
+        #loadWMF: true
 
         # A default proxy to connect to the API endpoints.
         # Default: undefined (no proxying).
@@ -62,7 +63,7 @@ services:
         #defaultAPIProxyURI: 'http://proxy.example.org:8080'
 
         # Enable debug mode (prints extra debugging messages)
-        #debug: true
+        debug: true
 
         # Use the PHP preprocessor to expand templates via the MW API (default true)
         #usePHPPreProcessor: false
@@ -81,8 +82,10 @@ services:
         #serverPort: 8000
         #serverInterface: '127.0.0.1'
 
-        # The URL of your LintBridge API endpoint
-        #linterAPI: 'http://lintbridge.wmflabs.org/add'
+        # Enable linting of some wikitext errors to the log
+        #linting: true
+        # Send lint errors to MW API instead of to the log
+        #linterSendAPI: false
 
         # Require SSL certificates to be valid (default true)
         # Set to false when using self-signed SSL certificates
