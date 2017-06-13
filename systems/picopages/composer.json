@@ -21,7 +21,7 @@
     ],
     "require": {
         "picocms/pico": "^1.0",
-        "pedervl/ovase-pico-theme": "dev-master",
+        "ovase/ovase-pico-theme": "dev-master",
         "pedervl/pico_edit": "dev-master"
     },
     "autoload": {
