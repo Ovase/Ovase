@@ -1,0 +1,70 @@
+
+.infobox {
+    box-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    background-color: #F9F9F9;
+    width: 320px;
+    float: right;
+    margin-left: 1em;
+    display: inline-block;
+}
+.infobox h2 {
+    margin: 0.5em 0 0 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+    border-bottom: 0;
+}
+
+.infobox h3 {
+    margin: 0;
+    padding-top: 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #BBF694;
+}
+
+.infobox-image pre {
+    border: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1em;
+}
+
+.infobox-image .thumb {
+    margin: 0 auto;
+    float: none;
+}
+
+.infobox-image .thumbinner {
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+}
+
+.infobox-image div.thumbcaption {
+    padding-top: 0.5em;
+    font-size: 1rem;
+}
+
+.infobox .image-credits {
+    font-size: 0.9em;
+    text-align: center;
+    margin: 0;
+}
+
+.infobox-section-content {
+    padding: 10px;
+}
+
+ul.clean-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.ib-tiltak {
+
+}

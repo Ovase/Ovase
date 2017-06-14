@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div style="margin-top:-25px">
+    <div class="col-md-6">
+        <a href="{{ path('projectlist') }}" class="fp-card" style="display:block!important">   
+            <div class="card fp-card" style="background-color:#a9d1ff">
+                <div class="card-block">
+                    <h1 class="fp-card-title">PROSJEKTER</h1>
+                </div>
+
+                <div class="pull-left" style="margin-left:2vw;">
+                    <img id = "fp-icon" src="{{ asset('static/images/index/citylogo.png') }}" alt="Card image">
+                </div>
+
+                <div id="fp-text" class="card-block" style="margin-left:15vw">
+                    <p style="margin-right:2vw">Bli inspirert av eksisterende norske overvannsanlegg</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6"> 
+        <a href="{{ path('actorlist') }}" class="fp-card" style="display:block!important">
+            <div class="card fp-card" style="background-color:#a1d585">
+                <div class="card-block">
+                    <h1 class="fp-card-title">AKTØRER</h1>
+                </div>
+                <div class="pull-left" style="margin-left:2vw">
+                    <img id="fp-icon" src="{{ asset('static/images/index/actorlogo.png') }}" alt="Card image">
+                </div>
+                <div id="fp-text" class="card-block" style="margin-left:15vw">
+                    <p style="margin-right:2vw">Finn bransjeaktører som jobber med overvanns-håndtering</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6">
+        <a href="http://wiki.ovase.no/" class="fp-card" style="display:block!important">
+            <div class="card fp-card" style="background-color:#d0b4a6">
+                <div class="card-block">
+                    <h1 class="fp-card-title">FAGWIKI</h1>
+                </div>
+
+                <div class="pull-left" style="margin-left:2vw;">
+                    <img id = "fp-icon" src="{{ asset('static/images/index/wikilogi.png') }}" alt="Card image">
+                </div>
+
+                <div id="fp-text" class="card-block" style="margin-left:15vw">
+                    <p style="margin-right:2vw">Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6">
+        <a href="{{ path('aboutus') }}" class="fp-card" style="display:block!important">
+            <div class="card style-bgc-lgrey fp-card">
+                <div class="card-block">
+                    <h1 class="fp-card-title">OM OVASE</h1>
+                </div>
+
+                <div class="pull-left" style="margin-left:2vw">
+                    <img id="fp-icon" src="{{ asset('static/images/index/droplogo.png') }}" alt="Card image">
+                </div>
+
+                <div id="fp-text" class="card-block" style="margin-left:15vw">
+                    <p style="margin-right:1vw">Ovase er et studentinitiativ med visjon om å bidra til å optimalisere Norges håndtering av regn- og smeltevann (overvann)</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+           
+        <p>&nbsp;</p>
+        </br>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Person
+{% endblock %}
+
+{% block body %}
+<div class ="header-container" id="header-container-actor">
+        <div class="inner-container" id="header-inner-acotr">
+            <div>
+                    <hActor>{{ person.getName() }}</hActor>
+                    {#<a href= {{ path("editpersonalprofile") }}>
+                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Rediger profil"></span>
+                        </button>
+                    </a>#}
+            </div>
+
+
+            <div id="below-header-actor">
+                <div>
+                        <img class="center-block card-img actor-img" src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image">
+                </div>
+                <section class="infobox-actor">
+                    <pActor><b>E-post:</b> {{ person.getEmail() }}</pActor>
+                    <pActor><b>Telefonnummer:</b> {{ person.getTlf() }}</pActor>
+                    <pActor><b>Kompetanse:</b> {{ person.getCompetence() }}</pActor>
+                    <br><br>
+                    {% if person.getCompanies() is not empty %}<pActor><b>Selskap personen er knyttet til:</b> </pActor>
+                    <ul class = "actor-ul">
+                        {% for company in person.getCompanies() %}
+                            <li><a href= "{{ path("company", {'id': company.getId()}) }}">{{company.getName}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% if person.getProjects() is not empty %}<pActor><b>Prosjekter personen er knyttet til:</b></pActor> 
+                    <ul class = "actor-ul">
+                        {% for project in person.getProjects() %}
+                            <li><a href= "{{ path("project", {'id': project.getId()}) }}">{{project.getName}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </section>
+
+            </div>
+        </div>
+    </div>
+    <pActor><b>Adresse:</b></pActor>
+    <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ person.getLocation() }}" allowfullscreen>
+    </iframe>
+{% endblock %}

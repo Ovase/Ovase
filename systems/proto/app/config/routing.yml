@@ -1,0 +1,137 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+home:
+    path: /
+    defaults: { _controller: AppBundle:Home:showHome}
+
+aboutus:
+    path: /omoss
+    defaults: { _controller: AppBundle:AboutUs:show}
+
+projectlist:
+  path: /prosjekter
+  defaults: { _controller: AppBundle:ProjectList:projectList}
+
+actorlist:
+  path: /akteur
+  defaults: { _controller: AppBundle:ActorList:show }
+
+login:
+    path: /login
+    defaults: { _controller: AppBundle:Login:login}
+
+logout:
+    path: /logout
+
+create_user:
+    path:     /register
+    defaults: { _controller: AppBundle:User:register } 
+
+create_person:
+    path:     /person/ny
+    defaults: {_controller: AppBundle:Person:create }
+
+create_company:
+    path:     /selskap/ny
+    defaults: {_controller: AppBundle:Company:create }
+
+project:
+  path: /prosjekter/{id}
+  defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+company:
+  path: /selskap/{id}
+  defaults: {_controller: AppBundle:Company:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+person:
+  path: /person/{id}
+  defaults: {_controller: AppBundle:Person:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+create_project:
+  path:     /prosjekter/ny
+  defaults: { _controller: AppBundle:Project:create}
+
+create_measure_in_project:
+  path:     /prosjekter/{project_id}/tiltak/ny
+  defaults: { _controller: AppBundle:Measure:create}
+  requirements:
+    methods: GET|POST
+    project_id: \d+
+
+edit_measure:
+  path:     /prosjekter/{project_id}/tiltak/{measure_id}
+  defaults: { _controller: AppBundle:Measure:edit}
+  requirements:
+    methods: GET|POST
+    project_id: \d+
+    measure_id: \d+
+
+delete_measure:
+  path:     /prosjekter/{project_id}/tiltak/{measure_id}/delete
+  defaults: { _controller: AppBundle:Measure:delete}
+  requirements:
+    methods: GET|POST
+    project_id: \d+
+    measure_id: \d+
+
+edit:
+  path:     /rediger
+  defaults: { _controller: AppBundle:EditList:show}
+
+personalprofile:
+  path:     /meg
+  defaults: { _controller: AppBundle:Profile:showMyProfile}
+
+editpersonalprofile:
+  path:     /meg/e
+  defaults: { _controller: AppBundle:Profile:editMyProfile}
+
+activate_users:
+  path:     /meg/activate
+  defaults: { _controller: AppBundle:Profile:activateUsers}
+
+deactivate_users:
+  path:     /meg/deactivate
+  defaults: { _controller: AppBundle:Profile:deactivateUsers}
+
+# View other's profile
+publicprofile:
+  path: /prof/{id}
+  defaults: {_controller: AppBundle:Profile:showProfile}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+# Edit other's profile
+editotherprofile:
+  path: /rp/{id}
+  defaults: {_controller: AppBundle:Profile:editProfile}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+userlist:
+  path: /brukere
+  defaults: { _controller: AppBundle:User:showAllUsers}
+
+queryme:
+  path:     /meg/qp
+  defaults: { _controller: AppBundle:Profile:queryMe}
+
+edit_project:
+  path:     /prosjekter/rediger/{id}
+  defaults: { _controller: AppBundle:Project:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+

@@ -1,0 +1,214 @@
+__NOTOC__
+<div class="infobox ib-tiltak">
+  <div class="infobox-section">
+    <h2>{{{tiltakNavn}}}</h2>
+    <div class="infobox-section-content">
+      <!-- If illuBildeNavn is defined, create section -->
+      {{#if: {{{illuBildeNavn}}} |
+      <div class="infobox-image">
+        [[File:{{{illuBildeNavn}}}|thumb|300px|{{{illuBildeTekst}}}]]
+        {{#if: {{{illuBildeKreditering}}} |
+        <p class="image-credits">Foto: {{{illuBildeKreditering}}}</p>| }} <!-- endif -->
+      </div>| }} <!-- endif -->
+    </div>
+  </div>
+  <!-- If skisseBildeNavn is defined, create section -->
+  {{#if: {{{skisseBildeNavn}}} |
+  <div class="infobox-section">
+    <h3>Skisse</h3>
+    <div class="infobox-section-content">
+      <div class="infobox-image">
+        [[File:{{{skisseBildeNavn}}}|frameless|300px]]
+        {{#if: {{{skisseBildeKreditering}}} |
+        <p class="image-credits">Foto: {{{skisseBildeKreditering}}}</p>| }} <!-- endif -->
+      </div>
+    </div>
+  </div>| }} <!-- endif -->
+  <div class="infobox-section">
+    <h3>Funksjon</h3>
+    <div class="infobox-section-content">
+      <ul class="clean-list">
+        <li>{{{funksjon1}}}</li>
+        <li>{{{funksjon2}}}</li>
+        <li>{{{funksjon3}}}</li>
+        <li>{{{funksjon4}}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="infobox-section">
+    <h3>Tiltaksnivå</h3>
+    <div class="infobox-section-content">
+      <div class="infobox-image">
+        [[File:{{{tiltaksNivaBildeNavn}}}|frameless|300px]]
+      </div>
+    </div>
+  </div>
+  <!-- If anlegg1 is defined, create section -->
+  {{#if: {{{anlegg1Url}}} |
+  <div class="infobox-section">
+    <h3>Anlegg i Norge</h3>
+    <div class="infobox-section-content">
+      <ul class="clean-list">
+        <li>[{{{anlegg1Url}}} {{{anlegg1Navn}}}]</li> {{#if: {{{anlegg2Url}}} |<li>[{{{anlegg2Url}}} {{{anlegg2Navn}}}]</li>| }} <!-- endif --> {{#if: {{{anlegg3Url}}} |<li>[{{{anlegg3Url}}} {{{anlegg3Navn}}}]</li>| }} <!-- endif --> {{#if: {{{anlegg4Url}}} |<li>[{{{anlegg4Url}}} {{{anlegg4Navn}}}]</li>| }} <!-- endif -->
+      </ul>
+    </div>
+  </div>
+  | }} <!-- endif -->
+</div>
+
+<noinclude>
+<templatedata>
+{
+  "params": {
+    "tiltakNavn": {
+      "label": "Tiltaksnavn",
+      "description": "Navnet på typen tiltak",
+      "example": "Regnbed",
+      "type": "string",
+      "required": true
+    },
+    "illuBildeNavn": {
+      "label": "Filnavnet til illustrasjonsbildet",
+      "type": "string",
+      "suggested": true,
+      "example": "Regnbed.jpg"
+    },
+    "illuBildeTekst": {
+      "label": "Bildetekst for illustrasjonsbilde",
+      "type": "string",
+      "suggested": true
+    },
+    "funksjon1": {
+      "label": "Funksjon 1",
+      "description": "En av tiltakets funksjoner",
+      "example": "Reduserer flomtopp",
+      "type": "string",
+      "required": true
+    },
+    "funksjon2": {
+      "label": "Funksjon 2",
+      "description": "En av tiltakets funksjoner",
+      "example": "Reduserer flomtopp",
+      "type": "string",
+      "suggested": true
+    },
+    "funksjon3": {
+      "label": "Funksjon 3",
+      "description": "En av tiltakets funksjoner",
+      "example": "Reduserer flomtopp",
+      "type": "string",
+      "suggested": true
+    },
+    "funksjon4": {
+      "label": "Funksjon 4",
+      "description": "En av tiltakets funksjoner",
+      "example": "Reduserer flomtopp",
+      "type": "string",
+      "suggested": true
+    },
+    "skisseBildeNavn": {
+      "label": "Skisse-bilde",
+      "description": "Filnavnet til en skisse som illustrerer tiltaket",
+      "type": "string",
+      "suggested": true,
+      "example": "Regnbed-skisse.jpg"
+    },
+    "tiltaksNivaBildeNavn": {
+      "label": "Bilde for tiltaksnivå",
+      "description": "Et bilde som viser tiltaksnivå",
+      "example": "Trinn12.png",
+      "type": "string",
+      "suggested": true
+    },
+    "illuBildeKreditering": {
+      "label": "Kreditering for illustrasjonsbilde",
+      "description": "Skaper eller rettighetshaver av illustrasjonsbildet",
+      "example": "The Minnesota Stormwater Manual",
+      "type": "string",
+      "suggested": true
+    },
+    "skisseBildeKreditering": {
+      "label": "Kreditering for skisse-bilde",
+      "description": "Skaper eller rettighetshaver av skisse-bildet",
+      "example": "Exflood",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg1Url": {
+      "label": "Link til anlegg 1",
+      "description": "URL til et anlegg som bruker dette tiltaket",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg1Navn": {
+      "label": "Navnet til anlegg 1",
+      "description": "Et beskrivende prosjektnavn",
+      "example": "Regnbed ved Risvollan borettslag",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg2Url": {
+      "label": "Link til anlegg 2",
+      "description": "URL til et anlegg som bruker dette tiltaket",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg2Navn": {
+      "label": "Navnet til anlegg 2",
+      "description": "Et beskrivende prosjektnavn",
+      "example": "Regnbed ved Risvollan borettslag",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg3Url": {
+      "label": "Link til anlegg 3",
+      "description": "URL til et anlegg som bruker dette tiltaket",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg3Navn": {
+      "label": "Navnet til anlegg 3",
+      "description": "Et beskrivende prosjektnavn",
+      "example": "Regnbed ved Risvollan borettslag",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg4Navn": {
+      "label": "Navnet til anlegg 4",
+      "description": "Et beskrivende prosjektnavn",
+      "example": "Regnbed ved Risvollan borettslag",
+      "type": "string",
+      "suggested": true
+    },
+    "anlegg4Url": {
+      "label": "Link til anlegg 4",
+      "description": "URL til et anlegg som bruker dette tiltaket",
+      "type": "string",
+      "suggested": true
+    }
+  },
+  "description": "Mal for et enkelt overvannstiltak, eksempelvis regnbed.",
+  "paramOrder": [
+    "tiltakNavn",
+    "illuBildeNavn",
+    "illuBildeTekst",
+    "illuBildeKreditering",
+    "skisseBildeNavn",
+    "skisseBildeKreditering",
+    "funksjon1",
+    "funksjon2",
+    "funksjon3",
+    "funksjon4",
+    "tiltaksNivaBildeNavn",
+    "anlegg1Url",
+    "anlegg1Navn",
+    "anlegg2Url",
+    "anlegg2Navn",
+    "anlegg3Url",
+    "anlegg3Navn",
+    "anlegg4Url",
+    "anlegg4Navn"
+  ]
+}
+</templatedata>
+</noinclude>

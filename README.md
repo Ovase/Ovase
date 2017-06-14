@@ -1,7 +1,18 @@
-# Kildekoden til nettstedet Ovase.no
+# Ovase.no
 
-## Status Ovase.no
+Ovase er et kunnskapssenter for overvannshåndtering i Norge. Hjemmesiden vår er [Ovase.no](http://www.ovase.no). Her ligger kildekoden som drifter våre systemer.
 
-* Fremsiden Ovase.no er oppe, og inneholder linker til 4 deler av siden
-* Av disse 4 delene, er det bare [ovase.no/wiki](http://ovase.no/wiki) som er operativ
-* Høsten 2016 vil en eller flere deler bygges ut
+## Overordnet struktur
+
+| Mappe | Beskrivelse |
+|-------|-------------|
+| configuration     | Informasjon og konfigurasjonsfiler for oppsett av systemene 	|
+| systems/picopages | Kildekoden til framsida og andre statiske sider				|
+| systems/proto     | Kildekoden til prototypen for prosjekter og aktører 			|
+| systems/wiki 		| Kildekoden til fagwikien 										|
+
+## TODO
+
+- Rydde opp i wiki
+- Forenkle wiki-deployment og oppgradering
+

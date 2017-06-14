@@ -1,10 +1,38 @@
-// Får å forwarde requests til /   til node-appen vår
-// Må puttast i httpd.conf
-// Plassering: /etc/httpd/conf/httpd.conf
+// Config file: /etc/httpd/conf/httpd.conf
 
-// OBS: DON'T NEED TO USE THIS ANYMORE, AS WE ARE CURRENTLY NOT USING NODE
+<Directory "G:/Program/XAMPP/htdocs/alloy">
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Require all granted
+</Directory>
 
-ProxyPass /wiki !
-ProxyPass /phpmyadmin !
-ProxyPass / http://localhost:3000/
-ProxyPassReverse / http://localhost:3000/
+<VirtualHost *:80>
+    ServerName www.ovase.no
+    DocumentRoot /home/ec2-user/Overvann/systems/picopages
+    <Directory /home/ec2-user/Overvann/systems/picopages>
+        K
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName wiki.ovase.no
+    DocumentRoot /home/ec2-user/Overvann/systems/wiki
+    <Directory /home/ec2-user/Overvann/systems/wiki>
+        K
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName proto.ovase.no
+    DocumentRoot /home/ec2-user/Overvann/systems/proto
+    <Directory /home/ec2-user/Overvann/systems/proto>
+        
+    </Directory>
+    <Directory /var/www/project/web/bundles>
+        <IfModule mod_rewrite.c>
+            RewriteEngine Off
+        </IfModule>
+    </Directory>
+    ErrorLog /var/log/apache2/project_error.log
+    CustomLog /var/log/apache2/project_access.log combined
+</VirtualHost>

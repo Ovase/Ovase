@@ -1,0 +1,10 @@
+
+# For now
+composer.lock
+
+# Packages installed by composer
+vendor/
+
+# Symlink to Pico
+www
+

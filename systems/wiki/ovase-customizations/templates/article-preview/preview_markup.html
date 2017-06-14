@@ -1,0 +1,68 @@
+__NOTOC__
+<div class="article-preview" style="background-color: {{{fargekode}}}">
+    <div class="article-preview-inner">
+        [[File:{{{filnavn}}}|left|frameless|180px|alt=Illustrasjonsbilde]]
+        <h4>[[{{{overskrift}}}]]</h4>
+        {{#if: {{{beskrivelse}}} | <p>{{{beskrivelse}}}</p>| }}
+    </div>
+</div>
+<noinclude>
+<templatedata>
+{
+    "params": {
+        "fargekode": {
+            "aliases": [
+                "Farge"
+            ],
+            "label": "Fargekode",
+            "description": "En fargekode (heksidesimal) brukt til bakgrunnen",
+            "example": "#ccffcc",
+            "type": "string",
+            "autovalue": "#ccffcc",
+            "required": true
+        },
+        "filnavn": {
+            "aliases": [
+                "Bildenavn"
+            ],
+            "label": "Filnavn",
+            "description": "Navnet til bildet som skal vises",
+            "example": "Regnbed.jpg",
+            "type": "string",
+            "autovalue": "",
+            "required": true
+        },
+        "overskrift": {
+            "aliases": [
+                "Artikkeltittel"
+            ],
+            "label": "Overskrift",
+            "description": "Overskriften eller tittelen til artikkelen",
+            "example": "Regnbed",
+            "type": "string",
+            "autovalue": "",
+            "required": true
+        },
+        "beskrivelse": {
+            "aliases": [
+                "Ingress",
+                "Kortversjon"
+            ],
+            "label": "Beskrivelse",
+            "description": "En kort tekst som står under overskriften og sier noe om innholdet",
+            "example": "Regnbed er et fleksibelt tiltak for lokal disponering av overvann.",
+            "type": "string",
+            "autovalue": "",
+            "required": true
+        }
+    },
+    "description": "Mal for en boks som viser en liten forhåndsvisning av en artikkel i wikien.",
+    "paramOrder": [
+        "fargekode",
+        "overskrift",
+        "filnavn",
+        "beskrivelse"
+    ]
+}
+</templatedata>
+</noinclude>
