@@ -88,6 +88,10 @@ a {
 	width:1000px;
 }
 
+.medium-wide {
+	max-width: 80rem;
+	margin: 0 auto;
+}
 
 
 /* --------- HEADER --------- */
@@ -407,8 +411,8 @@ a.btn-text {
 }
 
 .help-block {
-	margin-left: 15vw;
-	margin-right: 15vw;
+	/*margin-left: 15vw;*/
+	/*margin-right: 15vw;*/
 }
 
 .help-btn {
@@ -537,11 +541,16 @@ a.actor-card {
 
 /* ------------ STYLING FORMS --------------*/
 
+.important {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
 form div label {
 	display: inline;
 	font-size: 200%;
 	color: #6D6D6D !important;
-	margin-left: 15vw;
+	/*margin-left: 15vw;*/
 	margin-top: 20px;
 }
 
@@ -601,7 +610,7 @@ form div input {
 	position: relative;
 	font-size: 150%;
 	width: 300px;
-	margin-left: 15vw;
+	/*margin-left: 15vw;*/
 	margin-bottom: 15px;
 	display: block;
 }
@@ -611,21 +620,21 @@ form div textarea {
 	font-size: 150%;
 	min-width: 300px;
 	height: 100px;
-	margin-left: 15vw;
+	/*margin-left: 15vw;*/
 	display: block;
 }
 
 form div img {
 	display: block;
-	margin-left: 15vw;
+	/*margin-left: 15vw;*/
 }
 
 form div button {
-	margin-left: 15vw;
+	/*margin-left: 15vw;*/
 }
 
 .select2 {
-	margin-left: 15vw !important;
+	/*margin-left: 15vw !important;*/
 	display: block !important;
 }
 
@@ -673,6 +682,16 @@ form div button {
 	position: relative;
 	float:left;
 }
+
+form label.required::after {
+	content:"*";
+}
+
+/*
+form input:required {
+	color: red;
+}
+/*
 
 /* ------------ header --------------*/
 #header-logo {
