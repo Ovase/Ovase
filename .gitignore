@@ -42,3 +42,6 @@ jspm_packages
 
 # Sublime
 *.sublime-workspace
+
+# Many of our files containing secrets use this extension
+*.secret
