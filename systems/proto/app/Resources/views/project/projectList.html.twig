@@ -14,7 +14,7 @@
 				</div>
 			-->
 
-		<!--Search form -->
+		<!--Search form and create -->
 		<div>
 			<div>
 				{{ form_start(form) }}
@@ -33,7 +33,11 @@
 			</br>
 		</div>
 
+		<!-- Project map -->
+		<h2>Oversiktskart</h2>
+		{% include 'project/projectMap.html.twig' %}
 
+		<h2>Prosjekter</h2>
 		{% for project in projects %}
 
 			<div class="col-md-6">
@@ -91,5 +95,8 @@
 	{% if message is defined %}
 		<p>{{ message }}</p>
 	{% endif %}
+	
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&callback=initMap">
+    </script>
 
 {% endblock %}

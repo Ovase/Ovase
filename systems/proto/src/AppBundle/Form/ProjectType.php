@@ -68,6 +68,10 @@ class ProjectType extends AbstractType
 			// Field to input address. Gets used up to 25000 times a day. That means up to 25000 edits and creations per day.
 			->add('location', TextType::class, array('label' => 'Lokasjon','attr' => array('help' => 'Vennligst fyll inn en adresse på formen \'gatenavn gatenummer, tettsted\'. For eksempel \'Kongens gate 9, 7013 Trondheim\'.')))
 
+            // These two are set client-side when submitting.
+            ->add('coordLat', HiddenType::class, array('data' => 0.0))
+            ->add('coordLong', HiddenType::class, array('data' => 0.0))
+
 
 			/* This form field has better usability, but I could not make the api key work.
 			->add('place', PlacesAutocompleteType::class, array(

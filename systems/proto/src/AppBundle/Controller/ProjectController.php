@@ -46,7 +46,7 @@ class ProjectController extends Controller
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $images = $form['imageFiles']->getData();
             foreach ($images as $image) {
                 if ($image != null) {

@@ -197,6 +197,20 @@ header {
 	font-weight:bold;
 }
 
+/** Projects overview page **/
+#projects-map {
+	max-width: 98%;
+	height: 35rem;
+	margin: 0 auto;
+}
+
+.info-window h1 {
+	font-size: 1.4rem;
+}
+
+.info-window p {
+	font-size: 1.2rem;
+}
 
 /* --------- PROFILE--------- */
 

@@ -58,6 +58,19 @@ class Project
 	 */
 	private $location;
 
+    /**
+     * Field for storing lat coordinate found for address
+     * @ORM\Column(type="float")
+     * @Assert\Type("numeric")
+     */
+    private $coordLat;
+    /**
+     * Field for storing long coordinate found for address
+     * @ORM\Column(type="float")
+     * @Assert\Type("numeric")
+     */
+    private $coordLong;
+
 	/**
 	 * The total area of the space the project took.
 	 * @var float
@@ -557,4 +570,63 @@ class Project
         $this->dimentionalDemands = $dimentionalDemands;
     }
 
+
+    /**
+     * Remove measure
+     *
+     * @param \AppBundle\Entity\Measure $measure
+     */
+    public function removeMeasure(\AppBundle\Entity\Measure $measure)
+    {
+        $this->measures->removeElement($measure);
+    }
+
+
+    /**
+     * Set coordLat
+     *
+     * @param float $coordLat
+     *
+     * @return Project
+     */
+    public function setCoordLat($coordLat)
+    {
+        $this->coordLat = $coordLat;
+
+        return $this;
+    }
+
+    /**
+     * Get coordLat
+     *
+     * @return float
+     */
+    public function getCoordLat()
+    {
+        return $this->coordLat;
+    }
+
+    /**
+     * Set coordLong
+     *
+     * @param float $coordLong
+     *
+     * @return Project
+     */
+    public function setCoordLong($coordLong)
+    {
+        $this->coordLong = $coordLong;
+
+        return $this;
+    }
+
+    /**
+     * Get coordLong
+     *
+     * @return float
+     */
+    public function getCoordLong()
+    {
+        return $this->coordLong;
+    }
 }

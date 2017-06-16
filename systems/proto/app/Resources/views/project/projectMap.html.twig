@@ -1,0 +1,57 @@
+<div id="projects-map">
+    <script type="text/javascript">
+    // Helper function for string interpolation
+    String.prototype.supplant = function (o) {
+        return this.replace(/{([^{}]*)}/g,
+            function (a, b) {
+                var r = o[b];
+                return typeof r === 'string' || typeof r === 'number' ? r : a;
+            }
+        );
+    };
+    let infoWindowTemplate = '<div class="info-window"><h1>{title}<h1><p><a href="{url}">Gå til siden</a></p></div>';
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('projects-map'), {
+            zoom: 4,
+            center: {lat: 65.352, lng: 13.313}
+        });
+        // "Array" of textual labels shown on the markers
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // Create the markers themselves
+        var markers = project_summaries.map(function(project, i) {
+            return new google.maps.Marker({
+                position: project.geoLocation,
+                label: labels[i % labels.length],
+                project_id: project.id,
+                project_name: project.name
+            });
+        });
+        // Add click listeners to markers
+        for (var marker of markers) {
+            marker.addListener('click', (function(marker) {
+                return function() {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: infoWindowTemplate.supplant({
+                            title: marker.project_name,
+                            url: "/prosjekter/" + marker.project_id
+                    })});
+                    infowindow.open(map, marker);
+                }
+            })(marker));
+        }
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+    var project_summaries = [
+        {% for project in projects %}
+        {
+            id: {{ project.id }},
+            name: "{{ project.name }}",
+            geoLocation: {lat: {{project.getCoordLat()}}, lng: {{project.getCoordLong()}}}
+        },
+        {% endfor %}
+    ];
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+</div>
