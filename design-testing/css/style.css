@@ -45,8 +45,16 @@ ul, menu, dir {
     margin: 0 auto;
 }
 
-.padded-1-rem {
+.pad-1-rem {
     padding: 1rem;
+}
+
+.leftpad-1-rem {
+    padding-left: 1rem;
+}
+
+.rightpad-1-rem {
+    padding-right: 1rem;
 }
 
 /* common colours */
@@ -73,10 +81,6 @@ ul, menu, dir {
 
 /*** HEADER AND NAVIGATION ***/
 
-#header-wrapper {
-    background-color: #79C7C5;
-}
-
 header {
     overflow:auto;
     height: 68px;
@@ -85,11 +89,13 @@ header {
 #header-logo {
     display: block;
     float: left;
-    margin: 10px 0;
+    padding: 10px 0;
+    height: 68px;
 }
 
 #header-logo img {
     width: 48px;
+    /*width: 100px;*/
 }
 
 header h1 {
@@ -105,7 +111,7 @@ nav {
     display: block;
     float: left;
     margin-left: 3rem;
-    
+    height: 100%;
 }
 
 header ul {
@@ -156,7 +162,7 @@ nav a.active {
 .user-panel a {
     padding-top: 0.3rem;
     padding-left: 1.4em;
-    color: #2d2d2d;
+    color: #505050;
 }
 
 .user-panel a:hover {
@@ -164,6 +170,12 @@ nav a.active {
 }
 
 /*** MAIN ***/
+
+main {
+    padding-top: 2rem;
+}
+
+/*** PROJECT LIST CONTROLS ***/
 
 .headline-like {
     font-size: 1.2rem;
@@ -175,17 +187,9 @@ nav a.active {
     border-bottom: 0;
 }
 
-.proj-header-box {
-    padding-left: 0.8rem;
-}
-
-#proj-list-header {
-    padding: 1rem;
-    color: #FFFFFF;
-}
-
 #proj-list-controls {
-    min-height: 21rem;
+    min-height: 22rem;
+    background-color: #F0F0F0;
 }
 
 #proj-list-controls h2 {
@@ -213,7 +217,7 @@ nav a.active {
 }
 
 #proj-filtering legend {
-    color: #ffffff;
+    color: #505050;
     border-bottom: 0;
 }
 
@@ -227,10 +231,31 @@ nav a.active {
     margin: 0.1em 0;
 }
 
+#proj-filtering button {
+    margin-top: 1.5rem;
+    background-color: #136F63;
+    color: #ffffff;
+}
+
 #proj-list-map {
     min-height: 22rem;
 }
 
+/*** PROJECT LIST ***/
+
+#projects {
+    padding-top: 2rem;
+}
+
 .proj-box {
-    background-color: #EBEBEB;
+    /*background-color: #EBEBE;*/
+    /*background-color: #FFE0B5;*/
+}
+
+.proj-box img {
+    width: 100%;
+}
+
+.proj-box h2 {
+    margin-top: -1rem;
 }
