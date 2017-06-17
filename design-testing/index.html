@@ -1,0 +1,105 @@
+<head>
+  <title>Overvannssenteret Ovase.no</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <script src="https://use.fontawesome.com/a0769c685f.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="header-wrapper" class="full-wide">
+    <header class="pretty-wide centered">
+      <a id="header-logo" href="/"><img src="images/ovase-logo-small.png"/></a>
+      <h1>OVASE</h1>
+      <nav>
+        <ul>
+          <li><a class="active" href="">PROSJEKTER</a></li>
+          <li><a href="">AKTØRER</a></li>
+          <li><a href="">FAGWIKI</a></li>
+        </ul>
+      </nav>
+      <section class="user-panel">
+        <ul>
+          <li><a href="#"><span class="fa fa-user" aria-hidden="true"></span>Min side</a></li>
+          <li><a href="#"><span class="fa fa-sign-out" aria-hidden="true"></span>Logg ut</a></li>
+        </ul>
+      </section>
+    </header>
+  </div>
+  <main class="full-wide">
+    <div class="full-wide ovase-green-bg padded-1-rem">
+      <section id="proj-list-header" class="pretty-wide centered ovase-dark-green-bg pure-g">
+        <div class="proj-header-box pure-u-1 pure-u-md-1-2">
+          <section id="proj-list-controls">
+            <h2>Velkommen til vår prosjektdatabase!</h2>
+            <form id="proj-basic-search" class="full-wide pure-form">
+              <input type="text" class="pure-input-rounded" value="Søk i prosjekter">
+              <button type="submit" class="pure-button">Søk</button>
+            </form>
+            <form id="proj-filtering" class="pure-form pure-form-stacked">
+                <fieldset>
+                  <legend class="headline-like">Filtrering</legend>
+                  <div class="pure-g">
+                    <div class="pure-u-1 pure-u-md-1-2">
+                      <label for="region">Region</label>
+                      <select id="region" class="pure-u-23-24">
+                        <option>Alle</option>
+                        <option>Trondheim</option>
+                        <option>Oslo</option>
+                        <option>Bergen</option>
+                      </select>
+                    </div>
+
+                    <div class="pure-u-1 pure-u-md-1-2">
+                      <fieldset>
+                        <legend class="compact-legend">Tekniske løsninger</legend>
+                          <label for="green-roof" class="pure-checkbox">
+                            <input type="checkbox" id="green-roof" name="tech-solutions" value="green-roof">
+                            Grønne tak
+                          </label>
+                          <label for="twigs" class="pure-checkbox">
+                            <input type="checkbox" id="twigs" name="tech-solutions" value="twigs">
+                            Kvistdammer
+                          </label>
+                          <label for="rainbed" class="pure-checkbox">
+                            <input type="checkbox" id="rainbed" name="tech-solutions" value="rainbed">
+                            Regnbed
+                          </label>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <button type="submit" class="pure-button pure-button-primary">Filtrer prosjekter</button>
+                </fieldset>
+              </form>
+          </section>
+        </div>
+        <div class="proj-header-box pure-u-1 pure-u-md-1-2">
+          <section id="proj-list-map">
+            <script>
+              var map;
+              function initMap() {
+                map = new google.maps.Map(document.getElementById('proj-list-map'), {
+                  center: {lat: -34.397, lng: 150.644},
+                  zoom: 8
+                });
+              }
+            </script>
+          </section>
+        </div>
+      </section>
+    </div>
+    <section id="projects" class="pretty-wide centered pure-g">
+      <div class="pure-u-1 pure-u-md-1-2">
+        <article class="proj-box">
+          <h2>Regnbed ved Risvollan</h2>
+          <p>Litt tekst</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-VcCoQLRiQicy6f2ee8uTVPv81vcBb4&callback=initMap"
+    async defer></script>
+</body>
+
+      
