@@ -12,5 +12,5 @@ cp $DEFAULT_CONFIG_DIR/picopages/pico_edit_password.secret $DEFAULT_OVASE_DIR/sy
 cp $DEFAULT_CONFIG_DIR/proto/secrets.yml $DEFAULT_OVASE_DIR/systems/proto/app/config/secrets.yml
 
 # MediaWiki database credentials and secrets
-co $DEFAULT_CONFIG_DIR/wiki/mw_keys.secret $DEFAULT_OVASE_DIR/systems/wiki
-co $DEFAULT_CONFIG_DIR/wiki/sql_user.secret $DEFAULT_OVASE_DIR/systems/wiki
+cp $DEFAULT_CONFIG_DIR/wiki/mw_keys.secret $DEFAULT_OVASE_DIR/systems/wiki
+cp $DEFAULT_CONFIG_DIR/wiki/sql_user.secret $DEFAULT_OVASE_DIR/systems/wiki
