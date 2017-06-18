@@ -142,6 +142,13 @@ wfLoadSkin( 'Modern' );
 wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
 
+# Set the URL of the main logo
+$wgHooks['SkinTemplateOutputPageBeforeExec'][] = 'lfChangeMainPageURL';
+function lfChangeMainPageURL( $sk, &$tpl ) {
+    $tpl->data['nav_urls']['mainpage']['href'] = "http://www.ovase.no/";
+    return true;
+}
+
 
 # Enabled extensions. Most of the extensions are enabled by adding
 # wfLoadExtensions('ExtensionName');
