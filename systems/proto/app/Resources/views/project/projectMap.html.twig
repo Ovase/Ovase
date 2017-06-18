@@ -15,7 +15,8 @@
             zoom: 4,
             center: {lat: 65.352, lng: 13.313}
         });
-        // "Array" of textual labels shown on the markers
+        // "Array" of textual labels shown on the markers.
+        // Not ideal if projects are dense, as they will share labels.
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // Create the markers themselves
         var markers = project_summaries.map(function(project, i) {
