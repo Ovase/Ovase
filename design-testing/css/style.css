@@ -1,3 +1,5 @@
+/*** GLOBAL STYLES ***/
+
 html {
     height:100%;
     width: 100%;
@@ -6,8 +8,8 @@ html {
     line-height: 1.375em;
 }
 
-html, button, input, select, textarea, .pure-g [class *= "pure-u"] {
-    font-family: 'Droid Sans', sans-serif !important;
+html * {
+    font-family: 'Lato', sans-serif !important;
 }
 
 *,
@@ -33,6 +35,12 @@ ul, menu, dir {
     margin: 0;
 }
 
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
 .full-wide {
     width: 100%;
 }
@@ -42,41 +50,63 @@ ul, menu, dir {
 }
 
 .centered {
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.pad-1-rem {
-    padding: 1rem;
+.fbox {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.leftpad-1-rem {
-    padding-left: 1rem;
+.fb-unstretched {
+    align-items: flex-start;
 }
 
-.rightpad-1-rem {
-    padding-right: 1rem;
-}
+.fbg1 {flex-grow: 1;}
+.fbg2 {flex-grow: 2;}
+.fbg3 {flex-grow: 3;}
+.fbg4 {flex-grow: 4;}
+.fbg5 {flex-grow: 5;}
+.fbg6 {flex-grow: 6;}
 
 /* common colours */
-.ovase-pearl-aqua-bg {
+.bg-ovase-pearl-aqua {
     background-color: #79C7C5;
 }
 
-.ovase-green-bg {
+.bg-ovase-green {
     background-color: #C9F299;
 }
 
-.ovase-dark-green-bg {
+.bg-ovase-dark-green {
     background-color: #136F63;
 }
 
-.ovase-peach-bg {
+.bg-ovase-peach {
     background-color: #FFE0B5;
+}
+
+.white {
+    color: #ffffff;
 }
 
 /* icons */
 .fa {
     padding-right: 0.3em;
+}
+
+/* forms */
+.ovase-form button,
+.ovase-form input[type="submit"],
+.ovase-form input[type="text"],
+.ovase-form select
+ {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 0.125rem;
+    padding: 0.5rem 1rem;
 }
 
 /*** HEADER AND NAVIGATION ***/
@@ -155,10 +185,6 @@ nav a.active {
     float: right;
 }
 
-.user-panel li {
-    font-size: 1rem;
-}
-
 .user-panel a {
     padding-top: 0.3rem;
     padding-left: 1.4em;
@@ -177,23 +203,9 @@ main {
 
 /*** PROJECT LIST CONTROLS ***/
 
-.headline-like {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.borderless {
-    border: 0;
-    border-bottom: 0;
-}
-
 #proj-list-controls {
     min-height: 22rem;
     background-color: #F0F0F0;
-}
-
-#proj-list-controls h2 {
-    margin-top: 0;
 }
 
 #proj-basic-search {
@@ -202,13 +214,10 @@ main {
 }
 
 #proj-basic-search input {
-    flex-grow: 5;
-    min-width: 10em;
 }
 
 #proj-basic-search button {
     margin-left: 0.5em;
-    flex-grow: 1;
 }
 
 #proj-filtering fieldset {
@@ -242,10 +251,6 @@ main {
 }
 
 /*** PROJECT LIST ***/
-
-#projects {
-    padding-top: 2rem;
-}
 
 .proj-box {
     /*background-color: #EBEBE;*/
