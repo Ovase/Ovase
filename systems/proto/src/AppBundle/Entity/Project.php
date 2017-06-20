@@ -37,7 +37,7 @@ class Project
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Type("float")
-     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet må være ikke-negativ")
      */
     private $waterArea;
     /**

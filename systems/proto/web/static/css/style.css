@@ -5,7 +5,8 @@ http://www.colourlovers.com/palette/443995/i_demand_a_pancake
 
 html {
 	height:100%;
-	box-sizing:border-box
+	box-sizing:border-box;
+	font-size: 14px;
 }
 
 *,
@@ -705,7 +706,16 @@ form label.required::after {
 form input:required {
 	color: red;
 }
-/*
+*/
+
+.info-box {
+	width: 100%;
+	background-color: #EDE580;
+	padding: 1rem;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	font-size: 1.2rem;
+}
 
 /* ------------ header --------------*/
 #header-logo {

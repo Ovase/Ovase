@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nytt prosjekt
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('static/css/buttons.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="medium-wide">
+
+        <p class="important">Merk at obligatoriske felter er merket med stjernetegnet (*)</p>
+
+        {# Form theme adds help message block #}
+        {% form_theme form 'form/fields.html.twig' %}
+
+        <div>
+            Steps:
+            {% include '@CraueFormFlow/FormFlow/stepList.html.twig' %}
+        </div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+       {% if form.vars.end_message is defined %} 
+        <div class="info-box">
+            <span aria-hidden="true">{{ form.vars.end_message }}</span>
+        </div>
+        {% endif %}
+
+        {% include '@CraueFormFlow/FormFlow/buttons.html.twig' %}
+        {{ form_end(form) }}
+
+{#         <div style="margin-left:15vw">
+            <button type="button" id="previous" class="btn btn-default" onclick="show('previous');">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="page1" class="btn btn-default btn-project-step" onclick="show(1);">Steg 1</button>
+            <button type="button" id="page2" class="btn btn-default btn-project-step" onclick="show(2);">Steg 2</button>
+            <button type="button" id="page3" class="btn btn-default btn-project-step" onclick="show(3);">Steg 3</button>
+            <button type="button" id="next" class="btn btn-default" onclick="show('next');">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button>
+        </div>
+ #}
+        <script src="{{ asset('static/js/projectEdit.js') }}"></script>
+        <script src="{{ asset('static/js/addressTranslator.js') }}"></script>
+        <script src="{{ asset('static/js/datepicker-no.js') }}"></script>
+        <script type="text/javascript">
+            initEditProjectPage();
+            prepareAddressTranslator();
+        </script>
+    </div>
+
+{% endblock %}
+
+

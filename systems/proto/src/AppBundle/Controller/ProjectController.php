@@ -67,6 +67,42 @@ class ProjectController extends Controller
         );
     }
 
+    public function create2Action(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException('Du må være logget inn og aktivert av en redaktør for å lage et prosjekt');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $project = new Project();
+        
+        $flow = $this->get('ovase.form.flow.editProject'); // must match the flow's service id
+        $flow->bind($project);
+        $form = $flow->createForm();
+        if ($flow->isValid($form)) {
+            $flow->saveCurrentStepData($form);
+
+            if ($flow->nextStep()) {
+                // form for the next step
+                $form = $flow->createForm();
+            } else {
+                // flow finished
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($project);
+                $em->flush();
+
+                $flow->reset(); // remove step data from the session
+
+                return $this->redirect($this->generateUrl('home')); // redirect when done
+            }
+        }
+
+        return $this->render('project/create2.html.twig', array(
+            'form' => $form->createView(),
+            'flow' => $flow,
+        ));
+
+    }
+
     public function editAction(Request $request)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {

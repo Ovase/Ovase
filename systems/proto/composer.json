@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "phpunit/phpunit": "^5.5",
         "gregwar/captcha-bundle": "^2.0",
-        "cloudinary/cloudinary_php": "^1.4"
+        "cloudinary/cloudinary_php": "^1.4",
+        "craue/formflow-bundle": "~3.0@dev"
 	},
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
