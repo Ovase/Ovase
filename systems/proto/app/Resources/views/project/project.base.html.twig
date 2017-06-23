@@ -1,0 +1,136 @@
+
+  <section class="medium-wide centered fbox">
+    <div class="w-100 w-50-ns ph2 pb4">
+      <div class="basics pa3">
+        <h2 class="mt0">Kort oppsummert: {{ project.getName() }}</h2>
+        <div class="cf">
+          <div class="fact-row fl w-100">
+            <p><span class="fact-label">Adresse:</span> {{ project.getLocation() }}</p>
+          </div>
+          <div class="fact-row fl w-100">
+            <p><span class="fact-label">Byggeperiode:</span> {{ project.getStartdate() }} - {{ project.getEnddate() }}</p>
+          </div>
+          <div class="fact-row fl w-100">
+            <p><span class="fact-label">Prosjekteier:</span>Ikke implementert</p>
+          </div>
+          <div class="fact-row fl w-100">
+            <p><span class="fact-label">Medvirkende:</span></p>
+            <ul>
+              {% for actor in project.getActors() %}
+                {% if actor.getClassName == "Company"%}
+                  <li> Selskap: <a href= "/selskap/{{ actor.getId() }}">{{actor.getName()}}</a></li>
+                {% else %}
+                  <li> Person: <a href= "/person/{{ actor.getId() }}">{{actor.getName()}}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <!--
+          <div class="fact-row fl w-100">
+            <p><span class="fact-label">Beskrivelse:</span></p>
+            <p>{{ project.getDescription() }}</p>
+          </div>
+          -->
+        </div>
+      </div>
+    </div>
+    <div class="w-100 w-50-ns ph2 pb4">
+      <div class="img-carousel">
+        {% for key,image in project.getImages() %}
+          <img class="img-carousel-image centered" src="{{ image.getUrl() }}">
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="narrow centered">
+    <div class="w-100 mb4">
+      <h2 class="mt0">Beskrivelse</h2>
+      <p>{{ project.getDescription() }}</p>
+      <h2>Oppsummering</h2>
+      <p>{{project.getSummary()}}</p>
+    </div>
+
+    <div class="w-100">
+      <h2 class="mt0">Flere detaljer</h2>
+      <table class="ovase-table">
+        <tbody>
+          <tr>
+            <td>Område-type</td>
+            <td>{{ project.getAreaType() }}</td>
+          </tr>
+          <tr>
+            <td>Prosjekt-type</td>
+            <td>{{ project.getProjectType() }}</td>
+          </tr>
+          <tr>
+            <td>Totale kostnader for hele byggeprosjektet</td>
+            <td>{{ project.getCost() }} NOK</td>
+          </tr>
+          <tr>
+            <td>Totalt areal for prosjektområde</td>
+            <td>{{ project.getTotalArea() }} m²</td>
+          </tr>
+          <tr>
+            <td>Totalt areal for nedbørsfelt til overvannstiltakene</td>
+            <td>{{ project.getWaterArea() }} m²</td>
+          </tr>
+          <tr>
+            <td>Grunnforhold</td>
+            <td>{{ project.getSoilConditions() }}</td>
+          </tr>
+          <tr>
+            <td>Dimensjonerende krav til overvannshåndtering</td>
+            <td>{{ project.getDimentionalDemands() }}</td>
+          </tr>
+        </tbody>
+      </table>      
+    </div>
+  </section>
+
+  <section class="medium-wide centered">
+    <div class="w-100">
+      <h2>Overvannsløsninger</h2>
+      <p>TODO: Betinga overskrift og styling av innhold</p>
+      {% for measure in project.getMeasures() %}
+        <div class="measure-box w-100 mv3">
+          {% if canEdit %}
+            <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Rediger tiltak</a>
+            <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
+          {% endif %}
+
+          <h2>{{ measure.getTitle() }}</h2>
+
+          <h3>Fakta</h3>
+          <p>Totalt areal: {{ measure.getTotalArea() }} m²</p>
+          <p>Dimensjonerende krav til overvannshåndtering for tiltaket: measure.dimetionalDemands</p>
+          <p>Kostnad for tiltaket: {{ measure.getCosts() }} NOK</p>
+          <p>Tekniske funksjoner: {{measure.getTechnicalFunctions() }}</p>
+          <p>Tilleggsverdier: {{measure.getAdditionalValues()}}</p>
+          <p>Utdypelse: {{measure.getElaboration()}}</p>
+
+          <h3>Geometrisk utforming</h3>
+          <p>{{measure.getGeometricDesignElaboration()}}</p>
+
+          <h3>Konstruksjonsdetaljer og anleggelse</h3>
+          <p>{{measure.getConstructionDetails()}}</p>
+
+          <h3>Drift, vedlikehold og oppfølging</h3>
+          <p>{{measure.getMaintenance()}}</p>
+
+          <h3>Erfaringer og tips</h3>
+          <p>{{measure.getExperiencesGained()}}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="narrow centered">
+    <h2>Plassering</h2>
+    <iframe
+      width="600"
+      height="450"
+      frameborder="0" style="border:0"
+      src= "https://www.google.com/maps/embed/v1/search?key={{gmaps_api_key}}&q={{ project.getLocation() }}" allowfullscreen>
+    </iframe>
+  </section>

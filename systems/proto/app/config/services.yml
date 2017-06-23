@@ -13,3 +13,6 @@ services:
   ovase.form.flow.editProject:
     class: AppBundle\Form\EditProjectFlow
     parent: craue.form.flow
+    arguments:
+      - @logger
+      - @image_service

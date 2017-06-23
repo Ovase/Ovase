@@ -1,101 +1,115 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Prosjekter
+  Prosjekter
 {% endblock %}
 
+{#
+      <div>
+        <span style="font-size:25px; margin-left:1vw; margin-right:25px; color:#6D6D6D;">Lag nytt prosjekt</span>
+        <a class="btn-text" href={{ path('create_project') }}><button type="button" class="btn btn-circle btn-primary btn-raised">+</button></a>
+      </div>
+#}
+
 {% block body %}
-			<!--
-				<div class="input-group">
-					<input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
-					<span class="input-group-btn">
-						<button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
-					</span>
-				</div>
-			-->
+    <!-- Project list controls and map -->
+    <section id="proj-list-header" class="pretty-wide centered fbox">
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-controls" class="pa3">
+          <h2 class="mt0">Velkommen til vår prosjektdatabase!</h2>
+          {{ form_start(form, { 'attr' : { 'id': 'proj-basic-search', 'class': 'full-wide pb2 ovase-form' }} ) }}
+            <div class="fbg5 bg-white mr2">
+              {{ form_label(form.search) }}
+              {{ form_errors(form.search) }}
+              {{ form_widget(form.search) }}
+            </div>
+            <div class="fbg1 bg-white mr2">
+              {{ form_label(form.save) }}
+              {{ form_widget(form.save) }}
+            </div>
+          {{ form_end(form) }}
+          <form id="proj-filtering" class="ovase-form">
+              <fieldset>
+                <legend class="f4 fw7 pv3">Filtrering</legend>
+                <div class="fbox">
+                  <div class="w-50">
+                    <label for="region" class="db f4 mb2">Region</label>
+                    <select id="region" class="w-90 bg-white">
+                      <option>Alle</option>
+                      <option>Trondheim</option>
+                      <option>Oslo</option>
+                      <option>Bergen</option>
+                    </select>
+                  </div>
 
-		<!--Search form and create -->
-		<div>
-			<div>
-				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				{{ form_end(form) }}
-			</div>
-			</br>
-			</br>
+                  <div class="w-50">
+                    <fieldset>
+                      <legend class="db f4 mb1">Tekniske løsninger</legend>
+                        <label for="green-roof" class="db">
+                          <input type="checkbox" id="green-roof" name="tech-solutions" value="green-roof">
+                          Grønne tak
+                        </label>
+                        <label for="twigs" class="db">
+                          <input type="checkbox" id="twigs" name="tech-solutions" value="twigs">
+                          Kvistdammer
+                        </label>
+                        <label for="rainbed" class="db">
+                          <input type="checkbox" id="rainbed" name="tech-solutions" value="rainbed">
+                          Regnbed
+                        </label>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="pt4">
+                  <input type="submit" class="db w-40 fl bg-light-green" value="Filtrer prosjekter">
+                  {% if app.user%}
+                    <a class="rm-link-style w-40 fr db" href="{{ path('create_project') }}"><button type="button" class="db w-100 bg-light-blue">Nytt prosjekt</button></a>
+                  {% endif %}
+                </div>
+              </fieldset>
+            </form>
+        </section>
+      </div>
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-map">
+          {% include 'project/projectMap.html.twig' %}
+        </section>
+      </div>
+    </section>
+    
+    <!-- Project list -->
+    <section id="projects" class="pretty-wide centered fbox pt4 ph2">
+      {% for project in projects %}
+      <div class="w-100 w-50-ns">
+        <a href="{{ path('project', {'id': project.getId()}) }}" class="proj-box fbox">
+          <div class="w-50">
+            {% for key,image in project.getImages() %}
+              {%if loop.index == 1%}
+              <img src="{{ image.getUrl() }}">
+              {%endif%}
+            {% endfor %}
+          </div>
+          <div class="pa3 w-50">
+            <h2>{{ project.getName() }}</h2>
+            <p>{{ project.getDescription() }}</p>
+            <h4>Adresse</h4>
+            <p>{{ project.getLocation() }}</p>
+            <h4>Løsninger</h4>
+            <ul>
+            {% for solution in project.getTechnicalSolutions() %}
+              <li>{{ solution }}</li>
+            {% endfor %}
+            </ul>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </section>
 
-			<div>
-				<span style="font-size:25px; margin-left:1vw; margin-right:25px; color:#6D6D6D;">Lag nytt prosjekt</span>
-				<a class="btn-text" href={{ path('create_project') }}><button type="button" class="btn btn-circle btn-primary btn-raised">+</button></a>
-			</div>
-
-			</br>
-			</br>
-		</div>
-
-		<!-- Project map -->
-		<h2>Oversiktskart</h2>
-		{% include 'project/projectMap.html.twig' %}
-
-		<h2>Prosjekter</h2>
-		{% for project in projects %}
-
-			<div class="col-md-6">
-
-				<div style="background-color:#f2f2f2; display:block">
-					<div style="margin:0 2vw 0 2vw">
-						<div>
-							<h1 class="card-title">{{ project.getName() }}</h1>
-							<h4 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h4>
-						</div>
-
-
-						<div>
-								{% for key,image in project.getImages() %}
-									{%if loop.index == 1%}
-										<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
-									{%endif%}
-								{% endfor %}
-						</div>
-
-						<div id="p-text">
-								<p class="card-subtitle">
-									Beskrivelse:
-								</p>
-
-								<p class="card-text">
-									{{ project.getDescription() }}
-								</p>
-
-						</div>
-
-						<div>
-							<p class="card-subtitle">Tekniske løsninger:</p>
-							<p class="card-text">
-							{% for p in project.getTechnicalSolutions() %}
-								{{ p }}
-							{% endfor %}
-							</p>
-						</div>
-
-						<div>
-							<a href="{{ path('project', {'id': project.getId()}) }}" class="btn btn-default" role="button">Se mer</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		{% endfor %}
-
-
-
-
-
-	<br>
-	{% if message is defined %}
-		<p>{{ message }}</p>
-	{% endif %}
-	
+    {% if message is defined %}
+      <p>{{ message }}</p>
+    {% endif %}
+  
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&callback=initMap">
     </script>
 

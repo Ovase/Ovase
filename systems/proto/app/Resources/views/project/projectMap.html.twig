@@ -1,4 +1,4 @@
-<div id="projects-map">
+<section id="proj-list-map">
     <script type="text/javascript">
     // Helper function for string interpolation
     String.prototype.supplant = function (o) {
@@ -11,7 +11,7 @@
     };
     let infoWindowTemplate = '<div class="info-window"><h1>{title}<h1><p><a href="{url}">Gå til siden</a></p></div>';
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('projects-map'), {
+        var map = new google.maps.Map(document.getElementById('proj-list-map'), {
             zoom: 4,
             center: {lat: 65.352, lng: 13.313}
         });
@@ -55,4 +55,4 @@
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
-</div>
+</section>

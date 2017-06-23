@@ -2,9 +2,13 @@
 namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
-class EditProjectStep3Form extends AbstractType {
+class EditProjectConfirmationStepForm extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
@@ -16,8 +20,7 @@ class EditProjectStep3Form extends AbstractType {
                 'quality' =>200,
                 'keep_value' => true,
                 'distortion' => false,
-                'background_color' => [255, 255, 255]))
-            ->add('save', SubmitType::class, array ('label' => 'Opprett prosjekt','attr'=>array('class'=>'btn btn-default')));
+                'background_color' => [255, 255, 255]));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options) {
@@ -26,7 +29,7 @@ class EditProjectStep3Form extends AbstractType {
     }
 
     public function getBlockPrefix() {
-        return 'editProjectStep3';
+        return 'editProjectConfirmationStep';
     }
 
 }

@@ -13,8 +13,8 @@ class ProjectSearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', SearchType::class, array('label' => ' ','attr' => array('placeholder' => 'Søk på navn, lokasjon, ...','class'=>'form-control'), 'required' => false))
+            ->add('search', SearchType::class, array('label' => ' ','attr' => array('placeholder' => 'Søk i prosjekter'), 'required' => false))
 
-            ->add('save', SubmitType::class, array ('label' => ' ','attr'=>array('class'=>'btn btn-default glyphicon glyphicon-search')));
+            ->add('save', SubmitType::class, array ('label' => 'Søk'));
     }
 } 

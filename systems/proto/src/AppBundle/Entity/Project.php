@@ -99,12 +99,16 @@ class Project
 	private $projectType = "";
 
     /**
-     * @ORM\Column(type="array")
-     * @Assert\All({
-     *   @Assert\Type("string"),
-     * })
+     * One product has many images
+     * 
+     * @ORM\OneToMany(targetEntity="ProjectImage", mappedBy="project", cascade={"persist", "remove"})
      */
     private $images;
+
+    /**
+     * Holds files, but is not persisted to DB
+     */
+    private $imageFiles;
 
     /**
      * @ORM\Column(type="array")
@@ -159,6 +163,7 @@ class Project
 		$this->actors = new ArrayCollection();
         $this->technicalSolutions = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->imageFiles = new ArrayCollection();
         $this->measures = new ArrayCollection();
 	}
 	/**
@@ -471,34 +476,48 @@ class Project
     }
 
     /**
-     * @return mixed
+     * Add image
+     *
+     * @param \AppBundle\Entity\ProjectImage $image
+     *
+     * @return Product
+     */
+    public function addImage(\AppBundle\Entity\ProjectImage $image)
+    {
+        // Ensure that the image-belongs-to-product relationship is set
+        $image->setProject($this);
+        $this->images[] = $image;
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\ProjectImage $image
+     */
+    public function removeImage(\AppBundle\Entity\ProjectImage $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getImages()
     {
         return $this->images;
     }
 
-    /**
-     * @param mixed $images
-     */
-    public function setImages($images)
+    public function getImageFiles()
     {
-        $this->images = $images;
+        return $this->imageFiles;
     }
 
-    /**
-     * Appends an array of images to existing images
-     * @param array $images
-     * @return Project
-     */
-    public function addImages($images)
+    public function setImageFiles($imageFiles)
     {
-        foreach ($images as $img) {
-            if (!($this->images->contains($img))) {
-                $this->images->add($img);
-            }
-        }
-        return $this;
+        $this->imageFiles = $imageFiles;
     }
 
     /**
@@ -628,5 +647,15 @@ class Project
     public function getCoordLong()
     {
         return $this->coordLong;
+    }
+
+    public function __toString()
+    {
+        $my_string = 'Name: ' . $this->getName() . "\n";
+        $my_string = $my_string . "Images: \n";
+        foreach ($this->getImages() as $img) {
+            $my_string = $my_string . $img->getUrl() . "\n";
+        }
+        return $my_string;
     }
 }

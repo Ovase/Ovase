@@ -1,71 +1,78 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Aktører
+  Aktøroversikten
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <!-- Used to dynamically switch between people and companies -->
+  <script src="{{ asset('static/js/showActor.js') }}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      checkCookie();
+    });
+  </script>
 {% endblock %}
 
 {% block body %}
-<body onload="checkCookie()">
 
-    <button type="button" id="btn-persons" class="btn btn-default" onclick="show('persons');">Personer</button>
-    <button type="button" id="btn-companies" class="btn btn-default" onclick="show('companies');">Selskaper</button>
+  <section class="medium-wide centered fbox">
+    <div class="w-100 w-50-ns ph2 pb4">
+      <a href="#" id="person-button" class="panel-button pa3 f3 bg-ovase-peach white" onclick="show('person');">
+        <p><span class="fa fa-user" aria-hidden="true"></span>Se personer</p>
+      </a>
+    </div>
+    <div class="w-100 w-50-ns ph2 pb4">
+      <a href="#" id="company-button" class="panel-button pa3 f3 bg-ovase-peach white" onclick="show('company');">
+        <p><span class="fa fa-building" aria-hidden="true"></span>Se bedrifter</p>
+      </a>
+    </div>
+  </section>
 
-    <br>
-    <br>
-
-    <div id="persons">
-        Lag person
-        <a href={{ path('create_person') }}>
-          <button type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          </button>
-        </a>
-        </br>
-        <br>
-        <h5>Personer</h5>
-
-        <!-- Person search -->
-        {{ form_start(personForm) }}
-        {{ form_widget(personForm) }}
-        {{ form_end(personForm) }}
-        <br>
+  <section class="medium-wide centered cf">
+    <div class="w-100">
+      <!-- Entire person list box -->
+      <div id="person-list" class="cf">
+        <div class="full-wide mb1 fbox">
+          <div class="w-100 w-50-ns ph2 pb3">
+            <div class="actor-search pa2 bg-ovase-yellow cf h-100">
+              <!-- Person search -->
+              {{ form_start(personForm, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+              {{ form_widget(personForm) }}
+              {{ form_end(personForm) }}
+            </div>
+          </div>
+          <div class="w-100 w-50-ns ph2 pb3">
+            <a href="{{ path('create_person') }}" id="company-button" class="panel-button pa3 f3 bg-ovase-yellow white" onclick="show('company');">
+              <p><span class="fa fa-plus" aria-hidden="true"></span>Opprett privat-aktør</p>
+            </a>
+          </div>
+        </div>
 
         <!-- Person cards -->
-        <div>
+        <div class="actor-cards full-wide fbox">
         {% for person in persons %}
-            <div class="col-md-3">
-                <a class="actor-card" href= {{ path("person", {'id': person.getId()}) }}>
-                    <div style="background-color:#d3d3d3; display:block">
-                        <div style="margin:0 2vw 0 2vw">
-                            <div>
-                                <h1 class="card-title">{{ person.getName()}}</h1>
-                                <h4 class="card-subtitle text-muted">{{person.getCompetence()}}</h4>
-
-                            </div>
-                            <div>
-                                <img class="center-block card-img" src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image" style="max-width:10vw;max-height:15vw">
-                            </div>
-                            <div id="p-text">
-                                <p class="card-subtitle">Kontaktinformasjon:</p>
-
-                                <p class="card-text" style="padding-bottom: 15px">
-                                        E-post: {{ person.getEmail() }}</br>
-                                        Telefonnummer: {{ person.getTlf() }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+          <div class="w-100 w-50-ns ph2 pb2">
+            <a href="{{ path("person", {'id': person.getId()}) }}" class="proj-box fbox">
+              <div class="w-50">
+                <img src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}">
+              </div>
+              <div class="pa3 w-50">
+                <h2>{{ person.getName() }}</h2>
+                <h4>Kompetanse</h4>
+                <p>{{person.getCompetence()}}</p>
+              </div>
+            </a>
+          </div>
         {% endfor %}
         </div>
-    </div>
 
-    <div id="companies" style="display:none">
+      <div id="company-list" style="display:none">
         Lag selskap
         <a href={{ path('create_company') }}>
           <button type="button" class="btn btn-default" aria-label="Left Align">
-            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
           </button>
         </a>
         </br>
@@ -80,31 +87,32 @@
 
         <!-- Company cards -->
         {% for company in companies %}
-            <div class="col-md-3">
-                <a class="actor-card" href= {{ path("company", {'id': company.getId()}) }}>
-                    <div style="background-color:#d3d3d3; display:block">
-                        <div style="margin:0 2vw 0 2vw">
-                            <div>
-                                <h1 class="card-title">{{ company.getName() }}</h1>
-                                <h4 class="card-subtitle text-muted">Type: {{company.getType()}}</h4>
-                            </div>
-                            <div>
-                                <img class="center-block card-img" src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image" style="max-width:10vw;max-height:15vw">
-                            </div>
-                            <div id="p-text">
-                                <p class="card-subtitle">Kontaktinformasjon:</p>
+          <div class="col-md-3">
+            <a class="actor-card" href= {{ path("company", {'id': company.getId()}) }}>
+              <div style="background-color:#d3d3d3; display:block">
+                <div style="margin:0 2vw 0 2vw">
+                  <div>
+                    <h1 class="card-title">{{ company.getName() }}</h1>
+                    <h4 class="card-subtitle text-muted">Type: {{company.getType()}}</h4>
+                  </div>
+                  <div>
+                    <img class="center-block card-img" src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image" style="max-width:10vw;max-height:15vw">
+                  </div>
+                  <div id="p-text">
+                    <p class="card-subtitle">Kontaktinformasjon:</p>
 
-                                <p class="card-text" style="padding-bottom: 15px">
-                                        E-post: {{ company.getEmail() }} </br>
-                                        Telefonnummer: {{company.getTlf()}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    <p class="card-text" style="padding-bottom: 15px">
+                        E-post: {{ company.getEmail() }} </br>
+                        Telefonnummer: {{company.getTlf()}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
         {% endfor %}
+      </div>
     </div>
+  </section>
 
-    <script src="{{ asset('static/js/showActor.js') }}"></script>
 {% endblock %}

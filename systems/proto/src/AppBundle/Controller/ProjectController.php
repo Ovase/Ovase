@@ -4,10 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Measure;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\ProjectImage;
 use AppBundle\Form\CreateProjectForm;
 use AppBundle\Form\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /* // Hidden imports that may be used if the IvoryGoogleMaps library is installed
 use Ivory\GoogleMap\Map;
@@ -72,6 +74,7 @@ class ProjectController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException('Du må være logget inn og aktivert av en redaktør for å lage et prosjekt');
         }
+
         $em = $this->getDoctrine()->getManager();
         $project = new Project();
         
@@ -79,23 +82,21 @@ class ProjectController extends Controller
         $flow->bind($project);
         $form = $flow->createForm();
         if ($flow->isValid($form)) {
+
             $flow->saveCurrentStepData($form);
 
             if ($flow->nextStep()) {
-                // form for the next step
+                // Form for the next step
                 $form = $flow->createForm();
             } else {
-                // flow finished
+                // Flow finished
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($project);
                 $em->flush();
-
-                $flow->reset(); // remove step data from the session
-
+                $flow->reset();
                 return $this->redirect($this->generateUrl('home')); // redirect when done
             }
         }
-
         return $this->render('project/create2.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
@@ -139,4 +140,69 @@ class ProjectController extends Controller
             )
         );
     }
+
+    public function edit2Action(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException("Du må være logget inn og aktivert av en redaktør for å se denne siden");
+        }
+
+        $requestID = $request->get('id');
+        $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
+
+        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        /* Remove later */
+        $logger = $this->get('logger');
+
+        // Store original images to know if any were removed
+        $originalImages = new ArrayCollection();
+        foreach ($project->getImages() as $img) {
+            $originalImages->add($img);
+        }
+        
+        $flow = $this->get('ovase.form.flow.editProject'); // must match the flow's service id
+
+        // Read 
+        $flow->bind($project);
+        $form = $flow->createForm();
+
+        $logger->info("FormData: " . $form->getData() );
+
+        if ($flow->isValid($form)) {
+
+            $flow->saveCurrentStepData($form);
+
+            if ($flow->nextStep()) {
+                // form for the next step
+                $form = $flow->createForm();
+            } else {
+                // Delete images that were removed
+                foreach ($originalImages as $origImg) {
+                     if ($project->getImages()->contains($origImg) === false) {
+                        $em->remove($origImg);
+                    }
+                }
+                // flow finished
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($project);
+                $em->flush();
+
+                $flow->reset(); // remove step data from the session
+
+                return $this->redirect($this->generateUrl('home')); // redirect when done
+            }
+        }
+
+        return $this->render('project/create2.html.twig', array(
+            'form' => $form->createView(),
+            'flow' => $flow,
+        ));
+
+    }
+
 }

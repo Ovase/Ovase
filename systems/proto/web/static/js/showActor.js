@@ -1,3 +1,5 @@
+/* Remembers what type of actor was last viewed */
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -25,19 +27,19 @@ function checkCookie() {
     if (actor!="") {
         show(actor)
     } else {
-        setCookie("actor", "persons", 100);
+        setCookie("actor", "person", 100);
     }
 }
 
 function show(id) { 
-	 document.getElementById("persons").style.display="none";
-	 document.getElementById("companies").style.display="none";
+	 document.getElementById("person-list").style.display = "none";
+	 document.getElementById("company-list").style.display = "none";
 
-     document.getElementById("btn-persons").style.backgroundColor="white";
-     document.getElementById("btn-companies").style.backgroundColor="white";
+     document.getElementById("person-button").style.removeProperty('background-color');
+     document.getElementById("company-button").style.removeProperty('background-color');
 
-	 document.getElementById(id).style.display="block";
-     document.getElementById("btn-"+id).style.backgroundColor="lightGreen";
+	 document.getElementById(id + "-list").style.display = "block";
+     document.getElementById(id + "-button").style.backgroundColor = "#136F63";
 
 	 setCookie("actor", id, 100);
 }

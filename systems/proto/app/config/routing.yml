@@ -140,6 +140,13 @@ edit_project:
     methods: GET|POST
     id: \d+
 
+edit_project2:
+  path:     /prosjekter/rediger2/{id}
+  defaults: { _controller: AppBundle:Project:edit2}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
 # lucky:
 #   path: /lucky/{number}
 #   defaults: { _controller: AppBundle:Lucky:number}
@@ -147,11 +154,17 @@ edit_project:
 #     methods: GET
 #     id: \d+
 
-# debug:
-#   path: /test
-#   defaults: { _controller: AppBundle:Debug:test}
-#   requirements:
-#     methods: GET|POST
+debug:
+  path: /test
+  defaults: { _controller: AppBundle:Debug:test}
+  requirements:
+    methods: GET|POST
+
+product:
+  path: /product
+  defaults: { _controller: AppBundle:Debug:newProduct}
+  requirements:
+    methods: GET|POST
 
 flowform:
   path: /flowform

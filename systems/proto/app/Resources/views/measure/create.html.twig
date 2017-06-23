@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Anlegg
+  Overvannsløsning
 {% endblock %}
 
 {% block body %}
-<body onload="fixParentDivs()">
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
+  <section class="narrow centered">
 
-<script src="{{ asset('static/js/helpTextMeasure.js') }}"></script>
+    {% form_theme form 'form/fields.html.twig' %}
+
+    {{ form_start(form, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+  </section>
+
 {% endblock %}
 
 
