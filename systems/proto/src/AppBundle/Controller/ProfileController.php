@@ -125,7 +125,7 @@ class ProfileController extends Controller
 		// Create form
 		$data = array();
 		$repo=$this->getDoctrine()->getManager()->getRepository('AppBundle:User');
-		echo(implode('  ',$repo->findAllActiveUsers()));
+		// echo(implode('  ',$repo->findAllActiveUsers()));
 		$deform = $this->createFormBuilder($data)
 
 			->add('users', EntityType::class,

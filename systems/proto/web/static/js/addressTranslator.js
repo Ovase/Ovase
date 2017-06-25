@@ -6,14 +6,17 @@
  */
 
 var ADDR_ENDPOINT = 'http://ws.geonorge.no/AdresseWS/adresse/sok?sokestreng='
-function queryAndSetAddressCoordinates(addrString) {
+function queryAndSetAddressCoordinates(addrString, formName) {
     queryString = ADDR_ENDPOINT + addrString;
     $.ajax({
         url: queryString,
         type: 'GET',
         async: false,
-        success: function(res) {
-            processQueryResult(res);
+        success: function(response) {
+            processQueryResult({
+                result: response,
+                formName: formName
+            });
         },
         error: function(res) {
             console.log("ERROR");
@@ -23,36 +26,23 @@ function queryAndSetAddressCoordinates(addrString) {
 }
 
 // Assume the first result is the best
-function processQueryResult(res) {
+function processQueryResult(data) {
+    var res = data.result;
     if (res.sokStatus.ok !== "true") {
         console.log("Error from address API: " + res.sokStatus.melding);
     }
-    prettyAddr = 
-        res.adresser[0].adressenavn + ' ' +
-        res.adresser[0].husnr;
-    if (res.adresser[0].bokstav != null) {
-        prettyAddr += res.adresser[0].bokstav;
-    }
-    prettyAddr += ', ' +
-        res.adresser[0].postnr + ' ' +
-        res.adresser[0].poststed;
-
-    console.log("Found: " + prettyAddr);
     console.log("lat:" + res.adresser[0].nord);
     console.log("long:" + res.adresser[0].aust);
     // The actual work
-    document.getElementById("project_coordLat").value = parseFloat(res.adresser[0].nord);
-    document.getElementById("project_coordLong").value = parseFloat(res.adresser[0].aust);
-    // document.getElementById("project_coordLat").value = res.adresser[0].nord.substring(0, 10);
-    // document.getElementById("project_coordLong").value = res.adresser[0].aust.substring(0, 10);
-    // document.getElementById("project_coordLat").value = "a";
-    // document.getElementById("project_coordLong").value = "a";
+    document.getElementById(data.formName + "_coordLat").value = parseFloat(res.adresser[0].nord);
+    document.getElementById(data.formName + "_coordLong").value = parseFloat(res.adresser[0].aust);
 }
 
-function prepareAddressTranslator() {
-    $('form[name="project"]').submit(function(event) {
-        addrString = document.getElementById("project_location").value;
-        queryAndSetAddressCoordinates(addrString);
-        return true;
+function prepareAddressTranslator(formName, addrFieldSelector) {
+    // Update hidden fields before submitting form
+    $('form[name="' + formName + '"]').submit(function() {
+        addrString = $(addrFieldSelector).val();
+        console.log("About to submit. The reported address is: " + addrString);
+        queryAndSetAddressCoordinates(addrString, formName);
     });
 }

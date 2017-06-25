@@ -2,15 +2,14 @@
 
 {% block body %}
 
-	<div style="margin-right: 15vw;margin-left: 15vw">
-		{% if deform is defined %}
-			{{ form_start(deform) }}
-			{{ form_widget(deform) }}
-			{{ form_end(deform) }}
-		{% endif %}
-		<br>
-	
-	<a href="{{ path("activate_users") }}" class="btn btn-default" role="button">Aktiver brukere</a>
-	</div>
+  <section class="medium-wide centered">
+    {% if deform is defined %}
+      {{ form_start(deform, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+      {{ form_widget(deform) }}
+      {{ form_end(deform) }}
+    {% endif %}
+  
+    <a href="{{ path("activate_users") }}" class="btn btn-default" role="button">Aktiver brukere</a>
+  </section>
 
 {% endblock %}

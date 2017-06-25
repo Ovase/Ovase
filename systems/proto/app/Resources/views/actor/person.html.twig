@@ -8,8 +8,8 @@
   <section class="medium-wide centered">
     <h1 class="ph3">{{ person.getName() }}</h1>
     <div class="full-wide fbox">
-        <div class="w-100 w-50-ns pa3">
-            <img class="w-100" src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Image of person">
+        <div class="actor-image w-100 w-50-ns pa3">
+            <img src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Image of person">
         </div>
         <div class="w-100 w-50-ns pa3 f4">
             <p><b>E-post:</b> {{ person.getEmail() }}</p>
@@ -37,7 +37,7 @@
         width="600"
         height="450"
         frameborder="0" style="border:0"
-        src= "https://www.google.com/maps/embed/v1/search?key={{key}}&q={{ person.getLocation() }}" allowfullscreen>
+        src= "https://www.google.com/maps/embed/v1/search?key={{gmaps_api_key}}&q={{ person.getLocation() }}" allowfullscreen>
     </iframe>
   </section>
 {% endblock %}

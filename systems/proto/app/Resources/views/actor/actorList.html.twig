@@ -45,7 +45,7 @@
           </div>
           <div class="w-100 w-50-ns ph2 pb3">
             <a href="{{ path('create_person') }}" id="company-button" class="panel-button pa3 f3 bg-ovase-yellow white" onclick="show('company');">
-              <p><span class="fa fa-plus" aria-hidden="true"></span>Opprett privat-aktør</p>
+              <p><span class="fa fa-plus" aria-hidden="true"></span>Opprett privataktør</p>
             </a>
           </div>
         </div>
@@ -67,50 +67,48 @@
           </div>
         {% endfor %}
         </div>
+      </div>
 
+      <!-- Entire company list box -->
       <div id="company-list" style="display:none">
-        Lag selskap
-        <a href={{ path('create_company') }}>
-          <button type="button" class="btn btn-default" aria-label="Left Align">
-          <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-          </button>
-        </a>
-        </br>
-        </br>
-        <h5>Selskaper</h5>
 
-        <!-- Company search -->
-        {{ form_start(companyForm) }}
-        {{ form_widget(companyForm) }}
-        {{ form_end(companyForm) }}
-        <br>
-
+        <div class="full-wide mb1 fbox">
+          <div class="w-100 w-50-ns ph2 pb3">
+            <div class="actor-search pa2 bg-ovase-yellow cf h-100">
+              <!-- Person search -->
+              {{ form_start(companyForm, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+              {{ form_widget(companyForm) }}
+              {{ form_end(companyForm) }}
+            </div>
+          </div>
+          <div class="w-100 w-50-ns ph2 pb3">
+            <a href="{{ path('create_company') }}" id="company-button" class="panel-button pa3 f3 bg-ovase-yellow white" onclick="show('company');">
+              <p><span class="fa fa-plus" aria-hidden="true"></span>Opprett bedriftsaktør</p>
+            </a>
+          </div>
+        </div>
+        
         <!-- Company cards -->
+        <div class="actor-cards full-wide fbox">
         {% for company in companies %}
-          <div class="col-md-3">
-            <a class="actor-card" href= {{ path("company", {'id': company.getId()}) }}>
-              <div style="background-color:#d3d3d3; display:block">
-                <div style="margin:0 2vw 0 2vw">
-                  <div>
-                    <h1 class="card-title">{{ company.getName() }}</h1>
-                    <h4 class="card-subtitle text-muted">Type: {{company.getType()}}</h4>
-                  </div>
-                  <div>
-                    <img class="center-block card-img" src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Card image" style="max-width:10vw;max-height:15vw">
-                  </div>
-                  <div id="p-text">
-                    <p class="card-subtitle">Kontaktinformasjon:</p>
-
-                    <p class="card-text" style="padding-bottom: 15px">
-                        E-post: {{ company.getEmail() }} </br>
-                        Telefonnummer: {{company.getTlf()}}
-                    </p>
-                  </div>
-                </div>
+          <div class="w-100 w-50-ns ph2 pb2">
+            <a href="{{ path("company", {'id': company.getId()}) }}" class="proj-box fbox">
+              <div class="w-50">
+                <img src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}">
+              </div>
+              <div class="pa3 w-50">
+                <h2>{{ company.getName() }}</h2>
+                <h4>Type</h4>
+                <p>{{company.getType()}}</p>
+                <h4>Epost</h4>
+                <p>{{ company.getEmail() }}</p>
+                <h4>Telefonnummer</h4>
+                <p>{{ company.getTlf() }}</p>
               </div>
             </a>
           </div>
         {% endfor %}
+        </div>
       </div>
     </div>
   </section>

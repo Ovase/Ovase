@@ -198,7 +198,7 @@ class ProjectController extends Controller
             }
         }
 
-        return $this->render('project/create2.html.twig', array(
+        return $this->render('project/edit2.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
         ));

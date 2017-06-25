@@ -61,6 +61,10 @@ fieldset {
     max-width: 700px;
 }
 
+.pretty-narrow {
+    max-width: 550px;
+}
+
 .centered {
     margin-left: auto;
     margin-right: auto;
@@ -101,6 +105,8 @@ button,
 .ovase-form input[type="submit"],
 .ovase-form input[type="text"],
 .ovase-form input[type="search"],
+.ovase-form input[type="email"],
+.ovase-form input[type="password"],
 .ovase-form textarea,
 .ovase-form select
  {
@@ -111,6 +117,8 @@ button,
     box-sizing: border-box;
     padding: 0.5rem 1rem;
 }
+
+.ovase-form ::placeholder { color: #A2A2A2; }
 
 .form-errors {
     color: #E7040F;
@@ -127,13 +135,19 @@ button,
     margin-right: 0.2rem !important;
 }
 
-.ovase-form-ext input,
+.ovase-form input[type="text"],
+.ovase-form input[type="email"],
+.ovase-form input[type="password"],
 .ovase-form-ext textarea,
 .ovase-form-ext select {
     display: block;
     width: 100%;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+}
+
+.ovase-form-ext input[type="checkbox"] {
+    margin-right: 1rem;
 }
 
 .ovase-form-ext label.required::after {
@@ -149,8 +163,9 @@ button,
 
 .form-info-box {
     background-color: #FFE0B5;
+    font-size: 1.2rem;
     width: 100%;
-    padding: 1rem;
+    padding: 2rem;
     margin: 2rem 0;
 }
 
@@ -552,4 +567,21 @@ a.panel-button:hover {
     background-color: #E0FFFF;
 }
 
+/*** ACTOR PAGE ***/
+
+.actor-image { max-height: 25rem; }
+
+.actor-image img {
+    display: block;
+    margin: 0 auto;
+    height: 100%;
+    object-fit: cover;
+}
+
 .actor-ul a {text-decoration: none; }
+
+/*** ACTIVE / DEACTIVATE USERS PAGE ***/
+
+#form_users label {
+    display: inline;
+}

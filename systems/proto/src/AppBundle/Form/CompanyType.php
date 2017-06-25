@@ -20,7 +20,7 @@ class CompanyType extends AbstractType
 			->add('name', TextType::class,array('label'=>'Navn',))
 			->add('email', EmailType::class,array('label'=>'E-post',))
             ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
-            ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+            ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'")))
 			->add('type', TextType::class)
 			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer',))
 			->add('persons', EntityType::class, array(

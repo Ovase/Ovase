@@ -20,9 +20,9 @@ class PersonType extends AbstractType
             ->add('lastName', TextType::class,array('label'=>'Etternavn',))
 			->add('email', EmailType::class,array('label'=>'E-post',))
             ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
-            ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "adresse på formen 'gatenavn gatenummer, tettsted'")))
+            ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'")))
             ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
-            ->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
+            ->add('image', FileType::class, array('label'=>'Last opp bilde av deg','mapped' => false, 'required'=>false))
 			->add('captcha', CaptchaType::class, array(
 			'attr' => array('placeholder' => 'Skriv tegnene'),
 			'label' => 'Bevis at du ikke er en robot',

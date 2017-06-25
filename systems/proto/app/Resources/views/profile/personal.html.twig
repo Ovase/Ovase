@@ -1,65 +1,57 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class ="header-container" id="big-header-container">
-		<div class="inner-container" id="header-inner">
+    <section class="medium-wide centered">
+      <h2>Min profil</h2>
 
-			<div class="profile-head">
-					Min profil
-					<a href= {{ path("editpersonalprofile") }}>
-						<button type="button" class="btn btn-default" aria-label="Left Align">
-			  			<span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Rediger profil"></span>
-						</button>
-					</a>
-			</div>
+      <a href= {{ path("editpersonalprofile") }}>Rediger profil</a>
+        
+      <div class="full-wide fbox">
+          <div class="actor-image w-100 w-50-ns pa3">
+              <img src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Image of person">
+          </div>
+          <div class="w-100 w-50-ns pa3 f4">
+            {% if user is defined %}
+              <p><b>E-post:</b> {{ user.getEmail() }}</p>
+              <p><b>Navn:</b> {{ user.getFullName() }}</p>
+              <p><b>Telefonnummer:</b> {{ user.getphone() }}</p>
+              {% if user.getProjects() is not empty %}
+              <p>Du kan redigere følgende prosjekter: </p>
+              <ul>
+              {% for project in user.getProjects() %}
+                <li><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></li>
+              {% endfor %}
+              </ul>
+              {% endif %}
 
+              {% if user.getActors() is not empty %}<p>Du kan redigere følgende aktører: </p>
+              <ul>
+              {% for a in user.getActors() %}
+                {# This is called duct typing #}
+                {% if a.getFirstName is defined %}
+                  {# This is a person #}
+                  <li><a href= {{ path("person", {'id': a.getId()}) }}> {{ a.getName() }}</a></li>
+                {% else %}
+                  {# This is a company #}
+                  <li><a href= {{ path("company", {'id': a.getId()}) }}> {{ a.getName() }}</a></li>
+                {% endif %}
+              {% endfor %}
+              </ul>
+              {% endif %}
 
-			<div id="below-header">
-				<div>
-						<img class="center-block card-img" src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Card image" style="max-width:10vw;max-height:15vw">
-				</div>
-				<section class="infobox">
-					{% if user is defined %}
-						<p>E-post: {{user.Email()}}</p>
-						<p>Navn: {{user.getFullName()}} </p>
-						<p>Telefon nummer: {{user.getphone()}} </p>
-
-						{% if user.getProjects() is not empty %}<p>Du kan redigere følgende prosjekter: </p>
-						<ul>
-						{% for project in user.getProjects() %}
-							<li><a href= {{ path("project", {'id': project.getId()}) }}> {{ project.getName() }}</a></li>
-						{% endfor %}
-						</ul>
-						{% endif %}
-
-						{% if user.getActors() is not empty %}<p>Du kan redigere følgende aktører: </p>
-						<ul>
-						{% for a in user.getActors() %}
-							{# This is called duct typing #}
-							{% if a.getFirstName is defined %}
-								{# This is a person #}
-								<li><a href= {{ path("person", {'id': a.getId()}) }}> {{ a.getName() }}</a></li>
-							{% else %}
-								{# This is a company #}
-								<li><a href= {{ path("company", {'id': a.getId()}) }}> {{ a.getName() }}</a></li>
-							{% endif %}
-						{% endfor %}
-						</ul>
-						{% endif %}
-					{% endif %}
-				</section>
-			</div>
-		</div>
-
-		{% if is_granted('ROLE_EDITOR') %}
-			<br>Liste over <a href= {{ path("userlist") }}>registrerte brukere</a><br>
-			{# Import editor panel here. TODO: Bulk activate zero or more users #}
-			<a href= {{ path("activate_users") }} class="btn btn-default" role="button">Aktiver brukere</a>
-			{#{ render(controller('AppBundle:Profile:activateUsers')) }#}
-			{#% include 'profile/activateusers.html.twig' %#}
-			<a href= {{ path("deactivate_users") }} class="btn btn-default" role="button">Deaktiver brukere</a>
-			{#{ render(controller('AppBundle:Profile:deactivateUsers')) }#}
-			{#% include 'profile/deactivateusers.html.twig' %#}
-		{% endif %}
-	</div>
+            {% endif %}
+          </div>
+      </div>
+      {% if is_granted('ROLE_EDITOR') %}
+        <h3>Redaktørvalg</h3>
+        <p>Liste over <a href= {{ path("userlist") }}>registrerte brukere</a></p>
+        {# Import editor panel here. TODO: Bulk activate zero or more users #}
+        <a href= {{ path("activate_users") }} class="btn btn-default" role="button">Aktiver brukere</a>
+        {#{ render(controller('AppBundle:Profile:activateUsers')) }#}
+        {#% include 'profile/activateusers.html.twig' %#}
+        <a href= {{ path("deactivate_users") }} class="btn btn-default" role="button">Deaktiver brukere</a>
+        {#{ render(controller('AppBundle:Profile:deactivateUsers')) }#}
+        {#% include 'profile/deactivateusers.html.twig' %#}
+        {% endif %}
+    </section>
 {% endblock %}
