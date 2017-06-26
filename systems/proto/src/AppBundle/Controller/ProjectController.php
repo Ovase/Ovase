@@ -44,36 +44,6 @@ class ProjectController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException('Du må være logget inn og aktivert av en redaktør for å lage et prosjekt');
         }
-        $em = $this->getDoctrine()->getManager();
-        $project = new Project();
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form['imageFiles']->getData();
-            foreach ($images as $image) {
-                if ($image != null) {
-                    $project->getImages()->add($this->get('image_service')->upload($image));
-                }
-            }
-            $user = $this->getUser();
-            $user->addProject($project);
-            $em->persist($project);
-            $em->persist($user);
-            $em->flush();
-            return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
-        }
-        return $this->render(
-            'project/create.html.twig', array(
-                'form' => $form->createView()
-            )
-        );
-    }
-
-    public function create2Action(Request $request)
-    {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException('Du må være logget inn og aktivert av en redaktør for å lage et prosjekt');
-        }
 
         $em = $this->getDoctrine()->getManager();
         $project = new Project();
@@ -94,10 +64,10 @@ class ProjectController extends Controller
                 $em->persist($project);
                 $em->flush();
                 $flow->reset();
-                return $this->redirect($this->generateUrl('home')); // redirect when done
+                return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
             }
         }
-        return $this->render('project/create2.html.twig', array(
+        return $this->render('project/create.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
         ));
@@ -105,43 +75,6 @@ class ProjectController extends Controller
     }
 
     public function editAction(Request $request)
-    {
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            throw $this->createAccessDeniedException("Du må være logget inn og aktivert av en redaktør for å se denne siden");
-        }
-
-        $requestID = $request->get('id');
-        $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
-
-        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
-            throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
-        }
-
-        $form = $this->createForm(ProjectType::class, $project, array('method' => 'PUT'));
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageFiles = $form['imageFiles']->getData();
-            $urls = clone $project->getImages(); // returns an array, ja?
-            foreach ($imageFiles as $image) {
-                if ($image != null) {
-                    $urls->add($this->get('image_service')->upload($image));
-                }
-            }
-            $project->setImages($urls);
-            $project->incrementVersion();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($project);
-            $em->flush();
-            return $this->redirectToRoute('project', array( 'id' => (string)$requestID) );
-        }
-        return $this->render(
-            'project/edit.html.twig', array(
-                'form' => $form->createView()
-            )
-        );
-    }
-
-    public function edit2Action(Request $request)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             throw $this->createAccessDeniedException("Du må være logget inn og aktivert av en redaktør for å se denne siden");
@@ -165,20 +98,17 @@ class ProjectController extends Controller
             $originalImages->add($img);
         }
         
-        $flow = $this->get('ovase.form.flow.editProject'); // must match the flow's service id
+        $flow = $this->get('ovase.form.flow.editProject');
 
-        // Read 
+        // Read project entity -> place fields in flow
         $flow->bind($project);
         $form = $flow->createForm();
-
-        $logger->info("FormData: " . $form->getData() );
-
         if ($flow->isValid($form)) {
 
             $flow->saveCurrentStepData($form);
 
             if ($flow->nextStep()) {
-                // form for the next step
+                // Form for the next step
                 $form = $flow->createForm();
             } else {
                 // Delete images that were removed
@@ -187,18 +117,18 @@ class ProjectController extends Controller
                         $em->remove($origImg);
                     }
                 }
-                // flow finished
+                // Flow finished
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($project);
                 $em->flush();
 
-                $flow->reset(); // remove step data from the session
+                $flow->reset(); // Remove step data from the session
 
-                return $this->redirect($this->generateUrl('home')); // redirect when done
+                return $this->redirectToRoute('project', array( 'id' => (string)$requestID) );
             }
         }
 
-        return $this->render('project/edit2.html.twig', array(
+        return $this->render('project/edit.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
         ));

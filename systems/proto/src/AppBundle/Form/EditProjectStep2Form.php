@@ -42,10 +42,8 @@ class EditProjectStep2Form extends AbstractType {
                 // query choices from this entity
                 'label'=>'Medvirkende',
                 'class' => 'AppBundle:Actor',
-
                 // use the Actor.email property as the visible option string
                 'choice_label' => 'name',
-
                 // used to render a select box, check boxes or radios
                 'multiple' => true,
                 'required' => false,
