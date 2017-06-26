@@ -1,4 +1,10 @@
 {% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
+{% use 'form_div_layout.html.twig' with form_widget_compound as base_form_widget_compound %}
+
+{# This form template adds:
+    - form errors (such as validation) to widgets
+    - help texts to widgets
+#}
 
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}
@@ -11,9 +17,22 @@
 {% endblock %}
 
 {% block form_widget_simple %}
-    {% if help is defined %}
-        <span class="help-block">{{ help }}</span>
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help }}</span>
     {% endif %}
     {{ block('base_form_widget_simple') }}
 {% endblock %}
 
+{%- block form_widget_compound -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help }}</span>
+    {% endif %}
+    {{ block('base_form_widget_compound') }}
+{%- endblock form_widget_compound -%}
+
+{%- block textarea_widget -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help }}</span>
+    {% endif %}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}

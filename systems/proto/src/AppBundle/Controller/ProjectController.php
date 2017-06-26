@@ -70,6 +70,7 @@ class ProjectController extends Controller
         return $this->render('project/create.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
+            'canEdit' => true,
         ));
 
     }
@@ -92,11 +93,13 @@ class ProjectController extends Controller
         /* Remove later */
         $logger = $this->get('logger');
 
-        // Store original images to know if any were removed
+        // Store original images and measures to know if any were removed
         $originalImages = new ArrayCollection();
-        foreach ($project->getImages() as $img) {
+        foreach ($project->getImages() as $img)
             $originalImages->add($img);
-        }
+        $originalMeasures = new ArrayCollection();
+        foreach ($project->getMeasures() as $measure)
+            $originalMeasures->add($measure);
         
         $flow = $this->get('ovase.form.flow.editProject');
 
@@ -111,10 +114,15 @@ class ProjectController extends Controller
                 // Form for the next step
                 $form = $flow->createForm();
             } else {
-                // Delete images that were removed
+                // Delete images and measures that were removed
                 foreach ($originalImages as $origImg) {
                      if ($project->getImages()->contains($origImg) === false) {
                         $em->remove($origImg);
+                    }
+                }
+                foreach ($originalMeasures as $origMeasure) {
+                     if ($project->getMeasures()->contains($origMeasure) === false) {
+                        $em->remove($origMeasure);
                     }
                 }
                 // Flow finished

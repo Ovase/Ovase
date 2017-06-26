@@ -4,11 +4,14 @@
       <div class="basics pa3">
         <h2 class="mt0">Kort oppsummert: {{ project.getName() }}</h2>
         <div class="cf">
+          <div class="lead fl w-100">
+            <p>{{ project.getLeadText() }}</p>
+          </div>
           <div class="fact-row fl w-100">
             <p><span class="fact-label">Adresse:</span> {{ project.getLocation() }}</p>
           </div>
           <div class="fact-row fl w-100">
-            <p><span class="fact-label">Byggeperiode:</span> {{ project.getStartdate() }} - {{ project.getEnddate() }}</p>
+            <p><span class="fact-label">Ferdigstilt år:</span> {{ project.getEnddate() }}</p>
           </div>
           <div class="fact-row fl w-100">
             <p><span class="fact-label">Prosjekteier:</span>Ikke implementert</p>
@@ -50,42 +53,6 @@
       <h2>Oppsummering</h2>
       <p>{{project.getSummary()}}</p>
     </div>
-
-    <div class="w-100">
-      <h2 class="mt0">Flere detaljer</h2>
-      <table class="ovase-table">
-        <tbody>
-          <tr>
-            <td>Område-type</td>
-            <td>{{ project.getAreaType() }}</td>
-          </tr>
-          <tr>
-            <td>Prosjekt-type</td>
-            <td>{{ project.getProjectType() }}</td>
-          </tr>
-          <tr>
-            <td>Totale kostnader for hele byggeprosjektet</td>
-            <td>{{ project.getCost() }} NOK</td>
-          </tr>
-          <tr>
-            <td>Totalt areal for prosjektområde</td>
-            <td>{{ project.getTotalArea() }} m²</td>
-          </tr>
-          <tr>
-            <td>Totalt areal for nedbørsfelt til overvannstiltakene</td>
-            <td>{{ project.getWaterArea() }} m²</td>
-          </tr>
-          <tr>
-            <td>Grunnforhold</td>
-            <td>{{ project.getSoilConditions() }}</td>
-          </tr>
-          <tr>
-            <td>Dimensjonerende krav til overvannshåndtering</td>
-            <td>{{ project.getDimentionalDemands() }}</td>
-          </tr>
-        </tbody>
-      </table>      
-    </div>
   </section>
 
   <section class="medium-wide centered">
@@ -94,15 +61,17 @@
       <p>TODO: Betinga overskrift og styling av innhold</p>
       {% for measure in project.getMeasures() %}
         <div class="measure-box w-100 mv3">
+          {# TODO: Fix
           {% if canEdit %}
             <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Rediger tiltak</a>
             <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
           {% endif %}
+          #}
 
           <h2>{{ measure.getTitle() }}</h2>
 
           <h3>Fakta</h3>
-          <p>Totalt areal: {{ measure.getTotalArea() }} m²</p>
+          <p>Areal: {{ measure.getArea() }} m²</p>
           <p>Dimensjonerende krav til overvannshåndtering for tiltaket: measure.dimetionalDemands</p>
           <p>Kostnad for tiltaket: {{ measure.getCosts() }} NOK</p>
           <p>Tekniske funksjoner: {{measure.getTechnicalFunctions() }}</p>

@@ -91,13 +91,13 @@
           </div>
           <div class="pa3 w-50">
             <h2>{{ project.getName() }}</h2>
-            <p>{{ project.getDescription() }}</p>
+            <p>{{ project.getLeadText() }}</p>
             <h4>Adresse</h4>
             <p>{{ project.getLocation() }}</p>
             <h4>Løsninger</h4>
             <ul>
-            {% for solution in project.getTechnicalSolutions() %}
-              <li>{{ solution }}</li>
+            {% for measureType in project.getMeasureTypes() %}
+              <li>{{ measureType }}</li>
             {% endfor %}
             </ul>
           </div>

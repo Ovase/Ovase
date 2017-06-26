@@ -29,20 +29,27 @@ class Project
 	 * @ORM\Column(type="string")
 	 */
 	private $enddate;
-
     /**
-     * @ORM\Column(type="string")
+     * @var float
+     * @ORM\Column(type="float")
+     * @Assert\Type("float")
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet må være ikke-negativ")
      */
-    private $leadText;
+    private $waterArea;
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
+     */
+    private $dimentionalDemands;
+    /**
+     * @ORM\Column(type="text")
      */
     private $summary;
 	/**
-	 * @ORM\Column(type="text", nullable=true)
+	 * @ORM\Column(type="text")
 	 */
 	private $description;
 	/**
+	 * Field for storing the address of the project
 	 * @ORM\Column(type="text")
 	 */
 	private $location;
@@ -59,28 +66,90 @@ class Project
      * @Assert\Type("numeric")
      */
     private $coordLong;
+
+	/**
+	 * The total area of the space the project took.
+	 * @var float
+     * @ORM\Column(type="float")
+	 * @Assert\Type("float")
+	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+	 */
+	private $totalArea;
+
+	/**
+	 * @var string
+     * @ORM\Column(type="string")
+	 * @Assert\NotBlank
+     * @Assert\Type("string")
+	 * @Assert\Length(min = 1)
+	 */
+	private $areaType = "";
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(min = 1)
+     */
+	private $projectType = "";
+
     /**
      * One product has many images
      * 
      * @ORM\OneToMany(targetEntity="ProjectImage", mappedBy="project", cascade={"persist", "remove"})
      */
     private $images;
+
     /**
      * Holds files, but is not persisted to DB
      */
     private $imageFiles;
+
+    /**
+     * @ORM\Column(type="array")
+     * @Assert\All({
+     *	 @Assert\NotBlank,
+     *   @Assert\Type("string"),
+     *	 @Assert\Length(min = 1)
+     * })
+     */
+    private $technicalSolutions;
+
+    /**
+     * Field for storing the required soil condition of the project
+     * @ORM\Column(type="text")
+     */
+    private $soilConditions;
+
 	/**
 	 * @var int
  	 * @ORM\Column(type="integer")
  	 */
 	private $version = 1;
+
+    /**
+     * The current total cost of the project, measured in NOK.
+     * @var float
+     * @ORM\Column(type="float")
+     * @Assert\Type("float")
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     */
+    private $cost;
+
 	/**
 	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="projects")
 	 * @ORM\JoinTable(name="actor_in_project")
 	 */
 	private $actors;
+
     /**
-     * @ORM\OneToMany(targetEntity="Measure", mappedBy="project", cascade={"remove", "persist"})
+     * @ORM\ManyToMany(targetEntity="Measure", cascade={"remove", "persist"})
+     * @ORM\JoinTable(name="projects_measures",
+     *     joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * },
+     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true, onDelete="cascade")}
+     *     )
      * @Assert\Valid
      */
     private $measures;
@@ -88,6 +157,7 @@ class Project
 	public function __construct()
 	{
 		$this->actors = new ArrayCollection();
+        $this->technicalSolutions = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->imageFiles = new ArrayCollection();
         $this->measures = new ArrayCollection();
@@ -161,6 +231,30 @@ class Project
 	}
 
 	/**
+	 * Set startdate
+	 *
+	 * @param \string $startdate
+	 *
+	 * @return Project
+	 */
+	public function setStartdate($startdate)
+	{
+		$this->startdate = $startdate;
+
+		return $this;
+	}
+
+	/**
+	 * Get startdate
+	 *
+	 * @return \string
+	 */
+	public function getStartdate()
+	{
+		return $this->startdate;
+	}
+
+	/**
 	 * Set enddate
 	 *
 	 * @param \string $enddate
@@ -182,6 +276,34 @@ class Project
 	public function getEnddate()
 	{
 		return $this->enddate;
+	}
+
+	/**
+	 * Set technicalSolutions
+	 *
+	 * @param array $tech
+	 *
+	 * @return Project
+	 */
+	public function setTechnicalSolutions($tech)
+	{
+        foreach ($tech as $k) {
+            if (!($this->technicalSolutions->contains($k))) {
+                $this->technicalSolutions->add($k);
+            }
+        }
+
+		return $this;
+	}
+
+	/**
+	 * Get technicalSolutions
+	 *
+	 * @return array
+	 */
+	public function getTechnicalSolutions()
+	{
+		return $this->technicalSolutions->toArray();
 	}
 
 	/**
@@ -246,6 +368,85 @@ class Project
 		$this->version = 0;
 		return $this;
 	}
+    /**
+     * @return float
+     */
+    public function getTotalArea()
+    {
+        return $this->totalArea;
+    }
+
+    /**
+     * @param float $totalArea
+     */
+    public function setTotalArea($totalArea)
+    {
+        $this->totalArea = $totalArea;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAreaType()
+    {
+        return $this->areaType;
+    }
+
+    /**
+     * @param string $areaType
+     */
+    public function setAreaType($areaType)
+    {
+        $this->areaType = $areaType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProjectType()
+    {
+        return $this->projectType;
+    }
+
+    /**
+     * @param string $projectType
+     */
+    public function setProjectType($projectType)
+    {
+        $this->projectType = $projectType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoilConditions()
+    {
+        return $this->soilConditions;
+    }
+
+    /**
+     * @param mixed $soilConditions
+     */
+    public function setSoilConditions($soilConditions)
+    {
+        $this->soilConditions = $soilConditions;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param float $cost
+     */
+    public function setCost($cost)
+    {
+        $this->cost = $cost;
+    }
 
     /**
      * Set version
@@ -333,20 +534,7 @@ class Project
 
     public function addMeasure($measure)
     {
-        $measure->setProject($this);
-        $this->measures[] = $measure;
-        return $this;
-    }
-
-    /**
-     * Remove measure
-     *
-     * @param \AppBundle\Entity\Measure $measure
-     */
-    public function removeMeasure(\AppBundle\Entity\Measure $measure)
-    {
-
-        $this->measures->removeElement($measure);
+        $this->measures->add($measure);
     }
 
     /**
@@ -364,6 +552,50 @@ class Project
     {
         $this->summary = $summary;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getWaterArea()
+    {
+        return $this->waterArea;
+    }
+
+    /**
+     * @param mixed $waterArea
+     */
+    public function setWaterArea($waterArea)
+    {
+        $this->waterArea = $waterArea;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDimentionalDemands()
+    {
+        return $this->dimentionalDemands;
+    }
+
+    /**
+     * @param mixed $dimentionalDemands
+     */
+    public function setDimentionalDemands($dimentionalDemands)
+    {
+        $this->dimentionalDemands = $dimentionalDemands;
+    }
+
+
+    /**
+     * Remove measure
+     *
+     * @param \AppBundle\Entity\Measure $measure
+     */
+    public function removeMeasure(\AppBundle\Entity\Measure $measure)
+    {
+        $this->measures->removeElement($measure);
+    }
+
 
     /**
      * Set coordLat
@@ -413,13 +645,6 @@ class Project
         return $this->coordLong;
     }
 
-    // Generate a list of measure types in project
-    public function getMeasureTypes()
-    {
-        // TODO
-        return array('Regnbed', 'Kvistdam');
-    }
-
     public function __toString()
     {
         $my_string = 'Name: ' . $this->getName() . "\n";
@@ -428,29 +653,5 @@ class Project
             $my_string = $my_string . $img->getUrl() . "\n";
         }
         return $my_string;
-    }
-
-    /**
-     * Set leadText
-     *
-     * @param string $leadText
-     *
-     * @return Project
-     */
-    public function setLeadText($leadText)
-    {
-        $this->leadText = $leadText;
-
-        return $this;
-    }
-
-    /**
-     * Get leadText
-     *
-     * @return string
-     */
-    public function getLeadText()
-    {
-        return $this->leadText;
     }
 }

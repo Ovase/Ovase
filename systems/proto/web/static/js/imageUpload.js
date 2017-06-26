@@ -1,13 +1,11 @@
 function addImageFormDeleteLink($imageFormDiv) {
-    var $removeFormA = $('<a href="#">Delete this image</a>');
+    var $removeFormA = $('<a class="delete-img-anchor" href="#">Slett bilde</a>');
     $imageFormDiv.append($removeFormA);
     $removeFormA.on('click', function(e) {
         e.preventDefault();
         $imageFormDiv.remove();
     });
 }
-
-var $addImageLink = $('<a href="#" class="add_image_link">Add image</a>');
 
 function initImageUploadFunctionality($collectionHolder) {
     $collectionHolder.find('input[type="hidden"]').each(function() {

@@ -23,6 +23,12 @@ class Measure
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="measures")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $project;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="text")
@@ -32,11 +38,11 @@ class Measure
     /**
      * @var int
      *
-     * @ORM\Column(name="totalArea", type="integer")
+     * @ORM\Column(name="area", type="integer")
      * @Assert\NotNull()
      * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
      */
-    private $totalArea;
+    private $area;
 
     /**
      * @ORM\Column(type="text")
@@ -110,27 +116,27 @@ class Measure
     }
 
     /**
-     * Set totalArea
+     * Set area
      *
-     * @param integer $totalArea
+     * @param integer $area
      *
      * @return Measure
      */
-    public function setTotalArea($totalArea)
+    public function setArea($area)
     {
-        $this->totalArea = $totalArea;
+        $this->area = $area;
 
         return $this;
     }
 
     /**
-     * Get totalArea
+     * Get area
      *
      * @return int
      */
-    public function getTotalArea()
+    public function getArea()
     {
-        return $this->totalArea;
+        return $this->area;
     }
 
     /**
@@ -357,5 +363,28 @@ class Measure
         $this->dimentionalDemands = $dimentionalDemands;
     }
 
-}
 
+    /**
+     * Set project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return Measure
+     */
+    public function setProject(\AppBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \AppBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+}

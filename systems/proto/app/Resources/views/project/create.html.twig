@@ -68,21 +68,23 @@
   {{ parent() }}
   <!-- Translation of user-typed addresses to coordinates -->
   <script src="{{ asset('static/js/addressTranslator.js') }}"></script>
-  <!-- Datepicker + settings -->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="{{ asset('static/js/datepicker-no.js') }}"></script>
   <!-- Select2 widget used for improved select inputs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <!-- Image preview, "delete image" buttons -->
   <script src="{{ asset('static/js/imageUpload.js') }}"></script>
-  <!-- Delete image and image carousel functionality -->
+  <!-- Adding measures dynamically -->
+  <script src="{{ asset('static/js/projectMeasures.js') }}"></script>
+  <!-- Image carousel functionality -->
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
   <!-- Initialization -->
   <script type="text/javascript">
     $(document).ready(function() {
         // Get collection, add delete "buttons"
-        var $collectionHolder = $('#editProjectStep1_images');
-        initImageUploadFunctionality($collectionHolder);
+        var $imgCollectionHolder = $('#editProjectStep1_images');
+        initImageUploadFunctionality($imgCollectionHolder);
+        // Get collection, add delete "buttons"
+        var $measureCollectionHolder = $('#editProjectStep2_measures');
+        initProjectMeasuresEdit($measureCollectionHolder);
         // Init carousel
         $('.img-carousel').slick({});
         // Add click event
@@ -91,12 +93,8 @@
         });
         // Init address translator
         prepareAddressTranslator('editProjectStep1', "#editProjectStep1_location");
-        // Init date picker
-        $("#editProjectStep1_enddate").datepicker($.datepicker.regional[ "no" ]);
         // Init select2 input(s)
-        // $("#editProjectStep2_actors").select2({width: '25vw'});
-        $("#editProjectStep2_actors").select2();
+        $("#editProjectStep1_actors").select2();
     });
     </script>
-  {# TODO: select2 thingy #}
 {% endblock %}

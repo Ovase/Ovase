@@ -453,6 +453,12 @@ a.panel-button:hover {
 	height: 100%;
 }
 
+.lead {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    padding-bottom: 1.4rem;
+}
+
 .fact-row { font-size: 1.1rem; }
 
 .fact-row p { margin-bottom: 0.7rem; }
@@ -518,6 +524,49 @@ a.panel-button:hover {
     font-weight: bold;
 }
 
+.candidate-images {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.candidate-images > div {
+    max-width: 14rem;
+    padding-bottom: 1.5rem;
+    position: relative;
+}
+
+.candidate-images > div > label { display: none; }
+.img-preview { margin-top: 0.3rem; }
+
+.delete-img-anchor {
+    font-weight: bold;
+    color: #3170DC;
+    text-decoration: none;
+    position: absolute;
+    left: 0;
+    bottom: 0.4rem;
+}
+
+.candidate-measures > div {
+    backgroundd-color: #E7FCFF;
+    padding: 1rem;
+    margin-top: 0.6rem;
+}
+
+.candidate-measures > div > label { display: none; }
+
+.delete-measure-anchor {
+    font-weight: bold;
+    color: #0E50C0;
+    text-decoration: none;
+}
+
+
+.craue_formflow_buttons {
+    padding-top: 1rem;
+}
 
 .button-finish {
     background-color: #136F63;
