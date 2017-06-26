@@ -62,10 +62,6 @@ create_project:
   path:     /prosjekter/ny
   defaults: { _controller: AppBundle:Project:create}
 
-create_project2:
-  path:     /prosjekter/ny2
-  defaults: { _controller: AppBundle:Project:create2}
-
 create_measure_in_project:
   path:     /prosjekter/{project_id}/tiltak/ny
   defaults: { _controller: AppBundle:Measure:create}
@@ -125,14 +121,17 @@ editotherprofile:
     methods: GET|POST
     id: \d+
 
+# List of users
 userlist:
   path: /brukere
   defaults: { _controller: AppBundle:User:showAllUsers}
 
+# Not sure
 queryme:
   path:     /meg/qp
   defaults: { _controller: AppBundle:Profile:queryMe}
 
+# Edit existing project
 edit_project:
   path:     /prosjekter/rediger/{id}
   defaults: { _controller: AppBundle:Project:edit}
@@ -140,34 +139,8 @@ edit_project:
     methods: GET|POST
     id: \d+
 
-edit_project2:
-  path:     /prosjekter/rediger2/{id}
-  defaults: { _controller: AppBundle:Project:edit2}
-  requirements:
-    methods: GET|POST
-    id: \d+
-
-# lucky:
-#   path: /lucky/{number}
-#   defaults: { _controller: AppBundle:Lucky:number}
-#   requirements:
-#     methods: GET
-#     id: \d+
-
 debug:
   path: /test
   defaults: { _controller: AppBundle:Debug:test}
-  requirements:
-    methods: GET|POST
-
-product:
-  path: /product
-  defaults: { _controller: AppBundle:Debug:newProduct}
-  requirements:
-    methods: GET|POST
-
-flowform:
-  path: /flowform
-  defaults: { _controller: AppBundle:Vehicle:createVehicle}
   requirements:
     methods: GET|POST
