@@ -6,18 +6,6 @@ home:
     path: /
     defaults: { _controller: AppBundle:Home:showHome}
 
-aboutus:
-    path: /omoss
-    defaults: { _controller: AppBundle:AboutUs:show}
-
-projectlist:
-  path: /prosjekter
-  defaults: { _controller: AppBundle:ProjectList:projectList}
-
-actorlist:
-  path: /akteur
-  defaults: { _controller: AppBundle:ActorList:show }
-
 login:
     path: /login
     defaults: { _controller: AppBundle:Login:login}
@@ -29,19 +17,44 @@ create_user:
     path:     /register
     defaults: { _controller: AppBundle:User:register } 
 
-create_person:
-    path:     /person/ny
-    defaults: {_controller: AppBundle:Person:create }
+aboutus:
+    path: /omoss
+    defaults: { _controller: AppBundle:AboutUs:show}
+
+projectlist:
+  path: /prosjekter
+  defaults: { _controller: AppBundle:ProjectList:projectList}
+
+advanced_projectlist:
+  path: /prosjektsok
+  defaults: { _controller: AppBundle:ProjectList:advancedProjectList}
+
+# Actor functionality
+
+actorlist:
+  path: /akteur
+  defaults: { _controller: AppBundle:ActorList:show }
+
+# Actor (company) functionality
 
 create_company:
     path:     /selskap/ny
     defaults: {_controller: AppBundle:Company:create }
 
-project:
-  path: /prosjekter/{id}
-  defaults: {_controller: AppBundle:Project:show}
+# TODO
+edit_company:
+  path: /selskap/rediger/{id}
+  defaults: {_controller: AppBundle:Company:edit}
   requirements:
     methods: GET|POST
+    id: \d+
+
+# TODO
+delete_company:
+  path: /selskap/slett/{id}
+  defaults: {_controller: AppBundle:Company:delete}
+  methods: DELETE
+  requirements:
     id: \d+
 
 company:
@@ -51,6 +64,26 @@ company:
     methods: GET|POST
     id: \d+
 
+# Actor (person) functionality
+
+create_person:
+    path:     /person/ny
+    defaults: {_controller: AppBundle:Person:create }
+
+edit_person:
+  path: /person/rediger/{id}
+  defaults: {_controller: AppBundle:Person:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+delete_person:
+  path: /person/slett/{id}
+  defaults: {_controller: AppBundle:Person:delete}
+  methods: DELETE
+  requirements:
+    id: \d+
+
 person:
   path: /person/{id}
   defaults: {_controller: AppBundle:Person:show}
@@ -58,10 +91,36 @@ person:
     methods: GET|POST
     id: \d+
 
+# Projects
+
+project:
+  path: /prosjekter/{id}
+  defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+
 create_project:
   path:     /prosjekter/ny
   defaults: { _controller: AppBundle:Project:create}
 
+edit_project:
+  path:     /prosjekter/rediger/{id}
+  defaults: { _controller: AppBundle:Project:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+# Must be POST with CSRF later
+delete_project:
+  path:     /prosjekter/slett/{id}
+  defaults: { _controller: AppBundle:Project:delete}
+  methods: DELETE
+  requirements:
+    id: \d+
+
+# Perhaps not needed
 create_measure_in_project:
   path:     /prosjekter/{project_id}/tiltak/ny
   defaults: { _controller: AppBundle:Measure:create}
@@ -69,6 +128,7 @@ create_measure_in_project:
     methods: GET|POST
     project_id: \d+
 
+# Perhaps not needed
 edit_measure:
   path:     /prosjekter/{project_id}/tiltak/{measure_id}
   defaults: { _controller: AppBundle:Measure:edit}
@@ -77,6 +137,7 @@ edit_measure:
     project_id: \d+
     measure_id: \d+
 
+# Perhaps not needed
 delete_measure:
   path:     /prosjekter/{project_id}/tiltak/{measure_id}/delete
   defaults: { _controller: AppBundle:Measure:delete}
@@ -131,13 +192,6 @@ queryme:
   path:     /meg/qp
   defaults: { _controller: AppBundle:Profile:queryMe}
 
-# Edit existing project
-edit_project:
-  path:     /prosjekter/rediger/{id}
-  defaults: { _controller: AppBundle:Project:edit}
-  requirements:
-    methods: GET|POST
-    id: \d+
 
 debug:
   path: /test
