@@ -647,12 +647,12 @@ footer a {
 }
 
 .candidate-measures > div {
-    backgroundd-color: #E7FCFF;
+    background-color: #E7FCFF;
     padding: 1rem;
     margin-top: 0.6rem;
 }
 
-.candidate-measures > div > label { display: none; }
+.candidate-measures > div > div:first-of-type > label { display: none; }
 
 .delete-measure-anchor {
     font-weight: bold;

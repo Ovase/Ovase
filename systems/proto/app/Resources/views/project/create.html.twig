@@ -104,6 +104,10 @@
         // Init select2 input(s)
         $("#editProjectStep1_actors").select2();
         $(".function-select").select2();
+        // Make sure new input(s) also get styled
+        $(".add-measure-link").click(function(event) {
+          $(".function-select").select2();
+        });
         // Scroll to validation errors (if any)
         if ($('.form-errors:visible:first').length) {
           $('html, body').animate({
