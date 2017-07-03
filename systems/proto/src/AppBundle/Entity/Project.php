@@ -21,8 +21,12 @@ class Project
 	private $id;
 	/**
 	 * @ORM\Column(type="string", length=45)
-	 * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
-	 * @Assert\Type("string")
+	 * @Assert\NotBlank(
+     *      groups = {"flow_editProject_step1"},
+     *      message="Dette feltet kan ikke være tomt." )
+	 * @Assert\Type(
+     *      groups = {"flow_editProject_step1"},
+     *      type = "string")
 	 */
 	private $name;
 	/**
@@ -32,6 +36,17 @@ class Project
 
     /**
      * @ORM\Column(type="string")
+     */
+    private $projectOwner;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      groups = {"flow_editProject_step1"},
+     *      min = 5,
+     *      max = 140,
+     *      minMessage = "Teksten må ha minst fem tegn.",
+     *      maxMessage = "Teksten kan ikke være lengre enn 128 tegn.")
      */
     private $leadText;
     /**
@@ -50,13 +65,17 @@ class Project
     /**
      * Field for storing lat coordinate found for address
      * @ORM\Column(type="float")
-     * @Assert\Type("numeric")
+     * @Assert\Type(
+     *      groups = {"flow_editProject_step1"},
+     *      type = "numeric")
      */
     private $coordLat;
     /**
      * Field for storing long coordinate found for address
      * @ORM\Column(type="float")
-     * @Assert\Type("numeric")
+     * @Assert\Type(
+     *      groups = {"flow_editProject_step1"},
+     *      type = "numeric")
      */
     private $coordLong;
     /**
@@ -331,6 +350,17 @@ class Project
         $this->measures = $measures;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUniqueMeasureTypes()
+    {
+        $measureTypes = array();
+        foreach ($this->measures as $measure)
+            $measureTypes[] = $measure->getType();
+        return array_unique($measureTypes);
+    }
+
     public function addMeasure($measure)
     {
         $measure->setProject($this);
@@ -413,13 +443,6 @@ class Project
         return $this->coordLong;
     }
 
-    // Generate a list of measure types in project
-    public function getMeasureTypes()
-    {
-        // TODO
-        return array('Regnbed', 'Kvistdam');
-    }
-
     public function __toString()
     {
         $my_string = 'Name: ' . $this->getName() . "\n";
@@ -452,5 +475,29 @@ class Project
     public function getLeadText()
     {
         return $this->leadText;
+    }
+
+    /**
+     * Set projectOwner
+     *
+     * @param string $projectOwner
+     *
+     * @return Project
+     */
+    public function setProjectOwner($projectOwner)
+    {
+        $this->projectOwner = $projectOwner;
+
+        return $this;
+    }
+
+    /**
+     * Get projectOwner
+     *
+     * @return string
+     */
+    public function getProjectOwner()
+    {
+        return $this->projectOwner;
     }
 }
