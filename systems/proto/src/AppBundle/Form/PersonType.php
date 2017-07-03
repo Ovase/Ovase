@@ -23,18 +23,7 @@ class PersonType extends AbstractType
             ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'")))
             ->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
             ->add('image', FileType::class, array('label'=>'Last opp bilde av deg','mapped' => false, 'required'=>false))
-			->add('captcha', CaptchaType::class, array(
-			'attr' => array('placeholder' => 'Skriv tegnene'),
-			'label' => 'Bevis at du ikke er en robot',
-			'width' => 200,
-			'height' => 50,
-			'length' => 5,
-			'quality' =>200,
-			'keep_value' => true,
-			'distortion' => false,
-			'background_color' => [255, 255, 255],
-		))
-			->add('save', SubmitType::class, array('label' => 'Lag person','attr'=>array('class'=>'btn btn-default')));
+			->add('save', SubmitType::class, array('label' => 'Lag person'));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

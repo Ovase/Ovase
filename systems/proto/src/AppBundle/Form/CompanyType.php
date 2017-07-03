@@ -19,10 +19,10 @@ class CompanyType extends AbstractType
 		$builder
 			->add('name', TextType::class,array('label'=>'Navn',))
 			->add('email', EmailType::class,array('label'=>'E-post',))
-            ->add('tlf', TextType::class,array('label'=>'Telefonnummer',))
+            ->add('tlf', TextType::class,array('label'=>'Telefonnummer', 'required' => false))
             ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'")))
-			->add('type', TextType::class)
-			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer',))
+			->add('type', TextType::class, array('required' => false))
+			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer', 'required' => false))
 			->add('persons', EntityType::class, array(
 				// query choices from this entity
 				'label'=>'Medvirkende',
@@ -37,7 +37,7 @@ class CompanyType extends AbstractType
 				// 'expanded' => true,
 				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'Vennligst velg de aktørene som har vært med på prosjektet. Trykk først inn på feltet, velg deretter aktører ved enten å trykke på navnet deres eller skriv inn navn og trykk på enter. For å fjerne en aktør fra feltet trykk på krysset til venstre for navnet eller bruk backspace. PS: Dersom aktøren ikke finnes her må den opprettes på aktør siden.')
 			))
-			->add('competence', TextareaType::class,array('label'=>'Kompetanse',))
+			->add('competence', TextareaType::class,array('label'=>'Kompetanse', 'required' => false))
 			->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
 			->add('captcha', CaptchaType::class, array(
 			'attr' => array('placeholder' => 'Skriv tegnene'),

@@ -17,6 +17,7 @@ class EditProjectFlow extends FormFlow implements EventSubscriberInterface {
 
     protected $allowDynamicStepNavigation = true;
     protected $handleFileUploads = false;
+    protected $validationGroupPrefix = "flow_editProject_step";
     private $logger;
     private $imgService;
 
@@ -25,19 +26,14 @@ class EditProjectFlow extends FormFlow implements EventSubscriberInterface {
         $this->imgService = $imgService;
     }
 
-    // Override
-    public function invalidateStepData($fromStepNumber) {
-        // Do nothing
-    }
-
     protected function loadStepsConfig() {
         return array(
             1 => array(
-                'label' => 'Grunnleggende info',
+                'label' => 'Prosjekt',
                 'form_type' => 'AppBundle\Form\EditProjectStep1Form',
             ),
             2 => array(
-                'label' => 'Detaljer',
+                'label' => 'Overvannstiltak',
                 'form_type' => 'AppBundle\Form\EditProjectStep2Form',
             ),
             3 => array(
@@ -45,6 +41,16 @@ class EditProjectFlow extends FormFlow implements EventSubscriberInterface {
                 'form_type' => 'AppBundle\Form\EditProjectConfirmationStepForm',
             ),
         );
+    }
+
+    public function getFormOptions($step, array $options = array()) {
+        $options = parent::getFormOptions($step, $options);
+        $options['validation_groups'] = array(
+            'Default',
+            $this->validationGroupPrefix . $step,
+        );
+        // $options['cascade_validation'] = true;
+        return $options;
     }
 
     public function setEventDispatcher(EventDispatcherInterface $dispatcher) {
@@ -75,8 +81,9 @@ class EditProjectFlow extends FormFlow implements EventSubscriberInterface {
         $request->files->remove($stepName);
     }
 
+    // Move uploaded images into collection type
     public function onPreBind(PreBindEvent $event) {
-        // TODO: Simplify
+        // TODO: Simplify further
         $request = $event->getFlow()->getRequest();
         $imageFiles = $this->retrieveUploadedFiles($request, 'editProjectStep1', 'imageFiles');
         $newImages = array();
