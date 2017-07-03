@@ -1,0 +1,6 @@
+<div class="comment-form">
+  {{ form(commentForm, {
+    'action': path('create_comment_in_project', {'project_id': project.getId() } ),
+    'method': 'POST',
+    'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+</div>

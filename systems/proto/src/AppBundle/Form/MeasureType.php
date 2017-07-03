@@ -65,7 +65,7 @@ class MeasureType extends AbstractType
         parent::buildView($view, $form, $options);
 
         // Help texts
-        $view['functions']->vars['attr']['help'] = 'Her kan du velge et eller flere formål. Fagwikien har mer info om <a target="_blank" href="http://wiki.ovase.no/index.php/Forside">vann-tekniske</a>, økologiske og sosiale formål.';
+        $view['functions']->vars['attr']['help'] = 'Her kan du velge et eller flere formål. Fagwikien har mer info om <a target="_blank" href="http://wiki.ovase.no/index.php/Hydrologi_i_overvannstiltak">vann-tekniske</a>, <a target="_blank" href="http://wiki.ovase.no/index.php/Økologi_i_overvannstiltak">økologiske</a> og <a target="_blank" href="http://wiki.ovase.no/index.php/Opplevelseskvalitet_i_overvannstiltak">sosiale</a> formål.';
 
     }
 

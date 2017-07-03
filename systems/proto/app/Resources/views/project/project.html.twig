@@ -43,6 +43,18 @@
 
   {% include 'project/project.base.html.twig' %}
 
+  <!-- Comments -->
+  <section class="narrow centered">
+    <h2>Kommentarer</h2>
+    {% for comment in project.getComments() %}
+      {% include 'comment/modules/projectComment.html.twig' %}
+      {# <p>{{ comment.getText() }}</p> #}
+    {% endfor %}
+    {% if canComment %}
+      {% include 'comment/modules/newProjectCommentForm.html.twig' %}
+    {% endif %}
+  </section>
+
 {% endblock %}
 
 {% block javascripts %}

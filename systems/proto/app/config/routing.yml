@@ -112,7 +112,6 @@ edit_project:
     methods: GET|POST
     id: \d+
 
-# Must be POST with CSRF later
 delete_project:
   path:     /prosjekter/slett/{id}
   defaults: { _controller: AppBundle:Project:delete}
@@ -120,7 +119,6 @@ delete_project:
   requirements:
     id: \d+
 
-# Perhaps not needed
 create_measure_in_project:
   path:     /prosjekter/{project_id}/tiltak/ny
   defaults: { _controller: AppBundle:Measure:create}
@@ -128,7 +126,6 @@ create_measure_in_project:
     methods: GET|POST
     project_id: \d+
 
-# Perhaps not needed
 edit_measure:
   path:     /prosjekter/{project_id}/tiltak/{measure_id}
   defaults: { _controller: AppBundle:Measure:edit}
@@ -137,14 +134,36 @@ edit_measure:
     project_id: \d+
     measure_id: \d+
 
-# Perhaps not needed
 delete_measure:
   path:     /prosjekter/{project_id}/tiltak/{measure_id}/delete
   defaults: { _controller: AppBundle:Measure:delete}
+  methods: DELETE
+  requirements:
+    project_id: \d+
+    measure_id: \d+
+
+create_comment_in_project:
+  path:     /prosjekter/{project_id}/kommentar/ny
+  defaults: { _controller: AppBundle:ProjectComment:create}
   requirements:
     methods: GET|POST
     project_id: \d+
-    measure_id: \d+
+
+edit_comment:
+  path:     /prosjekter/{project_id}/kommentar/{comment_id}
+  defaults: { _controller: AppBundle:ProjectComment:edit}
+  requirements:
+    methods: GET|POST
+    project_id: \d+
+
+delete_comment:
+  path:     /prosjekter/{project_id}/kommentar/{comment_id}/delete
+  defaults: { _controller: AppBundle:ProjectComment:delete}
+  methods: DELETE
+  requirements:
+    project_id: \d+
+
+# Things related to users and profiles
 
 edit:
   path:     /rediger

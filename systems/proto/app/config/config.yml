@@ -7,7 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: no
     # Secrets are stored in secrets.yml
     api_key: "%ovase_gmaps_api_key%"
     cloud_name: "%ovase_cloudinary_name%"

@@ -7,6 +7,7 @@ use AppBundle\Entity\Project;
 use AppBundle\Entity\ProjectImage;
 use AppBundle\Form\CreateProjectForm;
 use AppBundle\Form\ProjectType;
+use AppBundle\Form\ProjectCommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -29,24 +30,35 @@ class ProjectController extends Controller
     {
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
+
+        // Can the user edit?
         $canEdit = false;
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_EDITOR') || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && $this->getUser()->canEditProject($project)) {
-            $canEdit = true;
-        }
         $deleteFormView = null;
-        if ($canEdit)
-            $deleteFormView = $this->createDeleteForm($project)->createView();
         $deleteMeasureFormViews = array();
-        foreach ($project->getMeasures() as $measure) {
-            $deleteMeasureFormViews[$measure->getId()] =
-                $this->createMeasureDeleteForm($project, $measure)->createView();
+        if ($this->userCanEditProject($project)) {
+            $canEdit = true;
+            $deleteFormView = $this->createDeleteForm($project)->createView();
+            foreach ($project->getMeasures() as $measure) {
+                $deleteMeasureFormViews[$measure->getId()] =
+                    $this->createMeasureDeleteForm($project, $measure)->createView();
+            }
+        }
+
+        // Can the user comment?
+        $canComment = false;
+        $commentFormView = null;
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $canComment = true;
+            $commentFormView = $this->createForm(ProjectCommentType::class)->createView();
         }
 
         return $this->render('project/project.html.twig', array(
             'project' => $project,
             'canEdit' => $canEdit,
+            'canComment' => $canComment,
             'projectDeleteForm' => $deleteFormView,
             'measureDeleteForms' => $deleteMeasureFormViews,
+            'commentForm' => $commentFormView,
             ));
     }
 
@@ -177,6 +189,15 @@ class ProjectController extends Controller
         // TODO: Also ensure that images are removed
 
         return $this->redirectToRoute('projectlist');
+    }
+
+    private function userCanEditProject($project) {
+        if (    $this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')
+             || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+             && $this->getUser()->canEditProject($project)) {
+                return true;
+        }
+        return false;
     }
 
     private function createDeleteForm($project) {

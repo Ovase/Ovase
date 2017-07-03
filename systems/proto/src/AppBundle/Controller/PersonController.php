@@ -15,9 +15,7 @@ class PersonController extends Controller
 		$person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
         $canEdit = false;
         $deleteForm = null;
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')
-            || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
-            && $this->getUser()->getActors()->contains($person)) {
+        if ($this->userCanEditPerson($person)) {
             $canEdit = true;
             $deleteForm = $this->createDeleteForm($person)->createView();
         }

@@ -2,10 +2,20 @@
 
 {% block body %}
 	<section class ="medium-wide centered">
-		<h2>Informasjon om innlogget bruker</h2>
+		<h2>Informasjon om bruker</h2>
 		{% if user is defined %}
-			<p>Registrert epost-adresse: {{user.Email()}}</p>
+			<p>Registrert epost-adresse: {{ user.getEmail() }}</p>
 			<p>Navn: {{user.getFullName()}} </p>
+      <h3>Tilknyttede aktører</h3>
+      <ul>
+        {% for actor in user.getActors() %}
+          {% if actor.getClassName == "Company" %}
+            <li><a href="{{ path('company', {'id': actor.getId() }) }}">Bedrift: {{ actor.getName() }}</a></li>
+          {% else %}
+            <li><a href="{{ path('person', {'id': actor.getId() }) }}">Person: {{ actor.getName() }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
 		{% endif %}
 	</section>
 {% endblock %}
