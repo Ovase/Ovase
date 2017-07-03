@@ -1,0 +1,22 @@
+
+  {# Form theme adds help message block #}
+  {% form_theme form 'form/fields.html.twig' %}
+
+  {{ form_start(form, { 'attr' : { 'id': 'proj-search', 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+  {{ form_row(form.search) }}
+  <h3>Filtrering</h3>
+  {{ form_row(form.measureTypes) }}
+  {{ form_row(form.measureFunctions) }}
+  {# Reset and save buttons #}
+  <div class="cf">
+    {{ form_widget(form.reset) }}
+    {{ form_widget(form.save) }}
+    <div class="fr f4 pt2">
+      <a href="{{ path('advanced_projectlist') }}" class="pretty-link">
+        <span class="fa fa-search-plus" aria-hidden="true"></span>Avansert søk
+      </a>
+    </div>
+  </div>
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+  

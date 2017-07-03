@@ -18,21 +18,39 @@
 
 {% block form_widget_simple %}
     {% if attr.help is defined %}
-        <span class="help-block">{{ attr.help }}</span>
+        <span class="help-block">{{ attr.help|raw }}</span>
     {% endif %}
     {{ block('base_form_widget_simple') }}
 {% endblock %}
 
 {%- block form_widget_compound -%}
     {% if attr.help is defined %}
-        <span class="help-block">{{ attr.help }}</span>
+        <span class="help-block">{{ attr.help|raw }}</span>
     {% endif %}
     {{ block('base_form_widget_compound') }}
 {%- endblock form_widget_compound -%}
 
 {%- block textarea_widget -%}
     {% if attr.help is defined %}
-        <span class="help-block">{{ attr.help }}</span>
+        <span class="help-block">{{ attr.help|raw }}</span>
     {% endif %}
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
 {%- endblock textarea_widget -%}
+
+{%- block checkbox_widget -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{%- endblock checkbox_widget -%}
+
+{%- block choice_widget -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+{%- endblock choice_widget -%}

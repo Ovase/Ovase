@@ -1,6 +1,6 @@
 
   <section class="medium-wide centered fbox">
-    <div class="w-100 w-50-ns ph2 pb4">
+    <div class="w-100 w-50-ns ph2 pb3">
       <div class="basics pa3">
         <h2 class="mt0">Kort oppsummert: {{ project.getName() }}</h2>
         <div class="cf">
@@ -14,7 +14,7 @@
             <p><span class="fact-label">Ferdigstilt år:</span> {{ project.getEnddate() }}</p>
           </div>
           <div class="fact-row fl w-100">
-            <p><span class="fact-label">Prosjekteier:</span>Ikke implementert</p>
+            <p><span class="fact-label">Byggherre:</span>{{ project.getProjectOwner() }}</p>
           </div>
           <div class="fact-row fl w-100">
             <p><span class="fact-label">Medvirkende:</span></p>
@@ -28,16 +28,10 @@
               {% endfor %}
             </ul>
           </div>
-          <!--
-          <div class="fact-row fl w-100">
-            <p><span class="fact-label">Beskrivelse:</span></p>
-            <p>{{ project.getDescription() }}</p>
-          </div>
-          -->
         </div>
       </div>
     </div>
-    <div class="w-100 w-50-ns ph2 pb4">
+    <div class="w-100 w-50-ns ph2 pb3">
       <div class="img-carousel">
         {% for key,image in project.getImages() %}
           <img class="img-carousel-image centered" src="{{ image.getUrl() }}">
@@ -46,60 +40,49 @@
     </div>
   </section>
 
-  <section class="narrow centered">
-    <div class="w-100 mb4">
-      <h2 class="mt0">Beskrivelse</h2>
-      <p>{{ project.getDescription() }}</p>
-      <h2>Oppsummering</h2>
-      <p>{{project.getSummary()}}</p>
+  <section class="medium-wide centered fbox">
+    <div class="w-100 w-50-ns ph2 pb3">
+      {% if project.getDescription() is defined and project.getDescription() is not empty %}
+        <h2 class="mt0">Beskrivelse</h2>
+        <p>{{ project.getDescription() }}</p>
+      {% endif %}
+      {% if project.getSummary() is defined and   project.getSummary() is not empty %}
+        <h2>Oppsummering</h2>
+        <p>{{project.getSummary()}}</p>
+      {% endif %}
+    </div>
+    <div class="w-100 w-50-ns ph2 pb3">
+      <iframe
+        class="project-map"
+        frameborder="0" style="border:0"
+        src= "https://www.google.com/maps/embed/v1/search?key={{gmaps_api_key}}&q={{ project.getLocation() }}" allowfullscreen>
+      </iframe>
     </div>
   </section>
 
+  <!-- Measures -->
   <section class="medium-wide centered">
-    <div class="w-100">
-      <h2>Overvannsløsninger</h2>
-      <p>TODO: Betinga overskrift og styling av innhold</p>
-      {% for measure in project.getMeasures() %}
-        <div class="measure-box w-100 mv3">
-          {# TODO: Fix
-          {% if canEdit %}
-            <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Rediger tiltak</a>
-            <a href="{{ path("delete_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}">Slett tiltak</a>
-          {% endif %}
-          #}
-
-          <h2>{{ measure.getTitle() }}</h2>
-
-          <h3>Fakta</h3>
-          <p>Areal: {{ measure.getArea() }} m²</p>
-          <p>Dimensjonerende krav til overvannshåndtering for tiltaket: measure.dimetionalDemands</p>
-          <p>Kostnad for tiltaket: {{ measure.getCosts() }} NOK</p>
-          <p>Tekniske funksjoner: {{measure.getTechnicalFunctions() }}</p>
-          <p>Tilleggsverdier: {{measure.getAdditionalValues()}}</p>
-          <p>Utdypelse: {{measure.getElaboration()}}</p>
-
-          <h3>Geometrisk utforming</h3>
-          <p>{{measure.getGeometricDesignElaboration()}}</p>
-
-          <h3>Konstruksjonsdetaljer og anleggelse</h3>
-          <p>{{measure.getConstructionDetails()}}</p>
-
-          <h3>Drift, vedlikehold og oppfølging</h3>
-          <p>{{measure.getMaintenance()}}</p>
-
-          <h3>Erfaringer og tips</h3>
-          <p>{{measure.getExperiencesGained()}}</p>
+    <section class="measures-header cf">
+      <div class="fl w-100 w-50-ns">
+        <h2>Overvannsløsninger</h2>
+      </div>
+      {% if canEdit is defined and canEdit %}
+      <div class="fr w-50">
+        <div class="flat-button-box">
+          <div class="w-100">
+            <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">
+              <span class="fa fa-plus" aria-hidden="true"></span>Legg til ny løsning
+            </a>
+          </div>
         </div>
+      </div>
+      {% endif %}
+    </section>
+    {% if project.getMeasures() is empty %}
+      <p>Dette prosjektet har ingen registrerte overvannstiltak.</p>
+    {% else %}
+      {% for measure in project.getMeasures() %}
+        {% include 'measure/measure.html.twig' %}
       {% endfor %}
-    </div>
-  </section>
-
-  <section class="narrow centered">
-    <h2>Plassering</h2>
-    <iframe
-      width="600"
-      height="450"
-      frameborder="0" style="border:0"
-      src= "https://www.google.com/maps/embed/v1/search?key={{gmaps_api_key}}&q={{ project.getLocation() }}" allowfullscreen>
-    </iframe>
+    {% endif %}
   </section>

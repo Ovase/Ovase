@@ -1,0 +1,67 @@
+
+    <div class="measure-box">
+      <h2 class="mb2">Overvannstiltak: {{ measure.getTitle() }}</h2>
+      <h3 class="mt0 mb3 silver">{{ measure.getType() }}</h4>
+
+      {% if canEdit is defined and canEdit %}
+      <section class="flat-button-box">
+        <div class="w-50">
+          <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}"><span class="fa fa-pencil" aria-hidden="true"></span>Rediger tiltak</a>
+        </div>
+        <div class="w-50">
+          {% include 'form/deleteform.html.twig'  with {
+            'deleteForm': measureDeleteForms[measure.getId()],
+            'deleteMessage': 'Slett tiltak',
+          } %}
+        </div>
+      </section>
+      {% endif %}
+
+      <h3>Raske fakta</h3>
+      <table class="ovase-table">
+        {% include 'measure/table.row.html.twig' with {
+          'propDescription': 'Dimensjonerende vannmengde (m³)',
+          'propValue': measure.getDimentionalWaterAmount()
+        } %}
+        {% include 'measure/table.row.html.twig' with {
+          'propDescription': 'Dimensjonerende flom',
+          'propValue': measure.getDimentionalFlood()
+        } %}
+        {% include 'measure/table.row.html.twig' with {
+          'propDescription': 'Tiltakets overflateareal (m²)',
+          'propValue': measure.getArea()
+        } %}
+        {% include 'measure/table.row.html.twig' with {
+          'propDescription': 'Tiltakets nedbørsfelt (m²)',
+          'propValue': measure.getCatchmentArea()
+        } %}
+        {% include 'measure/table.row.html.twig' with {
+          'propDescription': 'Målt hydraulisk konduktivitet (cm/time)',
+          'propValue': measure.getHydraulicConductivity()
+        } %}
+        {% include 'measure/table.row.html.twig' with {
+          'propDescription': 'Tiltakets kostnader (NOK)',
+          'propValue': measure.getCosts()
+        } %}
+      </table>
+
+      {% include 'measure/longtext.html.twig' with {
+        'headline': 'Grunnforhold',
+        'longtext': measure.getSoilConditions()
+      } %}
+
+      {% include 'measure/longtext.html.twig' with {
+        'headline': 'Tiltakets utforming og konstruksjonsutførelse',
+        'longtext': measure.getDesignAndConstruction()
+      } %}
+
+      {% include 'measure/longtext.html.twig' with {
+        'headline': 'Planlagt eller utført vedlikehold og oppfølging',
+        'longtext': measure.getMaintenance()
+      } %}
+
+      {% include 'measure/longtext.html.twig' with {
+        'headline': 'Erfaringer og tips',
+        'longtext': measure.getExperiencesGained()
+      } %}
+    </div>

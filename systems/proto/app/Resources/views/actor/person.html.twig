@@ -6,6 +6,23 @@
 
 {% block body %}
   <section class="medium-wide centered">
+
+    {% if canEdit %}
+    <section class="flat-button-box">
+        <div class="w-50">
+            <a href="{{ path('edit_person', {'id': person.getId()}) }}">
+                <span class="fa fa-pencil" aria-hidden="true"></span>Rediger aktør
+            </a>
+        </div>
+        <div class="w-50">
+            {% include 'form/deleteform.html.twig'  with {
+            'deleteForm': actorDeleteForm,
+            'deleteMessage': 'Slett aktørprofil',
+            } %}
+        </div>
+    </section>
+    {% endif %}
+
     <h1 class="ph3">{{ person.getName() }}</h1>
     <div class="full-wide fbox">
         <div class="actor-image w-100 w-50-ns pa3">

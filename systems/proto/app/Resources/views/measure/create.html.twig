@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Overvannsløsning
+  Overvannstiltak
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -13,7 +19,19 @@
     {{ form_widget(form) }}
     {{ form_end(form) }}
   </section>
-
 {% endblock %}
 
-
+{% block javascripts %}
+  {{ parent() }}
+  <!-- Select2 widget used for improved select inputs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <!-- Initialization -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+        // Init existing select2 input(s)
+        $(".function-select").select2();
+        // TODO: Make sure new input(s) also get styled
+        // $(".add-measure-link").click
+    });
+    </script>
+{% endblock %}

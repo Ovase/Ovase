@@ -13,24 +13,33 @@
 
 {% block body %}
 
-  {% if message is defined %}
-    {% include 'general/messagebox.html.twig' %}
-  {% endif %}
+  <section class="medium-wide centered ph2 pb4">
+    {% if message is defined %}
+      {% include 'general/messagebox.html.twig' %}
+    {% endif %}
 
-  {% if canEdit %}
-    <section class="medium-wide centered fbox">
-      <div class="w-100 w-50-ns ph2 pb3">
-        <a href="{{  path('edit_project', {'id': project.getId()}) }}" class="panel-button pa3 f3 bg-ovase-dark-green white">
-          <p><span class="fa fa-pencil" aria-hidden="true"></span>Rediger prosjekt</p>
-        </a>
-      </div>
-      <div class="w-100 w-50-ns ph2 pb3">
-        <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}" class="panel-button pa3 f3 bg-ovase-dark-green white">
-          <p><span class="fa fa-plus" aria-hidden="true"></span>Legg til løsning</p>
-        </a>
-      </div>
-    </section>
-  {% endif %}
+    {% if canEdit %}
+      <section class="flat-button-box">
+        <div class="w-50 w-third-ns">
+          <a href="{{  path('edit_project', {'id': project.getId()}) }}">
+            <span class="fa fa-pencil" aria-hidden="true"></span>Rediger prosjekt
+          </a>
+        </div>
+        <div class="w-50 w-third-ns">
+          <!-- We use a form to leverage Symfony's CSRF protection -->
+          {% include 'form/deleteform.html.twig'  with {
+            'deleteForm': projectDeleteForm,
+            'deleteMessage': 'Slett prosjekt'
+          } %}
+        </div>
+        <div class="w-50 w-third-ns">
+          <a href="{{ path("create_measure_in_project", {'project_id': project.getId()}) }}">
+            <span class="fa fa-plus" aria-hidden="true"></span>Legg til løsning
+          </a>
+        </div>
+      </section>
+    {% endif %}
+  </section>
 
   {% include 'project/project.base.html.twig' %}
 

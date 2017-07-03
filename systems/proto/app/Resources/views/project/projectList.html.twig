@@ -11,63 +11,19 @@
       </div>
 #}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
     <!-- Project list controls and map -->
+    {% block proj_list_header %}
     <section id="proj-list-header" class="pretty-wide centered fbox">
       <div class="ph2 mb2 w-100 w-50-ns">
         <section id="proj-list-controls" class="pa3">
           <h2 class="mt0">Velkommen til vår prosjektdatabase!</h2>
-          {{ form_start(form, { 'attr' : { 'id': 'proj-basic-search', 'class': 'full-wide pb2 ovase-form' }} ) }}
-            <div class="fbg5 bg-white mr2">
-              {{ form_label(form.search) }}
-              {{ form_errors(form.search) }}
-              {{ form_widget(form.search) }}
-            </div>
-            <div class="fbg1 bg-white mr2">
-              {{ form_label(form.save) }}
-              {{ form_widget(form.save) }}
-            </div>
-          {{ form_end(form) }}
-          <form id="proj-filtering" class="ovase-form">
-              <fieldset>
-                <legend class="f4 fw7 pv3">Filtrering</legend>
-                <div class="fbox">
-                  <div class="w-50">
-                    <label for="region" class="db f4 mb2">Region</label>
-                    <select id="region" class="w-90 bg-white">
-                      <option>Alle</option>
-                      <option>Trondheim</option>
-                      <option>Oslo</option>
-                      <option>Bergen</option>
-                    </select>
-                  </div>
-
-                  <div class="w-50">
-                    <fieldset>
-                      <legend class="db f4 mb1">Tekniske løsninger</legend>
-                        <label for="green-roof" class="db">
-                          <input type="checkbox" id="green-roof" name="tech-solutions" value="green-roof">
-                          Grønne tak
-                        </label>
-                        <label for="twigs" class="db">
-                          <input type="checkbox" id="twigs" name="tech-solutions" value="twigs">
-                          Kvistdammer
-                        </label>
-                        <label for="rainbed" class="db">
-                          <input type="checkbox" id="rainbed" name="tech-solutions" value="rainbed">
-                          Regnbed
-                        </label>
-                    </fieldset>
-                  </div>
-                </div>
-                <div class="pt4">
-                  <input type="submit" class="db w-40 fl bg-light-green" value="Filtrer prosjekter">
-                  {% if app.user%}
-                    <a class="rm-link-style w-40 fr db" href="{{ path('create_project') }}"><button type="button" class="db w-100 bg-light-blue">Nytt prosjekt</button></a>
-                  {% endif %}
-                </div>
-              </fieldset>
-            </form>
+            {% include 'project/modules/projectSearch.html.twig' %}
         </section>
       </div>
       <div class="ph2 mb2 w-100 w-50-ns">
@@ -76,6 +32,7 @@
         </section>
       </div>
     </section>
+    {% endblock %}
     
     <!-- Project list -->
     <section id="projects" class="pretty-wide centered fbox pt4 ph2">
@@ -94,12 +51,14 @@
             <p>{{ project.getLeadText() }}</p>
             <h4>Adresse</h4>
             <p>{{ project.getLocation() }}</p>
-            <h4>Løsninger</h4>
-            <ul>
-            {% for measureType in project.getMeasureTypes() %}
-              <li>{{ measureType }}</li>
-            {% endfor %}
-            </ul>
+            {% if project.getUniqueMeasureTypes() is not empty %}
+              <h4>Anlagte tiltak</h4>
+              <ul>
+              {% for measureType in project.getUniqueMeasureTypes() %}
+                <li>{{ measureType }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
           </div>
         </a>
       </div>
@@ -113,4 +72,20 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&callback=initMap">
     </script>
 
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    // Init select2 input(s)
+    $("#project_search_form_measureTypes").select2({
+      placeholder: "Velg ett eller flere tiltak"
+    });
+    $("#project_search_form_measureFunctions").select2({
+      placeholder: "Velg ett eller flere formål"
+    });
+  });
+</script>
 {% endblock %}
