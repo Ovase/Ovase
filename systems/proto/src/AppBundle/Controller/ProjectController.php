@@ -29,14 +29,25 @@ class ProjectController extends Controller
     {
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
-        # The API key to use on Google Maps Embed API is defined as a global parameter accessable through the service container.
         $canEdit = false;
         if ($this->get('security.authorization_checker')->isGranted('ROLE_EDITOR') || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') && $this->getUser()->canEditProject($project)) {
             $canEdit = true;
         }
-        return $this->render('project/project.html.twig', array('project' => $project,
-            'key' => $this->container->getParameter('api_key'),
-            'canEdit' => $canEdit));
+        $deleteFormView = null;
+        if ($canEdit)
+            $deleteFormView = $this->createDeleteForm($project)->createView();
+        $deleteMeasureFormViews = array();
+        foreach ($project->getMeasures() as $measure) {
+            $deleteMeasureFormViews[$measure->getId()] =
+                $this->createMeasureDeleteForm($project, $measure)->createView();
+        }
+
+        return $this->render('project/project.html.twig', array(
+            'project' => $project,
+            'canEdit' => $canEdit,
+            'projectDeleteForm' => $deleteFormView,
+            'measureDeleteForms' => $deleteMeasureFormViews,
+            ));
     }
 
     public function createAction(Request $request)
@@ -47,6 +58,7 @@ class ProjectController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $project = new Project();
+        $user = $this->getUser();
         
         $flow = $this->get('ovase.form.flow.editProject'); // must match the flow's service id
         $flow->bind($project);
@@ -60,8 +72,11 @@ class ProjectController extends Controller
                 $form = $flow->createForm();
             } else {
                 // Flow finished
+                // Add project to user list and save
+                $user->addProject($project);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($project);
+                $em->persist($user);
                 $em->flush();
                 $flow->reset();
                 return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
@@ -70,7 +85,7 @@ class ProjectController extends Controller
         return $this->render('project/create.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
-            'canEdit' => true,
+            'canEdit' => false,
         ));
 
     }
@@ -89,9 +104,6 @@ class ProjectController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-
-        /* Remove later */
-        $logger = $this->get('logger');
 
         // Store original images and measures to know if any were removed
         $originalImages = new ArrayCollection();
@@ -140,7 +152,47 @@ class ProjectController extends Controller
             'form' => $form->createView(),
             'flow' => $flow,
         ));
+    }
 
+    public function deleteAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException('Du må være logget inn');
+        }
+
+        $requestID = $request->get('id');
+        $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
+
+        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+            throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
+        }
+
+        $form = $this->createDeleteForm($project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($project);
+            $em->flush();
+        }
+        // TODO: Also ensure that images are removed
+
+        return $this->redirectToRoute('projectlist');
+    }
+
+    private function createDeleteForm($project) {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_project', array('id' => $project->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+    }
+
+    private function createMeasureDeleteForm($project, $measure) {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_measure', array(
+                'measure_id' => $measure->getId(),
+                'project_id' => $project->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 
 }
