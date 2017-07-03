@@ -330,6 +330,17 @@ nav a.active { border-bottom: 6px solid white; }
     }
 }
 
+@media screen and (max-width: 460px) {
+    header {
+        height: 7rem;
+    }
+
+    header nav li a {
+        height: 1.5rem;
+        padding-top: 0.3rem;
+    }
+}
+
 /*** MAIN ***/
 
 main { padding-top: 2rem; }
