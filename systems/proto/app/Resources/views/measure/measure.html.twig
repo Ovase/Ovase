@@ -1,7 +1,7 @@
 
     <div class="measure-box">
       <h2 class="mb2">Overvannstiltak: {{ measure.getTitle() }}</h2>
-      <h3 class="mt0 mb3 silver">{{ measure.getType() }}</h4>
+      <h3 class="mt0 mb3 silver">{{ measure.getType() }}</h3>
 
       {% if canEdit is defined and canEdit %}
       <section class="flat-button-box">
@@ -44,6 +44,14 @@
           'propValue': measure.getCosts()
         } %}
       </table>
+
+      <!-- Functions -->
+      <h3>Tiltakets formål</h3>
+      <ul class="mb3">
+      {% for function in measure.getFunctions() %}
+        <li>{{ function }}</li>
+      {% endfor %}
+      </ul>
 
       {% include 'measure/longtext.html.twig' with {
         'headline': 'Grunnforhold',

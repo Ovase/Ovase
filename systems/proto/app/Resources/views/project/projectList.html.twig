@@ -4,13 +4,6 @@
   Prosjekter
 {% endblock %}
 
-{#
-      <div>
-        <span style="font-size:25px; margin-left:1vw; margin-right:25px; color:#6D6D6D;">Lag nytt prosjekt</span>
-        <a class="btn-text" href={{ path('create_project') }}><button type="button" class="btn btn-circle btn-primary btn-raised">+</button></a>
-      </div>
-#}
-
 {% block stylesheets %}
   {{ parent() }}
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
@@ -33,6 +26,19 @@
       </div>
     </section>
     {% endblock %}
+
+    <!-- Create new project button -->
+    <section class="pretty-wide centered">
+      <div class="w-50 pa2">
+        <div class="flat-button-box">
+          <div class="w-100">
+            <a href="{{  path('create_project') }}">
+              <span class="fa fa-plus" aria-hidden="true"></span>Opprett prosjekt
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
     
     <!-- Project list -->
     <section id="projects" class="pretty-wide centered fbox pt4 ph2">
