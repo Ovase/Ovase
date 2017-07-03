@@ -126,7 +126,7 @@ button,
 
 .ovase-form-ext label {
     font-size: 1.2em;
-    margin-top: 0.8em;
+    margin-top: 0.4em;
     display: block;
 }
 
@@ -135,9 +135,10 @@ button,
     margin-right: 0.2rem !important;
 }
 
-.ovase-form input[type="text"],
-.ovase-form input[type="email"],
-.ovase-form input[type="password"],
+.ovase-form-ext input[type="text"],
+.ovase-form-ext input[type="email"],
+.ovase-form-ext input[type="search"],
+.ovase-form-ext input[type="password"],
 .ovase-form-ext textarea,
 .ovase-form-ext select {
     display: block;
@@ -169,10 +170,24 @@ button,
     margin: 2rem 0;
 }
 
+/* Override select2 styling */
+.ovase-form .select2-container .select2-selection--multiple {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 0.125rem;
+    padding: 0.2rem 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.ovase-form .select2-container input[type="search"] { margin-bottom: 4px; }
+
 /* Tables */
 .ovase-table {
 	font-size: 1.2rem;
 	width: 100%;
+    margin-bottom: 1.4rem;
 }
 
 .ovase-table tr { border-bottom: 1px dashed #79C7C5; }
@@ -187,6 +202,15 @@ button,
 
 .rm-link-style:visited { color: inherit; }
 
+.pretty-link {
+    text-decoration: none;
+    color: #3170DC;
+}
+
+.pretty-link:hover {
+    text-decoration: underline;
+}
+
 .plain-card {
     display: block;
     padding: 1rem;
@@ -199,6 +223,8 @@ header {
     overflow:auto;
     height: 68px;
 }
+
+header > div { position: relative; }
 
 #header-logo {
     display: block;
@@ -266,9 +292,12 @@ nav a:hover {
 
 nav a.active { border-bottom: 6px solid white; }
 
+
 .user-panel {
     display: block;
-    float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .user-panel a {
@@ -282,6 +311,25 @@ nav a.active { border-bottom: 6px solid white; }
     color: #FFFFFF;
 }
 
+@media screen and (max-width: 665px) {
+    header h1 {
+        margin: 14px 0 0 0.2rem;
+        font-size: 22px;
+        letter-spacing: 0.08em;
+    }
+
+    nav { margin-left: 0.4rem; }
+
+    header li { font-size: 1.1rem; }
+
+    .user-panel a {
+        font-size: 1rem;
+        padding-top: 0.2rem;
+        padding-left: 1.4em;
+        color: #505050;
+    }
+}
+
 /*** MAIN ***/
 
 main { padding-top: 2rem; }
@@ -291,6 +339,42 @@ main { padding-top: 2rem; }
 	width: 100%;
 	padding: 1rem;
 }
+
+.flat-button-box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.1rem;
+    border: 1px dashed #D2D2D2;
+    font-weight: bold;
+}
+
+.flat-button-box > div {
+    padding: 0.5rem;
+}
+
+.flat-button-box a {
+    display: block;
+    width: 100%;
+    padding: 0.2rem;
+    text-decoration: none;
+    text-align: center;
+    color: inherit;
+}
+
+.flat-button-box button {
+    display: block;
+    width: 100%;
+    padding: 0.2rem;
+    border: none;
+    background: none !important;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.flat-button-box button:hover,
+.flat-button-box a:hover { color: #1969D5; }
 
 /*** HOME ***/
 
@@ -349,43 +433,15 @@ a.section-card h2 {
 /*** PROJECT LIST CONTROLS ***/
 
 #proj-list-controls {
-    min-height: 22rem;
+    min-height: 24rem;
     background-color: #F0F0F0;
 }
 
-#proj-basic-search {
-    display: flex;
-    flex-wrap: wrap;
+#proj-search label {
+    font-size: 1.1rem;
 }
 
-#proj-basic-search input {
-	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
-}
-
-#proj-basic-search button {
-	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
-}
-
-#proj-filtering fieldset {
-    margin-top: 0.25em;
-    padding-bottom: 0; 
-}
-
-#proj-filtering legend {
-    border-bottom: 0;
-}
-
-#proj-filtering .compact-legend {
-    border-bottom: 0;
-    margin-bottom: 0;
-    padding: 0;
-}
-
-#proj-list-map { min-height: 22rem; }
+#proj-list-map { min-height: 24rem; }
 
 #proj-list-map h1 { font-size: 1.4rem; }
 
@@ -409,7 +465,6 @@ a.section-card h2 {
 	text-decoration: none;
 	color: inherit;
 	height: 100%;
-	height: 16rem;
 }
 
 #projects a:hover {
@@ -439,12 +494,17 @@ footer a {
 
 /*** PROJECT PAGE ***/
 
-a.panel-button {
+.panel-button {
+    text-align: center;
 	display: block;
 	text-decoration: none;
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border: 0;
 }
 
-a.panel-button:hover {
+.panel-button:hover {
 	background-color: #C9F299;
 }
 
@@ -495,6 +555,32 @@ a.panel-button:hover {
 .img-carousel button.slick-next {
 	right: 20px;
 	z-index: 20;
+}
+
+.measures-header h2 { margin: 0.45rem 0 0 0; }
+
+.measure-box {
+    width: 100%;
+    background-color: #EDEDED;
+    padding: 1.2rem;
+    margin: 1rem 0;
+}
+
+.measure-box > .flat-button-box {
+    border: 1px dashed #7B7B7B;
+}
+
+.measure-box > .ovase-table tr {
+    border-bottom: 1px dashed #71A3FF;
+}
+
+.measure-box > .ovase-table tr:last-of-type {
+    border-bottom: none;
+}
+
+.project-map {
+    width: 100%;
+    height: 20rem;
 }
 
 /*** NEW/EDIT PROJECT PAGE ***/
@@ -593,12 +679,12 @@ a.panel-button:hover {
     margin-left: 0.6rem;
     display: inline-block;
     font-size: 1.5rem;
-    width: 6rem;
+    width: 8rem;
 }
 
-.actor-search input {
+.actor-search input[type="search"] {
     display: inline-block;
-    width: 70%;
+    width: 60%;
     float: right;
     margin-top: 0.2rem;
     margin-right: 0.6rem;
