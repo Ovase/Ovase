@@ -18,6 +18,10 @@
       {% include 'general/messagebox.html.twig' %}
     {% endif %}
 
+    {% if project.getHidden() %}
+      {% include 'general/messagebox.html.twig' with {'message': 'Dette prosjektet er skjult'} %}
+    {% endif %}
+
     {% if canEdit %}
       <section class="flat-button-box">
         <div class="w-50 w-third-ns">

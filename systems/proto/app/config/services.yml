@@ -10,6 +10,12 @@ services:
   ovase.form.flow.createVehicle:
     class: AppBundle\Form\CreateVehicleFlow
     parent: craue.form.flow
+  ovase.form.flow.createProject:
+    class: AppBundle\Form\CreateProjectFlow
+    parent: craue.form.flow
+    arguments:
+      - @logger
+      - @image_service
   ovase.form.flow.editProject:
     class: AppBundle\Form\EditProjectFlow
     parent: craue.form.flow

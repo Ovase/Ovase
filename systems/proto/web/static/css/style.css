@@ -346,6 +346,7 @@ nav a.active { border-bottom: 6px solid white; }
 main { padding-top: 2rem; }
 
 .message-box {
+    font-size: 1.15rem;
 	background-color: #FFE0B5;
 	width: 100%;
 	padding: 1rem;
@@ -487,6 +488,12 @@ a.section-card h2 {
 }
 
 a.section-card:visited { color: inherit; }
+
+.hidden-notification {
+    margin-top: -1rem;
+    margin-bottom: 0.6rem;
+    color: #FF5009;
+}
 
 /*** FOOTER ***/
 

@@ -53,7 +53,12 @@
             {% endfor %}
           </div>
           <div class="pa3 w-50">
-            <h2>{{ project.getName() }}</h2>
+            <h2>
+              {{ project.getName() }}
+            </h2>
+            {% if project.getHidden() %}
+              <p class="hidden-notification"><span class="fa fa-eye-slash" aria-hidden="true"></span>Skjult prosjekt</p>
+            {% endif %}
             <p>{{ project.getLeadText() }}</p>
             <h4>Adresse</h4>
             <p>{{ project.getLocation() }}</p>

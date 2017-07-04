@@ -32,9 +32,11 @@ class ProjectListController extends Controller
 				'measureFunctions' => $searchFunctions,
 				));
 
+		$visibleAndFilteredProjects = $this->filterInvisibleProjects($filteredProjects);
+
 		return $this->render(
 			'project/projectList.html.twig', array(
-				'projects' => $filteredProjects,
+				'projects' => $visibleAndFilteredProjects,
 				'form' => $searchForm->createView())
 		);
 	}
@@ -63,10 +65,32 @@ class ProjectListController extends Controller
 				'measureFunctions' => $searchFunctions,
 				));
 
+		$visibleAndFilteredProjects = $this->filterInvisibleProjects($filteredProjects);
+
 		return $this->render(
 			'project/projectListAdvanced.html.twig', array(
-				'projects' => $filteredProjects,
+				'projects' => $visibleAndFilteredProjects,
 				'form' => $searchForm->createView())
 		);
 	}
+
+	private function filterInvisibleProjects($projects) {
+		$visibleProjects = array();
+		foreach ($projects as $project) {
+			if (!$project->getHidden() ||
+				$this->userCanEditProject($project)) {
+				$visibleProjects[] = $project;
+			}
+		}
+		return $visibleProjects;
+	}
+
+    private function userCanEditProject($project) {
+        if (    $this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')
+             || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+             && $this->getUser()->canEditProject($project)) {
+                return true;
+        }
+        return false;
+    }
 }

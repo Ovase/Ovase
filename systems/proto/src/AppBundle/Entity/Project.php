@@ -93,6 +93,10 @@ class Project
  	 * @ORM\Column(type="integer")
  	 */
 	private $version = 1;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hidden = false;
 	/**
 	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="projects")
 	 * @ORM\JoinTable(name="actor_in_project")
@@ -541,5 +545,29 @@ class Project
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set hidden
+     *
+     * @param boolean $hidden
+     *
+     * @return Project
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * Get hidden
+     *
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
     }
 }

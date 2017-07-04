@@ -36,7 +36,7 @@ class ProjectComment
     private $user;
 
     /**
-     * @ORM\Column(type="datetimetz")
+     * @ORM\Column(type="datetime")
      */
     private $date;
 

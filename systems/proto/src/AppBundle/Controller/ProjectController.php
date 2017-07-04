@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Measure;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\ProjectImage;
-use AppBundle\Form\CreateProjectForm;
 use AppBundle\Form\ProjectType;
 use AppBundle\Form\ProjectCommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -72,7 +71,7 @@ class ProjectController extends Controller
         $project = new Project();
         $user = $this->getUser();
         
-        $flow = $this->get('ovase.form.flow.editProject'); // must match the flow's service id
+        $flow = $this->get('ovase.form.flow.createProject'); // must match the flow's service id
         $flow->bind($project);
         $form = $flow->createForm();
         if ($flow->isValid($form)) {
@@ -111,7 +110,7 @@ class ProjectController extends Controller
         $requestID = $request->get('id');
         $project = $this->getDoctrine()->getManager()->getRepository('AppBundle:Project')->find($requestID);
 
-        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+        if (!$this->userCanEditProject($project)) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
 
@@ -127,7 +126,6 @@ class ProjectController extends Controller
         
         $flow = $this->get('ovase.form.flow.editProject');
 
-        // Read project entity -> place fields in flow
         $flow->bind($project);
         $form = $flow->createForm();
         if ($flow->isValid($form)) {
@@ -141,7 +139,7 @@ class ProjectController extends Controller
                 // Delete images and measures that were removed
                 foreach ($originalImages as $origImg) {
                      if ($project->getImages()->contains($origImg) === false) {
-                        $em->remove($origImg);
+                            $em->remove($origImg);
                     }
                 }
                 foreach ($originalMeasures as $origMeasure) {

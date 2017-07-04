@@ -46,11 +46,9 @@ class ProjectCommentController extends Controller
         if (!$this->userCanEditComment($comment)) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
-        // Below here: Also todo
         $form = $this->createForm(ProjectCommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Set edited
             $comment->setEdited(true);
             $em->persist($comment);
             $em->flush();
