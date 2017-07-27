@@ -38,15 +38,28 @@ class UserRepository extends EntityRepository //implements UserProviderInterface
         return $users;
     }
 
-	public function findAllUsersByRoles($roles)
+	public function findAllActivatedNormalUsers()
 	{
-		return $this->createQueryBuilder('u')
-			->select('u')
-			->join('u.roles', 'r')
-			->where('r.role IN (:roles)')
-			->setParameter('roles', $roles)
-			->getQuery()
-			->getResult();
+		$activatedUsers = $this->findAllActiveUsers();
+		$normalUsers = array();
+		foreach ($activatedUsers as $user) {
+			if (in_array('ROLE_USER', $user->getRoles()) && !in_array('ROLE_EDITOR', $user->getRoles())) {
+				$normalUsers[] = $user;
+			}
+		}
+		return $normalUsers;
+	}
+
+	public function findAllActivatedEditorUsers()
+	{
+		$activatedUsers = $this->findAllActiveUsers();
+		$normalUsers = array();
+		foreach ($activatedUsers as $user) {
+			if (in_array('ROLE_USER', $user->getRoles()) && in_array('ROLE_EDITOR', $user->getRoles())) {
+				$normalUsers[] = $user;
+			}
+		}
+		return $normalUsers;
 	}
 
 	/**

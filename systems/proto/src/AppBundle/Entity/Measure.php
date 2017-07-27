@@ -39,6 +39,7 @@ class Measure
     /**
      * @var string
      *
+     * TODO: This should use type string with max length
      * @ORM\Column(name="type", type="text")
      */
     private $type;
@@ -48,6 +49,13 @@ class Measure
      * @ORM\Column(type="array", nullable=true)
      */
     private $functions;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="functionsElaboration", type="text")
+     */
+    private $functionsElaboration;
 
     /***** Numerical, technical data *****/
 
@@ -470,5 +478,29 @@ class Measure
     public function getFunctions()
     {
         return $this->functions;
+    }
+
+    /**
+     * Set functionsElaboration
+     *
+     * @param string $functionsElaboration
+     *
+     * @return Measure
+     */
+    public function setFunctionsElaboration($functionsElaboration)
+    {
+        $this->functionsElaboration = $functionsElaboration;
+
+        return $this;
+    }
+
+    /**
+     * Get functionsElaboration
+     *
+     * @return string
+     */
+    public function getFunctionsElaboration()
+    {
+        return $this->functionsElaboration;
     }
 }

@@ -5,47 +5,33 @@ namespace AppBundle\Domain;
 class OvaseDomain {
 
     public static function getMeasureTypeChoices() {
-        // Tone's list. Currently not used.
+        // Most recent version of list
         $measureTypes = array(
             'Regnbed',
-            'Infiltrasjonsgrøft',
-            'Swale/vadi',
-            'Takfordrøyning (grønne /grå-blå/kombinasjon)',
-            'Lukket fordrøyningsbasseng',
-            'Åpen bekkeløsning',
-            'Fordrøyningsbasseng (åpent vått eller tørt)',
-            'Våtmark',
-            'Annen infiltrasjonsbasert løsning',
-            'Annen fordrøyningsbasert løsning',
-            'Sisterne for gjenbruk av regnvann',
-            );
-        // Anine's list.
-        $measureTypes2 = array(
-            'Regnbed',
-            'Takfordrøyning (grønne /blå-grå /kombinasjon)',
+            'Takfordrøyning (grønne/blå-grå/kombinasjon)',
             'Grønne vegger',
-            'Permeabelt dekke',
+            'Permeable flater',
             'Gatetrær',
             'Grøft',
-            'Renne',
             'Kum',
-            'Vadi (Åpen vannvei som går tørr i perioder)',
+            'Vadi (åpen og periodevis tørr vannvei)',
             'Åpen bekkeløsning',
             'Kulvert',
             'Lukket fordrøyningsbasseng',
-            'Åpent fordrøyningsbasseng (Naturlig eller urbant senket område som periodevis er tørt)',
-            'Dam (Permanent vannspeil)',
+            'Åpent fordrøyningsbasseng (periodevis tørt)',
+            'Dam (permanent vannspeil)',
             'Våtmark',
-            'Gate/vei-flomvei (Gate eller vei bygget/ombygget for å fungere som flomvei i ekstremsituasjoner)',
+            'Gate/vei utformet som flomvei',
+            'Gjenbruk av regnvann',
             'Annet',
             );
-        return array_combine($measureTypes2, $measureTypes2);
+        return array_combine($measureTypes, $measureTypes);
     }
 
     public static function getMeasureFunctionChoices() {
         // Nested arrays result in optgroups in the select input
         $measureFunctions = array(
-            'Vann-teknisk' => array(
+            'Hydrologisk' => array(
                 'Infiltrasjon',
                 'Filtrering',
                 'Evapotranspirasjon',
@@ -54,16 +40,81 @@ class OvaseDomain {
                 'Lagring for forsinkelse',
                 'Lagring for gjenbruk',
                 'Avfallshåndtering',
+                'Sedimenthåndtering',
                 'Rensing',
                 ),
             'Økologisk' => array(
                 'Biodiversitet',
-                'Testverdi2',
+                'Tilrettelegging for fisk',
+                ),
+            'Opplevelsesmessig' => array(
+                'Lek og læring',
+                'Rekreasjon',
+                'Oppholdsplass',
+                'Bading',
+                'Sosial arena',
+                'Støydemping',
+                'Virke svalende',
+                'Urbant landbruk',
+                'Birøkting',
+                'Fisking',
+                'Skille mellom bruksområder'
                 ),
             );
         foreach ($measureFunctions as $key => &$val) {
             $val = array_combine($val, $val);
         }
         return $measureFunctions;
+    }
+
+    public static function getCompanyTypeChoices() {
+        $types = array(
+            'Arkitekt',
+            'Landskapsarkitekt',
+            'Konsulent',
+            'Anleggsgartner',
+            'Entreprenør',
+            'Leverandør',
+            'Kommune',
+            'Interkommunalt Selskap',
+            'Offentlig utbygger og eier',
+            'Privat utbygger',
+            'Privat eier',
+            'Forskning',
+            'Utvikling og Innovasjon',
+            'Utdanning',
+            'Interesseorganisasjon',
+            'Non-profit organisasjon',
+            'Annet',
+            );
+        return array_combine($types, $types);
+    }
+
+    public static function getPersonTypeChoices() {
+        $types = array(
+            'Arkitekt',
+            'Landskapsarkitekt',
+            'Konsulent',
+            'Anleggsgartner',
+            'Entreprenør',
+            'Leverandør',
+            'Kommune',
+            'Interkommunalt selskap',
+            'Offentlig utbygger og eier',
+            'Privat utbygger',
+            'Privat eier',
+            'Forskning',
+            'Utvikling og Innovasjon',
+            'Utdanning',
+            'Interesseorganisasjon',
+            'Non-profit organisasjon',
+            'Studerende',
+            'Kommune in-house',
+            'Kommune drift',
+            'Engasjert innbygger',
+            'Huseier',
+            'Annet',
+            );
+        return array_combine($types, $types);
     }
 }

@@ -46,8 +46,7 @@ class User implements AdvancedUserInterface, \Serializable, EquatableInterface
      */
     private $picture_path;
     /**
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank(message="Dette feltet kan ikke være tomt.")
+     * @ORM\Column(type="string", length=45, nullable=true)
      * @Assert\Type("string")
      */
     private $phone;

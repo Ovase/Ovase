@@ -32,6 +32,13 @@ class ProjectImage
     private $url;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="caption", type="string", length=255)
+     */
+    private $caption;
+
+    /**
      * Many images have one project
      * 
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="images")
@@ -94,5 +101,29 @@ class ProjectImage
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Set caption
+     *
+     * @param string $caption
+     *
+     * @return ProjectImage
+     */
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Get caption
+     *
+     * @return string
+     */
+    public function getCaption()
+    {
+        return $this->caption;
     }
 }

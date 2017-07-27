@@ -20,8 +20,12 @@ class PersonController extends Controller
             $deleteForm = $this->createDeleteForm($person)->createView();
         }
 
+        $projects = $person->getProjects();
+        $visibleProjects = $this->filterInvisibleProjects($projects);
+
 		return $this->render(':actor:person.html.twig', array(
             'person' => $person,
+            'projects' => $visibleProjects,
             'canEdit' => $canEdit,
             'actorDeleteForm' => $deleteForm,
             'key'=> $this->container->getParameter('api_key')
@@ -112,6 +116,26 @@ class PersonController extends Controller
         }
 
         return $this->redirectToRoute('actorlist');
+    }
+
+    private function filterInvisibleProjects($projects) {
+        $visibleProjects = array();
+        foreach ($projects as $project) {
+            if (!$project->getHidden() ||
+                $this->userCanEditProject($project)) {
+                $visibleProjects[] = $project;
+            }
+        }
+        return $visibleProjects;
+    }
+
+    private function userCanEditProject($project) {
+        if (    $this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')
+             || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+             && $this->getUser()->canEditProject($project)) {
+                return true;
+        }
+        return false;
     }
 
     private function userCanEditPerson($person) {

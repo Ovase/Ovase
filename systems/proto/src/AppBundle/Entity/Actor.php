@@ -27,6 +27,12 @@ class Actor
 	 */
 	private $id;
 
+    /**
+     * @var mixed
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $actorTypes;
+
 	/**
 	 * @var string
 	 *
@@ -34,47 +40,30 @@ class Actor
 	 */
 	private $tlf;
 
-	/**
-	 * @var string
-	 *
-     * @ORM\Column(name="image", type="string", nullable=true)
-	 */
-	private $image;
+    /**
+     * Field for storing the address the actor is located at.
+     * @ORM\Column(type="text")
+     */
+    private $location;
 
-	/**
-	 * @ORM\Column(name="key_knowledges", type="array")
-	 * @Assert\All({
-	 *	 @Assert\NotBlank,
-	 *	 @Assert\Length(min = 3)
-	 * })
-	 */
-	private $keyKnowledges;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $homepageUrl;
+
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $competence;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="field", type="string", length=255, nullable=true)
-	 * @Assert\Type("string")
-	 */
-	private $field;
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="email", type="string", length=45)
-	 * @Assert\Email
-	 * @Assert\Type("string")
-	 */
-	private $email;
-	/**
-	 * Field for storing the address the actor is located at.
-	 * @ORM\Column(type="text")
-	 */
-	private $location;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", nullable=true)
+     */
+    private $image;
+
 
 	/**
 	 * @var int
@@ -91,7 +80,6 @@ class Actor
 
 	public function __construct()
 	{
-		$this->keyKnowledges = new ArrayCollection();
 		$this->projects = new ArrayCollection();
 	}
 
@@ -221,29 +209,6 @@ class Actor
 	}
 
 	/**
-	 * Get email
-	 *
-	 * @return string
-	 */
-	public function getEmail()
-	{
-		return $this->email;
-	}
-	/**
-	 * Set email
-	 *
-	 * @param string $email
-	 *
-	 * @return Actor
-	 */
-	public function setEmail($email)
-	{
-		$this->email = $email;
-
-		return $this;
-	}
-
-	/**
 	 * Increment version counter
 	 */
 	public function incrementVersion()
@@ -283,6 +248,18 @@ class Actor
     public function getVersion()
     {
         return $this->version;
+    }
+
+     /**
+     * Get the projects the actor is related to
+     *
+     * @return array
+     */
+    public function getVisibleProjects()
+    {
+        return array_filter($this->projects->toArray(), function($project) {
+            return $project->getHidden() == false;
+        });
     }
 
      /**
@@ -340,4 +317,52 @@ class Actor
     }
 
 
+
+    /**
+     * Set actorTypes
+     *
+     * @param array $actorTypes
+     *
+     * @return Actor
+     */
+    public function setActorTypes($actorTypes)
+    {
+        $this->actorTypes = $actorTypes;
+
+        return $this;
+    }
+
+    /**
+     * Get actorTypes
+     *
+     * @return array
+     */
+    public function getActorTypes()
+    {
+        return $this->actorTypes;
+    }
+
+    /**
+     * Set homepageUrl
+     *
+     * @param string $homepageUrl
+     *
+     * @return Actor
+     */
+    public function setHomepageUrl($homepageUrl)
+    {
+        $this->homepageUrl = $homepageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get homepageUrl
+     *
+     * @return string
+     */
+    public function getHomepageUrl()
+    {
+        return $this->homepageUrl;
+    }
 }

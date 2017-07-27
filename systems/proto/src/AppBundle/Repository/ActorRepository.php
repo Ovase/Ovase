@@ -12,12 +12,15 @@ class ActorRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function findTestActors()
 	{
+        /*
 		return $this->createQueryBuilder('Actor')
 			->select('Actor')
 			->where('Actor.field = :t')
 			->setParameter('t', "TEST")
 			->getQuery()
 			->getResult();
+        */
+        return array();
 	}
 
 }

@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Form\EditUserType;
 //use Symfony\Component\Config\Definition\Exception\Exception;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProfileController extends Controller
 {
@@ -46,7 +48,7 @@ class ProfileController extends Controller
 		$em=$this->getDoctrine()->getManager();
 		$repo=$this->getDoctrine()->getManager()->getRepository('AppBundle:User');
 
-		echo(implode('  ',$repo->findAllInActiveUsers()));
+		// echo(implode('  ',$repo->findAllInActiveUsers()));
 		$data = array();
 		$reform = $this->createFormBuilder($data)
 
@@ -69,7 +71,13 @@ class ProfileController extends Controller
 			//$d = $deform->getData();
 			echo('flush');
 			$users = $reform["users"]->getData();
-			foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(1); }}
+			foreach ($users as $user) {
+				if ($user != $this->get('security.token_storage')->getToken()->getUser()) {
+					$user->setIsActive(1);
+					$this->sendApprovedUserEmail($user);
+					$em->persist($user);
+				}
+			}
 			$em->flush();
 			return $this->redirectToRoute('personalprofile');
 		}
@@ -143,20 +151,123 @@ class ProfileController extends Controller
 
 			->getForm();
 
+		$em = $this->getDoctrine()->getManager();
 		// Handle form-POST
 		$deform->handleRequest($request);
 		if ($deform->isValid()) {
 			//$d = $deform->getData();
 			echo('flush');
 			$users = $deform["users"]->getData(); // returns all chosen values
-			foreach ($users as $user) { if ($user != $this->get('security.token_storage')->getToken()->getUser()) { $user->setIsActive(0); }}
-			$this->getDoctrine()->getManager()->flush();
+			foreach ($users as $user) {
+				if ($user != $this->get('security.token_storage')->getToken()->getUser()) {
+					$user->setIsActive(0);
+					$em->persist($user);
+				}
+			}
+			$em->flush();
 			return $this->redirectToRoute('personalprofile');
 		}
 		return $this->render(
 			'profile/deactivateusers.html.twig',
 			array(
 				'deform' => $deform->createView()
+			)
+		);
+	}
+	public function promoteEditorUsersAction(Request $request)
+	{
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+			throw $this->createAccessDeniedException();
+		}
+		// Create form
+		$em=$this->getDoctrine()->getManager();
+		$repo=$em->getRepository('AppBundle:User');
+
+		// echo(implode('  ',$repo->findAllInActiveUsers()));
+		$data = array();
+		$reform = $this->createFormBuilder($data)
+
+			->add('users', EntityType::class,
+				array(
+					'class' => 'AppBundle:User',
+					'choices' => $repo->findAllActivatedNormalUsers(),
+					'multiple' => true,
+					'expanded' => true,
+					'label' => 'Velg de brukere du vil oppnevne til redaktør',
+					'choice_label' => function ($user) { return $user->getFullName(); }
+				))
+
+			->add('save', SubmitType::class, array('label' => 'Lagre'))
+		->getForm();
+
+		// Handle form-POST
+		$reform->handleRequest($request);
+		if ($reform->isValid()) {
+			$users = $reform["users"]->getData();
+			foreach ($users as $user) {
+				if ($user != $this->get('security.token_storage')->getToken()->getUser()) {
+					$user->addRole('ROLE_EDITOR');
+					// Need to create new ArrayCollection object since Doctrine
+					// checks object reference to see if property has changed
+					$user->setRoles(new ArrayCollection($user->getRoles()));
+					$this->sendPromotedEditorEmail($user);
+				}
+			}
+			$em->flush();
+			return $this->redirectToRoute('personalprofile');
+		}
+		return $this->render(
+			'profile/promoteEditors.html.twig',
+			array(
+				'reform' => $reform->createView()
+			)
+		);
+	}
+	public function demoteEditorUsersAction(Request $request)
+	{
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
+			throw $this->createAccessDeniedException();
+		}
+		// Create form
+		$em=$this->getDoctrine()->getManager();
+		$repo=$em->getRepository('AppBundle:User');
+
+		// echo(implode('  ',$repo->findAllInActiveUsers()));
+		$data = array();
+		$reform = $this->createFormBuilder($data)
+
+			->add('users', EntityType::class,
+				array(
+					'class' => 'AppBundle:User',
+					'choices' => $repo->findAllActivatedEditorUsers(),
+					'multiple' => true,
+					'expanded' => true,
+					'label' => 'Velg de brukere som ikke lenger skal være redaktør',
+					'choice_label' => function ($user) { return $user->getFullName(); }
+				))
+
+			->add('save', SubmitType::class, array('label' => 'Lagre'))
+		->getForm();
+
+		// Handle form-POST
+		$reform->handleRequest($request);
+		if ($reform->isValid()) {
+			$users = $reform["users"]->getData();
+			foreach ($users as $user) {
+				if ($user != $this->get('security.token_storage')->getToken()->getUser()) {
+					$user->removeRole('ROLE_EDITOR');
+					// Need to create new ArrayCollection object since Doctrine
+					// checks object reference to see if property has changed
+					$user->setRoles(new ArrayCollection($user->getRoles()));
+				}
+			}
+			$em->flush();
+			return $this->redirectToRoute('personalprofile');
+		}
+		return $this->render(
+			'profile/demoteEditors.html.twig',
+			array(
+				'reform' => $reform->createView()
 			)
 		);
 	}
@@ -194,4 +305,38 @@ class ProfileController extends Controller
 			)
 		);
 	}
+    private function sendApprovedUserEmail($user) {
+        $to_addr = $user->getEmail();
+        $from_addr = array('ikkesvar@ovase.no' => 'Ovase.no');
+        if ($this->get('kernel')->isDebug())      
+            $from_addr = 'ovase.testmail@gmail.com';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Aktivert bruker')
+            ->setFrom($from_addr)
+            ->setTo(array($to_addr => $user->getFullName()))
+            ->setBody(
+            	$this->get('twig')->render('email/approved.user.html.twig', array(
+        			'user' => $user,
+        			'newPersonRoute' => $this->generateUrl('create_person', array(), UrlGeneratorInterface::ABSOLUTE_URL))),
+            	'text/html');
+
+        $this->get('mailer')
+            ->send($message);
+    }
+    private function sendPromotedEditorEmail($user) {
+        $to_addr = $user->getEmail();
+        $from_addr = array('ikkesvar@ovase.no' => 'Ovase.no');
+        if ($this->get('kernel')->isDebug())      
+            $from_addr = 'ovase.testmail@gmail.com';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Du har blitt redaktør')
+            ->setFrom($from_addr)
+            ->setTo(array($to_addr => $user->getFullName()))
+            ->setBody($this->get('twig')->render('email/promoted.editor.twig', array('user' => $user)), 'text/plain');
+
+        $this->get('mailer')
+            ->send($message);
+    }
 }
