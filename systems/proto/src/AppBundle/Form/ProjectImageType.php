@@ -16,6 +16,7 @@ class ProjectImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('url', HiddenType::class, array('label' => 'BildeLink'));
+        $builder->add('caption', TextType::class, array('label' => 'Bildetekst', 'required' => false));
     }
     
     /**

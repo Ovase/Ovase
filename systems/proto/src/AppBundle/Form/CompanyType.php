@@ -1,31 +1,41 @@
 <?php
 namespace AppBundle\Form;
 
+use AppBundle\Domain\OvaseDomain;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 class CompanyType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+        $typeChoices = OvaseDomain::getCompanyTypeChoices();
 		$builder
 			->add('name', TextType::class,array('label'=>'Navn',))
-			->add('email', EmailType::class,array('label'=>'E-post',))
-            ->add('tlf', TextType::class,array('label'=>'Telefonnummer', 'required' => false))
+            ->add('actorTypes', ChoiceType::class, array(
+                'label' => 'Type virksomhet',
+                'placeholder' => 'Velg en eller flere kategorier',
+                'multiple' => true,
+                'choices' => $typeChoices,
+                'attr' => array(
+                    'class' => 'function-select js-example-basic-multiple js-states form-control',
+                    'help' => 'Hva gjør din virksomhet?'),
+                ))
             ->add('location', TextType::class, array('label'=>'Adresse','attr' => array('placeholder' => "Adresse på formen 'gatenavn gatenummer, tettsted'")))
-			->add('type', TextType::class, array('required' => false))
-			->add('org_nr', TextType::class,array('label'=>'Organisasjonsnummer', 'required' => false))
+            ->add('tlf', TextType::class,array('label'=>'Telefonnummer', 'required' => false))
+            ->add('homepageUrl', TextType::class,array('label'=>'Hjemmeside', 'required' => false,))
 			->add('persons', EntityType::class, array(
 				// query choices from this entity
-				'label'=>'Medvirkende',
+				'label'=>'Tilknyttede personer',
 				'class' => 'AppBundle:Person',
 
 				// use the Actor.email property as the visible option string
@@ -35,22 +45,11 @@ class CompanyType extends AbstractType
                 'multiple' => true,
                 'required' => false,
 				// 'expanded' => true,
-				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'Vennligst velg de aktørene som har vært med på prosjektet. Trykk først inn på feltet, velg deretter aktører ved enten å trykke på navnet deres eller skriv inn navn og trykk på enter. For å fjerne en aktør fra feltet trykk på krysset til venstre for navnet eller bruk backspace. PS: Dersom aktøren ikke finnes her må den opprettes på aktør siden.')
+				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'De personene som er tilknyttet virksomheten. Merk at du bare kan velge brukere som har opprettet person-profil.')
 			))
-			->add('competence', TextareaType::class,array('label'=>'Kompetanse', 'required' => false))
-			->add('image', FileType::class, array('label'=>'Last opp bilde','mapped' => false, 'required'=>false))
-			->add('captcha', CaptchaType::class, array(
-			'attr' => array('placeholder' => 'Skriv tegnene'),
-			'label' => 'Bevis at du ikke er en robot',
-			'width' => 200,
-			'height' => 50,
-			'length' => 5,
-			'quality' =>200,
-			'keep_value' => true,
-			'distortion' => false,
-			'background_color' => [255, 255, 255],
-		))
-			->add('save', SubmitType::class, array('label' => 'Lag selskap','attr'=>array('class'=>'btn btn-default')));
+			->add('competence', CKEditorType::class,array('label'=>'Om virksomheten og dens kompetanser', 'required' => false))
+			->add('image', FileType::class, array('label'=>'Last opp bilde/logo','mapped' => false, 'required'=>false))
+			->add('save', SubmitType::class, array('label' => 'Lagre selskap',));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

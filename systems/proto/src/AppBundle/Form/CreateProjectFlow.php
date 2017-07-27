@@ -33,10 +33,14 @@ class CreateProjectFlow extends FormFlow implements EventSubscriberInterface {
                 'form_type' => 'AppBundle\Form\EditProjectStep1Form',
             ),
             2 => array(
-                'label' => 'Overvannstiltak',
+                'label' => 'Bildebehandling',
                 'form_type' => 'AppBundle\Form\EditProjectStep2Form',
             ),
             3 => array(
+                'label' => 'Overvannstiltak',
+                'form_type' => 'AppBundle\Form\EditProjectStep3Form',
+            ),
+            4 => array(
                 'label'=> 'Se over',
                 'form_type' => 'AppBundle\Form\EditProjectConfirmationStepForm',
             ),

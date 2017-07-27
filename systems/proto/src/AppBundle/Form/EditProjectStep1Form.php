@@ -29,17 +29,6 @@ class EditProjectStep1Form extends AbstractType {
             ->add('location', TextType::class, array('label' => 'Adresse'))
             ->add('coordLat', HiddenType::class, array('data' => 0.0))
             ->add('coordLong', HiddenType::class, array('data' => 0.0))
-            /* imageFiles are not directly mapped, but instead uploaded to cloudinary, and the URLs are persisted in the controller */
-            ->add('imageFiles', FileType::class, array('required' => false, 'label' => 'Last opp bilder', 'multiple' => true))
-            ->add('images', CollectionType::class, array(
-                'label' => 'Opplastede bilder',
-                'required' => false,
-                'entry_type' => ProjectImageType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'attr' => array('class' => 'candidate-images'),
-                ))
             ->add('leadText', TextType::class, array('label' => 'Kort sammendrag')) ->add('description', TextareaType::class, array(
                 'label' => 'Beskrivelse',
                 'required' => false))
@@ -54,8 +43,19 @@ class EditProjectStep1Form extends AbstractType {
                 'choice_label' => 'name',
                 'multiple' => true,
                 'required' => false
+                ))
+            /* imageFiles are not directly mapped, but instead uploaded to cloudinary, and the URLs are persisted in the controller */
+            ->add('imageFiles', FileType::class, array('required' => false, 'label' => 'Last opp bilder', 'multiple' => true))
+            /* No label and styled to be invisible on first page */
+            ->add('images', CollectionType::class, array(
+                'label' => ' ',
+                'required' => false,
+                'entry_type' => ProjectImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'attr' => array('style' => 'display: none;'),
                 ));
-
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options) {
