@@ -90,9 +90,11 @@
     $(document).ready(function() {
         // Get collection, add delete "buttons"
         var $imgCollectionHolder = $('#editProjectStep1_images');
+        var $imgCollectionHolder2 = $('#editProjectStep2_images');
         initImageUploadFunctionality($imgCollectionHolder);
+        initImageUploadFunctionality($imgCollectionHolder2);
         // Get collection, add delete "buttons"
-        var $measureCollectionHolder = $('#editProjectStep2_measures');
+        var $measureCollectionHolder = $('#editProjectStep3_measures');
         initProjectMeasuresEdit($measureCollectionHolder);
         // Init carousel
         $('.img-carousel').slick({});
@@ -104,10 +106,10 @@
         prepareAddressTranslator('editProjectStep1', "#editProjectStep1_location");
         // Init select2 input(s)
         $("#editProjectStep1_actors").select2();
-        $(".function-select").select2();
+        $(".function-select").select2({tags: true});
         // Make sure new input(s) also get styled
         $(".add-measure-link").click(function(event) {
-          $(".function-select").select2();
+          $(".function-select").select2({tags: true});
         });
         // Scroll to validation errors (if any)
         if ($('.form-errors:visible:first').length) {

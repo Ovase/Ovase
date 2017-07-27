@@ -10,7 +10,16 @@
 
     <!-- Companies -->
     <div id="company-list" class="cf">
-      <h2 class="ml2">Bedrifter</h2>
+      <!-- Headline and "go to persons" -->
+      <div class="full-wide fbox">
+        <h2 class="pl2 w-100 w-50-ns mt0">Virksomheter</h2>
+        <div class="pl2 w-100 w-50-ns cf">
+          <button type="button" name="to-persons" class="scroll-to-button"
+              onclick="document.getElementById('person-list').scrollIntoView();">
+            <span class="fa fa-long-arrow-down" aria-hidden="true"></span>Gå til personer
+          </button>
+        </div>
+      </div>
 
       <div class="full-wide mb1 fbox">
         <div class="w-100 w-50-ns ph2 pb3">
@@ -31,19 +40,19 @@
       <!-- Company cards -->
       <div class="actor-cards full-wide fbox">
       {% for company in companies %}
-        <div class="w-100 w-50-ns ph2 pb2">
+        <div class="w-100 w-third-ns ph2 pb2">
           <a href="{{ path("company", {'id': company.getId()}) }}" class="proj-box fbox">
-            <div class="w-50">
+            <div class="w-third">
               <img src="{%if company.getImage() is not empty %}{{ company.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}">
             </div>
-            <div class="pa3 w-50">
-              <h2>{{ company.getName() }}</h2>
-              <h4>Type</h4>
-              <p>{{company.getType()}}</p>
-              <h4>Epost</h4>
-              <p>{{ company.getEmail() }}</p>
-              <h4>Telefonnummer</h4>
-              <p>{{ company.getTlf() }}</p>
+            <div class="pa2 w-two-thirds">
+              <h3 class="mt0">{{ company.getName() }}</h3>
+              <!-- Types + address -->
+              {% for type in company.getActorTypes() %}
+                <span class="actor-type">{{ type }}</span>
+                {# {{ not loop.last ? ", " }} #}
+              {% endfor %}
+              <span class="f5 pt3 b db">{{ company.getLocation() }}</span>
             </div>
           </a>
         </div>
@@ -52,8 +61,18 @@
     </div>
 
     <!-- Persons -->
-    <div id="person-list" class="cf">
-      <h2 class="ml2">Personer</h2>
+    <div id="person-list" class="mt4 cf">
+      <!-- Headline and "go to persons" -->
+      <div class="full-wide fbox">
+        <h2 class="pl2 w-100 w-50-ns mt0">Personer</h2>
+        <div class="pl2 w-100 w-50-ns cf">
+          <button type="button" name="to-companies" class="scroll-to-button"
+              onclick="document.getElementById('company-list').scrollIntoView();">
+            <span class="fa fa-long-arrow-up" aria-hidden="true"></span>Gå til virksomheter
+          </button>
+        </div>
+      </div>
+
       <div class="full-wide mb1 fbox">
         <div class="w-100 w-50-ns ph2 pb3">
           <div class="actor-search pa2 bg-ovase-yellow cf h-100">
@@ -73,15 +92,19 @@
       <!-- Person cards -->
       <div class="actor-cards full-wide fbox">
       {% for person in persons %}
-        <div class="w-100 w-50-ns ph2 pb2">
+        <div class="w-100 w-third-ns ph2 pb2">
           <a href="{{ path("person", {'id': person.getId()}) }}" class="proj-box fbox">
-            <div class="w-50">
+            <div class="w-third">
               <img src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}">
             </div>
-            <div class="pa3 w-50">
-              <h2>{{ person.getName() }}</h2>
-              <h4>Kompetanse</h4>
-              <p>{{person.getCompetence()}}</p>
+            <div class="pa2 w-two-thirds">
+              <h3 class="mt0">{{ person.getName() }}</h2>
+              <!-- Types + address -->
+              {% for type in person.getActorTypes() %}
+                <span class="actor-type">{{ type }}</span>
+                {# {{ not loop.last ? ", " }} #}
+              {% endfor %}
+              <span class="f5 pt3 b db">{{ person.getLocation() }}</span>
             </div>
           </a>
         </div>

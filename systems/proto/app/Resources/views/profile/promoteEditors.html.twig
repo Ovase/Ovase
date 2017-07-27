@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+  <section class="medium-wide centered">
+    {% if reform is defined %}
+      {{ form_start(reform, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+      {{ form_widget(reform) }}
+      {{ form_end(reform) }}
+    {% endif %}
+  </section>
+
+{% endblock %}

@@ -74,5 +74,16 @@ swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
-    password:  "%mailer_password%"
     spool:     { type: memory }
+
+ivory_ck_editor:
+    input_sync: true
+    default_config: base_config
+    configs:
+        base_config:
+            toolbar:
+                - { name: "styles", items: ['Undo','Redo','Format', 'Bold', 'Italic', 'NumberedList','BulletedList', 'Link'] }
+
+exercise_html_purifier:
+    default:
+        Cache.SerializerPath: '%kernel.cache_dir%/htmlpurifier'

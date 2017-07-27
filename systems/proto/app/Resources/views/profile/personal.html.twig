@@ -4,13 +4,13 @@
     <section class="medium-wide centered">
       <h2>Min profil</h2>
 
-      <a href= {{ path("editpersonalprofile") }}>Rediger profil</a>
+      <p><strong><a href= {{ path("editpersonalprofile") }}>Rediger profil</a></strong></p>
         
       <div class="full-wide fbox">
-          <div class="actor-image w-100 w-50-ns pa3">
+          <div class="actor-image w-100 w-25-ns pa3">
               <img src="{{ asset('static/images/person/defaultprofile.png') }}" alt="Image of person">
           </div>
-          <div class="w-100 w-50-ns pa3 f4">
+          <div class="w-100 w-75-ns pa3 f4">
             {% if user is defined %}
               <p><b>E-post:</b> {{ user.getEmail() }}</p>
               <p><b>Navn:</b> {{ user.getFullName() }}</p>
@@ -44,14 +44,11 @@
       </div>
       {% if is_granted('ROLE_EDITOR') %}
         <h3>Redaktørvalg</h3>
-        <p>Liste over <a href= {{ path("userlist") }}>registrerte brukere</a></p>
-        {# Import editor panel here. TODO: Bulk activate zero or more users #}
-        <a href= {{ path("activate_users") }} class="btn btn-default" role="button">Aktiver brukere</a>
-        {#{ render(controller('AppBundle:Profile:activateUsers')) }#}
-        {#% include 'profile/activateusers.html.twig' %#}
-        <a href= {{ path("deactivate_users") }} class="btn btn-default" role="button">Deaktiver brukere</a>
-        {#{ render(controller('AppBundle:Profile:deactivateUsers')) }#}
-        {#% include 'profile/deactivateusers.html.twig' %#}
+        <p><a href="{{ path('userlist') }}">Se registrerte brukere</a></p>
+        <p><a href="{{ path('activate_users') }}">Aktiver brukere</a></p>
+        <p><a href="{{ path('deactivate_users') }}">Deaktiver brukere</a></p>
+        <p><a href="{{ path('promote_editors') }}">Oppnevn redaktør-brukere</a></p>
+        <p><a href="{{ path('demote_editors') }}">Degradere redaktør-brukere</a></p>
         {% endif %}
     </section>
 {% endblock %}

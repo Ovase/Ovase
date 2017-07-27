@@ -10,12 +10,19 @@
 {% endblock %}
 
 {% block body %}
+
+    {% if message is defined %}
+    <section class="pretty-wide centered pb3">
+      <p>{{ message }}</p>
+    </section>
+    {% endif %}
+
     <!-- Project list controls and map -->
     {% block proj_list_header %}
     <section id="proj-list-header" class="pretty-wide centered fbox">
       <div class="ph2 mb2 w-100 w-50-ns">
         <section id="proj-list-controls" class="pa3">
-          <h2 class="mt0">Velkommen til vår prosjektdatabase!</h2>
+          <h2 class="mt0">Velkommen til Ovases prosjektdatabase!</h2>
             {% include 'project/modules/projectSearch.html.twig' %}
         </section>
       </div>
@@ -41,52 +48,14 @@
     </section>
     
     <!-- Project list -->
-    <section id="projects" class="pretty-wide centered fbox pt4 ph2">
-      {% for project in projects %}
-      <div class="w-100 w-50-ns">
-        <a href="{{ path('project', {'id': project.getId()}) }}" class="proj-box fbox">
-          <div class="w-50">
-            {% for key,image in project.getImages() %}
-              {%if loop.index == 1%}
-              <img src="{{ image.getUrl() }}">
-              {%endif%}
-            {% endfor %}
-          </div>
-          <div class="pa3 w-50">
-            <h2>
-              {{ project.getName() }}
-            </h2>
-            {% if project.getHidden() %}
-              <p class="hidden-notification"><span class="fa fa-eye-slash" aria-hidden="true"></span>Skjult prosjekt</p>
-            {% endif %}
-            <p>{{ project.getLeadText() }}</p>
-            <h4>Adresse</h4>
-            <p>{{ project.getLocation() }}</p>
-            {% if project.getUniqueMeasureTypes() is not empty %}
-              <h4>Anlagte tiltak</h4>
-              <ul>
-              {% for measureType in project.getUniqueMeasureTypes() %}
-                <li>{{ measureType }}</li>
-              {% endfor %}
-              </ul>
-            {% endif %}
-          </div>
-        </a>
-      </div>
-      {% endfor %}
-    </section>
-
-    {% if message is defined %}
-      <p>{{ message }}</p>
-    {% endif %}
-  
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&callback=initMap">
-    </script>
+    {% include 'project/modules/projectList.html.twig' %}
 
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&callback=initMap">
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function(){

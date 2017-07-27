@@ -4,10 +4,20 @@
 
 {% block body %}
   <section class="narrow centered">
-    {% if form is defined %}
-      {{ form_start(form, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
-      {{ form_widget(form) }}
-      {{ form_end(form) }}
+
+    {# Form theme adds help message block #}
+    {% form_theme form 'form/fields.html.twig' %}
+
+    <h2>Registrer bruker</h2>
+
+    {# Message box #}
+    {% if form.vars.create_start_message is defined %} 
+    <div class="form-info-box">
+      <p>{{ form.vars.create_start_message }}</p>
+    </div>
     {% endif %}
+
+    {{ form(form, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+
   <section class="narrow centered">
 {% endblock %}

@@ -23,38 +23,75 @@
     </section>
     {% endif %}
 
-    <h1 class="ph3">{{ person.getName() }}</h1>
+
+    <!-- Two column page -->
     <div class="full-wide fbox">
-        <div class="actor-image w-100 w-50-ns pa3">
-            <img src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Image of person">
+        <!-- Right side -->
+        <div class="w-100 w-25-ns pa3">
+            <div class="actor-image">
+                <img src="{%if person.getImage() is not empty %}{{ person.getImage() }} {% else %} {{ asset('static/images/person/defaultprofile.png') }} {% endif %}" alt="Image of person">
+            </div>
+            <div class="iframe-container">
+                <iframe
+                width="400"
+                height="400"
+                frameborder="0" style="border:0"
+                src= "https://www.google.com/maps/embed/v1/search?key={{gmaps_api_key}}&q={{ person.getLocation() }}" allowfullscreen>
+                </iframe>
+            </div>
         </div>
-        <div class="w-100 w-50-ns pa3 f4">
-            <p><b>E-post:</b> {{ person.getEmail() }}</p>
-            <p><b>Telefonnummer:</b> {{ person.getTlf() }}</p>
-            <p><b>Kompetanse:</b> {{ person.getCompetence() }}</p>
-            <br><br>
-            {% if person.getCompanies() is not empty %}<p><b>Selskap personen er knyttet til:</b> </p>
-            <ul class="actor-ul">
-                {% for company in person.getCompanies() %}
-                    <li><a href= "{{ path("company", {'id': company.getId()}) }}">{{company.getName}}</a></li>
-                {% endfor %}
-            </ul>
+        <!-- Right side -->
+        <div class="w-100 w-75-ns pa3">
+            <h1 class="mt0">{{ person.getName() }}</h1>
+            <!-- List of facts -->
+            <p class="fact-para"><span class="fact-label">Arbeidsgiver/skole:</span> {{ person.getWorkplace() }}</p>
+            <p class="fact-para"><span class="fact-label">Adresse arbeidssted:</span> {{ person.getLocation() }}</p>
+            {% if person.getEmail() is not empty %}
+            <p class="fact-para"><span class="fact-label">Epost:</span> {{ person.getEmail() }}</p>
             {% endif %}
-            {% if person.getProjects() is not empty %}<p><b>Prosjekter personen er knyttet til:</b></p> 
-            <ul class="actor-ul">
-                {% for project in person.getProjects() %}
-                    <li><a href= "{{ path("project", {'id': project.getId()}) }}">{{project.getName}}</a></li>
-                {% endfor %}
-            </ul>
+            {% if person.getTlf() is not empty %}
+            <p class="fact-para"><span class="fact-label">Telefonnummer:</span> {{ person.getTlf() }}</p>
             {% endif %}
+            {% if person.getHomepageUrl() is not empty %}
+            <p class="fact-para"><span class="fact-label">Hjemmeside:</span>{{ person.getHomepageUrl() }}</p>
+            {% endif %}
+            <p><span class="fact-label">Yrke/bakgrunn:</span>
+                <ul>
+                {% for type in person.getActorTypes() %}
+                    <li>{{ type }}</li>
+                {% endfor %}
+                </ul>
+            </p>
+            {% if person.getCompetence() is not empty %}
+                <h3>Kompetanse og interesser</h3>
+                <div class="wysiwyg-output">{{ person.getCompetence()|raw }}</div>
+            {% endif %}
+            <!-- List of companies and more -->
+            {% if person.getCompanies() is not empty %}
+                <h4>Virksomheter personen er knyttet til</h4>
+                <ul class="actor-ul">
+                    {% for company in person.getCompanies() %}
+                        <li><a href= "{{ path("company", {'id': company.getId()}) }}">{{company.getName}}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {#
+            {% if projects is not empty %}
+                <h3>Prosjekter personen er knyttet til</h3>
+                <ul class="actor-ul">
+                    {% for project in projects %}
+                        <li><a href= "{{ path("project", {'id': project.getId()}) }}">{{project.getName}}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            #}
         </div>
     </div>
-    <h2 class="ph3">Adresse</h2>
-    <iframe class="ph3"
-        width="600"
-        height="450"
-        frameborder="0" style="border:0"
-        src= "https://www.google.com/maps/embed/v1/search?key={{gmaps_api_key}}&q={{ person.getLocation() }}" allowfullscreen>
-    </iframe>
   </section>
+
+    <!-- Project list -->
+    {% if projects is not empty %}
+        <h2 class="tc">Prosjekter personen er knyttet til</h2>
+        {% include 'project/modules/projectList.html.twig' %}
+    {% endif %}
 {% endblock %}

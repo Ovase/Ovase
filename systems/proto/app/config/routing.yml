@@ -17,6 +17,14 @@ create_user:
     path:     /register
     defaults: { _controller: AppBundle:User:register } 
 
+post_create_user:
+    path:     /registered
+    defaults:
+      _controller: FrameworkBundle:Template:template
+      template: login/post-register.html.twig
+      maxAge: 86400
+      sharedAge: 86400
+
 aboutus:
     path: /omoss
     defaults: { _controller: AppBundle:AboutUs:show}
@@ -184,6 +192,14 @@ activate_users:
 deactivate_users:
   path:     /meg/deactivate
   defaults: { _controller: AppBundle:Profile:deactivateUsers}
+
+promote_editors:
+  path:     /meg/promote_editors
+  defaults: { _controller: AppBundle:Profile:promoteEditorUsers}
+
+demote_editors:
+  path:     /meg/demote_editors
+  defaults: { _controller: AppBundle:Profile:demoteEditorUsers}
 
 # View other's profile
 publicprofile:
