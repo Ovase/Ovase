@@ -50,13 +50,6 @@ class Measure
      */
     private $functions;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="functionsElaboration", type="text")
-     */
-    private $functionsElaboration;
-
     /***** Numerical, technical data *****/
 
     /**
