@@ -49,7 +49,11 @@ class MeasureType extends AbstractType
                 'label' => 'Kostnadsrammer for tiltaket (NOK)', 'required' => false))
             ->add('instrumentation', ChoiceType::class, array(
                 'label' => 'Instrumentering',
-                'choices' => OvaseDomain::getMeasureInstrumentationChoices()));
+                'multiple' => false,
+                'placeholder' => 'Angi svar',
+                'choices' => OvaseDomain::getMeasureInstrumentationChoices(),
+                'required' => false
+                ));
             // No save button as one is created by FormFlow
             if ($options['includeSubmit'])
                 $builder->add('save', SubmitType::class, array('label' => 'Legg til'));

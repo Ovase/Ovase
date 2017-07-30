@@ -129,18 +129,18 @@ class OvaseDomain {
 
     public static function getMaintenanceDealChoices() {
         $choices = array(
+            'Uavklart',
             'Ja',
             'Nei',
-            'Uavklart',
             );
         return array_combine($choices, $choices);
     }
 
     public static function getMeasureInstrumentationChoices() {
         $choices = array(
+            'Uvisst',
             'Ja',
             'Nei',
-            'Uvisst',
             );
         return array_combine($choices, $choices);
     }
