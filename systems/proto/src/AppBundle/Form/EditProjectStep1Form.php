@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\PurifiedCKEditorType;
+use AppBundle\Domain\OvaseDomain;
 
 class EditProjectStep1Form extends AbstractType {
 
@@ -25,16 +27,10 @@ class EditProjectStep1Form extends AbstractType {
                 'label' => 'Ferdigstilt år',
                 'placeholder' => 'Velg år',
                 'choices' => $yearChoices))
-            ->add('projectOwner', TextType::class, array('label' => 'Byggherre'))
             ->add('location', TextType::class, array('label' => 'Adresse'))
             ->add('coordLat', HiddenType::class, array('data' => 0.0))
             ->add('coordLong', HiddenType::class, array('data' => 0.0))
-            ->add('leadText', TextType::class, array('label' => 'Kort sammendrag')) ->add('description', TextareaType::class, array(
-                'label' => 'Beskrivelse',
-                'required' => false))
-            ->add('summary', TextareaType::class, array(
-                'label' => 'Oppsummering',
-                'required' => false))
+            ->add('projectOwner', TextType::class, array('label' => 'Byggherre'))
             ->add('actors', EntityType::class, array(
                 'label'=>'Medvirkende',
                 // Choices from this entity
@@ -44,6 +40,18 @@ class EditProjectStep1Form extends AbstractType {
                 'multiple' => true,
                 'required' => false
                 ))
+            ->add('leadText', TextType::class, array('label' => 'Kort sammendrag'))
+            // New stuff here
+            ->add('projectType', ChoiceType::class, array(
+                'label' => 'Er prosjektet nybygg eller ombygg?',
+                'choices' => OvaseDomain::getProjectTypeChoices()))
+            ->add('maintenanceDeal', ChoiceType::class, array(
+                'label' => 'Foreligger det en driftsavtale?',
+                'choices' => OvaseDomain::getMaintenanceDealChoices()))
+            ->add('description', PurifiedCKEditorType::class, array(
+                'label' => 'Beskrivelse',
+                'required' => false))
+            // New stuff ends here
             /* imageFiles are not directly mapped, but instead uploaded to cloudinary, and the URLs are persisted in the controller */
             ->add('imageFiles', FileType::class, array('required' => false, 'label' => 'Last opp bilder', 'multiple' => true))
             /* No label and styled to be invisible on first page */
@@ -69,8 +77,7 @@ class EditProjectStep1Form extends AbstractType {
         $view['location']->vars['attr']['help'] = 'En adresse på formen \'gatenavn gatenummer, tettsted\'. For eksempel \'Kongens gate 9, Trondheim\'.';
         $view['imageFiles']->vars['attr']['help'] = 'Trykk på knappen under og finn de bildene du vil laste opp. Du kan velge flere bilder ved å holde inne kontroll-tasten.';
         $view['leadText']->vars['attr']['help'] = 'En eller to setninger om prosjektet som vil vises i prosjektdatabasen.';
-        $view['description']->vars['attr']['help'] = 'Beskrivelse av prosjektet.';
-        $view['summary']->vars['attr']['help'] = 'Oppsummering av prosjektet, gjerne med fokus på anlagte overvannstiltak.';
+        $view['description']->vars['attr']['help'] = 'Beskrivelse av prosjektet. Du står fritt til å legge til eller fjerne overskrifter og annen tekst.';
         $view['actors']->vars['attr']['help'] = 'Aktørene som har vært med på prosjektet. Trykk på feltet for å velge aktører som er registrert i våre systemer.';
 
     }

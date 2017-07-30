@@ -11,7 +11,6 @@ class ProjectRepository extends EntityRepository
             ->select('Project')
             ->where('Project.name LIKE :searchTerm')
             ->orWhere('Project.location LIKE :searchTerm')
-            ->orWhere('Project.summary LIKE :searchTerm')
             ->orWhere('Project.description LIKE :searchTerm')
             ->orWhere('Project.leadText LIKE :searchTerm')
             ->setParameter('searchTerm', '%'.$searchTerm.'%')

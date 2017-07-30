@@ -49,10 +49,17 @@ class Project
      *      maxMessage = "Teksten kan ikke være lengre enn 128 tegn.")
      */
     private $leadText;
+
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=32)
      */
-    private $summary;
+    private $projectType;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $maintenanceDeal;
+
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
@@ -391,22 +398,6 @@ class Project
     }
 
     /**
-     * @return mixed
-     */
-    public function getSummary()
-    {
-        return $this->summary;
-    }
-
-    /**
-     * @param mixed $summary
-     */
-    public function setSummary($summary)
-    {
-        $this->summary = $summary;
-    }
-
-    /**
      * Set coordLat
      *
      * @param float $coordLat
@@ -569,5 +560,53 @@ class Project
     public function getHidden()
     {
         return $this->hidden;
+    }
+
+    /**
+     * Set projectType
+     *
+     * @param string $projectType
+     *
+     * @return Project
+     */
+    public function setProjectType($projectType)
+    {
+        $this->projectType = $projectType;
+
+        return $this;
+    }
+
+    /**
+     * Get projectType
+     *
+     * @return string
+     */
+    public function getProjectType()
+    {
+        return $this->projectType;
+    }
+
+    /**
+     * Set maintenanceDeal
+     *
+     * @param string $maintenanceDeal
+     *
+     * @return Project
+     */
+    public function setMaintenanceDeal($maintenanceDeal)
+    {
+        $this->maintenanceDeal = $maintenanceDeal;
+
+        return $this;
+    }
+
+    /**
+     * Get maintenanceDeal
+     *
+     * @return string
+     */
+    public function getMaintenanceDeal()
+    {
+        return $this->maintenanceDeal;
     }
 }

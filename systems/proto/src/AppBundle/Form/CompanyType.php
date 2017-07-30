@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use AppBundle\Form\PurifiedCKEditorType;
 
 class CompanyType extends AbstractType
 {
@@ -47,7 +47,7 @@ class CompanyType extends AbstractType
 				// 'expanded' => true,
 				'attr' => array('class'=>'js-example-basic-multiple js-states form-control','help' => 'De personene som er tilknyttet virksomheten. Merk at du bare kan velge brukere som har opprettet person-profil.')
 			))
-			->add('competence', CKEditorType::class,array('label'=>'Om virksomheten og dens kompetanser', 'required' => false))
+			->add('competence', PurifiedCKEditorType::class,array('label'=>'Om virksomheten og dens kompetanser', 'required' => false))
 			->add('image', FileType::class, array('label'=>'Last opp bilde/logo','mapped' => false, 'required'=>false))
 			->add('save', SubmitType::class, array('label' => 'Lagre selskap',));
 	}

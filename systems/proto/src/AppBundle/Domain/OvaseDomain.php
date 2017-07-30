@@ -117,4 +117,31 @@ class OvaseDomain {
             );
         return array_combine($types, $types);
     }
+
+    public static function getProjectTypeChoices() {
+        $types = array(
+            'Nybygg',
+            'Ombygg',
+            'Kombinasjon av nybygg og ombygg',
+            );
+        return array_combine($types, $types);
+    }
+
+    public static function getMaintenanceDealChoices() {
+        $choices = array(
+            'Ja',
+            'Nei',
+            'Uavklart',
+            );
+        return array_combine($choices, $choices);
+    }
+
+    public static function getMeasureInstrumentationChoices() {
+        $choices = array(
+            'Ja',
+            'Nei',
+            'Uvisst',
+            );
+        return array_combine($choices, $choices);
+    }
 }

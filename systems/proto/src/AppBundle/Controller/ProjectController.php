@@ -69,6 +69,8 @@ class ProjectController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $project = new Project();
+        // Set project description headlines to guide user input
+        $project->setDescription($this->get('twig')->render('project/descriptionHeadlines.html.twig'));
         $user = $this->getUser();
         
         $flow = $this->get('ovase.form.flow.createProject'); // must match the flow's service id

@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Domain\OvaseDomain;
+use AppBundle\Form\PurifiedCKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,11 +23,14 @@ class MeasureType extends AbstractType
         $typeChoices = OvaseDomain::getMeasureTypeChoices();
         $functionChoices = OvaseDomain::getMeasureFunctionChoices();
         $builder
-            ->add('title', TextType::class, array('label' => 'Tittel'))
+            ->add('title', TextType::class, array('label' => 'Navn på tiltak'))
             ->add('type', ChoiceType::class, array(
                 'label' => 'Type overvannstiltak',
                 'placeholder' => 'Velg type overvannstiltak',
                 'choices' => $typeChoices))
+            ->add('description', PurifiedCKEditorType::class, array(
+                'label' => 'Tiltaksbeskrivelse',
+                'required' => false))
             ->add('functions', ChoiceType::class, array(
                 'label' => 'Tiltakets formål',
                 'placeholder' => 'Velg ett eller flere formål',
@@ -35,27 +39,17 @@ class MeasureType extends AbstractType
                 'attr' => array('class' => 'function-select js-example-basic-multiple js-states form-control'),
                 ))
             // Quantified facts
-            ->add('dimentionalWaterAmount', NumberType::class, array(
-                'label' => 'Dimensjonerende vannmengde (m³)', 'required' => false))
-            ->add('dimentionalFlood', NumberType::class, array(
-                'label' => 'Dimensjonerende flom', 'required' => false))
             ->add('area', NumberType::class, array(
                 'label' => 'Tiltakets overflateareal (m²)', 'required' => false))
             ->add('catchmentArea', NumberType::class, array(
-                'label' => 'Tiltakets nedbørsfelt (m²)', 'required' => false))
+                'label' => 'Areal av tiltakets delnedbørsfelt (m²)', 'required' => false))
             ->add('hydraulicConductivity', NumberType::class, array(
                 'label' => 'Målt hydraulisk konduktivitet (cm/time)', 'required' => false))
             ->add('costs', NumberType::class, array(
-                'label' => 'Tiltakets kostnader (NOK)', 'required' => false))
-            // Text fields
-            ->add('soilConditions', TextareaType::class, array(
-                'label' => 'Grunnforhold', 'required' => false))
-            ->add('designAndConstruction', TextareaType::class, array(
-                'label' => 'Tiltakets utforming og konstruksjonsutførelse', 'required' => false))
-            ->add('maintenance', TextareaType::class, array(
-                'label' => 'Planlagt eller utført vedlikehold og oppfølging', 'required' => false))
-            ->add('experiencesGained', TextareaType::class, array(
-                'label' => 'Erfaringer og tips', 'required' => false));
+                'label' => 'Kostnadsrammer for tiltaket (NOK)', 'required' => false))
+            ->add('instrumentation', ChoiceType::class, array(
+                'label' => 'Instrumentering',
+                'choices' => OvaseDomain::getMeasureInstrumentationChoices()));
             // No save button as one is created by FormFlow
             if ($options['includeSubmit'])
                 $builder->add('save', SubmitType::class, array('label' => 'Legg til'));
@@ -65,7 +59,10 @@ class MeasureType extends AbstractType
         parent::buildView($view, $form, $options);
 
         // Help texts
+        $view['title']->vars['attr']['help'] = 'Et beskrivende navn, hovedsaklig brukt for å skille mellom flere overvannstiltak i samme prosjekt.';
         $view['functions']->vars['attr']['help'] = 'Her kan du velge et eller flere formål. Fagwikien har mer info om <a target="_blank" href="http://wiki.ovase.no/index.php/Hydrologi_i_overvannstiltak">vann-tekniske</a>, <a target="_blank" href="http://wiki.ovase.no/index.php/Økologi_i_overvannstiltak">økologiske</a> og <a target="_blank" href="http://wiki.ovase.no/index.php/Opplevelseskvalitet_i_overvannstiltak">sosiale</a> formål.';
+        $view['description']->vars['attr']['help'] = 'Beskrivelse av tiltaket. Du står fritt til å legge til eller fjerne overskrifter og annen tekst.';
+        $view['instrumentation']->vars['attr']['help'] = 'Er det benyttet instrumentering for å samle måledata fra tiltaket?';
 
     }
 

@@ -61,14 +61,7 @@ class Measure
     private $dimentionalWaterAmount;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="dimentionalFlood", type="integer", nullable=true)
-     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet kan ikke være negativ.")
-     */
-    private $dimentionalFlood;
-
-    /**
+     * Tiltakets overflateareal
      * @var int
      *
      * @ORM\Column(name="area", type="integer", nullable=true)
@@ -77,6 +70,7 @@ class Measure
     private $area;
 
     /**
+     * Areal av (del)nedbørsfelt
      * @var int
      *
      * @ORM\Column(name="catchmentArea", type="integer", nullable=true)
@@ -85,6 +79,7 @@ class Measure
     private $catchmentArea;
 
     /**
+     * (Målt) hydraulisk konduktivitet
      * @var int
      *
      * @ORM\Column(name="hydraulicConductivity", type="integer", nullable=true)
@@ -93,6 +88,7 @@ class Measure
     private $hydraulicConductivity;
 
     /**
+     * Kostnadsramme
      * @var int
      *
      * @ORM\Column(name="costs", type="integer", nullable=true)
@@ -100,38 +96,41 @@ class Measure
      */
     private $costs;
 
-    /***** Text fields *****/
-
     /**
+     * Er det benyttet instrumentering?
      * @var string
      *
-     * @ORM\Column(name="soilConditions", type="text", nullable=true)
+     * @ORM\Column(name="instrumentation", type="string", length=20, nullable=true)
      */
-    private $soilConditions;
+    private $instrumentation;
+
+    /***** Free Text *****/
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="designAndConstruction", type="text", nullable=true)
+     * Beskrivelse (WYSIWYG/HTML-tekst)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $designAndConstruction;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="maintenance", type="text", nullable=true)
-     */
-    private $maintenance;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="experiencesGained", type="text", nullable=true)
-     */
-    private $experiencesGained;
+    private $description;
 
     public function __construct() {
-        // $this->functions = new ArrayCollection();
+        // TODO: Render this from a template instead
+        $this->description = <<< EOT
+<h1>Formål, uforming og konstruksjonsutførelse</h1>
+
+<p>For eksempel oppbygning, innløp, utløp og mengderegulering?</p>
+
+<h1>Nedbørsfelt</h1>
+
+<p>For eksempel aktiviteter og typer flater. Hvordan er vanntilførselen? Kilder til forurensning?</p>
+
+<h1>Dimensjonerende krav</h1>
+
+<h1>Grunnforhold</h1>
+
+<h1>Erfaringer og tips</h1>
+
+<p>Hva er viktig i utformingen, anleggelsen og driften av lignende tiltak?</p>
+EOT;
     }
 
     /**
@@ -495,5 +494,53 @@ class Measure
     public function getFunctionsElaboration()
     {
         return $this->functionsElaboration;
+    }
+
+    /**
+     * Set instrumentation
+     *
+     * @param string $instrumentation
+     *
+     * @return Measure
+     */
+    public function setInstrumentation($instrumentation)
+    {
+        $this->instrumentation = $instrumentation;
+
+        return $this;
+    }
+
+    /**
+     * Get instrumentation
+     *
+     * @return string
+     */
+    public function getInstrumentation()
+    {
+        return $this->instrumentation;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Measure
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
