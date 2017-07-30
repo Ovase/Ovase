@@ -190,14 +190,14 @@ button,
 
 /* Tables */
 .ovase-table {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	width: 100%;
-    margin-bottom: 1.4rem;
+    margin-bottom: 0.5rem;
 }
 
 .ovase-table tr { border-bottom: 1px dashed #79C7C5; }
 .ovase-table tr:last-child { border-bottom: none; }
-.ovase-table td { padding: 0.75rem; }
+.ovase-table td { padding: 0.5rem; }
 .ovase-table td:first-child { font-weight: bold; }
 
 .rm-link-style {
@@ -575,9 +575,7 @@ footer a {
     padding-bottom: 1.4rem;
 }
 
-.fact-row { font-size: 1.1rem; }
-
-.fact-row p { margin-bottom: 0.7rem; }
+.fact-row p { margin-bottom: 0.4rem; }
 
 .fact-para { margin-bottom: 0.3rem; }
 
@@ -636,7 +634,16 @@ footer a {
 	z-index: 20;
 }
 
+.project-description {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
 
+.project-description h1 { font-size: 1.3rem; }
+.project-description h2 { font-size: 1.2rem; }
+.project-description h3 { font-size: 1.1rem; }
+.project-description h4 { font-size: 1.05rem; }
 
 .measures-header h2 { margin: 0.45rem 0 0 0; }
 
