@@ -17,6 +17,12 @@
             <p><span class="fact-label">Byggherre:</span>{{ project.getProjectOwner() }}</p>
           </div>
           <div class="fact-row fl w-100">
+            <p><span class="fact-label">Prosjekttype:</span>{{ project.getProjectType() }}</p>
+          </div>
+          <div class="fact-row fl w-100">
+            <p><span class="fact-label">Driftsavtale:</span>{{ project.getMaintenanceDeal() }}</p>
+          </div>
+          <div class="fact-row fl w-100">
             <p><span class="fact-label">Medvirkende:</span></p>
             <ul>
               {% for actor in project.getActors() %}
@@ -46,12 +52,7 @@
   <section class="medium-wide centered fbox">
     <div class="w-100 w-50-ns ph2 pb3">
       {% if project.getDescription() is defined and project.getDescription() is not empty %}
-        <h2 class="mt0">Beskrivelse</h2>
-        <p>{{ project.getDescription() }}</p>
-      {% endif %}
-      {% if project.getSummary() is defined and   project.getSummary() is not empty %}
-        <h2>Oppsummering</h2>
-        <p>{{project.getSummary()}}</p>
+        <div class="wysiwyg-output project-description">{{ project.getDescription()|raw }}</div>
       {% endif %}
     </div>
     <div class="w-100 w-50-ns ph2 pb3">

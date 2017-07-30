@@ -1,9 +1,14 @@
 {% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
 {% use 'form_div_layout.html.twig' with form_widget_compound as base_form_widget_compound %}
 
-{# This form template adds:
+{#
+This form template adds:
     - form errors (such as validation) to widgets
     - help texts to widgets
+
+TODO: Right now we are "hardcoding" new definitions for the widgets.
+If the base template is updated, we don't get the updates.
+Therefore we should instead try to extend the existing widgets.
 #}
 
 {%- block form_errors -%}
@@ -54,3 +59,15 @@
         {{- block('choice_widget_collapsed') -}}
     {% endif %}
 {%- endblock choice_widget -%}
+
+{% block ckeditor_widget %}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+
+    {% if enable and not async %}
+        {{ block('_ckeditor_javascript') }}
+    {% endif %}
+{% endblock ckeditor_widget %}
