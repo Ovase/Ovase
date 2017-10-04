@@ -1,5 +1,5 @@
 ---
-Title: Om Ovase 
+Title:
 ---
  
 # Om overvannssenteret Ovase 
