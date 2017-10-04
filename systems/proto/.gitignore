@@ -4,6 +4,7 @@
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
+/app/config/secrets.yml
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
@@ -64,3 +65,16 @@ jspm_packages
 *.prefs
 
 app/.DS_Store
+
+# Some debug files and folders
+app/Resources/views/debug
+app/Resources/views/vehicle
+src/AppBundle/Controller/DebugController.php
+src/AppBundle/Controller/VehicleController.php
+src/AppBundle/Controller/LuckyController.php
+src/AppBundle/Entity/Product.php*
+src/AppBundle/Form/CreateVehicle*
+src/AppBundle/Form/Product*
+
+# Temp files
+*.php~

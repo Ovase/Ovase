@@ -1,0 +1,73 @@
+{% use 'form_div_layout.html.twig' with form_widget_simple as base_form_widget_simple %}
+{% use 'form_div_layout.html.twig' with form_widget_compound as base_form_widget_compound %}
+
+{#
+This form template adds:
+    - form errors (such as validation) to widgets
+    - help texts to widgets
+
+TODO: Right now we are "hardcoding" new definitions for the widgets.
+If the base template is updated, we don't get the updates.
+Therefore we should instead try to extend the existing widgets.
+#}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+    <ul class="form-errors">
+        {%- for error in errors -%}
+            <li>{{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+{% endblock %}
+
+{% block form_widget_simple %}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    {{ block('base_form_widget_simple') }}
+{% endblock %}
+
+{%- block form_widget_compound -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    {{ block('base_form_widget_compound') }}
+{%- endblock form_widget_compound -%}
+
+{%- block textarea_widget -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{%- block checkbox_widget -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{%- endblock checkbox_widget -%}
+
+{%- block choice_widget -%}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('choice_widget_collapsed') -}}
+    {% endif %}
+{%- endblock choice_widget -%}
+
+{% block ckeditor_widget %}
+    {% if attr.help is defined %}
+        <span class="help-block">{{ attr.help|raw }}</span>
+    {% endif %}
+
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+
+    {% if enable and not async %}
+        {{ block('_ckeditor_javascript') }}
+    {% endif %}
+{% endblock ckeditor_widget %}

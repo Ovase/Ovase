@@ -1,80 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div style="margin-top:-25px">
-    <div class="col-md-6">
-        <a href="{{ path('projectlist') }}" class="fp-card" style="display:block!important">   
-            <div class="card fp-card" style="background-color:#a9d1ff">
-                <div class="card-block">
-                    <h1 class="fp-card-title">PROSJEKTER</h1>
-                </div>
-
-                <div class="pull-left" style="margin-left:2vw;">
-                    <img id = "fp-icon" src="{{ asset('static/images/index/citylogo.png') }}" alt="Card image">
-                </div>
-
-                <div id="fp-text" class="card-block" style="margin-left:15vw">
-                    <p style="margin-right:2vw">Bli inspirert av eksisterende norske overvannsanlegg</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-6"> 
-        <a href="{{ path('actorlist') }}" class="fp-card" style="display:block!important">
-            <div class="card fp-card" style="background-color:#a1d585">
-                <div class="card-block">
-                    <h1 class="fp-card-title">AKTØRER</h1>
-                </div>
-                <div class="pull-left" style="margin-left:2vw">
-                    <img id="fp-icon" src="{{ asset('static/images/index/actorlogo.png') }}" alt="Card image">
-                </div>
-                <div id="fp-text" class="card-block" style="margin-left:15vw">
-                    <p style="margin-right:2vw">Finn bransjeaktører som jobber med overvanns-håndtering</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-6">
-        <a href="http://wiki.ovase.no/" class="fp-card" style="display:block!important">
-            <div class="card fp-card" style="background-color:#d0b4a6">
-                <div class="card-block">
-                    <h1 class="fp-card-title">FAGWIKI</h1>
-                </div>
-
-                <div class="pull-left" style="margin-left:2vw;">
-                    <img id = "fp-icon" src="{{ asset('static/images/index/wikilogi.png') }}" alt="Card image">
-                </div>
-
-                <div id="fp-text" class="card-block" style="margin-left:15vw">
-                    <p style="margin-right:2vw">Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-md-6">
-        <a href="{{ path('aboutus') }}" class="fp-card" style="display:block!important">
-            <div class="card style-bgc-lgrey fp-card">
-                <div class="card-block">
-                    <h1 class="fp-card-title">OM OVASE</h1>
-                </div>
-
-                <div class="pull-left" style="margin-left:2vw">
-                    <img id="fp-icon" src="{{ asset('static/images/index/droplogo.png') }}" alt="Card image">
-                </div>
-
-                <div id="fp-text" class="card-block" style="margin-left:15vw">
-                    <p style="margin-right:1vw">Ovase er et studentinitiativ med visjon om å bidra til å optimalisere Norges håndtering av regn- og smeltevann (overvann)</p>
-                </div>
-            </div>
-        </a>
-    </div>
-
-
-           
-        <p>&nbsp;</p>
-        </br>
-    </div>
+    <section class="pretty-wide centered fbox">
+      <div class="w-100 ph2 mb3">
+        <div class="mission-box cf pa3">
+          <span class="fa fa-flag-checkered" aria-hidden="true">&nbsp;</span>
+          <div>
+            <h2 class="mt2">HVA ER OVASE?</h2>
+            <p class="f4">
+              Ovase utvikles for å bli en felles nasjonal kunnskapsportal for overvann. Vi er foreløpig i oppstartsfasen, og nettstedet er under konstruksjon. Ovase har som mål å samle info om overvann for alle på ett sted, for å støtte utviklinga mot bærekraftig og robust overvanns-infrastruktur i Norge. Arbeidet organiseres av Klima 2050.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="fbox">
+        <div class="w-100 w-third-ns pa2">
+          <a class="section-card pa3 cf bg-ovase-yellow" href="{{ path('projectlist') }}">
+            <img src="{{ asset('static/images/index/citylogo.png') }}" alt="Project icon">
+            <h2>PROSJEKTER</h2>
+            <p>Bli inspirert av eksisterende norske overvannsanlegg</p>
+          </a>
+        </div>
+        <div class="w-100 w-third-ns pa2">
+          <a class="section-card pa3 cf bg-ovase-pearl-aqua" href="{{ path('actorlist') }}">
+            <img src="{{ asset('static/images/index/actorlogo.png') }}" alt="Actor icon">
+            <h2>AKTØRER</h2>
+            <p>Finn bransjeaktører som jobber med overvannshåndtering</p>
+          </a>
+        </div>
+        <div class="w-100 w-third-ns pa2">
+          <a class="section-card pa3 cf bg-ovase-peach" href="http://wiki.ovase.no/">
+            <img src="{{ asset('static/images/index/wikilogi.png') }}" alt="Wiki icon">
+            <h2>FAGWIKI</h2>
+            <p>Lær mer om ulike typer tiltak og framgangsmåter for å håndtere ekstemnedbør</p>
+          </a>
+        </div>
+      </div>
+    </section>
 {% endblock %}

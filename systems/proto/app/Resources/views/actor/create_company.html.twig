@@ -1,16 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Lag selskap
+  Opprett virksomhet
 {% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 
 {% block body %}
 
-    {{ form_start(form) }}
+  <section class="narrow centered">
+    {% form_theme form 'form/fields.html.twig' %}
+    {{ form_start(form,
+        { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} )
+    }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
     <script>
     	$("#company_persons").select2({width: '25vw'});
     </script>
+  </section>
 
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <!-- Select2 widget used for improved select inputs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <!-- Initialization -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+        // Init existing select2 input(s)
+        $("#company_actorTypes").select2({
+          placeholder: 'Velg en eller flere kategorier'
+        });
+    });
+    </script>
 {% endblock %}

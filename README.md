@@ -16,3 +16,8 @@ Ovase er et kunnskapssenter for overvannshåndtering i Norge. Hjemmesiden vår e
 - Rydde opp i wiki
 - Forenkle wiki-deployment og oppgradering
 
+## Mock-up URL
+https://gomockingbird.com/projects/c9ufdj2/4gXVnC
+
+## Colors
+https://coolors.co/79c7c5-ffe0b5-ede580-c9f299-136f63

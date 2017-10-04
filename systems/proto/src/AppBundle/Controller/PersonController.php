@@ -13,7 +13,23 @@ class PersonController extends Controller
 
 		$requestID = $request->get('id');
 		$person = $this->getDoctrine()->getManager()->getRepository('AppBundle:Person')->find($requestID);
-		return $this->render(':actor:person.html.twig', array('person' => $person, 'key'=> $this->container->getParameter('api_key')));
+        $canEdit = false;
+        $deleteForm = null;
+        if ($this->userCanEditPerson($person)) {
+            $canEdit = true;
+            $deleteForm = $this->createDeleteForm($person)->createView();
+        }
+
+        $projects = $person->getProjects();
+        $visibleProjects = $this->filterInvisibleProjects($projects);
+
+		return $this->render(':actor:person.html.twig', array(
+            'person' => $person,
+            'projects' => $visibleProjects,
+            'canEdit' => $canEdit,
+            'actorDeleteForm' => $deleteForm,
+            'key'=> $this->container->getParameter('api_key')
+            ));
 	}
 
 	public function createAction(Request $request)
@@ -43,5 +59,101 @@ class PersonController extends Controller
                 'form' => $form -> createView()
             )
         );
+    }
+
+    public function editAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException("Du må være logget inn og aktivert av en redaktør for å se denne siden");
+        }
+
+        $requestID = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Person')->find($requestID);
+
+        if (!$this->userCanEditPerson($person)) {
+            throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til denne siden");
+        }
+
+        $form = $this->createForm(PersonType::class, $person);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $url = $person->getImage();
+            if ($form['image']->getData() != null) {
+                // TODO: Delete the old image if a new one is uploaded
+                $url = $this->get('image_service')->upload($form['image']->getData());
+            }
+            $person->setImage($url);
+            $em->persist($person);
+            $em->flush();
+            return $this->redirectToRoute('person', array( 'id' => $person->getId() ));
+        }
+
+        return $this->render('actor/create_person.html.twig', array(
+            'form' => $form->createView()
+            ));
+
+    }
+
+    public function deleteAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            throw $this->createAccessDeniedException("Du må være logget inn og aktivert av en redaktør for å se denne siden");
+        }
+
+        $requestID = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Person')->find($requestID);
+
+        if (!$this->userCanEditPerson($person)) {
+            throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til denne siden");
+        }
+
+        $form = $this->createDeleteForm($person);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO: Delete actor image
+            $em->remove($person);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('actorlist');
+    }
+
+    private function filterInvisibleProjects($projects) {
+        $visibleProjects = array();
+        foreach ($projects as $project) {
+            if (!$project->getHidden() ||
+                $this->userCanEditProject($project)) {
+                $visibleProjects[] = $project;
+            }
+        }
+        return $visibleProjects;
+    }
+
+    private function userCanEditProject($project) {
+        if (    $this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')
+             || $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+             && $this->getUser()->canEditProject($project)) {
+                return true;
+        }
+        return false;
+    }
+
+    private function userCanEditPerson($person) {
+        // Not logged in?
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
+            return false;
+        // Not associated with actor and not an editor?
+        if (!$this->getUser()->canEditActor($person) &&
+            !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR'))
+            return false;
+        return true;
+    }
+
+    private function createDeleteForm($person) {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_person',
+                array('id' => $person->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }

@@ -1,35 +1,122 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Anlegg
+  Nytt prosjekt
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('static/css/buttons.css') }}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
-	<body onload="initCreateProjectPage();addHelpText()">
 
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
-	
-	</br>
-	</br>
-	<div style="margin-left:15vw">
-		<button type="button" id="previous" class="btn btn-default" onclick="show('previous');">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		</button>
-		<button type="button" id="page1" class="btn btn-default btn-project-step" onclick="show(1);">Steg 1</button>
-		<button type="button" id="page2" class="btn btn-default btn-project-step" onclick="show(2);">Steg 2</button>
-		<button type="button" id="page3" class="btn btn-default btn-project-step" onclick="show(3);">Steg 3</button>
-		<button type="button" id="next" class="btn btn-default" onclick="show('next');">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		</button>
-	</div>
+    <section class="narrow centered">
+      <p class="f4 b">Merk at obligatoriske felter er merket med stjernetegnet (*)</p>
 
-	<script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
-	<script src="{{ asset('static/js/datepicker-no.js') }}"></script>
-	<script src="{{ asset('static/js/helpTextProject.js') }}"></script>
+      {# Form theme adds help message block #}
+      {% form_theme form 'form/fields.html.twig' %}
 
+      <div class="mt3">
+        {% include '@CraueFormFlow/FormFlow/stepList.html.twig' %}
+      </div>
+
+      {# Infobox bottom #}
+      {% if form.vars.create_start_message is defined %} 
+      <div class="form-info-box">
+        <p>{{ form.vars.create_start_message }}</p>
+      </div>
+      {% endif %}
+
+      <!-- Show project summary on last page -->
+      {% if flow.getCurrentStepNumber() == flow.getStepCount() %}
+        <h2>Forhåndsvisning</h2>
+        <p class="mb3">Se over prosjektdetaljene under. Gå til bunnen av siden for å opprette prosjektet</p>
+    </section>
+    <section class="proj-preview">
+      {% set project = flow.formData %}
+      {% include 'project/project.base.html.twig' %}
+    </section>
+    <section class="narrow centered">
+      {% endif %}
+      <!-- Project summary end -->
+
+      {{ form_start(form, { 'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+      {{ form_widget(form) }}
+
+      {# Infobox bottom #}
+      {% if form.vars.create_end_message is defined %} 
+      <div class="form-info-box">
+        <p>{{ form.vars.create_end_message }}</p>
+      </div>
+      {% endif %}
+
+      {% block formflow_buttons %}
+      {% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+        craue_formflow_button_class_last: 'button-last',
+        craue_formflow_button_class_back: 'button-back',
+        craue_formflow_button_class_next: 'button-next',
+        craue_formflow_button_class_finish: 'button-finish',
+        craue_formflow_button_label_back: 'Forrige side',
+        craue_formflow_button_label_next: 'Neste side',
+        craue_formflow_button_label_finish: 'Opprett prosjekt',
+        craue_formflow_button_render_reset: false
+      } %}
+      {% endblock %}
+      {{ form_end(form) }}
+    </section>
 
 {% endblock %}
 
 
+{% block javascripts %}
+  {{ parent() }}
+  <!-- Translation of user-typed addresses to coordinates -->
+  <script src="{{ asset('static/js/addressTranslator.js') }}"></script>
+  <!-- Select2 widget used for improved select inputs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <!-- Image preview, "delete image" buttons -->
+  <script src="{{ asset('static/js/imageUpload.js') }}"></script>
+  <!-- Adding measures dynamically -->
+  <script src="{{ asset('static/js/projectMeasures.js') }}"></script>
+  <!-- Image carousel functionality -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+  <!-- Initialization -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+        // Get collection, add delete "buttons"
+        var $imgCollectionHolder = $('#editProjectStep1_images');
+        var $imgCollectionHolder2 = $('#editProjectStep2_images');
+        initImageUploadFunctionality($imgCollectionHolder);
+        initImageUploadFunctionality($imgCollectionHolder2);
+        // Get collection, add delete "buttons"
+        var $measureCollectionHolder = $('#editProjectStep3_measures');
+        initProjectMeasuresEdit($measureCollectionHolder);
+        // Init carousel
+        $('.img-carousel').slick({});
+        // Add click event
+        $('.img-carousel-image').on('click', function(event) {
+          window.location.href = event.currentTarget['src'];
+        });
+        // Init address translator
+        prepareAddressTranslator('editProjectStep1', "#editProjectStep1_location");
+        // Init select2 input(s)
+        $("#editProjectStep1_actors").select2();
+        $(".function-select").select2({tags: true});
+        // Make sure new input(s) also get styled
+        $(".add-measure-link").click(function(event) {
+          $(".function-select").select2({tags: true});
+        });
+        // Scroll to validation errors (if any)
+        if ($('.form-errors:visible:first').length) {
+          $('html, body').animate({
+            scrollTop: $('.form-errors:visible:first').offset().top
+          }, 1000);
+        }
+    });
+    </script>
+{% endblock %}

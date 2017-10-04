@@ -1,0 +1,17 @@
+<div class="comment">
+  <div class="cf">
+    <a href="{{ path('publicprofile', {'id' : comment.getUser().getId() } ) }}" class="comment-user">{{ comment.getUser().getFirstName() }} {{ comment.getUser().getLastName() }}</a>
+    <!-- Indicate edited comment -->
+    {% if comment.getEdited() == true %}
+      <span class="comment-edited">Kommentaren er redigert.</span>
+    {% endif %}
+    <!-- Provide edit link -->
+    {% if app.user == comment.getUser() %}
+      <a href="{{ path('edit_comment', {'project_id': project.getId(), 'comment_id': comment.getId() }) }}" class="comment-edit-link"><span class="fa fa-pencil" aria-hidden="true"></span>Rediger</a>
+    {% endif %}
+    <span class="comment-date">{{ comment.getDate()|localizeddate('medium', 'short', app.request.locale) }}</span>
+  </div>
+  <div class="comment-text">
+    {{ comment.getText() }}
+  </div>
+</div>

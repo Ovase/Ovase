@@ -31,7 +31,10 @@ class UserController extends Controller
 
 		// 2) handle the submit (will only happen on POST)
 		$form->handleRequest($request);
-        $this->validatePassword($form);
+
+        if ($form->isSubmitted())
+            $this->validatePassword($form);
+
 		if ($form->isSubmitted() && $form->isValid()) {
 
             // 3) Encode the password with bcrypt (you could also do this via Doctrine listener)
@@ -44,13 +47,16 @@ class UserController extends Controller
 			$user->addRole("ROLE_USER");
 			
 			$user->setIsActive(0); // YOU! SHALL NOT! PASS!!
-			
+
 			// 4) save the User!
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($user);
 			$em->flush();
 
-			return $this->redirectToRoute('login',array(),301);
+            // TODO: Send registration email
+            $this->sendNewUserEmail($user);
+
+			return $this->redirectToRoute('post_create_user');
 		}
 
 		return $this->render(
@@ -62,17 +68,35 @@ class UserController extends Controller
 	private function validatePassword(Form $form){
         $password = $form->get('password')->getData();
         if (! preg_match("/^(?=.*[a-z]).+$/", $password)) {
-            $form->addError(new FormError("Ditt passord må inneholde minst 1 liten bokstav fra det engelske alfabetet!"));
+            $form->get('password')->get('first')->addError(new FormError("Ditt passord må inneholde minst 1 liten bokstav fra det engelske alfabetet!"));
         }
         if (! preg_match("/^(?=.*[A-Z]).+$/", $password)) {
-            $form->addError(new FormError("Ditt passord må inneholde minst 1 stor bokstav fra det engelske alfabetet!"));
+            $form->get('password')->get('first')->addError(new FormError("Ditt passord må inneholde minst 1 stor bokstav fra det engelske alfabetet!"));
         }
-        if (strcspn($password, '0123456789') == strlen($password)) // see http://php.net/manual/en/function.strcspn.php - it is infact faster then a number regex
+        // see http://php.net/manual/en/function.strcspn.php - it is infact faster then a number regex
+        if (strcspn($password, '0123456789') == strlen($password)) 
         {
-            $form->addError(new FormError("Ditt passord må inneholde minst ett siffer!"));
+            $form->get('password')->get('first')->addError(new FormError("Ditt passord må inneholde minst ett siffer!"));
         }
         if (strlen($password)<7) {
-            $form->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon")); //Hvorfor skal man kontakte sysadm for dette??
+            $form->get('password')->get('first')->addError(new FormError("Ditt passord må være minst åtte tegn langt. Kontakt systemets administrator for nærmere informasjon")); //Hvorfor skal man kontakte sysadm for dette??
         }
 	}
+
+    private function sendNewUserEmail($user) {
+        $to_addr = $user->getEmail();
+        $from_addr = array('ikkesvar@ovase.no' => 'Ovase.no');
+        if ($this->get('kernel')->isDebug())      
+            $from_addr = 'ovase.testmail@gmail.com';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Bekreftelse på registrering ')
+            ->setFrom($from_addr)
+            ->setTo(array($to_addr => $user->getFullName()))
+            ->setBody($this->get('twig')->render('email/new.user.twig', array('user' => $user)), 'text/plain');
+
+        # Send the message
+        $this->get('mailer')
+            ->send($message);
+    }
 }

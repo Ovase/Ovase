@@ -6,18 +6,6 @@ home:
     path: /
     defaults: { _controller: AppBundle:Home:showHome}
 
-aboutus:
-    path: /omoss
-    defaults: { _controller: AppBundle:AboutUs:show}
-
-projectlist:
-  path: /prosjekter
-  defaults: { _controller: AppBundle:ProjectList:projectList}
-
-actorlist:
-  path: /akteur
-  defaults: { _controller: AppBundle:ActorList:show }
-
 login:
     path: /login
     defaults: { _controller: AppBundle:Login:login}
@@ -29,19 +17,52 @@ create_user:
     path:     /register
     defaults: { _controller: AppBundle:User:register } 
 
-create_person:
-    path:     /person/ny
-    defaults: {_controller: AppBundle:Person:create }
+post_create_user:
+    path:     /registered
+    defaults:
+      _controller: FrameworkBundle:Template:template
+      template: login/post-register.html.twig
+      maxAge: 86400
+      sharedAge: 86400
+
+aboutus:
+    path: /omoss
+    defaults: { _controller: AppBundle:AboutUs:show}
+
+projectlist:
+  path: /prosjekter
+  defaults: { _controller: AppBundle:ProjectList:projectList}
+
+advanced_projectlist:
+  path: /prosjektsok
+  defaults: { _controller: AppBundle:ProjectList:advancedProjectList}
+
+# Actor functionality
+
+actorlist:
+  path: /akteur
+  defaults: { _controller: AppBundle:ActorList:show }
+
+# Actor (company) functionality
 
 create_company:
     path:     /selskap/ny
     defaults: {_controller: AppBundle:Company:create }
 
-project:
-  path: /prosjekter/{id}
-  defaults: {_controller: AppBundle:Project:show}
+# TODO
+edit_company:
+  path: /selskap/rediger/{id}
+  defaults: {_controller: AppBundle:Company:edit}
   requirements:
     methods: GET|POST
+    id: \d+
+
+# TODO
+delete_company:
+  path: /selskap/slett/{id}
+  defaults: {_controller: AppBundle:Company:delete}
+  methods: DELETE
+  requirements:
     id: \d+
 
 company:
@@ -51,6 +72,26 @@ company:
     methods: GET|POST
     id: \d+
 
+# Actor (person) functionality
+
+create_person:
+    path:     /person/ny
+    defaults: {_controller: AppBundle:Person:create }
+
+edit_person:
+  path: /person/rediger/{id}
+  defaults: {_controller: AppBundle:Person:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+delete_person:
+  path: /person/slett/{id}
+  defaults: {_controller: AppBundle:Person:delete}
+  methods: DELETE
+  requirements:
+    id: \d+
+
 person:
   path: /person/{id}
   defaults: {_controller: AppBundle:Person:show}
@@ -58,9 +99,33 @@ person:
     methods: GET|POST
     id: \d+
 
+# Projects
+
+project:
+  path: /prosjekter/{id}
+  defaults: {_controller: AppBundle:Project:show}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+
 create_project:
   path:     /prosjekter/ny
   defaults: { _controller: AppBundle:Project:create}
+
+edit_project:
+  path:     /prosjekter/rediger/{id}
+  defaults: { _controller: AppBundle:Project:edit}
+  requirements:
+    methods: GET|POST
+    id: \d+
+
+delete_project:
+  path:     /prosjekter/slett/{id}
+  defaults: { _controller: AppBundle:Project:delete}
+  methods: DELETE
+  requirements:
+    id: \d+
 
 create_measure_in_project:
   path:     /prosjekter/{project_id}/tiltak/ny
@@ -80,10 +145,33 @@ edit_measure:
 delete_measure:
   path:     /prosjekter/{project_id}/tiltak/{measure_id}/delete
   defaults: { _controller: AppBundle:Measure:delete}
+  methods: DELETE
+  requirements:
+    project_id: \d+
+    measure_id: \d+
+
+create_comment_in_project:
+  path:     /prosjekter/{project_id}/kommentar/ny
+  defaults: { _controller: AppBundle:ProjectComment:create}
   requirements:
     methods: GET|POST
     project_id: \d+
-    measure_id: \d+
+
+edit_comment:
+  path:     /prosjekter/{project_id}/kommentar/{comment_id}
+  defaults: { _controller: AppBundle:ProjectComment:edit}
+  requirements:
+    methods: GET|POST
+    project_id: \d+
+
+delete_comment:
+  path:     /prosjekter/{project_id}/kommentar/{comment_id}/delete
+  defaults: { _controller: AppBundle:ProjectComment:delete}
+  methods: DELETE
+  requirements:
+    project_id: \d+
+
+# Things related to users and profiles
 
 edit:
   path:     /rediger
@@ -105,6 +193,14 @@ deactivate_users:
   path:     /meg/deactivate
   defaults: { _controller: AppBundle:Profile:deactivateUsers}
 
+promote_editors:
+  path:     /meg/promote_editors
+  defaults: { _controller: AppBundle:Profile:promoteEditorUsers}
+
+demote_editors:
+  path:     /meg/demote_editors
+  defaults: { _controller: AppBundle:Profile:demoteEditorUsers}
+
 # View other's profile
 publicprofile:
   path: /prof/{id}
@@ -121,17 +217,19 @@ editotherprofile:
     methods: GET|POST
     id: \d+
 
+# List of users
 userlist:
   path: /brukere
   defaults: { _controller: AppBundle:User:showAllUsers}
 
+# Not sure
 queryme:
   path:     /meg/qp
   defaults: { _controller: AppBundle:Profile:queryMe}
 
-edit_project:
-  path:     /prosjekter/rediger/{id}
-  defaults: { _controller: AppBundle:Project:edit}
+
+debug:
+  path: /test
+  defaults: { _controller: AppBundle:Debug:test}
   requirements:
     methods: GET|POST
-    id: \d+

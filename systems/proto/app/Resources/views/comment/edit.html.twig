@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Rediger kommentar
+{% endblock %}
+
+{% block body %}
+
+    <section class="narrow centered">
+      {{ form(commentForm, {'attr' : { 'class': 'full-wide ovase-form ovase-form-ext' }} ) }}
+    </section>
+
+{% endblock %}

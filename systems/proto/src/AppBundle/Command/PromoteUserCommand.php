@@ -78,6 +78,7 @@ class PromoteUserCommand extends ContainerAwareCommand
             $roles = new ArrayCollection();
             $roles->add("ROLE_USER");
             $user->setRoles($roles);
+            // $this->sendApprovedUserEmail($user);
 		}
 		else if ($role == "ROLE_EDITOR") {
             $user->setIsActive(1); // For now, you may pass...
@@ -85,6 +86,7 @@ class PromoteUserCommand extends ContainerAwareCommand
             $roles->add("ROLE_USER");
             $roles->add("ROLE_EDITOR");
 		    $user->setRoles($roles);
+            // $this->sendApprovedUserEmail($user);
 		}
 		else { return; }
 		$em->persist($user);
@@ -93,4 +95,32 @@ class PromoteUserCommand extends ContainerAwareCommand
 
 		$output->writeln('Bye!');
 	}
+
+	private function sendApprovedUserEmail($user) {
+        $to_addr = $user->getEmail();
+        $from_addr = array('ikkesvar@ovase.no' => 'Ovase.no');
+        /* NOTE:
+         * For commands, the env. is controlled with --env=dev/prod
+         * The dev env. by default has debug set to true
+         */
+        if ($this->getContainer()->get('kernel')->isDebug())      
+            $from_addr = 'ovase.testmail@gmail.com';
+
+        $twig = $this->getContainer()->get('twig');
+        $router = $this->getContainer()->get('router');
+        $newPersonRoute = $router->generate('create_person');
+        $emailBody = 
+            $twig->render('email/approved.user.html.twig', array(
+                'user' => $user,
+                'newPersonRoute' => $newPersonRoute));
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Aktivert bruker')
+            ->setFrom($from_addr)
+            ->setTo(array($to_addr => $user->getFullName()))
+            ->setBody($emailBody, 'text/html');
+
+        $this->getContainer()->get('mailer')
+            ->send($message);
+    }
 }

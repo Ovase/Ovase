@@ -6,6 +6,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,11 +24,15 @@ class UserType extends AbstractType
 			->add('email', EmailType::class,array('label'=>'E-post',))
 			->add('firstName', TextType::class,array('label'=>'Fornavn',))
 			->add('lastName', TextType::class,array('label'=>'Etternavn',))
-			->add('phone', TextType::class,array('label'=>'Telefonnummer',))
+			->add('phone', TextType::class,array('label'=>'Telefonnummer', 'required' => false))
 			->add('password', RepeatedType::class, array(
 				'type' => PasswordType::class,
-				'first_options'  => array('label' => 'Passord'),
+				'first_options'  => array(
+					'label' => 'Passord',
+					'attr' => array('help' => 'Passordet må være minst 8 tegn langt, og inneholde minst en liten og stor bokstav, samt et tall.'),
+					),
 				'second_options' => array('label' => 'Gjenta Passord'),
+				'attr' => array('help' => 'Test'),
 				)
 			);
 		if ($env != 'test') {
@@ -42,8 +48,14 @@ class UserType extends AbstractType
 				'background_color' => [255, 255, 255],
 			));
 		}
-		$builder->add('save', SubmitType::class, array('label' => 'Registrer bruker','attr'=>array('class'=>'btn btn-default')));
+		$builder->add('save', SubmitType::class, array('label' => 'Registrer bruker'));
 	}
+
+    public function finishView(FormView $view, FormInterface $form, array $options) {
+        parent::buildView($view, $form, $options);
+
+        $view->vars['create_start_message'] = 'Velkommen! Her kan du registrere deg som usynlig bruker. Etter å ha blitt godkjent kan du lage en synlig personprofil, legge til prosjekter og virksomheter, dele erfaringer under andres prosjekter og skrive i fagwikien.';
+    }
 
 	public function configureOptions(OptionsResolver $resolver)
 	{

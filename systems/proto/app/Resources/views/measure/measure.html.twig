@@ -1,0 +1,64 @@
+
+    <div class="measure-box">
+      <h2 class="mb2">Overvannstiltak: {{ measure.getTitle() }}</h2>
+      <h3 class="mt0 mb3 silver">{{ measure.getType() }}</h3>
+
+      {% if canEdit is defined and canEdit %}
+      <section class="flat-button-box">
+        <div class="w-50">
+          <a href="{{ path("edit_measure", {'measure_id': measure.getId(), 'project_id': project.getId()}) }}"><span class="fa fa-pencil" aria-hidden="true"></span>Rediger tiltak</a>
+        </div>
+        <div class="w-50">
+          {% include 'form/deleteform.html.twig'  with {
+            'deleteForm': measureDeleteForms[measure.getId()],
+            'deleteMessage': 'Slett tiltak',
+          } %}
+        </div>
+      </section>
+      {% endif %}
+
+      <div class="full-wide fbox">
+        <div class="w-100 w-two-thirds-ns pr5">
+          <div class="wysiwyg-output project-description">
+            {{ measure.getDescription()|raw }}
+          </div>
+        </div>
+
+        <div class="w-100 w-third-ns">
+          <h3>Raske fakta</h3>
+          <table class="ovase-table">
+            {% include 'measure/table.row.html.twig' with {
+              'propDescription': 'Tiltakets overflateareal (m²)',
+              'propValue': measure.getArea()
+            } %}
+            {% include 'measure/table.row.html.twig' with {
+              'propDescription': 'Tiltakets delnedbørsfelt (m²)',
+              'propValue': measure.getCatchmentArea()
+            } %}
+            {% include 'measure/table.row.html.twig' with {
+              'propDescription': 'Målt hydraulisk konduktivitet (cm/time)',
+              'propValue': measure.getHydraulicConductivity()
+            } %}
+            {% include 'measure/table.row.html.twig' with {
+              'propDescription': 'Tiltakets kostnadsrammer (NOK)',
+              'propValue': measure.getCosts()
+            } %}
+            {% include 'measure/table.row.html.twig' with {
+              'propDescription': 'Bruker tiltaket instrumentering?',
+              'propValue': measure.getInstrumentation()
+            } %}
+          </table>
+
+          <!-- Functions -->
+          <h3>Tiltakets formål</h3>
+          <ul class="mb3">
+          {% for function in measure.getFunctions() %}
+            <li>{{ function }}</li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- TODO: Insert WYSIWYG output -->
+
+    </div>

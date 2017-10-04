@@ -4,6 +4,36 @@ parameters:
 #    parameter_name: value
 
 services:
-    image_service:
-      class: AppBundle\Services\ImageService
-      arguments: [%cloud_name%, %cloud_api_key%, %cloud_api_secret%]
+  image_service:
+    class: AppBundle\Services\ImageService
+    arguments: [%cloud_name%, %cloud_api_key%, %cloud_api_secret%]
+  ovase.form.flow.createVehicle:
+    class: AppBundle\Form\CreateVehicleFlow
+    parent: craue.form.flow
+  ovase.form.flow.createProject:
+    class: AppBundle\Form\CreateProjectFlow
+    parent: craue.form.flow
+    arguments:
+      - @logger
+      - @image_service
+  ovase.form.flow.editProject:
+    class: AppBundle\Form\EditProjectFlow
+    parent: craue.form.flow
+    arguments:
+      - @logger
+      - @image_service
+  twig.extension.intl:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      - { name: twig.extension }
+  purified_ckeditor:
+    class: AppBundle\Form\PurifiedCKEditorType
+    arguments:
+      - @html_purifier
+    tags:
+      - { name: form.type, alias: purified_ckeditor }
+  html_purifier:
+    class: Exercise\HTMLPurifierBundle\Form\HTMLPurifierTransformer
+    arguments:
+      - @exercise_html_purifier.default
+

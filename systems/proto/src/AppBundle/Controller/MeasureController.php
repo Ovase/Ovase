@@ -18,9 +18,10 @@ class MeasureController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $project = $em->find('AppBundle:Project', $request->get('project_id'));
-        if (!$this->getUser()->canEditProject($project)) {
+        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
+        
         $measure = new Measure();
         $form = $this->createForm(MeasureType::class, $measure);
         $form->handleRequest($request);
@@ -45,7 +46,7 @@ class MeasureController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $project = $em->find('AppBundle:Project', $request->get('project_id'));
-        if (!$this->getUser()->canEditProject($project)) {
+        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
         $measure = $em->find('AppBundle:Measure', $request->get('measure_id'));
@@ -70,12 +71,29 @@ class MeasureController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $project = $em->find('AppBundle:Project', $request->get('project_id'));
-        if (!$this->getUser()->canEditProject($project)) {
+        if (!$this->getUser()->canEditProject($project) && !$this->get('security.authorization_checker')->isGranted('ROLE_EDITOR')) {
             throw $this->createAccessDeniedException("Du har ikke redigeringsrettigheter til dette prosjektet");
         }
         $measure = $em->find('AppBundle:Measure', $request->get('measure_id'));
-        $em->remove($measure);
-        $em->flush();
+
+        $form = $this->createDeleteForm($project, $measure);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($measure);
+            $em->flush();
+        }
+
         return $this->redirectToRoute('project', array( 'id' => $project->getId() ));
+    }
+
+    private function createDeleteForm($project, $measure) {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_measure', array(
+                'measure_id' => $measure->getId(),
+                'project_id' => $project->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }

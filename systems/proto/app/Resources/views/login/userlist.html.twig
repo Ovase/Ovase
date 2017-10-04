@@ -3,6 +3,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <section class="medium-wide centered">
 	{% if babes is defined %}
 		{% for element in babes %}
 			Profil: <a href="{{ path('publicprofile', {'id': element.id}) }}">{{element}}</a>
@@ -11,4 +12,5 @@
 			{% endif %}
 		{% endfor %}
     {% endif %}
+    </section>
 {% endblock %}

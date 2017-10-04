@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+  <title>Overvannssenteret Ovase.no</title>
+  <meta charset="utf-8" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <!-- Icons -->
+  <script src="https://use.fontawesome.com/a0769c685f.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!--   HEADER   -->
+  <header class="full-wide bg-ovase-green">
+    <div class="pretty-wide centered">
+      <a id="header-logo" href="/"><img src="images/ovase-logo-small.png"/></a>
+      <h1>OVASE</h1>
+      <nav>
+        <ul>
+          <li><a class="active" href="">PROSJEKTER</a></li>
+          <li><a href="">AKTØRER</a></li>
+          <li><a href="">FAGWIKI</a></li>
+        </ul>
+      </nav>
+      <section class="user-panel">
+        <ul>
+          <li class="f4"><a href="#"><span class="fa fa-user" aria-hidden="true"></span>Min side</a></li>
+          <li class="f4"><a href="#"><span class="fa fa-sign-out" aria-hidden="true"></span>Logg ut</a></li>
+        </ul>
+      </section>
+    </div>
+  </header>
+  <!--   CONTENT   -->
+  <main class="full-wide">
+    <section id="proj-list-header" class="pretty-wide centered fbox">
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-controls" class="pa3">
+          <h2 class="mt0">Velkommen til vår prosjektdatabase!</h2>
+          <form id="proj-basic-search" class="full-wide pb2 ovase-form fbox">
+            <input type="text" class="fbg5 bg-white" placeholder="Søk i prosjekter">
+            <button type="submit" class="fbg1 bg-white">Søk</button>
+          </form>
+          <form id="proj-filtering" class="ovase-form">
+              <fieldset>
+                <legend class="f4 fw7 pv3">Filtrering</legend>
+                <div class="fbox">
+                  <div class="w-50">
+                    <label for="region" class="db f4 mb2">Region</label>
+                    <select id="region" class="w-90 bg-white">
+                      <option>Alle</option>
+                      <option>Trondheim</option>
+                      <option>Oslo</option>
+                      <option>Bergen</option>
+                    </select>
+                  </div>
+
+                  <div class="w-50">
+                    <fieldset>
+                      <legend class="db f4 mb1">Tekniske løsninger</legend>
+                        <label for="green-roof" class="db">
+                          <input type="checkbox" id="green-roof" name="tech-solutions" value="green-roof">
+                          Grønne tak
+                        </label>
+                        <label for="twigs" class="db">
+                          <input type="checkbox" id="twigs" name="tech-solutions" value="twigs">
+                          Kvistdammer
+                        </label>
+                        <label for="rainbed" class="db">
+                          <input type="checkbox" id="rainbed" name="tech-solutions" value="rainbed">
+                          Regnbed
+                        </label>
+                    </fieldset>
+                  </div>
+                </div>
+                <input type="submit" class="db centered mt4 input-reset bg-light-green ba b--black-20 ph3 pv2" value="Filtrer prosjekter">
+              </fieldset>
+            </form>
+        </section>
+      </div>
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-map">
+          <script>
+            var map;
+            function initMap() {
+              map = new google.maps.Map(document.getElementById('proj-list-map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 8
+              });
+            }
+          </script>
+        </section>
+      </div>
+    </section>
+      <!--   PROJECT LIST -->
+    <section id="projects" class="pretty-wide centered fbox pt4 ph2">
+      <div class="w-100 w-50-ns">
+        <article class="proj-box fbox">
+          <div class="w-50">
+            <img src="images/7sigma_RainGarden_66.JPG">
+          </div>
+          <div class="pa3 w-50">
+            <h2>Regnbed ved Risvollan</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint aliquam cupiditate, excepturi quae laborum ullam placeat sit minima, saepe omnis, doloribus id quia sed voluptate minus rem iste quis! [...]</p>
+          </div>
+        </article>
+      </div>
+      <div class="w-100 w-50-ns" style=>
+        <article class="proj-box fbox">
+          <div class="w-50">
+            <img src="images/7sigma_RainGarden_66.JPG">
+          </div>
+          <div class="pa3 w-50">
+            <h2>Regnbed ved Risvollan</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint aliquam cupiditate, excepturi quae laborum ullam placeat sit minima, saepe omnis, doloribus id quia sed voluptate minus rem iste quis! [...]</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9-VcCoQLRiQicy6f2ee8uTVPv81vcBb4&callback=initMap"
+    async defer>
+  </script>
+  <!--
+  <script id="__bs_script__">//<![CDATA[
+    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.12'><\/script>".replace("HOST", "localhost"));
+//]]></script>
+  -->
+</body>
+</html>
+
+      

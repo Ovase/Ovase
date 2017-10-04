@@ -21,132 +21,113 @@ class Project
 	private $id;
 	/**
 	 * @ORM\Column(type="string", length=45)
-	 * @Assert\NotBlank( message="Dette feltet kan ikke være tomt." )
-	 * @Assert\Type("string")
+	 * @Assert\NotBlank(
+     *      groups = {"flow_editProject_step1"},
+     *      message="Dette feltet kan ikke være tomt." )
+	 * @Assert\Type(
+     *      groups = {"flow_editProject_step1"},
+     *      type = "string")
 	 */
 	private $name;
 	/**
 	 * @ORM\Column(type="string")
 	 */
-	private $startdate;
-	/**
-	 * @ORM\Column(type="string")
-	 */
 	private $enddate;
+
     /**
-     * @var float
-     * @ORM\Column(type="float")
-     * @Assert\Type("float")
-     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     * @ORM\Column(type="string")
      */
-    private $waterArea;
+    private $projectOwner;
+
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      groups = {"flow_editProject_step1"},
+     *      min = 5,
+     *      max = 140,
+     *      minMessage = "Teksten må ha minst fem tegn.",
+     *      maxMessage = "Teksten kan ikke være lengre enn 128 tegn.")
      */
-    private $dimentionalDemands;
+    private $leadText;
+
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=32)
      */
-    private $summary;
+    private $projectType;
+
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
+    private $maintenanceDeal;
+
 	/**
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
 	/**
-	 * Field for storing the address of the project
 	 * @ORM\Column(type="text")
 	 */
 	private $location;
 
-	/**
-	 * The total area of the space the project took.
-	 * @var float
+    /**
+     * Field for storing lat coordinate found for address
      * @ORM\Column(type="float")
-	 * @Assert\Type("float")
-	 * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
-	 */
-	private $totalArea;
-
-	/**
-	 * @var string
-     * @ORM\Column(type="string")
-	 * @Assert\NotBlank
-     * @Assert\Type("string")
-	 * @Assert\Length(min = 1)
-	 */
-	private $areaType = "";
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank
-     * @Assert\Type("string")
-     * @Assert\Length(min = 1)
+     * @Assert\Type(
+     *      groups = {"flow_editProject_step1"},
+     *      type = "numeric")
      */
-	private $projectType = "";
-
+    private $coordLat;
     /**
-     * @ORM\Column(type="array")
-     * @Assert\All({
-     *   @Assert\Type("string"),
-     * })
+     * Field for storing long coordinate found for address
+     * @ORM\Column(type="float")
+     * @Assert\Type(
+     *      groups = {"flow_editProject_step1"},
+     *      type = "numeric")
+     */
+    private $coordLong;
+    /**
+     * One project has many images
+     * 
+     * @ORM\OneToMany(targetEntity="ProjectImage", mappedBy="project", cascade={"persist", "remove"})
      */
     private $images;
-
     /**
-     * @ORM\Column(type="array")
-     * @Assert\All({
-     *	 @Assert\NotBlank,
-     *   @Assert\Type("string"),
-     *	 @Assert\Length(min = 1)
-     * })
+     * Holds files, but is not persisted to DB
      */
-    private $technicalSolutions;
-
-    /**
-     * Field for storing the required soil condition of the project
-     * @ORM\Column(type="text")
-     */
-    private $soilConditions;
-
+    private $imageFiles;
 	/**
 	 * @var int
  	 * @ORM\Column(type="integer")
  	 */
 	private $version = 1;
-
     /**
-     * The current total cost of the project, measured in NOK.
-     * @var float
-     * @ORM\Column(type="float")
-     * @Assert\Type("float")
-     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     * @ORM\Column(type="boolean")
      */
-    private $cost;
-
+    private $hidden = false;
 	/**
 	 * @ORM\ManyToMany(targetEntity="Actor", inversedBy="projects")
 	 * @ORM\JoinTable(name="actor_in_project")
 	 */
 	private $actors;
-
     /**
-     * @ORM\ManyToMany(targetEntity="Measure", cascade={"remove", "persist"})
-     * @ORM\JoinTable(name="projects_measures",
-     *     joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")
-     * },
-     *     inverseJoinColumns={@ORM\JoinColumn(name="measure_id", referencedColumnName="id", unique=true, onDelete="cascade")}
-     *     )
+     * @ORM\OneToMany(targetEntity="Measure", mappedBy="project", cascade={"remove", "persist"})
      * @Assert\Valid
      */
     private $measures;
+    /**
+     * One project has many comments
+     * 
+     * @ORM\OneToMany(targetEntity="ProjectComment", mappedBy="project", cascade={"persist", "remove"})
+     */
+    private $comments;
 
 	public function __construct()
 	{
 		$this->actors = new ArrayCollection();
-        $this->technicalSolutions = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->imageFiles = new ArrayCollection();
         $this->measures = new ArrayCollection();
+        $this->comments = new ArrayCollection();
 	}
 	/**
 	 * Get id
@@ -217,30 +198,6 @@ class Project
 	}
 
 	/**
-	 * Set startdate
-	 *
-	 * @param \string $startdate
-	 *
-	 * @return Project
-	 */
-	public function setStartdate($startdate)
-	{
-		$this->startdate = $startdate;
-
-		return $this;
-	}
-
-	/**
-	 * Get startdate
-	 *
-	 * @return \string
-	 */
-	public function getStartdate()
-	{
-		return $this->startdate;
-	}
-
-	/**
 	 * Set enddate
 	 *
 	 * @param \string $enddate
@@ -262,34 +219,6 @@ class Project
 	public function getEnddate()
 	{
 		return $this->enddate;
-	}
-
-	/**
-	 * Set technicalSolutions
-	 *
-	 * @param array $tech
-	 *
-	 * @return Project
-	 */
-	public function setTechnicalSolutions($tech)
-	{
-        foreach ($tech as $k) {
-            if (!($this->technicalSolutions->contains($k))) {
-                $this->technicalSolutions->add($k);
-            }
-        }
-
-		return $this;
-	}
-
-	/**
-	 * Get technicalSolutions
-	 *
-	 * @return array
-	 */
-	public function getTechnicalSolutions()
-	{
-		return $this->technicalSolutions->toArray();
 	}
 
 	/**
@@ -354,85 +283,6 @@ class Project
 		$this->version = 0;
 		return $this;
 	}
-    /**
-     * @return float
-     */
-    public function getTotalArea()
-    {
-        return $this->totalArea;
-    }
-
-    /**
-     * @param float $totalArea
-     */
-    public function setTotalArea($totalArea)
-    {
-        $this->totalArea = $totalArea;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAreaType()
-    {
-        return $this->areaType;
-    }
-
-    /**
-     * @param string $areaType
-     */
-    public function setAreaType($areaType)
-    {
-        $this->areaType = $areaType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProjectType()
-    {
-        return $this->projectType;
-    }
-
-    /**
-     * @param string $projectType
-     */
-    public function setProjectType($projectType)
-    {
-        $this->projectType = $projectType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSoilConditions()
-    {
-        return $this->soilConditions;
-    }
-
-    /**
-     * @param mixed $soilConditions
-     */
-    public function setSoilConditions($soilConditions)
-    {
-        $this->soilConditions = $soilConditions;
-    }
-
-    /**
-     * @return float
-     */
-    public function getCost()
-    {
-        return $this->cost;
-    }
-
-    /**
-     * @param float $cost
-     */
-    public function setCost($cost)
-    {
-        $this->cost = $cost;
-    }
 
     /**
      * Set version
@@ -458,34 +308,48 @@ class Project
     }
 
     /**
-     * @return mixed
+     * Add image
+     *
+     * @param \AppBundle\Entity\ProjectImage $image
+     *
+     * @return Product
+     */
+    public function addImage(\AppBundle\Entity\ProjectImage $image)
+    {
+        // Ensure that the image-belongs-to-product relationship is set
+        $image->setProject($this);
+        $this->images[] = $image;
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \AppBundle\Entity\ProjectImage $image
+     */
+    public function removeImage(\AppBundle\Entity\ProjectImage $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getImages()
     {
         return $this->images;
     }
 
-    /**
-     * @param mixed $images
-     */
-    public function setImages($images)
+    public function getImageFiles()
     {
-        $this->images = $images;
+        return $this->imageFiles;
     }
 
-    /**
-     * Appends an array of images to existing images
-     * @param array $images
-     * @return Project
-     */
-    public function addImages($images)
+    public function setImageFiles($imageFiles)
     {
-        foreach ($images as $img) {
-            if (!($this->images->contains($img))) {
-                $this->images->add($img);
-            }
-        }
-        return $this;
+        $this->imageFiles = $imageFiles;
     }
 
     /**
@@ -504,57 +368,245 @@ class Project
         $this->measures = $measures;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUniqueMeasureTypes()
+    {
+        $measureTypes = array();
+        foreach ($this->measures as $measure)
+            $measureTypes[] = $measure->getType();
+        return array_unique($measureTypes);
+    }
+
     public function addMeasure($measure)
     {
-        $this->measures->add($measure);
+        $measure->setProject($this);
+        $this->measures[] = $measure;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Remove measure
+     *
+     * @param \AppBundle\Entity\Measure $measure
      */
-    public function getSummary()
+    public function removeMeasure(\AppBundle\Entity\Measure $measure)
     {
-        return $this->summary;
+
+        $this->measures->removeElement($measure);
     }
 
     /**
-     * @param mixed $summary
+     * Set coordLat
+     *
+     * @param float $coordLat
+     *
+     * @return Project
      */
-    public function setSummary($summary)
+    public function setCoordLat($coordLat)
     {
-        $this->summary = $summary;
+        $this->coordLat = $coordLat;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get coordLat
+     *
+     * @return float
      */
-    public function getWaterArea()
+    public function getCoordLat()
     {
-        return $this->waterArea;
+        return $this->coordLat;
     }
 
     /**
-     * @param mixed $waterArea
+     * Set coordLong
+     *
+     * @param float $coordLong
+     *
+     * @return Project
      */
-    public function setWaterArea($waterArea)
+    public function setCoordLong($coordLong)
     {
-        $this->waterArea = $waterArea;
+        $this->coordLong = $coordLong;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get coordLong
+     *
+     * @return float
      */
-    public function getDimentionalDemands()
+    public function getCoordLong()
     {
-        return $this->dimentionalDemands;
+        return $this->coordLong;
+    }
+
+    public function __toString()
+    {
+        $my_string = 'Name: ' . $this->getName() . "\n";
+        $my_string = $my_string . "Images: \n";
+        foreach ($this->getImages() as $img) {
+            $my_string = $my_string . $img->getUrl() . "\n";
+        }
+        return $my_string;
     }
 
     /**
-     * @param mixed $dimentionalDemands
+     * Set leadText
+     *
+     * @param string $leadText
+     *
+     * @return Project
      */
-    public function setDimentionalDemands($dimentionalDemands)
+    public function setLeadText($leadText)
     {
-        $this->dimentionalDemands = $dimentionalDemands;
+        $this->leadText = $leadText;
+
+        return $this;
     }
 
+    /**
+     * Get leadText
+     *
+     * @return string
+     */
+    public function getLeadText()
+    {
+        return $this->leadText;
+    }
+
+    /**
+     * Set projectOwner
+     *
+     * @param string $projectOwner
+     *
+     * @return Project
+     */
+    public function setProjectOwner($projectOwner)
+    {
+        $this->projectOwner = $projectOwner;
+
+        return $this;
+    }
+
+    /**
+     * Get projectOwner
+     *
+     * @return string
+     */
+    public function getProjectOwner()
+    {
+        return $this->projectOwner;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\ProjectComment $comment
+     *
+     * @return Project
+     */
+    public function addComment(\AppBundle\Entity\ProjectComment $comment)
+    {
+        $comment->setProject($this);
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\ProjectComment $comment
+     */
+    public function removeComment(\AppBundle\Entity\ProjectComment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set hidden
+     *
+     * @param boolean $hidden
+     *
+     * @return Project
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * Get hidden
+     *
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * Set projectType
+     *
+     * @param string $projectType
+     *
+     * @return Project
+     */
+    public function setProjectType($projectType)
+    {
+        $this->projectType = $projectType;
+
+        return $this;
+    }
+
+    /**
+     * Get projectType
+     *
+     * @return string
+     */
+    public function getProjectType()
+    {
+        return $this->projectType;
+    }
+
+    /**
+     * Set maintenanceDeal
+     *
+     * @param string $maintenanceDeal
+     *
+     * @return Project
+     */
+    public function setMaintenanceDeal($maintenanceDeal)
+    {
+        $this->maintenanceDeal = $maintenanceDeal;
+
+        return $this;
+    }
+
+    /**
+     * Get maintenanceDeal
+     *
+     * @return string
+     */
+    public function getMaintenanceDeal()
+    {
+        return $this->maintenanceDeal;
+    }
 }

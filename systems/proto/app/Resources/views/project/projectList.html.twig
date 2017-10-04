@@ -1,95 +1,71 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Prosjekter
+  Prosjekter
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
-			<!--
-				<div class="input-group">
-					<input type="text" class="form-control style-bgc-lgrey" style="width:250px;" placeholder="Søk...">
-					<span class="input-group-btn">
-						<button class="btn btn-default btn-sb-custom glyphicon glyphicon-search" type="button"></button>
-					</span>
-				</div>
-			-->
 
-		<!--Search form -->
-		<div>
-			<div>
-				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				{{ form_end(form) }}
-			</div>
-			</br>
-			</br>
+    {% if message is defined %}
+    <section class="pretty-wide centered pb3">
+      <p>{{ message }}</p>
+    </section>
+    {% endif %}
 
-			<div>
-				<span style="font-size:25px; margin-left:1vw; margin-right:25px; color:#6D6D6D;">Lag nytt prosjekt</span>
-				<a class="btn-text" href={{ path('create_project') }}><button type="button" class="btn btn-circle btn-primary btn-raised">+</button></a>
-			</div>
+    <!-- Project list controls and map -->
+    {% block proj_list_header %}
+    <section id="proj-list-header" class="pretty-wide centered fbox">
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-controls" class="pa3">
+          <h2 class="mt0">Velkommen til Ovases prosjektdatabase!</h2>
+            {% include 'project/modules/projectSearch.html.twig' %}
+        </section>
+      </div>
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-map">
+          {% include 'project/projectMap.html.twig' %}
+        </section>
+      </div>
+    </section>
+    {% endblock %}
 
-			</br>
-			</br>
-		</div>
+    <!-- Create new project button -->
+    <section class="pretty-wide centered">
+      <div class="w-50 pa2">
+        <div class="flat-button-box">
+          <div class="w-100">
+            <a href="{{  path('create_project') }}">
+              <span class="fa fa-plus" aria-hidden="true"></span>Opprett prosjekt
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Project list -->
+    {% include 'project/modules/projectList.html.twig' %}
 
+{% endblock %}
 
-		{% for project in projects %}
-
-			<div class="col-md-6">
-
-				<div style="background-color:#f2f2f2; display:block">
-					<div style="margin:0 2vw 0 2vw">
-						<div>
-							<h1 class="card-title">{{ project.getName() }}</h1>
-							<h4 class="card-subtitle text-muted">Sted: {{project.getLocation()}}</h4>
-						</div>
-
-
-						<div>
-								{% for key,image in project.getImages() %}
-									{%if loop.index == 1%}
-										<img class="img-responsive center-block" src="{{image}}" alt="..." style="margin: auto;max-height:25vw">
-									{%endif%}
-								{% endfor %}
-						</div>
-
-						<div id="p-text">
-								<p class="card-subtitle">
-									Beskrivelse:
-								</p>
-
-								<p class="card-text">
-									{{ project.getDescription() }}
-								</p>
-
-						</div>
-
-						<div>
-							<p class="card-subtitle">Tekniske løsninger:</p>
-							<p class="card-text">
-							{% for p in project.getTechnicalSolutions() %}
-								{{ p }}
-							{% endfor %}
-							</p>
-						</div>
-
-						<div>
-							<a href="{{ path('project', {'id': project.getId()}) }}" class="btn btn-default" role="button">Se mer</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		{% endfor %}
-
-
-
-
-
-	<br>
-	{% if message is defined %}
-		<p>{{ message }}</p>
-	{% endif %}
-
+{% block javascripts %}
+  {{ parent() }}
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&callback=initMap">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    // Init select2 input(s)
+    $("#project_search_form_measureTypes").select2({
+      placeholder: "Velg ett eller flere tiltak"
+    });
+    $("#project_search_form_measureFunctions").select2({
+      placeholder: "Velg ett eller flere formål"
+    });
+  });
+</script>
 {% endblock %}

@@ -30,6 +30,23 @@ class Person extends Actor
 	 */
 	private $lastName;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=45, nullable=true)
+     * @Assert\Email
+     * @Assert\Type("string")
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Type("string")
+     */
+    private $workplace;
+
 	/**
      * @ORM\ManyToMany(targetEntity="Company", mappedBy="persons")
      */
@@ -122,4 +139,52 @@ class Person extends Actor
     }
 
 
+
+    /**
+     * Set workplace
+     *
+     * @param string $workplace
+     *
+     * @return Person
+     */
+    public function setWorkplace($workplace)
+    {
+        $this->workplace = $workplace;
+
+        return $this;
+    }
+
+    /**
+     * Get workplace
+     *
+     * @return string
+     */
+    public function getWorkplace()
+    {
+        return $this->workplace;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Person
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 }

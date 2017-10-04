@@ -1,43 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'project/create.html.twig' %}
 
 {% block title %}
-	Anlegg
+  Rediger prosjekt
 {% endblock %}
 
-{% block body %}
-	<body onload="initCreateProjectPage();addHelpText()">
-    <script src="{{ asset('static/js/projectSinglePageLogic.js') }}"></script>
-    <script src="{{ asset('static/js/datepicker-no.js') }}"></script>
-    <script src="{{ asset('static/js/helpTextProject.js') }}"></script>
-	{{ form_start(form) }}
-	<div id="showImages" style="margin-left:15vw;margin-right: 15vw;">
-	{% for i,url in form.vars.value.images %}
-		<div style="display: inline-block; margin-top: 5vw;">
-		    <img src="{{ url }}" class="editProjectImages"/>
-		    <input class="deleteButton" type="button" value="x" onclick="deleteImage(event, {{ i }},'{{ url }}')"/>
-		</div>
-	{% endfor %}
-	</div>
-	<br>
-	<br>
-	<br>
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
-	</br>
-	</br>
-	<div style="margin-left:15vw">
-		<button type="button" id="previous" class="btn btn-default" onclick="show('previous');">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		</button>
-		<button type="button" id="page1" class="btn btn-default btn-project-step" onclick="show(1);">Steg 1</button>
-		<button type="button" id="page2" class="btn btn-default btn-project-step" onclick="show(2);">Steg 2</button>
-		<button type="button" id="page3" class="btn btn-default btn-project-step" onclick="show(3);">Steg 3</button>
-		<button type="button" id="next" class="btn btn-default" onclick="show('next');">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		</button>
-	</div>
-
-
+{% block formflow_buttons %}
+{% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+craue_formflow_button_class_last: 'button-last',
+craue_formflow_button_class_back: 'button-back',
+craue_formflow_button_class_next: 'button-next',
+craue_formflow_button_class_finish: 'button-finish',
+craue_formflow_button_label_back: 'Forrige side',
+craue_formflow_button_label_next: 'Neste side',
+craue_formflow_button_label_finish: 'Lagre prosjekt',
+craue_formflow_button_render_reset: false
+} %}
 {% endblock %}
-
-

@@ -6,32 +6,36 @@
 
 {% block body %}
 
-                {% if error %}
-                    <div>{{ error.messageKey|trans(error.messageData) }}</div>
-                {% endif %}
+  <section class="narrow centered">
+    {% if error %}
+      <div>{{ error.messageKey|trans(error.messageData) }}</div>
+    {% endif %}
 
-                {% if message is defined %}
-                    <p>{{ message }}</p>
-                {% endif %}
+    {% if message is defined %}
+      <p>{{ message }}</p>
+    {% endif %}
 
-                <form action="{{ path('login') }}" method="post">
-                    <label for="username">E-post:</label>
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
-                    
-                    <label for="password">Passord:</label>
-                    <input type="password" id="password" name="_password" />
+    <h2>Innlogging</h2>
 
-                    {#
-                        If you want to control the URL the user
-                        is redirected to on success (more details below)
-                        <input type="hidden" name="_target_path" value="/account" />
-                    #}
+    <form action="{{ path('login') }}" method="post" class="full-wide ovase-form ovase-form-ext">
+      <label for="username">E-post:</label>
+      <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        
+      <label for="password">Passord:</label>
+      <input type="password" id="password" name="_password" />
 
-                    <button type="submit">Logg inn</button>
+      {#
+          If you want to control the URL the user
+          is redirected to on success (more details below)
+          <input type="hidden" name="_target_path" value="/account" />
+      #}
 
-                    {# <p></p><a href="{{ path('reset_password')}}">Glemt passord?</a></p> TODO: Define forgotten password functionality. #}
-                    <p></p><a href="{{ path('create_user')}}">Ny bruker?</a></p>
-                </form>
+      <button type="submit">Logg inn</button>
+
+      {# <p></p><a href="{{ path('reset_password')}}">Glemt passord?</a></p> TODO: Define forgotten password functionality. #}
+      <p class="mt4"><a href="{{ path('create_user')}}">Ny bruker? Registrer deg her.</a></p>
+    </form>
+  </section>
         
 
 {% endblock %}

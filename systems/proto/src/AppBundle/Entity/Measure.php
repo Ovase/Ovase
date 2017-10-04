@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +24,12 @@ class Measure
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="measures")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $project;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="text")
@@ -30,74 +37,101 @@ class Measure
     private $title;
 
     /**
+     * @var string
+     *
+     * TODO: This should use type string with max length
+     * @ORM\Column(name="type", type="text")
+     */
+    private $type;
+
+    /**
+     * @var mixed
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $functions;
+
+    /***** Numerical, technical data *****/
+
+    /**
      * @var int
      *
-     * @ORM\Column(name="totalArea", type="integer")
-     * @Assert\NotNull()
-     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet MÅ være ikke-negativ")
+     * @ORM\Column(name="dimentionalWaterAmount", type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet kan ikke være negativ.")
      */
-    private $totalArea;
+    private $dimentionalWaterAmount;
 
     /**
-     * @ORM\Column(type="text")
+     * Tiltakets overflateareal
+     * @var int
+     *
+     * @ORM\Column(name="area", type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet kan ikke være negativ.")
      */
-    private $dimentionalDemands;
+    private $area;
 
     /**
+     * Areal av (del)nedbørsfelt
+     * @var int
+     *
+     * @ORM\Column(name="catchmentArea", type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet kan ikke være negativ.")
+     */
+    private $catchmentArea;
+
+    /**
+     * (Målt) hydraulisk konduktivitet
+     * @var int
+     *
+     * @ORM\Column(name="hydraulicConductivity", type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet kan ikke være negativ.")
+     */
+    private $hydraulicConductivity;
+
+    /**
+     * Kostnadsramme
      * @var int
      *
      * @ORM\Column(name="costs", type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(value=0, message="Verdien av feltet kan ikke være negativ.")
      */
     private $costs;
 
     /**
+     * Er det benyttet instrumentering?
      * @var string
      *
-     * @ORM\Column(name="technicalFunctions", type="text")
+     * @ORM\Column(name="instrumentation", type="string", length=20, nullable=true)
      */
-    private $technicalFunctions;
+    private $instrumentation;
+
+    /***** Free Text *****/
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="elaboration", type="text")
+     * Beskrivelse (WYSIWYG/HTML-tekst)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $elaboration;
+    private $description;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="additionalValues", type="text", nullable=true)
-     */
-    private $additionalValues;
+    public function __construct() {
+        // TODO: Render this from a template instead
+        $this->description = <<< EOT
+<h1>Formål, uforming og konstruksjonsutførelse</h1>
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="geometricDesignElaboration", type="text", nullable=true)
-     */
-    private $geometricDesignElaboration;
+<p>For eksempel oppbygning, innløp, utløp og mengderegulering?</p>
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="constructionDetails", type="text", nullable=true)
-     */
-    private $constructionDetails;
+<h1>Nedbørsfelt</h1>
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="maintenance", type="text", nullable=true)
-     */
-    private $maintenance;
+<p>For eksempel aktiviteter og typer flater. Hvordan er vanntilførselen? Kilder til forurensning?</p>
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="experiencesGained", type="text", nullable=true)
-     */
-    private $experiencesGained;
+<h1>Dimensjonerende krav</h1>
+
+<h1>Grunnforhold</h1>
+
+<h1>Erfaringer og tips</h1>
+
+<p>Hva er viktig i utformingen, anleggelsen og driften av lignende tiltak?</p>
+EOT;
+    }
 
     /**
      * Get id
@@ -108,29 +142,93 @@ class Measure
     {
         return $this->id;
     }
+    
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
-     * Set totalArea
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Set project
      *
-     * @param integer $totalArea
+     * @param \AppBundle\Entity\Project $project
      *
      * @return Measure
      */
-    public function setTotalArea($totalArea)
+    public function setProject(\AppBundle\Entity\Project $project = null)
     {
-        $this->totalArea = $totalArea;
+        $this->project = $project;
 
         return $this;
     }
 
     /**
-     * Get totalArea
+     * Get project
+     *
+     * @return \AppBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Measure
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set area
+     *
+     * @param integer $area
+     *
+     * @return Measure
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
      *
      * @return int
      */
-    public function getTotalArea()
+    public function getArea()
     {
-        return $this->totalArea;
+        return $this->area;
     }
 
     /**
@@ -155,126 +253,6 @@ class Measure
     public function getCosts()
     {
         return $this->costs;
-    }
-
-    /**
-     * Set technicalFunctions
-     *
-     * @param string $technicalFunctions
-     *
-     * @return Measure
-     */
-    public function setTechnicalFunctions($technicalFunctions)
-    {
-        $this->technicalFunctions = $technicalFunctions;
-
-        return $this;
-    }
-
-    /**
-     * Get technicalFunctions
-     *
-     * @return string
-     */
-    public function getTechnicalFunctions()
-    {
-        return $this->technicalFunctions;
-    }
-
-    /**
-     * Set elaboration
-     *
-     * @param string $elaboration
-     *
-     * @return Measure
-     */
-    public function setElaboration($elaboration)
-    {
-        $this->elaboration = $elaboration;
-
-        return $this;
-    }
-
-    /**
-     * Get elaboration
-     *
-     * @return string
-     */
-    public function getElaboration()
-    {
-        return $this->elaboration;
-    }
-
-    /**
-     * Set additionalValues
-     *
-     * @param string $additionalValues
-     *
-     * @return Measure
-     */
-    public function setAdditionalValues($additionalValues)
-    {
-        $this->additionalValues = $additionalValues;
-
-        return $this;
-    }
-
-    /**
-     * Get additionalValues
-     *
-     * @return string
-     */
-    public function getAdditionalValues()
-    {
-        return $this->additionalValues;
-    }
-
-    /**
-     * Set geometricDesignElaboration
-     *
-     * @param string $geometricDesignElaboration
-     *
-     * @return Measure
-     */
-    public function setGeometricDesignElaboration($geometricDesignElaboration)
-    {
-        $this->geometricDesignElaboration = $geometricDesignElaboration;
-
-        return $this;
-    }
-
-    /**
-     * Get geometricDesignElaboration
-     *
-     * @return string
-     */
-    public function getGeometricDesignElaboration()
-    {
-        return $this->geometricDesignElaboration;
-    }
-
-    /**
-     * Set constructionDetails
-     *
-     * @param string $constructionDetails
-     *
-     * @return Measure
-     */
-    public function setConstructionDetails($constructionDetails)
-    {
-        $this->constructionDetails = $constructionDetails;
-
-        return $this;
-    }
-
-    /**
-     * Get constructionDetails
-     *
-     * @return string
-     */
-    public function getConstructionDetails()
-    {
-        return $this->constructionDetails;
     }
 
     /**
@@ -325,37 +303,244 @@ class Measure
         return $this->experiencesGained;
     }
 
+
     /**
+     * Set dimentionalWaterAmount
+     *
+     * @param integer $dimentionalWaterAmount
+     *
+     * @return Measure
+     */
+    public function setDimentionalWaterAmount($dimentionalWaterAmount)
+    {
+        $this->dimentionalWaterAmount = $dimentionalWaterAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get dimentionalWaterAmount
+     *
+     * @return integer
+     */
+    public function getDimentionalWaterAmount()
+    {
+        return $this->dimentionalWaterAmount;
+    }
+
+    /**
+     * Set dimentionalFlood
+     *
+     * @param integer $dimentionalFlood
+     *
+     * @return Measure
+     */
+    public function setDimentionalFlood($dimentionalFlood)
+    {
+        $this->dimentionalFlood = $dimentionalFlood;
+
+        return $this;
+    }
+
+    /**
+     * Get dimentionalFlood
+     *
+     * @return integer
+     */
+    public function getDimentionalFlood()
+    {
+        return $this->dimentionalFlood;
+    }
+
+    /**
+     * Set catchmentArea
+     *
+     * @param integer $catchmentArea
+     *
+     * @return Measure
+     */
+    public function setCatchmentArea($catchmentArea)
+    {
+        $this->catchmentArea = $catchmentArea;
+
+        return $this;
+    }
+
+    /**
+     * Get catchmentArea
+     *
+     * @return integer
+     */
+    public function getCatchmentArea()
+    {
+        return $this->catchmentArea;
+    }
+
+    /**
+     * Set hydraulicConductivity
+     *
+     * @param integer $hydraulicConductivity
+     *
+     * @return Measure
+     */
+    public function setHydraulicConductivity($hydraulicConductivity)
+    {
+        $this->hydraulicConductivity = $hydraulicConductivity;
+
+        return $this;
+    }
+
+    /**
+     * Get hydraulicConductivity
+     *
+     * @return integer
+     */
+    public function getHydraulicConductivity()
+    {
+        return $this->hydraulicConductivity;
+    }
+
+    /**
+     * Set soilConditions
+     *
+     * @param string $soilConditions
+     *
+     * @return Measure
+     */
+    public function setSoilConditions($soilConditions)
+    {
+        $this->soilConditions = $soilConditions;
+
+        return $this;
+    }
+
+    /**
+     * Get soilConditions
+     *
      * @return string
      */
-    public function getTitle()
+    public function getSoilConditions()
     {
-        return $this->title;
+        return $this->soilConditions;
     }
 
     /**
-     * @param string $title
+     * Set designAndConstruction
+     *
+     * @param string $designAndConstruction
+     *
+     * @return Measure
      */
-    public function setTitle($title)
+    public function setDesignAndConstruction($designAndConstruction)
     {
-        $this->title = $title;
+        $this->designAndConstruction = $designAndConstruction;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get designAndConstruction
+     *
+     * @return string
      */
-    public function getDimentionalDemands()
+    public function getDesignAndConstruction()
     {
-        return $this->dimentionalDemands;
+        return $this->designAndConstruction;
     }
 
     /**
-     * @param mixed $dimentionalDemands
+     * Set functions
+     *
+     * @param array $functions
+     *
+     * @return Measure
      */
-    public function setDimentionalDemands($dimentionalDemands)
+    public function setFunctions($functions)
     {
-        $this->dimentionalDemands = $dimentionalDemands;
+        $this->functions = $functions;
+
+        return $this;
     }
 
+    /**
+     * Get functions
+     *
+     * @return array
+     */
+    public function getFunctions()
+    {
+        return $this->functions;
+    }
+
+    /**
+     * Set functionsElaboration
+     *
+     * @param string $functionsElaboration
+     *
+     * @return Measure
+     */
+    public function setFunctionsElaboration($functionsElaboration)
+    {
+        $this->functionsElaboration = $functionsElaboration;
+
+        return $this;
+    }
+
+    /**
+     * Get functionsElaboration
+     *
+     * @return string
+     */
+    public function getFunctionsElaboration()
+    {
+        return $this->functionsElaboration;
+    }
+
+    /**
+     * Set instrumentation
+     *
+     * @param string $instrumentation
+     *
+     * @return Measure
+     */
+    public function setInstrumentation($instrumentation)
+    {
+        $this->instrumentation = $instrumentation;
+
+        return $this;
+    }
+
+    /**
+     * Get instrumentation
+     *
+     * @return string
+     */
+    public function getInstrumentation()
+    {
+        return $this->instrumentation;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Measure
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }
-

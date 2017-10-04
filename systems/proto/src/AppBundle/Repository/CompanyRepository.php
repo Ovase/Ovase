@@ -24,7 +24,6 @@ class CompanyRepository extends \Doctrine\ORM\EntityRepository
 			->select('Company')
 			->where('Company.name LIKE :searchTerm')
 			->orWhere('Company.location LIKE :searchTerm')
-            ->orWhere('Company.field LIKE :searchTerm')
             ->orWhere('Company.competence LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()

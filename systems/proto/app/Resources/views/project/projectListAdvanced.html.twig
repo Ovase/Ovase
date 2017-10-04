@@ -1,0 +1,20 @@
+{% extends 'project/projectList.html.twig' %}
+
+{% block proj_list_header %}
+    <section id="proj-list-header" class="pretty-wide centered fbox">
+      <div class="tc w-100">
+        <h1>Avansert søk er foreløpig ikke utviklet</h1>
+      </div>
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-controls" class="pa3">
+          <h2 class="mt0">Velkommen til vår prosjektdatabase!</h2>
+            {% include 'project/modules/projectSearch2.html.twig' %}
+        </section>
+      </div>
+      <div class="ph2 mb2 w-100 w-50-ns">
+        <section id="proj-list-map">
+          {% include 'project/projectMap.html.twig' %}
+        </section>
+      </div>
+    </section>
+{% endblock %}

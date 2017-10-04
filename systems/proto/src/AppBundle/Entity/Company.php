@@ -17,15 +17,7 @@ class Company extends Actor
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=100)
-     * @Assert\Type("string")
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="org_nr", type="string", length=18, unique=true)
+     * @ORM\Column(name="org_nr", type="string", length=18, unique=true, nullable=true)
      * @Assert\Type("string")
      */
     private $orgNr;
@@ -47,30 +39,6 @@ class Company extends Actor
     public function __construct() {
         parent::__construct(); // Not needed? C2C: It's not in "Person"
         $this->persons = new ArrayCollection();
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Company
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

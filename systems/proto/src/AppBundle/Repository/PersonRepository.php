@@ -24,7 +24,7 @@ class PersonRepository extends EntityRepository
 			->select('Person')
 			->where('Person.firstName LIKE :searchTerm')
 			->orWhere('Person.lastName LIKE :searchTerm')
-			->orWhere('Person.field LIKE :searchTerm')
+            ->orWhere('Person.location LIKE :searchTerm')
             ->orWhere('Person.competence LIKE :searchTerm')
 			->setParameter('searchTerm', '%'.$searchTerm.'%')
 			->getQuery()
